@@ -46,7 +46,9 @@ export default function ComingSoonPage() {
       <div className='max-w-4xl mx-auto text-center p-6 bg-black bg-opacity-70 rounded-lg'>
         <h1 className='text-4xl md:text-6xl font-bold text-white mb-4'>Coming Soon</h1>
         <p className='text-xl text-gray-300 mb-8'>
-          <strong>We're working hard to bring you something amazing. Stay tuned!</strong>
+          <strong>
+            We&apos;re working hard to bring you something amazing. Stay tuned!
+          </strong>
           <strong>!نعمل على قدم وساق لتقديم شيء مذهل لك. ترقبوا</strong>
         </p>
 
