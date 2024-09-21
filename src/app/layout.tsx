@@ -42,7 +42,32 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <head>
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1 maximum-scale=1'
+        />
         <link rel='icon' href='/images/logo.png' type='image/png' />
+        <meta property='og:image' content='/images/logo.png' />
+        <meta property='og:image:width' content='192' />
+        <meta property='og:image:height' content='128' />
+        <meta property='og:url' content='https://www.technodevlabs.com/' />
+        <meta property='og:locale' content='en_GB' />
+        <meta property='og:locale:alternate' content='ar_AR' />
+        {/* Twitter Data */}
+        <meta
+          property='twitter:title'
+          content='TechnoDevLabs | Software Development Agency'
+        />
+        <meta name='twitter:image' content='/images/logo.png' />
+        <meta
+          name='twitter:card'
+          content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
+        />
+        <meta name='twitter:site' content='@mohmdhidr' />
+        <meta
+          property='twitter:description'
+          content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
+        />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
