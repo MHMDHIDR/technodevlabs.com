@@ -13,6 +13,10 @@ export default function Hero() {
           This is a Next.js starter with TypeScript, ESLint, Prettier, Tailwind CSS, Jest,
           and Husky.
         </p>
+
+        <div className='mt-4'>
+          <button>Get Started</button>
+        </div>
       </div>
     </section>
   )
