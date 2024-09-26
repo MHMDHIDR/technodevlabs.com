@@ -1,33 +1,25 @@
-import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { ReactNode } from 'react'
+import { Cairo as FontSans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
+import { Providers } from '@/app/providers'
+import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import { cn } from '@/lib/utils'
 import './globals.css'
-import Nav from './components/nav'
-import { Providers } from './providers'
+import type { Metadata } from 'next'
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900'
-})
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900'
-})
+const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: 'TechnoDevLabs',
-  description:
-    'Software development agency that provides software development services to clients mainly towards the middle-eastern.',
+  title: APP_TITLE,
+  description: APP_DESCRIPTION,
   openGraph: {
-    title: 'TechnoDevLabs',
-    description:
-      'Software development agency providing services to clients in the Middle East.',
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
     images: [
       {
-        url: '/images/logo.png',
+        url: '/images/logo.svg',
         width: 1200,
-        height: 630,
+        height: 650,
         alt: 'TechnoDevLabs default Open Graph image'
       }
     ],
@@ -39,17 +31,17 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <head>
         <meta
           name='viewport'
           content='width=device-width, initial-scale=1 maximum-scale=1'
         />
-        <link rel='icon' href='/images/logo.png' type='image/png' />
-        <meta property='og:image' content='/images/logo.png' />
+        <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
+        <meta property='og:image' content='/images/logo.svg' />
         <meta property='og:image:width' content='192' />
         <meta property='og:image:height' content='128' />
         <meta property='og:url' content='https://www.technodevlabs.com/' />
@@ -60,21 +52,26 @@ export default function RootLayout({
           property='twitter:title'
           content='TechnoDevLabs | Software Development Agency'
         />
-        <meta name='twitter:image' content='/images/logo.png' />
+        <meta name='twitter:image' content='/images/logo.svg' />
         <meta
           name='twitter:card'
           content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
         />
-        <meta name='twitter:site' content='@mohmdhidr' />
+        <meta name='twitter:site' content='@technodevl94965' />
         <meta
           property='twitter:description'
           content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={cn(
+          'min-h-screen bg-background font-sans antialiased overflow-x-clip',
+          fontSans.variable
+        )}
+      >
         <Providers>
-          <Nav />
           {children}
+          <Analytics />
         </Providers>
       </body>
     </html>

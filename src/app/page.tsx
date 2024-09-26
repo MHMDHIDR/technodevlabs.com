@@ -1,11 +1,12 @@
-import Hero from './components/hero'
+import Layout from '@/app/components/layout'
+import { Hero } from '@/app/components/hero'
 
 export default function Home() {
   return (
-    <div>
-      <h1> its mohamed makki update </h1>
-
-      <Hero />
-    </div>
+    <section>
+      <Layout>
+        <Hero />
+      </Layout>
+    </section>
   )
 }
