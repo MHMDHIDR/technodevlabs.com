@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
@@ -8,13 +8,37 @@ import { usePathname } from 'next/navigation'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false) // Track when the user scrolls past 200px
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 500) {
+        setHasScrolled(true)
+      } else {
+        setHasScrolled(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
-    <header className='relative flex flex-wrap w-full py-3 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-neutral-900'>
+    /**
+      <header className='relative flex flex-wrap w-full py-3 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-neutral-900'>
+     */
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 p-3 transition-transform duration-500 ease-in-out ${
+        hasScrolled ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <nav className='max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <a
