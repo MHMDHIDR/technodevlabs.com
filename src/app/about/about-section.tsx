@@ -25,14 +25,14 @@ export function AboutSection() {
         transition={{
           duration: 0.6
         }}
-        className='z-50 flex flex-col justify-center items-center'
+        className='z-50 flex flex-col items-center justify-center'
       >
         {usePathname() === '/' ? (
-          <motion.p className='font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-3'>
+          <motion.p className='py-3 text-xl font-bold text-center text-transparent md:text-6xl bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
             The hero section slideshow <br /> nobody asked for
           </motion.p>
         ) : (
-          <motion.p className='font-bold text-xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-3'>
+          <motion.p className='py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
             TechnoDevLabs.com is a software development agency that provides software
             development services to clients mainly towards the middle-eastern.
           </motion.p>
@@ -40,10 +40,10 @@ export function AboutSection() {
         {usePathname() === '/' ? (
           <Link
             href={`/about`}
-            className='px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-4'
+            className='relative px-4 py-2 mx-auto mt-4 text-center text-white border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
           >
             <span>Know More! →</span>
-            <div className='absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent' />
+            <div className='absolute inset-x-0 w-3/4 h-px mx-auto  -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
           </Link>
         ) : null}
       </motion.div>

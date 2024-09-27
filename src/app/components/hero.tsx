@@ -18,16 +18,16 @@ export function Hero() {
           duration: 0.85,
           ease: 'easeInOut'
         }}
-        className='py-4 mt-10 select-none tracking-tight flex items-center flex-col gap-y-10'
+        className='flex flex-col items-center py-4 mt-10 tracking-tight select-none gap-y-10'
       >
-        <h1 className='text-4xl font-bold text-center text-transparent bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text md:text-7xl'>
+        <h1 className='font-bold text-center text-transparent bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-4xl md:text-7xl leading-[3rem] md:leading-[6rem]'>
           Build
           <FlipWords words={words} />
           <br /> With TechnoDevLabs.
         </h1>
 
-        <button className='p-1 relative w-fit'>
-          <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
+        <button className='relative p-1 w-fit'>
+          <div className='absolute inset-0 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500' />
           <div className='px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent'>
             Get Started
           </div>

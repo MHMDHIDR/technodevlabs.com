@@ -13,7 +13,7 @@ import ThemeToggler from '@/app/components/theme-toggler'
 
 export default function Footer() {
   return (
-    <footer className='mt-auto bg-gray-900 w-full dark:bg-neutral-950'>
+    <footer className='w-full mt-auto bg-gray-900 dark:bg-neutral-950'>
       <div className='mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto'>
         <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6'>
           <div className='col-span-full lg:col-span-1'>
@@ -32,7 +32,7 @@ export default function Footer() {
             <div className='mt-3 grid space-y-3'>
               <div>
                 <Link
-                  className='inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                   href='/about'
                 >
                   About us
@@ -40,7 +40,7 @@ export default function Footer() {
               </div>
               <div>
                 <Link
-                  className='inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                   href='/posts'
                 >
                   Blog
@@ -48,7 +48,7 @@ export default function Footer() {
               </div>
               <div>
                 <Link
-                  className='inline-flex gap-x-2 text-gray-400 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                   href='/conatct'
                 >
                   Contact
@@ -62,7 +62,7 @@ export default function Footer() {
             <h4 className='font-semibold text-gray-100'>Our Vision</h4>
 
             <form>
-              <div className='mt-4 flex flex-col items-center text-gray-200 gap-2 sm:flex-row sm:gap-3 rounded-lg p-2 dark:bg-neutral-900'>
+              <div className='flex flex-col items-center p-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3 dark:bg-neutral-900'>
                 <p>
                   At TechnoDevLabs, we strive to be a trusted partner for businesses in
                   the Middle East, delivering innovative and tailored software solutions
@@ -77,7 +77,7 @@ export default function Footer() {
         </div>
 
         <div className='mt-5 sm:mt-12 grid gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center'>
-          <div className='flex justify-between items-center'>
+          <div className='flex items-center justify-between'>
             <p className='text-sm text-gray-400 dark:text-neutral-400'>
               &copy; {new Date().getFullYear()} TechnoDevLabs. All rights reserved.
             </p>
@@ -85,25 +85,25 @@ export default function Footer() {
 
           <div>
             <Link
-              className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
+              className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_FB_URL}
             >
               <Facebook />
             </Link>
             <Link
-              className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
+              className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TWITTER_URL}
             >
               <Twitter />
             </Link>
             <Link
-              className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
+              className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TIKTOK_URL}
             >
               <TikTok />
             </Link>
             <Link
-              className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
+              className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_INSTAGRAM_URL}
             >
               <Instagram />

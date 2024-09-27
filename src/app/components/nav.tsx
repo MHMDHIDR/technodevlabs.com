@@ -14,11 +14,11 @@ export default function Nav() {
   }
 
   return (
-    <header className='relative flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-white text-sm py-3 dark:bg-neutral-900'>
+    <header className='relative flex flex-wrap w-full py-3 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-neutral-900'>
       <nav className='max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <a
-            className='flex gap-x-2 text-xl font-semibold dark:text-white focus:outline-none focus:opacity-80'
+            className='flex text-xl font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
             href='/'
             aria-label='Brand'
           >
@@ -30,7 +30,7 @@ export default function Nav() {
           <div className='sm:hidden'>
             <button
               type='button'
-              className='relative flex justify-center items-center gap-x-2 rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
+              className='relative flex items-center justify-center text-gray-800 bg-white shadow-sm gap-x-2 hover:bg-gray-50 focus:outline-violet-500 dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
               aria-controls='hs-navbar-example'
@@ -38,7 +38,7 @@ export default function Nav() {
             >
               {isMobileMenuOpen ? (
                 <svg
-                  className='shrink-0 w-6 h-6'
+                  className='w-6 h-6 shrink-0'
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
                   fill='none'
@@ -52,7 +52,7 @@ export default function Nav() {
                 </svg>
               ) : (
                 <svg
-                  className='shrink-0 w-6 h-6'
+                  className='w-6 h-6 shrink-0'
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
                   fill='none'
