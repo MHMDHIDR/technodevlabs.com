@@ -50,10 +50,10 @@ export default function Nav() {
           <div className='sm:hidden'>
             <button
               type='button'
-              className='relative flex items-center justify-center text-gray-800 bg-white shadow-sm gap-x-2 hover:bg-gray-50 focus:outline-violet-500 dark:bg-transparent dark:border-neutral-700 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
+              className='relative flex items-center justify-center text-gray-800 shadow-sm gap-x-2 focus:outline-violet-500 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
-              aria-controls='hs-navbar-example'
+              aria-controls='navbar-items'
               aria-label='Toggle navigation'
             >
               {isMobileMenuOpen ? (
@@ -91,7 +91,7 @@ export default function Nav() {
           </div>
         </div>
         <div
-          id='hs-navbar-example'
+          id='navbar-items'
           className={`transition-all duration-300 overflow-hidden ${
             isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
           } sm:max-h-full sm:opacity-100 sm:block`}
@@ -100,31 +100,40 @@ export default function Nav() {
             <Link
               className='font-medium text-blue-700 focus:outline-none'
               href={usePathname() === '/' ? '/#portfolio' : '/portfolio'}
+              aria-current='page'
+              onClick={toggleMobileMenu}
             >
               Portfolio
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#about' : '/about'}
               aria-current='page'
+              onClick={toggleMobileMenu}
             >
               About
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#services' : '/services'}
+              aria-current='page'
+              onClick={toggleMobileMenu}
             >
               Services
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#posts' : '/posts'}
+              aria-current='page'
+              onClick={toggleMobileMenu}
             >
               Blog
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#contact' : '/contact'}
+              aria-current='page'
+              onClick={toggleMobileMenu}
             >
               Contact
             </Link>

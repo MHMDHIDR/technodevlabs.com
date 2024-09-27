@@ -1,18 +1,25 @@
 'use client'
 
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FlipWords } from '@/components/ui/flip-words'
 import { LampContainer } from '@/components/ui/lamp'
 
 export function Hero() {
+  // detect if the user is using a mobile device
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+  }, [])
+
   const words = ['WebApp', 'MobileApp', 'Desktop Apps', 'Landing Pages']
 
   return (
-    <LampContainer>
+    <LampContainer className='pt-40'>
       <motion.div
         initial={{ opacity: 0, y: 200 }}
-        whileInView={{ opacity: 1, y: 35 }}
+        whileInView={{ opacity: 1, y: isMobile ? 50 : 100 }}
         transition={{
           delay: 0.25,
           duration: 0.85,
