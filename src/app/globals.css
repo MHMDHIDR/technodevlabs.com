@@ -66,6 +66,20 @@
     @apply scroll-smooth;
   }
 
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-400;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0f0f0f;
+    border-radius: 4px;
+  }
+
   .text-gradient {
     @apply text-transparent bg-gradient-to-tr from-[#90A8FF] to-[#650990] bg-clip-text font-extrabold;
   }

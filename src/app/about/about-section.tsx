@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ImagesSlider } from '@/components/ui/images-slider'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Divider from '../components/divider'
 
 export function AboutSection() {
   const images = [
@@ -29,10 +30,22 @@ export function AboutSection() {
       >
         {usePathname() === '/' ? (
           <motion.p className='py-3 text-xl font-bold text-center text-transparent md:text-6xl bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
-            The hero section slideshow <br /> nobody asked for
+            Crafting Digital Solutions for the Future <br /> with Passion and Precision
           </motion.p>
         ) : (
-          <motion.p className='py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
+          <motion.p className='container max-w-6xl py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
+            At TechnoDevLabs.com, we believe that software development is not just a
+            profession—it's an art form. Our team combines technical expertise with
+            creativity to deliver innovative digital solutions that empower businesses to
+            thrive in a competitive landscape. We approach programming with a playful
+            spirit, transforming complex challenges into engaging experiences that
+            resonate with users.
+            <Divider className='my-10' />
+            Whether it’s building intuitive web applications or designing captivating user
+            interfaces, our passion for technology drives us to push boundaries and
+            explore new possibilities. Join us on this exciting journey as we shape the
+            future of digital innovation, one line of code at a time!
+            <Divider className='my-10' />
             TechnoDevLabs.com is a software development agency that provides software
             development services to clients mainly towards the middle-eastern.
           </motion.p>
@@ -43,7 +56,7 @@ export function AboutSection() {
             className='relative px-4 py-2 mx-auto mt-4 text-center text-white border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
           >
             <span>Know More! →</span>
-            <div className='absolute inset-x-0 w-3/4 h-px mx-auto  -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
+            <div className='absolute inset-x-0 w-3/4 h-px mx-auto -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
           </Link>
         ) : null}
       </motion.div>
