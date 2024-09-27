@@ -20,15 +20,15 @@ export default function ContactPage() {
 
     const emailData = {
       name: `${formData.get('firstname')} ${formData.get('lastname')}`,
-      from: formData.get('email')?.toString() ?? ADMIN_EMAIL,
+      from: formData.get('email')?.toString() || ADMIN_EMAIL,
       to: ADMIN_EMAIL,
-      subject: formData.get('subject')?.toString() ?? 'Contact Us',
+      subject: formData.get('subject')?.toString() || 'Contact Us',
       msg: {
         title: `${formData.get('subject')} - ${formData.get('firstname')} ${formData.get(
           'lastname'
         )}`,
-        msg: formData.get('message')?.toString() ?? '',
-        buttonLink: 'mailto:' + formData.get('email')?.toString() ?? ADMIN_EMAIL,
+        msg: formData.get('message')?.toString() || '',
+        buttonLink: 'mailto:' + formData.get('email')?.toString() || ADMIN_EMAIL,
         buttonLabel: `Reply to ${formData.get('firstname')} ${formData.get('lastname')}`
       }
     }
