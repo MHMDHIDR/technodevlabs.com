@@ -1,28 +1,22 @@
-'use client'
-
-import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Layout from '@/app/components/layout'
 import { Cover } from '@/components/ui/cover'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
+import { ADMIN_EMAIL } from '@/data/constants'
 import { email } from '@/app/actions'
 import { SubmitButton } from './submit-button'
-import { Success } from '../components/icons'
-import { toast } from 'sonner'
+import { redirect } from 'next/navigation'
 
 export default function ContactPage() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const { replace } = useRouter()
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setStatus('loading')
-
-    const formData = new FormData(event.currentTarget)
+  /**
+   *  Sends email to the Support team when the form is submitted using the custom email function
+   * @param formData
+   * @returns Promise<void>
+   */
+  async function contactUsEmail(formData: FormData): Promise<void> {
+    'use server'
 
     const emailData = {
       name: `${formData.get('firstname')} ${formData.get('lastname')}`,
@@ -41,38 +35,11 @@ export default function ContactPage() {
 
     try {
       await email(emailData)
-
-      setStatus('success')
-
-      toast('Email sent successfully! 🎉', {
-        icon: <Success className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#F0FAF0',
-          color: '#367E18',
-          border: '1px solid #367E18',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
     } catch (error) {
-      setStatus('error')
-
-      toast('Failed to send email. Please try again later! 😢', {
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
-    } finally {
-      setTimeout(() => replace(`/`), DEFAULT_DURATION)
+      console.error('Error sending email!', error)
     }
+
+    redirect('/')
   }
 
   return (
@@ -90,7 +57,7 @@ export default function ContactPage() {
           We will get back to you as soon as possible.
         </p>
 
-        <form className='my-8' onSubmit={handleSubmit}>
+        <form className='my-8' action={contactUsEmail}>
           <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
             <LabelInputContainer>
               <Label htmlFor='firstname'>First name</Label>
@@ -156,9 +123,7 @@ export default function ContactPage() {
             />
           </LabelInputContainer>
 
-          <SubmitButton disabled={status === 'loading'}>
-            {status === 'loading' ? 'Sending...' : 'Send'}
-          </SubmitButton>
+          <SubmitButton>Send</SubmitButton>
 
           <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />
 
@@ -181,7 +146,7 @@ const LabelInputContainer = ({
   children,
   className
 }: {
-  children: ReactNode
+  children: React.ReactNode
   className?: string
 }) => {
   return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>

@@ -16,3 +16,8 @@ export const APP_TWITTER_URL = `https://x.com/technodevl94965`
 export const APP_INSTAGRAM_URL = `https://www.instagram.com/technodevlabs`
 
 export const APP_TIKTOK_URL = `https://www.tiktok.com/@technodevlabs`
+
+/**
+ * @description الوفت الافتراضي لإخفاء رسالة التنبيه بعد ظهورها = 3 ثواني
+ */
+export const DEFAULT_DURATION = 3000

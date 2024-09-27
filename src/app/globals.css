@@ -57,9 +57,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
@@ -71,4 +69,68 @@
   .text-gradient {
     @apply text-transparent bg-gradient-to-tr from-[#90A8FF] to-[#650990] bg-clip-text font-extrabold;
   }
+}
+
+@layer components {
+  /* ===================== Status ICONS STARTS Here ===================== */
+  /* Status Icon with Anitmation */
+  .status__icon--success-circle {
+    stroke-dasharray: 260.752190248px, 260.752190248px;
+    stroke-dashoffset: 260.752190248px;
+    animation: status-icon-circle 1.2s linear both;
+  }
+
+  .status__icon--success-path {
+    stroke-dasharray: 60px 64px;
+    stroke-dashoffset: 62px;
+    stroke-linecap: round;
+    animation: status-icon-path 0.4s 1s ease-in both;
+  }
+
+  .status__icon--error-circle {
+    stroke-width: 0.2352941176rem;
+  }
+
+  .status__icon--error-circle-1 {
+    stroke: rgba(223, 64, 64, 0.5);
+  }
+
+  .status__icon--error-circle-2 {
+    stroke: #df4040;
+    stroke-dasharray: 260.752190248px, 260.752190248px;
+    stroke-dashoffset: 260.752190248px;
+    animation: status-icon-circle 1.2s linear forwards;
+  }
+
+  .status__icon--error-line {
+    stroke: #df4040;
+    stroke-width: 0.2352941176rem;
+    stroke-dasharray: 54px 55px;
+    stroke-dashoffset: 55px;
+    stroke-linecap: round;
+  }
+
+  .status__icon--error-line-1 {
+    animation: ani-error-line 0.15s 1.2s linear both;
+  }
+
+  .status__icon--error-line-2 {
+    animation: ani-error-line 0.2s 0.9s linear both;
+  }
+
+  .status__icon--loading-circle {
+    stroke-width: 0.2352941176rem;
+  }
+
+  .status__icon--loading-circle-1 {
+    stroke: rgba(64, 137, 223, 0.5);
+  }
+
+  .status__icon--loading-circle-2 {
+    stroke: #4089df;
+    stroke-dasharray: 260.752190248px, 260.752190248px;
+    stroke-dashoffset: 260.752190248px;
+    animation: status-icon-circle 2s linear both infinite;
+  }
+  /* ===================== Status ICONS ENDS Here ===================== */
 }

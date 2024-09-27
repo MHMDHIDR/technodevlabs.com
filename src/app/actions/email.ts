@@ -13,10 +13,10 @@ export default async function email({ name, subject, from, to, msg }: emailMetho
   const { data, error: cause }: CreateEmailResponse = await resend.emails.send({
     to,
     from: `${name ?? APP_TITLE} <${ADMIN_EMAIL}>`,
-    subject: `Email from: <${from}> | ${subject}`,
+    subject: subject,
     replyTo: from,
     react: EmailTemplate({
-      title: msg.title ?? '',
+      title: `Email from: ${from}` ?? msg.title ?? '',
       msg: msg.msg ?? '',
       buttonLink: msg.buttonLink ?? '',
       buttonLabel: msg.buttonLabel ?? ''
