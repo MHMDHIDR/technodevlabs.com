@@ -1,4 +1,8 @@
+'use client'
+
+import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Layout from '@/app/components/layout'
 import { Cover } from '@/components/ui/cover'
@@ -7,16 +11,17 @@ import { Label } from '@/components/ui/label'
 import { ADMIN_EMAIL } from '@/data/constants'
 import { email } from '@/app/actions'
 import { SubmitButton } from './submit-button'
-import { redirect } from 'next/navigation'
+import { Success } from '../components/icons'
+import { toast } from 'sonner'
 
 export default function ContactPage() {
-  /**
-   *  Sends email to the Support team when the form is submitted using the custom email function
-   * @param formData
-   * @returns Promise<void>
-   */
-  async function contactUsEmail(formData: FormData): Promise<void> {
-    'use server'
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setStatus('loading')
+
+    const formData = new FormData(event.currentTarget)
 
     const emailData = {
       name: `${formData.get('firstname')} ${formData.get('lastname')}`,
@@ -35,11 +40,38 @@ export default function ContactPage() {
 
     try {
       await email(emailData)
+
+      // Redirect to the homepage
+      toast('Email sent successfully! 🎉', {
+        icon: <Success className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#F0FAF0',
+          color: '#367E18',
+          border: '1px solid #367E18',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+      setStatus('success')
     } catch (error) {
-      console.error('Error sending email!', error)
+      toast('Failed to send email. Please try again later! 😢', {
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#FDE7E7',
+          color: '#C53030',
+          border: '1px solid #C53030',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
     }
 
-    redirect('/')
+    setTimeout(() => {
+      redirect('/')
+    }, 2000)
   }
 
   return (
@@ -57,8 +89,8 @@ export default function ContactPage() {
           We will get back to you as soon as possible.
         </p>
 
-        <form className='my-8' action={contactUsEmail}>
-          <div className='flex flex-col mb-4 md:flex-row space-y-2 md:space-y-0 md:space-x-2'>
+        <form className='my-8' onSubmit={handleSubmit}>
+          <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
             <LabelInputContainer>
               <Label htmlFor='firstname'>First name</Label>
               <Input
@@ -96,7 +128,7 @@ export default function ContactPage() {
               required
             />
           </LabelInputContainer>
-          <div className='flex flex-col mb-4 md:flex-row space-y-2 md:space-y-0 md:space-x-2'>
+          <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
             <LabelInputContainer>
               <Label htmlFor='subject'>Subject</Label>
               <Input
@@ -116,14 +148,16 @@ export default function ContactPage() {
               id='message'
               name='message'
               placeholder='Hi, I would like to know more about your services.'
-              className='h-32 p-2 border border-neutral-300 dark:border-neutral-700 rounded-md focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-56'
+              className='h-32 p-2 border rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-56'
               dir='auto'
               minLength={20}
               required
             />
           </LabelInputContainer>
 
-          <SubmitButton>Send</SubmitButton>
+          <SubmitButton disabled={status === 'loading'}>
+            {status === 'loading' ? 'Sending...' : 'Send'}
+          </SubmitButton>
 
           <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />
 
@@ -146,7 +180,7 @@ const LabelInputContainer = ({
   children,
   className
 }: {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
 }) => {
   return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>
