@@ -16,7 +16,7 @@ export default async function email({ name, subject, from, to, msg }: emailMetho
     subject: subject,
     replyTo: from,
     react: EmailTemplate({
-      title: `Email from: ${from}` ?? msg.title ?? '',
+      title: msg.title ?? `Email from: ${from}` ?? '',
       msg: msg.msg ?? '',
       buttonLink: msg.buttonLink ?? '',
       buttonLabel: msg.buttonLabel ?? ''
