@@ -8,7 +8,8 @@ import { usePathname } from 'next/navigation'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [hasScrolled, setHasScrolled] = useState(false) // Track when the user scrolls past 200px
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const pathname = usePathname()
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -26,6 +27,17 @@ export default function Nav() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  /**
+   * Get the link class based on the current path
+   * @param href
+   * @returns String - The classNames
+   */
+  const getLinkClass = (href: string) => {
+    return pathname === href
+      ? 'text-blue-500'
+      : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
+  }
 
   return (
     <header
@@ -98,40 +110,40 @@ export default function Nav() {
         >
           <div className='flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
-              className='font-medium text-blue-700 focus:outline-none'
-              href={usePathname() === '/' ? '/#portfolio' : '/portfolio'}
+              className={`font-medium focus:outline-none ${getLinkClass('/#portfolio')}`}
+              href={pathname === '/' ? '/#portfolio' : '/portfolio'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
               Portfolio
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '/#about' : '/about'}
+              className={`font-medium focus:outline-none ${getLinkClass('/about')}`}
+              href={pathname === '/' ? '/#about' : '/about'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
               About
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '/#services' : '/services'}
+              className={`font-medium focus:outline-none ${getLinkClass('/services')}`}
+              href={pathname === '/' ? '/#services' : '/services'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
               Services
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '/#posts' : '/posts'}
+              className={`font-medium focus:outline-none ${getLinkClass('/posts')}`}
+              href={pathname === '/' ? '/#posts' : '/posts'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
               Blog
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '/#contact' : '/contact'}
+              className={`font-medium focus:outline-none ${getLinkClass('/contact')}`}
+              href={pathname === '/' ? '/#contact' : '/contact'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
