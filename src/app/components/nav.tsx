@@ -16,7 +16,7 @@ export default function Nav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > 300) {
         setHasScrolled(true)
       } else {
         setHasScrolled(false)
@@ -24,24 +24,20 @@ export default function Nav() {
     }
 
     window.addEventListener('scroll', handleScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    /**
-      <header className='relative flex flex-wrap w-full py-3 text-sm bg-white sm:justify-start sm:flex-nowrap dark:bg-neutral-900'>
-     */
     <header
-      className={`fixed top-0 left-0 right-0 z-50 p-3 transition-transform duration-500 ease-in-out ${
-        hasScrolled ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center transition-all duration-600 ${
+        hasScrolled
+          ? 'py-2 backdrop-blur-sm bg-white/60 dark:bg-neutral-900/40 shadow-sm shadow-purple-900'
+          : 'py-5 bg-white dark:bg-neutral-900'
+      } px-8 sm:px-20`}
     >
-      <nav className='max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between'>
+      <nav className='container w-full px-4 mx-auto sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
-          <a
+          <Link
             className='flex text-xl font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
             href='/'
             aria-label='Brand'
@@ -50,7 +46,7 @@ export default function Nav() {
             <span className={`[font-family:Orbitron] text-gradient select-none`}>
               TechnoDevLabs
             </span>
-          </a>
+          </Link>
           <div className='sm:hidden'>
             <button
               type='button'
@@ -102,32 +98,32 @@ export default function Nav() {
         >
           <div className='flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
-              className='font-medium text-blue-500 focus:outline-none'
+              className='font-medium text-blue-700 focus:outline-none'
               href={usePathname() === '/' ? '/#portfolio' : '/portfolio'}
             >
               Portfolio
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#about' : '/about'}
               aria-current='page'
             >
               About
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#services' : '/services'}
             >
               Services
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#posts' : '/posts'}
             >
               Blog
             </Link>
             <Link
-              className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
+              className='font-medium text-gray-600 hover:text-gray-800 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
               href={usePathname() === '/' ? '/#contact' : '/contact'}
             >
               Contact
