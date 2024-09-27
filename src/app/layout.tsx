@@ -3,6 +3,7 @@ import { Cairo as FontSans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { Providers } from '@/app/providers'
 import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import type { Metadata } from 'next'
@@ -65,13 +66,14 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased overflow-x-clip',
+          'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950',
           fontSans.variable
         )}
       >
         <Providers>
           {children}
           <Analytics />
+          <Toaster />
         </Providers>
       </body>
     </html>

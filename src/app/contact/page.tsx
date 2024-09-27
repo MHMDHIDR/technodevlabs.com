@@ -4,12 +4,14 @@ import Layout from '@/app/components/layout'
 import { Cover } from '@/components/ui/cover'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ADMIN_EMAIL, APP_TITLE } from '@/data/constants'
-import email from '@/app/actions/email'
+import { ADMIN_EMAIL } from '@/data/constants'
+import { email } from '@/app/actions'
+import { SubmitButton } from './submit-button'
+import { redirect } from 'next/navigation'
 
 export default function ContactPage() {
   /**
-   *  Send email to the Support team when the form is submitted using the custom email function
+   *  Sends email to the Support team when the form is submitted using the custom email function
    * @param formData
    * @returns Promise<void>
    */
@@ -18,19 +20,26 @@ export default function ContactPage() {
 
     const emailData = {
       name: `${formData.get('firstname')} ${formData.get('lastname')}`,
-      from: `${APP_TITLE} | <${formData.get('email')}>`,
+      from: formData.get('email')?.toString() ?? ADMIN_EMAIL,
       to: ADMIN_EMAIL,
       subject: formData.get('subject')?.toString() ?? 'Contact Us',
       msg: {
         title: `${formData.get('subject')} - ${formData.get('firstname')} ${formData.get(
           'lastname'
         )}`,
-        msg: formData.get('message')?.toString() ?? ''
+        msg: formData.get('message')?.toString() ?? '',
+        buttonLink: 'mailto:' + formData.get('email')?.toString() ?? ADMIN_EMAIL,
+        buttonLabel: `Reply to ${formData.get('firstname')} ${formData.get('lastname')}`
       }
     }
 
-    // send email
-    await email(emailData)
+    try {
+      await email(emailData)
+    } catch (error) {
+      console.error('Error sending email!', error)
+    }
+
+    redirect('/')
   }
 
   return (
@@ -58,6 +67,8 @@ export default function ContactPage() {
                 type='text'
                 name='firstname'
                 dir='auto'
+                min={5}
+                required
               />
             </LabelInputContainer>
             <LabelInputContainer>
@@ -68,6 +79,8 @@ export default function ContactPage() {
                 type='text'
                 name='lastname'
                 dir='auto'
+                min={5}
+                required
               />
             </LabelInputContainer>
           </div>
@@ -79,6 +92,8 @@ export default function ContactPage() {
               type='email'
               name='email'
               dir='auto'
+              min={10}
+              required
             />
           </LabelInputContainer>
           <div className='flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4'>
@@ -90,6 +105,8 @@ export default function ContactPage() {
                 type='text'
                 name='subject'
                 dir='auto'
+                min={5}
+                required
               />
             </LabelInputContainer>
           </div>
@@ -101,16 +118,12 @@ export default function ContactPage() {
               placeholder='Hi, I would like to know more about your services.'
               className='h-32 p-2 border border-neutral-300 dark:border-neutral-700 rounded-md focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-56'
               dir='auto'
+              minLength={20}
+              required
             />
           </LabelInputContainer>
 
-          <button
-            className='bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]'
-            type='submit'
-          >
-            Send &rarr;
-            <BottomGradient />
-          </button>
+          <SubmitButton>Send</SubmitButton>
 
           <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />
 
@@ -126,15 +139,6 @@ export default function ContactPage() {
         </form>
       </div>
     </Layout>
-  )
-}
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className='group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />
-      <span className='group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent' />
-    </>
   )
 }
 

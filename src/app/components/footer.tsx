@@ -1,7 +1,14 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Facebook, Twitter, TikTok, Instagram } from '@/app/components/icons'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import {
+  APP_FB_URL,
+  APP_INSTAGRAM_URL,
+  APP_LOGO,
+  APP_TIKTOK_URL,
+  APP_TITLE,
+  APP_TWITTER_URL
+} from '@/data/constants'
 import ThemeToggler from '@/app/components/theme-toggler'
 
 export default function Footer() {
@@ -79,25 +86,25 @@ export default function Footer() {
           <div>
             <Link
               className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
-              href='https://www.facebook.com/profile.php?id=61566052719178'
+              href={APP_FB_URL}
             >
               <Facebook />
             </Link>
             <Link
               className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
-              href='https://x.com/technodevl94965'
+              href={APP_TWITTER_URL}
             >
               <Twitter />
             </Link>
             <Link
               className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
-              href='https://www.tiktok.com/@technodevlabs'
+              href={APP_TIKTOK_URL}
             >
               <TikTok />
             </Link>
             <Link
               className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
-              href='https://www.instagram.com/technodevlabs'
+              href={APP_INSTAGRAM_URL}
             >
               <Instagram />
             </Link>

@@ -1,4 +1,11 @@
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import {
+  APP_FB_URL,
+  APP_INSTAGRAM_URL,
+  APP_LOGO,
+  APP_TIKTOK_URL,
+  APP_TITLE,
+  APP_TWITTER_URL
+} from '@/data/constants'
 import { customEmailProps } from '@/types'
 import {
   Body,
@@ -11,7 +18,7 @@ import {
   Text,
   Link
 } from '@react-email/components'
-import { Facebook, Instagram, Twitter } from '@/app/components/icons'
+import { Facebook, Instagram, TikTok, Twitter } from '@/app/components/icons'
 
 export const EmailTemplate = ({
   title,
@@ -126,19 +133,19 @@ export const EmailTemplate = ({
 
               {buttonLink && (
                 <>
-                  <Text
+                  {/* <Text
                     key='buttonLink'
                     style={{ marginTop: '1rem', textAlign: 'right', color: '#9ca3af' }}
                   >
                     يمكنك أيضًا نسخ ولصق عنوان URL أدناه:
                     <br /> <br />
                     <strong>{buttonLink}</strong>
-                  </Text>
+                  </Text> */}
 
                   <small
                     style={{
                       display: 'block',
-                      width: '100%',
+                      marginTop: '2.5rem',
                       textAlign: 'center',
                       color: '#9ca3af',
                       fontSize: '0.625rem'
@@ -162,7 +169,7 @@ export const EmailTemplate = ({
             <section className='flex items-center justify-center w-full h-12 rtl gap-x-20'>
               <Link
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
-                href='https://facebook.com'
+                href={APP_FB_URL}
                 target='_blank'
                 aria-label='صفحتنا على الفيسبوك'
               >
@@ -170,7 +177,15 @@ export const EmailTemplate = ({
               </Link>
               <Link
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
-                href='https://instagram.com/shmsagri'
+                href={APP_TIKTOK_URL}
+                target='_blank'
+                aria-label='حسابنا على التكتوك'
+              >
+                <TikTok />
+              </Link>
+              <Link
+                className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
+                href={APP_INSTAGRAM_URL}
                 target='_blank'
                 aria-label='صفحتنا على الانستغرام'
               >
@@ -178,7 +193,7 @@ export const EmailTemplate = ({
               </Link>
               <Link
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
-                href='https://twitter.com'
+                href={APP_TWITTER_URL}
                 target='_blank'
                 aria-label='حسابنا على تويتر'
               >

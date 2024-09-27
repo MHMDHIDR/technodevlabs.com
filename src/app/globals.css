@@ -63,9 +63,6 @@
   * {
     @apply border-border;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
 
   .text-gradient {
     @apply text-transparent bg-gradient-to-tr from-[#90A8FF] to-[#650990] bg-clip-text font-extrabold;
