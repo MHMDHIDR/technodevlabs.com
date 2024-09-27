@@ -110,13 +110,7 @@ export function TikTok({
  * @returns  {JSX.Element} Monitor icon
  * @see https://simpleicons.org/?q=monitor - Icon source
  */
-export function Monitor({
-  className,
-  fill = '#ffffff'
-}: {
-  className?: string
-  fill?: string
-}): JSX.Element {
+export function Monitor({ className }: { className?: string }): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -142,13 +136,7 @@ export function Monitor({
  * @returns  {JSX.Element} Moon icon
  * @see https://simpleicons.org/?q=moon - Icon source
  */
-export function Moon({
-  className,
-  fill = '#ffffff'
-}: {
-  className?: string
-  fill?: string
-}): JSX.Element {
+export function Moon({ className }: { className?: string }): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -172,13 +160,7 @@ export function Moon({
  * @returns  {JSX.Element} Sun icon
  * @see https://simpleicons.org/?q=sun - Icon source
  */
-export function Sun({
-  className,
-  fill = '#ffffff'
-}: {
-  className?: string
-  fill?: string
-}): JSX.Element {
+export function Sun({ className }: { className?: string }): JSX.Element {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

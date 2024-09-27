@@ -1,9 +1,3 @@
-import { NextApiRequest } from 'next'
-import { Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
-import type { ButtonProps } from '@/components/ui/button'
-import type { Projects, Users } from '@prisma/client'
-
 // User Email
 export type emailMethodProps = {
   name?: string
