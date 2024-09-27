@@ -8,7 +8,12 @@ import { ADMIN_EMAIL, APP_TITLE } from '@/data/constants'
 import email from '@/app/actions/email'
 
 export default function ContactPage() {
-  async function contactUsEmail(formData: FormData) {
+  /**
+   *  Send email to the Support team when the form is submitted using the custom email function
+   * @param formData
+   * @returns Promise<void>
+   */
+  async function contactUsEmail(formData: FormData): Promise<void> {
     'use server'
 
     const emailData = {
@@ -24,18 +29,8 @@ export default function ContactPage() {
       }
     }
 
-    console.log('emailData ==>', {
-      name: `${formData.get('firstname')} ${formData.get('lastname')}`,
-      from: `${APP_TITLE} | <${formData.get('email')}>`,
-      to: ADMIN_EMAIL,
-      subject: formData.get('subject')?.toString() ?? 'Contact Us',
-      msg: formData.get('message')?.toString() ?? ''
-    })
-
-    // mutate data
-    const data = await email(emailData)
-
-    console.log(data)
+    // send email
+    await email(emailData)
   }
 
   return (

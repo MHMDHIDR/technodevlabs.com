@@ -43,7 +43,7 @@ export const EmailTemplate = ({
         >
           <Section key='section1' style={{ textAlign: 'center' }}>
             <Img
-              src={APP_LOGO}
+              src={`https://www.technodevlabs.com/${APP_LOGO}`}
               width={150}
               style={{
                 width: 'auto',
