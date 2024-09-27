@@ -28,6 +28,6 @@ export interface CreateEmailResponse {
   } | null
   error: {
     message: string
-    name: any
+    name: string
   } | null
 }
