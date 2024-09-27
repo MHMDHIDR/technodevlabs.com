@@ -1,6 +1,7 @@
 import Layout from '@/app/components/layout'
 import Divider from '@/app/components/divider'
 import { Cover } from '@/components/ui/cover'
+import { AboutSection } from './about-section'
 
 export default function AboutPage() {
   return (
@@ -9,23 +10,9 @@ export default function AboutPage() {
         We Are <br /> at <Cover>TechnoDevLabs</Cover>
       </h1>
 
-      <p className='text-justify'>
-        TechnoDevLabs is a software development company that specializes in building web
-        and mobile applications. We are a team of experienced software developers who are
-        passionate about creating high-quality software products. Our goal is to help our
-        clients achieve their business objectives by providing them with innovative and
-        cost-effective software
-      </p>
+      <AboutSection />
 
       <Divider className='my-10' />
-
-      <p className='text-justify'>
-        We offer a wide range of services including web development, mobile app
-        development, and custom software development. Our team has experience working with
-        a variety of technologies including React, React Native, Node.js, and MongoDB. We
-        are committed to delivering high-quality software products that meet the needs of
-        our clients.
-      </p>
     </Layout>
   )
 }

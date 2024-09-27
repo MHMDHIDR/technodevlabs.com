@@ -79,32 +79,32 @@ export default function Nav() {
           <div className='flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
               className='font-medium text-blue-500 focus:outline-none'
-              href={usePathname() === '/' ? '#portfolio' : '/portfolio'}
+              href={usePathname() === '/' ? '/#portfolio' : '/portfolio'}
             >
               Portfolio
             </Link>
             <Link
               className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '#about' : '/about'}
+              href={usePathname() === '/' ? '/#about' : '/about'}
               aria-current='page'
             >
               About
             </Link>
             <Link
               className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '#services' : '/services'}
+              href={usePathname() === '/' ? '/#services' : '/services'}
             >
               Services
             </Link>
             <Link
               className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '#posts' : '/posts'}
+              href={usePathname() === '/' ? '/#posts' : '/posts'}
             >
               Blog
             </Link>
             <Link
               className='font-medium text-gray-600 hover:text-gray-400 focus:outline-none focus:text-gray-400 dark:text-neutral-400 dark:hover:text-neutral-500 dark:focus:text-neutral-500'
-              href={usePathname() === '/' ? '#contact' : '/contact'}
+              href={usePathname() === '/' ? '/#contact' : '/contact'}
             >
               Contact
             </Link>

@@ -64,6 +64,10 @@
     @apply border-border;
   }
 
+  html {
+    @apply scroll-smooth;
+  }
+
   .text-gradient {
     @apply text-transparent bg-gradient-to-tr from-[#90A8FF] to-[#650990] bg-clip-text font-extrabold;
   }
