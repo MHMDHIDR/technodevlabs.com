@@ -81,10 +81,10 @@ export function ContactForm() {
 
   return (
     <div className='w-full max-w-4xl p-4 mx-auto bg-white rounded-none md:rounded-2xl md:p-8 shadow-input dark:bg-black'>
-      <h2 className='text-xl text-center font-bold text-neutral-800 dark:text-neutral-200'>
+      <h2 className='text-xl font-bold text-center text-neutral-800 dark:text-neutral-200'>
         Your message is important to us
       </h2>
-      <p className='text-center mt-2 text-sm text-neutral-600 dark:text-neutral-300'>
+      <p className='mt-2 text-sm text-center text-neutral-600 dark:text-neutral-300'>
         We will get back to you as soon as possible.
       </p>
 
@@ -150,7 +150,7 @@ export function ContactForm() {
               id='message'
               name='message'
               placeholder='Hi, I would like to know more about your services.'
-              className='p-2 border rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96 resize-y'
+              className='p-2 border resize-y rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96'
               dir='auto'
               minLength={20}
               required

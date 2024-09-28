@@ -16,7 +16,7 @@ export const Block = ({
 
       <p className='mt-2 text-gray-500 dark:text-gray-400'>{blockDescription}</p>
 
-      <span className='inline-flex group-hover:cursor-pointer items-center mt-4 text-sm text-blue-500 gap-x-2 dark:text-blue-400 group-hover:underline'>
+      <span className='inline-flex items-center mt-4 text-sm text-blue-500 group-hover:cursor-pointer gap-x-2 dark:text-blue-400 group-hover:underline'>
         <span>{children ?? 'Start exploring'}</span>
 
         <svg

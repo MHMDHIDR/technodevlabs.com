@@ -50,7 +50,7 @@ export default function Nav() {
       <nav className='container w-full px-0 mx-auto sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <Link
-            className='flex text-xl items-center font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
+            className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
             href='/'
             aria-label='Brand'
           >
@@ -110,7 +110,7 @@ export default function Nav() {
             isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
           } sm:max-h-full sm:opacity-100 sm:block`}
         >
-          <div className='flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
+          <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
               className={`font-medium focus:outline-none ${getLinkClass('/#portfolio')}`}
               href={pathname === '/' ? '/#portfolio' : '/portfolio'}

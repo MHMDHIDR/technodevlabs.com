@@ -20,7 +20,7 @@ export function Button({ className, withArrow, children, ...props }: ButtonProps
       >
         {children}
         {withArrow ? (
-          <span className='translate-x-1 inline-flex duration-300 group-hover:translate-x-2'>
+          <span className='inline-flex translate-x-1 duration-300 group-hover:translate-x-2'>
             &rarr;
           </span>
         ) : null}
@@ -33,8 +33,8 @@ export function Button({ className, withArrow, children, ...props }: ButtonProps
 const BottomGradient = () => {
   return (
     <>
-      <span className='absolute inset-x-0 block w-full h-px transition duration-500 opacity-0 group-hover:opacity-100 -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />
-      <span className='absolute block w-1/2 h-px mx-auto transition duration-500 opacity-0 group-hover:opacity-100 blur-sm -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-700 to-transparent' />
+      <span className='absolute inset-x-0 block w-full h-px opacity-0 transition duration-500 group-hover:opacity-100 -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />
+      <span className='absolute block w-1/2 h-px mx-auto opacity-0 transition duration-500 group-hover:opacity-100 blur-sm -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-700 to-transparent' />
     </>
   )
 }

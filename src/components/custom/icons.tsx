@@ -56,9 +56,9 @@ export function Facebook({
 }
 
 /**
- * Facebook icon
- * @returns  {JSX.Element} Facebook icon
- * @see https://simpleicons.org/?q=facebook - Icon source
+ * Instagram icon
+ * @returns  {JSX.Element} Instagram icon
+ * @see https://simpleicons.org/?q=Instagram - Icon source
  */
 export function Instagram({
   className,
@@ -82,9 +82,9 @@ export function Instagram({
 }
 
 /**
- * Facebook icon
- * @returns  {JSX.Element} Facebook icon
- * @see https://simpleicons.org/?q=facebook - Icon source
+ * TikTok icon
+ * @returns  {JSX.Element} TikTok icon
+ * @see https://simpleicons.org/?q=TikTok - Icon source
  */
 export function TikTok({
   className,

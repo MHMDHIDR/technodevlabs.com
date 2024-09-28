@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Facebook, Twitter, TikTok, Instagram } from '@/components/custom/icons'
+import {
+  IconBrandFacebook,
+  IconBrandX,
+  IconBrandTiktok,
+  IconBrandInstagram
+} from '@tabler/icons-react'
 import {
   APP_FB_URL,
   APP_INSTAGRAM_URL,
@@ -88,25 +93,25 @@ export default function Footer() {
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_FB_URL}
             >
-              <Facebook />
+              <IconBrandFacebook />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TWITTER_URL}
             >
-              <Twitter />
+              <IconBrandX />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TIKTOK_URL}
             >
-              <TikTok />
+              <IconBrandTiktok />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_INSTAGRAM_URL}
             >
-              <Instagram />
+              <IconBrandInstagram />
             </Link>
           </div>
         </div>

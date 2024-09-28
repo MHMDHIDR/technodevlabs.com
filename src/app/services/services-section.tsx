@@ -44,12 +44,12 @@ const servicesItems = [
       <Image
         src='/images/services/custom-software-development.webp'
         alt='Custom Software Development'
-        className='w-full h-full object-cover rounded-x1'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconCode className='h-4 w-4 text-neutral-500' />
+    icon: <IconCode className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'Cloud Solutions',
@@ -58,12 +58,12 @@ const servicesItems = [
       <Image
         src='/images/services/cloud-solutions.webp'
         alt='Cloud Solutions'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconCloudUpload className='h-4 w-4 text-neutral-500' />
+    icon: <IconCloudUpload className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'Mobile App Development',
@@ -73,12 +73,12 @@ const servicesItems = [
       <Image
         src='/images/services/mobile-app-development.webp'
         alt='Mobile App Development'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconDeviceMobile className='h-4 w-4 text-neutral-500' />
+    icon: <IconDeviceMobile className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'Data Analytics & BI',
@@ -88,12 +88,12 @@ const servicesItems = [
       <Image
         src='/images/services/data-analytics.webp'
         alt='Data Analytics & BI'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconChartBar className='h-4 w-4 text-neutral-500' />
+    icon: <IconChartBar className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'Database Management',
@@ -103,12 +103,12 @@ const servicesItems = [
       <Image
         src='/images/services/database-management.webp'
         alt='Database Management'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconDatabase className='h-4 w-4 text-neutral-500' />
+    icon: <IconDatabase className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'Cybersecurity Services',
@@ -117,12 +117,12 @@ const servicesItems = [
       <Image
         src='/images/services/cybersecurity.webp'
         alt='Cybersecurity Services'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconShieldLock className='h-4 w-4 text-neutral-500' />
+    icon: <IconShieldLock className='w-4 h-4 text-neutral-100' />
   },
   {
     title: 'API & Integration Services',
@@ -131,11 +131,11 @@ const servicesItems = [
       <Image
         src='/images/services/api-integration.webp'
         alt='API & Integration Services'
-        className='w-full h-full object-cover rounded-xl'
+        className='object-cover w-full h-full rounded-xl'
         height={150}
         width={255}
       />
     ),
-    icon: <IconLayersLinked className='h-4 w-4 text-neutral-500' />
+    icon: <IconLayersLinked className='w-4 h-4 text-neutral-100' />
   }
 ]
