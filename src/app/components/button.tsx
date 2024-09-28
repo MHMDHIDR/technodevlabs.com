@@ -1,12 +1,11 @@
-export function Button({
-  withArrow,
-  children
-}: {
+type ButtonProps = {
   withArrow?: boolean
   children: React.ReactNode
-}) {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>
+
+export function Button({ withArrow, children, ...props }: ButtonProps) {
   return (
-    <button className='group bg-gradient-to-br relative h-10 font-medium' type='button'>
+    <button className='group bg-gradient-to-br relative h-10 font-medium' {...props}>
       <span className='px-10 py-1.5 h-full relative text-purple-900 dark:text-gray-50 rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-block'>
         {children}
         {withArrow ? (

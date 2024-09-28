@@ -1,8 +1,8 @@
+import Link from 'next/link'
 import Layout from '@/app/components/layout'
 import { Paper, Book, Chat, NotFoundIcon } from '@/app/components/icons'
 import { Button } from '@/app/components/button'
 import { Block } from '@/app/components/block'
-import Link from 'next/link'
 
 export default function NotFound() {
   return (
@@ -22,7 +22,9 @@ export default function NotFound() {
 
             <div className='flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto'>
               <Link href={`/`}>
-                <Button withArrow>Home</Button>
+                <Button withArrow type='button'>
+                  Home
+                </Button>
               </Link>
             </div>
           </div>

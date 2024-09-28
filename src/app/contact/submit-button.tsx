@@ -1,7 +1,8 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
-import { Loading } from '../components/icons'
+import { Loading } from '@/app/components/icons'
+import { Button } from '@/app/components/button'
 
 export function SubmitButton({
   disabled,
@@ -13,7 +14,7 @@ export function SubmitButton({
   const { pending } = useFormStatus()
 
   return (
-    <button
+    <Button
       type='submit'
       aria-disabled={disabled ?? pending}
       disabled={disabled ?? pending}
@@ -31,16 +32,6 @@ export function SubmitButton({
           </span>
         )}
       </span>
-      <BottomGradient />
-    </button>
-  )
-}
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className='absolute inset-x-0 block w-full h-px transition duration-500 opacity-0 group-hover/btn:opacity-100 -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />
-      <span className='absolute block w-1/2 h-px mx-auto transition duration-500 opacity-0 group-hover/btn:opacity-100 blur-sm -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent' />
-    </>
+    </Button>
   )
 }
