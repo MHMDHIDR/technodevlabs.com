@@ -76,8 +76,7 @@
     @apply bg-slate-500;
   }
   ::-webkit-scrollbar-track {
-    background: #0f0f0f;
-    border-radius: 4px;
+    @apply bg-slate-900;
   }
 
   .text-gradient {

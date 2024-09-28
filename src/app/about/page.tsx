@@ -11,8 +11,6 @@ export default function AboutPage() {
       </h1>
 
       <AboutSection />
-
-      <Divider className='my-10' />
     </Layout>
   )
 }

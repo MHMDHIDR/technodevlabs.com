@@ -1,6 +1,5 @@
-"use client";
-import React from "react";
-import { BentoGrid, BentoGridItem } from "../ui/bento-grid";
+import Image from 'next/image'
+import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 import {
   IconCode,
   IconCloudUpload,
@@ -9,115 +8,125 @@ import {
   IconChartBar,
   IconShieldLock,
   IconLayersLinked
-} from "@tabler/icons-react";
+} from '@tabler/icons-react'
 
-export function BentoGridDemo() {
+export function BentoGridCard() {
   return (
     <BentoGrid className='max-w-4xl mx-auto gap-4'>
-      {items.map((item, i) => (
+      {servicesItems.map((item, index) => (
         <BentoGridItem
-          key={i}
+          key={index}
           title={item.title}
           description={item.description}
           header={item.header}
           icon={item.icon}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          className={index === 3 || index === 6 ? 'md:col-span-2' : ''}
         />
       ))}
     </BentoGrid>
-  );
+  )
 }
 
-const items = [
+const servicesItems = [
   {
-    title: "Custom Software Development",
-    description:
-      "Tailored software solutions to meet your unique business needs.",
+    title: 'Custom Software Development',
+    description: 'Tailored software solutions to meet your unique business needs.',
     header: (
-      <img
-        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGxyO6XoueF9rlSAVCScjON6jOqRxX6INs-g&s'
+      <Image
+        src='/images/services/custom-software-development.webp'
         alt='Custom Software Development'
         className='w-full h-full object-cover rounded-x1'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconCode className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "Cloud Solutions",
-    description:
-      "Leverage the power of the cloud to scale and optimize your business.",
+    title: 'Cloud Solutions',
+    description: 'Leverage the power of the cloud to scale and optimize your business.',
     header: (
-      <img
-        src='https://www.kellerschroeder.com/wp-content/uploads/2023/08/Cloud-Solutions-2-Evansville-Nashville.png'
+      <Image
+        src='/images/services/cloud-solutions.webp'
         alt='Cloud Solutions'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconCloudUpload className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "Mobile App Development",
+    title: 'Mobile App Development',
     description:
-      "iOS and Android apps designed to enhance user experience and functionality.",
+      'iOS and Android apps designed to enhance user experience and functionality.',
     header: (
-      <img
-        src='https://www.techmango.net/wp-content/uploads/2022/04/mobile-app-development.png'
+      <Image
+        src='/images/services/mobile-app-development.webp'
         alt='Mobile App Development'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconDeviceMobile className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "Data Analytics & BI",
+    title: 'Data Analytics & BI',
     description:
-      "Transform data into actionable insights to drive your business forward.",
+      'Transform data into actionable insights to drive your business forward.',
     header: (
-      <img
-        src='/images/data-analytics.jpg'
+      <Image
+        src='/images/services/data-analytics.webp'
         alt='Data Analytics & BI'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconChartBar className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "Database Management",
+    title: 'Database Management',
     description:
-      "Efficient and secure database solutions for high-performance applications.",
+      'Efficient and secure database solutions for high-performance applications.',
     header: (
-      <img
-        src='/images/database-management.jpg'
+      <Image
+        src='/images/services/database-management.webp'
         alt='Database Management'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconDatabase className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "Cybersecurity Services",
-    description:
-      "Protect your digital assets with cutting-edge security solutions.",
+    title: 'Cybersecurity Services',
+    description: 'Protect your digital assets with cutting-edge security solutions.',
     header: (
-      <img
-        src='/images/cybersecurity.jpg'
+      <Image
+        src='/images/services/cybersecurity.webp'
         alt='Cybersecurity Services'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconShieldLock className='h-4 w-4 text-neutral-500' />
   },
   {
-    title: "API & Integration Services",
-    description:
-      "Seamlessly connect different platforms with robust API solutions.",
+    title: 'API & Integration Services',
+    description: 'Seamlessly connect different platforms with robust API solutions.',
     header: (
-      <img
-        src='/images/api-integration.jpg'
+      <Image
+        src='/images/services/api-integration.webp'
         alt='API & Integration Services'
         className='w-full h-full object-cover rounded-xl'
+        height={150}
+        width={255}
       />
     ),
     icon: <IconLayersLinked className='h-4 w-4 text-neutral-500' />
   }
-];
+]

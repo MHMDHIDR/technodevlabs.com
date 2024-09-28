@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import Divider from '@/app/components/divider'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Success } from '@/app/components/icons'
 import { SubmitButton } from './submit-button'
@@ -145,11 +146,11 @@ export default function ContactForm() {
           </div>
           <LabelInputContainer className='mb-4'>
             <Label htmlFor='message'>Message</Label>
-            <textarea
+            <Textarea
               id='message'
               name='message'
               placeholder='Hi, I would like to know more about your services.'
-              className='h-32 p-2 border rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-56'
+              className='p-2 border rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96 resize-y'
               dir='auto'
               minLength={20}
               required
