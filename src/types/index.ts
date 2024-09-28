@@ -31,3 +31,11 @@ export interface CreateEmailResponse {
     name: string
   } | null
 }
+
+export type BlockProps = {
+  href: string
+  blockLabel: string
+  blockDescription: string
+  blockIcon: JSX.Element
+  children?: string
+}

@@ -6,7 +6,7 @@ import {
   APP_TITLE,
   APP_TWITTER_URL
 } from '@/data/constants'
-import { customEmailProps } from '@/types'
+import type { customEmailProps } from '@/types'
 import {
   Body,
   Container,

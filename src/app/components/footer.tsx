@@ -62,7 +62,7 @@ export default function Footer() {
             <h4 className='font-semibold text-gray-100'>Our Vision</h4>
 
             <form>
-              <div className='flex flex-col items-center gap-2 py-2 mt-4 text-gray-200 rounded-lg sm:flex-row sm:gap-3 dark:bg-neutral-900'>
+              <div className='flex flex-col items-center gap-2 py-2 mt-4 text-gray-200 rounded-lg sm:flex-row sm:gap-3'>
                 <p className='text-justify'>
                   At TechnoDevLabs, we strive to be a trusted partner for businesses in
                   the Middle East, delivering innovative and tailored software solutions
