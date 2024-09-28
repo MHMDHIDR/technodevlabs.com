@@ -18,10 +18,10 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: '/images/logo.svg',
+        url: '/images/technodevlabs-opengraph.png',
         width: 1200,
         height: 650,
-        alt: 'TechnoDevLabs default Open Graph image'
+        alt: APP_DESCRIPTION
       }
     ],
     type: 'website',

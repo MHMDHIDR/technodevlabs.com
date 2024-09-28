@@ -111,8 +111,6 @@ export const ImagesSlider = ({
     }
   }
 
-  console.log('loading images', loading)
-
   const areImagesLoaded = loadedImages.length > 0
 
   return (

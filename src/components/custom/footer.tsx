@@ -23,7 +23,7 @@ export default function Footer() {
         <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5'>
           <div className='col-span-full lg:col-span-1'>
             <Link
-              className='flex-none text-xl font-semibold text-white focus:outline-none focus:opacity-80'
+              className='flex-none mx-auto text-xl font-semibold text-white focus:outline-none'
               href='/'
               aria-label='Brand'
             >
