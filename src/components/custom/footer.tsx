@@ -31,7 +31,7 @@ export default function Footer() {
             </Link>
           </div>
 
-          <div className='col-span-2'>
+          <div className='col-span-1'>
             <h4 className='font-semibold text-gray-100'>Company</h4>
 
             <div className='grid mt-3 space-y-3'>
@@ -60,6 +60,29 @@ export default function Footer() {
                 </Link>
               </div>
               <ThemeToggler />
+            </div>
+          </div>
+
+          <div className='col-span-1'>
+            <h4 className='font-semibold text-gray-100'>Legal</h4>
+
+            <div className='grid mt-3 space-y-3'>
+              <div>
+                <Link
+                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                  href='/terms'
+                >
+                  Terms of Service
+                </Link>
+              </div>
+              <div>
+                <Link
+                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                  href='/privacy'
+                >
+                  Privacy Policy
+                </Link>
+              </div>
             </div>
           </div>
 
