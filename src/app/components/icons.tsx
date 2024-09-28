@@ -294,7 +294,7 @@ export const Error = ({ className }: { className?: string }): JSX.Element => {
  * LOADING Icon
  * @param {string} className className for the icon
  * @default className 'w-5 h-5'
- * @returns {JSX.Element} - Success Icon
+ * @returns {JSX.Element} - Loading Icon
  */
 export const Loading = ({ className }: { className?: string }): JSX.Element => {
   return (
@@ -323,6 +323,84 @@ export const Loading = ({ className }: { className?: string }): JSX.Element => {
           ></circle>
         </g>
       </g>
+    </svg>
+  )
+}
+
+/**
+ * PAPER Icon
+ * @param {string} className className for the icon
+ * @default className 'w-5 h-5'
+ * @returns {JSX.Element} - Paper Icon
+ */
+export const Paper = ({ className }: { className?: string }): JSX.Element => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke-width='1.5'
+      stroke='currentColor'
+      className={cn(
+        `w-5 h-5 rtl:rotate-180 group-hover:translate-x-2 transition`,
+        className
+      )}
+    >
+      <path
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3'
+      />
+    </svg>
+  )
+}
+
+/**
+ * BOOK Icon
+ * @param {string} className className for the icon
+ * @default className 'w-5 h-5'
+ * @returns {JSX.Element} - Book Icon
+ */
+export const Book = ({ className }: { className?: string }): JSX.Element => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke-width='1.5'
+      stroke='currentColor'
+      className={cn(`w-6 h-6`, className)}
+    >
+      <path
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        d='M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25'
+      />
+    </svg>
+  )
+}
+
+/**
+ * Chat Icon
+ * @param {string} className className for the icon
+ * @default className 'w-5 h-5'
+ * @returns {JSX.Element} - Chat Icon
+ */
+export const Chat = ({ className }: { className?: string }): JSX.Element => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      stroke-width='1.5'
+      stroke='currentColor'
+      className={cn(`w-5 h-5 rtl:rotate-180`, className)}
+    >
+      <path
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        d='M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3'
+      />
     </svg>
   )
 }
