@@ -1,9 +1,9 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ImagesSlider } from '@/components/ui/images-slider'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Divider from '../components/divider'
+import Link from 'next/link'
+import { ImagesSlider } from '@/components/ui/images-slider'
+import Divider from '@/app/components/divider'
 
 export function AboutSection() {
   const images = [
