@@ -21,7 +21,8 @@ export default function ContactForm() {
     event.preventDefault()
     setStatus('loading')
 
-    const formData = new FormData(event.currentTarget)
+    const form = event.currentTarget // Capture the form element
+    const formData = new FormData(form)
 
     const emailData = {
       name: `${formData.get('firstname')} ${formData.get('lastname')}`,
@@ -42,6 +43,9 @@ export default function ContactForm() {
       await email(emailData)
 
       setStatus('success')
+
+      // Reset the form inputs
+      form.reset()
 
       toast('Email sent successfully! 🎉', {
         icon: <Success className='inline-block' />,
@@ -153,7 +157,7 @@ export default function ContactForm() {
           </LabelInputContainer>
         </div>
 
-        <SubmitButton disabled={status === 'loading'}>
+        <SubmitButton disabled={status === 'loading' || status === 'success'}>
           {status === 'loading' ? 'Sending...' : 'Send'}
         </SubmitButton>
 

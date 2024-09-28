@@ -86,7 +86,6 @@ export const EmailTemplate = ({
                 style={{
                   marginTop: '1rem',
                   lineHeight: '1.5',
-                  textAlign: 'right',
                   color: '#374151'
                 }}
               >
