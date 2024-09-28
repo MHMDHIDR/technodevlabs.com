@@ -1,8 +1,8 @@
 'use client'
 
 import { useFormStatus } from 'react-dom'
-import { Loading } from '@/app/components/icons'
-import { Button } from '@/app/components/button'
+import { Loading } from '@/components/custom/icons'
+import { Button } from '@/components/custom/button'
 
 export function SubmitButton({
   disabled,

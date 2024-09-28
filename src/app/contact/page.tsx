@@ -1,6 +1,6 @@
-import Layout from '@/app/components/layout'
+import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
-import ContactForm from './contact-form'
+import { ContactForm } from './contact-form'
 
 export default function ContactPage() {
   return (

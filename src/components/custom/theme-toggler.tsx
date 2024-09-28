@@ -1,7 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { Monitor, Moon, Sun } from '@/app/components/icons'
+import { Monitor, Moon, Sun } from '@/components/custom/icons'
 
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()

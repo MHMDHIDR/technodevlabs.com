@@ -1,5 +1,5 @@
-import Nav from '@/app/components/nav'
-import Footer from '@/app/components/footer'
+import Nav from '@/components/custom/nav'
+import Footer from '@/components/custom/footer'
 
 function Layout({
   className,

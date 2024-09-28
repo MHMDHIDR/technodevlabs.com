@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import Layout from '@/app/components/layout'
+import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ADMIN_EMAIL } from '@/data/constants'
-import { email } from '@/app/actions'
+import { emailAction } from '@/app/actions'
 import { SubmitButton } from './submit-button'
 import { redirect } from 'next/navigation'
 
@@ -34,7 +34,7 @@ export default function ContactPage() {
     }
 
     try {
-      await email(emailData)
+      await emailAction(emailData)
     } catch (error) {
       console.error('Error sending email!', error)
     }

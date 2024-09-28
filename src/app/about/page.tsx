@@ -1,5 +1,5 @@
-import Layout from '@/app/components/layout'
-import Divider from '@/app/components/divider'
+import Layout from '@/components/custom/layout'
+import Divider from '@/components/custom/divider'
 import { Cover } from '@/components/ui/cover'
 import { AboutSection } from './about-section'
 

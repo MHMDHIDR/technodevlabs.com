@@ -5,16 +5,16 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
-import Divider from '@/app/components/divider'
+import Divider from '@/components/custom/divider'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Success } from '@/app/components/icons'
+import { Success } from '@/components/custom/icons'
 import { SubmitButton } from './submit-button'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
-import { email } from '@/app/actions'
+import { emailAction } from '@/app/actions'
 
-export default function ContactForm() {
+export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const { replace } = useRouter()
 
@@ -41,7 +41,7 @@ export default function ContactForm() {
     }
 
     try {
-      await email(emailData)
+      await emailAction(emailData)
 
       setStatus('success')
 

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { ImagesSlider } from '@/components/ui/images-slider'
-import Divider from '@/app/components/divider'
+import Divider from '@/components/custom/divider'
 
 export function AboutSection() {
   const images = [

@@ -18,7 +18,7 @@ import {
   Text,
   Link
 } from '@react-email/components'
-import { Facebook, Instagram, TikTok, Twitter } from '@/app/components/icons'
+import { Facebook, Instagram, TikTok, Twitter } from '@/components/custom/icons'
 
 export const EmailTemplate = ({
   title,

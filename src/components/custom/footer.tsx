@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Facebook, Twitter, TikTok, Instagram } from '@/app/components/icons'
+import { Facebook, Twitter, TikTok, Instagram } from '@/components/custom/icons'
 import {
   APP_FB_URL,
   APP_INSTAGRAM_URL,
@@ -9,7 +9,7 @@ import {
   APP_TITLE,
   APP_TWITTER_URL
 } from '@/data/constants'
-import ThemeToggler from '@/app/components/theme-toggler'
+import ThemeToggler from '@/components/custom/theme-toggler'
 
 export default function Footer() {
   return (

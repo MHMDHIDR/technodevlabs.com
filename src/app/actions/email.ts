@@ -2,12 +2,18 @@
 
 import { Resend } from 'resend'
 import { ADMIN_EMAIL, APP_TITLE } from '@/data/constants'
-import { EmailTemplate } from '@/app/components/email-template'
+import { EmailTemplate } from '@/components/custom/email-template'
 import type { CreateEmailResponse, emailMethodProps } from '@/types'
 
 const { RESEND_API_KEY } = process.env
 
-export default async function email({ name, subject, from, to, msg }: emailMethodProps) {
+export default async function emailAction({
+  name,
+  subject,
+  from,
+  to,
+  msg
+}: emailMethodProps) {
   const resend = new Resend(RESEND_API_KEY)
 
   const { data, error: cause }: CreateEmailResponse = await resend.emails.send({

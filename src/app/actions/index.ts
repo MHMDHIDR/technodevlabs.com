@@ -1,3 +1,3 @@
-import email from '@/app/actions/email'
+import emailAction from '@/app/actions/email'
 
-export { email }
+export { emailAction }

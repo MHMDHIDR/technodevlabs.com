@@ -1,8 +1,8 @@
-import Layout from '@/app/components/layout'
-import { Hero } from '@/app/components/hero'
+import Layout from '@/components/custom/layout'
+import { Hero } from '@/components/custom/hero'
 import { AboutSection } from './about/about-section'
-import ContactForm from './contact/contact-form'
 import { ServicesSection } from './services/services-section'
+import { ContactForm } from './contact/contact-form'
 
 export default function Home() {
   return (

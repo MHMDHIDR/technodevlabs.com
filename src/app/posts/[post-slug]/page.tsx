@@ -1,4 +1,4 @@
-import Layout from '@/app/components/layout'
+import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 
 export default function BlogPostContentPage() {

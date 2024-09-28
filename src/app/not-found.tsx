@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Layout from '@/app/components/layout'
-import { Paper, Book, Chat, NotFoundIcon } from '@/app/components/icons'
-import { Button } from '@/app/components/button'
-import { Block } from '@/app/components/block'
+import Layout from '@/components/custom/layout'
+import { Paper, Book, Chat, NotFoundIcon } from '@/components/custom/icons'
+import { Button } from '@/components/custom/button'
+import { Block } from '@/components/custom/block'
 
 export default function NotFound() {
   return (
