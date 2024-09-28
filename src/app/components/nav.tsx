@@ -45,17 +45,19 @@ export default function Nav() {
         hasScrolled
           ? 'py-2 backdrop-blur-sm bg-white/60 dark:bg-neutral-900/40 shadow-sm shadow-purple-900'
           : 'py-5 bg-white dark:bg-neutral-900'
-      } px-8 sm:px-20`}
+      } px-4 sm:px-10`}
     >
-      <nav className='container w-full px-4 mx-auto sm:flex sm:items-center sm:justify-between'>
+      <nav className='container w-full px-0 mx-auto sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <Link
-            className='flex text-xl font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
+            className='flex text-xl items-center font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
             href='/'
             aria-label='Brand'
           >
             <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
-            <span className={`[font-family:Orbitron] text-gradient select-none`}>
+            <span
+              className={`[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl`}
+            >
               TechnoDevLabs
             </span>
           </Link>
