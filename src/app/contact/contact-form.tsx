@@ -9,7 +9,7 @@ import Divider from '@/components/custom/divider'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
-import { Success } from '@/components/custom/icons'
+import { Error, Success } from '@/components/custom/icons'
 import { SubmitButton } from './submit-button'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { emailAction } from '@/app/actions'
@@ -64,6 +64,7 @@ export function ContactForm() {
       setStatus('error')
 
       toast('Failed to send email. Please try again later! 😢', {
+        icon: <Error className='inline-block' />,
         position: 'bottom-center',
         className: 'text-center rtl select-none',
         style: {
