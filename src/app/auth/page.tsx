@@ -1,7 +1,8 @@
+import AuthButton from '@/components/custom/auth-button'
 import Divider from '@/components/custom/divider'
-import GoogleOAuthButton from '@/components/custom/signin-button'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
+import CanAuthenticate from './can-authenticate'
 
 export default function AuthPage() {
   return (
@@ -12,7 +13,9 @@ export default function AuthPage() {
 
       <Divider className='my-10' />
 
-      <GoogleOAuthButton />
+      <CanAuthenticate>
+        <AuthButton />
+      </CanAuthenticate>
     </Layout>
   )
 }

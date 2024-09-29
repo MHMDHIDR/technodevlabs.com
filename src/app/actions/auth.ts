@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation'
 export const logOut = async () => {
   const sessionCookie = lucia.createBlankSessionCookie()
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-  return redirect('/authenticate')
+  return redirect('/auth')
 }
 
 export const getGoogleOauthConsentUrl = async () => {

@@ -4,12 +4,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { cn } from '@/lib/utils'
-import Divider from '@/components/custom/divider'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import Divider from '@/components/custom/divider'
 import { Error, Success } from '@/components/custom/icons'
+import LabelInputContainer from '@/components/custom/label-input-container'
 import { SubmitButton } from './submit-button'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { emailAction } from '@/app/actions'
@@ -177,14 +177,4 @@ export function ContactForm() {
       </form>
     </div>
   )
-}
-
-const LabelInputContainer = ({
-  children,
-  className
-}: {
-  children: React.ReactNode
-  className?: string
-}) => {
-  return <div className={cn('flex flex-col space-y-2 w-full', className)}>{children}</div>
 }

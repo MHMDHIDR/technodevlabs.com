@@ -31,9 +31,9 @@ export default function NotFound() {
 
           <div className='w-full max-w-6xl mx-auto mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
             <Block
-              href='/portfolio'
-              blockLabel='Portfolio'
-              blockDescription='Dive into our portfolio to see our latest projects.'
+              href='/projects'
+              blockLabel='Projects'
+              blockDescription='Dive into our projects to see our latest projects.'
               blockIcon={<Paper />}
             ></Block>
 

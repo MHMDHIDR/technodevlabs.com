@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
 import { usePathname } from 'next/navigation'
+import { APP_LOGO, APP_TITLE } from '@/data/constants'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -29,11 +29,11 @@ export default function Nav() {
   }, [])
 
   /**
-   * Get the link class based on the current path
+   * A function to Highlight the [ACTIVE LINK] based on the current path
    * @param href
    * @returns String - The classNames
    */
-  const getLinkClass = (href: string) => {
+  const activeLinkClass = (href: string) => {
     return pathname === href
       ? 'text-blue-500'
       : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
@@ -112,15 +112,17 @@ export default function Nav() {
         >
           <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
-              className={`font-medium focus:outline-none ${getLinkClass('/#portfolio')}`}
-              href={pathname === '/' ? '/#portfolio' : '/portfolio'}
+              className={`font-medium focus:outline-none ${activeLinkClass(
+                '/#projects'
+              )}`}
+              href={pathname === '/' ? '/#projects' : '/projects'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              Portfolio
+              Projects
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${getLinkClass('/about')}`}
+              className={`font-medium focus:outline-none ${activeLinkClass('/about')}`}
               href={pathname === '/' ? '/#about' : '/about'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -128,7 +130,7 @@ export default function Nav() {
               About
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${getLinkClass('/services')}`}
+              className={`font-medium focus:outline-none ${activeLinkClass('/services')}`}
               href={pathname === '/' ? '/#services' : '/services'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -136,7 +138,7 @@ export default function Nav() {
               Services
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${getLinkClass('/posts')}`}
+              className={`font-medium focus:outline-none ${activeLinkClass('/posts')}`}
               href={pathname === '/' ? '/#posts' : '/posts'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -144,7 +146,7 @@ export default function Nav() {
               Blog
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${getLinkClass('/contact')}`}
+              className={`font-medium focus:outline-none ${activeLinkClass('/contact')}`}
               href={pathname === '/' ? '/#contact' : '/contact'}
               aria-current='page'
               onClick={toggleMobileMenu}

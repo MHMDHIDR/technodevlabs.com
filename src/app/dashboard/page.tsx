@@ -1,16 +1,14 @@
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import Layout from '@/components/custom/layout'
-import SignOutButton from '@/components/custom/signout-button'
 import { Cover } from '@/components/ui/cover'
 import { getUser } from '@/lib/lucia'
 
 export default async function DasboardPage() {
-  // protected!!!
   const user = await getUser()
 
   if (!user) {
-    redirect('/auth')
+    notFound()
   }
 
   return (
@@ -34,9 +32,6 @@ export default async function DasboardPage() {
             <span className='text-gray-500'>{user.email}</span>
           </div>
         </div>
-      </div>
-      <div className='absolute right-4 top-4'>
-        <SignOutButton />
       </div>
     </Layout>
   )
