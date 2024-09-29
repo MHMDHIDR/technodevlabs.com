@@ -5,10 +5,30 @@ import { Providers } from '@/app/providers'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import './globals.css'
-import { metadata } from '@/lib/get-metadata'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
-metadata({})
+
+import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: APP_TITLE,
+  description: APP_DESCRIPTION,
+  openGraph: {
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
+    images: [
+      {
+        url: '/images/technodevlabs-opengraph.png',
+        width: 1200,
+        height: 650,
+        alt: APP_DESCRIPTION
+      }
+    ],
+    type: 'website',
+    locale: 'en_US'
+  }
+}
 
 export default function RootLayout({
   children

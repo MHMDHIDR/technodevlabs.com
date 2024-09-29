@@ -1,13 +1,27 @@
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { ContactForm } from './contact-form'
-import { metadata } from '@/lib/get-metadata'
-import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import type { Metadata } from 'next'
 
-metadata({
-  pageName: `Contact Support | ${APP_TITLE}`,
-  pageDescription: APP_DESCRIPTION
-})
+export const metadata: Metadata = {
+  title: `Contact Support | ${APP_TITLE}`,
+  description: APP_DESCRIPTION,
+  openGraph: {
+    title: `Contact Support | ${APP_TITLE}`,
+    description: APP_DESCRIPTION,
+    images: [
+      {
+        url: '/images/technodevlabs-opengraph.png',
+        width: 1200,
+        height: 650,
+        alt: APP_DESCRIPTION
+      }
+    ],
+    type: 'website',
+    locale: 'en_US'
+  }
+}
 
 export default function ContactPage() {
   return (
