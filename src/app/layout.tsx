@@ -2,32 +2,13 @@ import { ReactNode } from 'react'
 import { Cairo as FontSans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { Providers } from '@/app/providers'
-import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import './globals.css'
-import type { Metadata } from 'next'
+import { metadata } from '@/lib/get-metadata'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
-
-export const metadata: Metadata = {
-  title: APP_TITLE,
-  description: APP_DESCRIPTION,
-  openGraph: {
-    title: APP_TITLE,
-    description: APP_DESCRIPTION,
-    images: [
-      {
-        url: '/images/technodevlabs-opengraph.png',
-        width: 1200,
-        height: 650,
-        alt: APP_DESCRIPTION
-      }
-    ],
-    type: 'website',
-    locale: 'en_US'
-  }
-}
+metadata({})
 
 export default function RootLayout({
   children

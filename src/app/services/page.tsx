@@ -1,6 +1,13 @@
 import Layout from '@/components/custom/layout'
 import { ServicesSection } from '@/app/services/services-section'
 import { Cover } from '@/components/ui/cover'
+import { metadata } from '@/lib/get-metadata'
+import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+
+metadata({
+  pageName: `Our Services | ${APP_TITLE}`,
+  pageDescription: APP_DESCRIPTION
+})
 
 export default function ServicesPage() {
   return (

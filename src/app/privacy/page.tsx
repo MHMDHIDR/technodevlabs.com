@@ -3,6 +3,13 @@ import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import Link from 'next/link'
+import { metadata } from '@/lib/get-metadata'
+import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+
+metadata({
+  pageName: `Privacy Policy | ${APP_TITLE}`,
+  pageDescription: APP_DESCRIPTION
+})
 
 export default function PrivacyPage() {
   return (

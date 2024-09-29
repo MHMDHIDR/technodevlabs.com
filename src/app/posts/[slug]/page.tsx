@@ -1,5 +1,26 @@
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
+import { metadata } from '@/lib/get-metadata'
+import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+import { removeSlug } from '@/lib/utils'
+
+export async function generateMetadata({
+  params: { slug }
+}: {
+  params: { slug: string }
+}) {
+  // const post /*: Post */ = await getProject(projectId)
+
+  return {
+    title: removeSlug(decodeURI(slug)) + ' | ' + APP_TITLE,
+    description: APP_DESCRIPTION
+  }
+}
+
+metadata({
+  pageName: `Blog | ${APP_TITLE}`,
+  pageDescription: APP_DESCRIPTION
+})
 
 export default function BlogPostContentPage() {
   return (

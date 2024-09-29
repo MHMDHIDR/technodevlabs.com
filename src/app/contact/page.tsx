@@ -1,6 +1,13 @@
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { ContactForm } from './contact-form'
+import { metadata } from '@/lib/get-metadata'
+import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+
+metadata({
+  pageName: `Contact Support | ${APP_TITLE}`,
+  pageDescription: APP_DESCRIPTION
+})
 
 export default function ContactPage() {
   return (

@@ -1,6 +1,13 @@
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { AboutSection } from './about-section'
+import { metadata } from '@/lib/get-metadata'
+import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
+
+metadata({
+  pageName: `About ${APP_TITLE}`,
+  pageDescription: APP_DESCRIPTION
+})
 
 export default function AboutPage() {
   return (
