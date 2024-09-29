@@ -1,57 +1,73 @@
-'use client'
-
-import { toast } from 'sonner'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { IconBrandGoogle } from '@tabler/icons-react'
-import { getGoogleOauthConsentUrl, logOut } from '@/app/actions/auth'
-import { Button } from '@/components/custom/button'
-import { Error } from '@/components/custom/icons'
 import { IconLogout2 } from '@tabler/icons-react'
+import { Button } from '@/components/custom/button'
+import { getGoogleOauthConsentUrl, logOut } from '@/app/actions/auth'
+import type { GoogleOauthConsentUrlResponse } from '@/types'
+import { toast } from 'sonner'
+
+async function handleSignOut() {
+  'use server'
+
+  cookies().delete('can-authenticate')
+  await logOut()
+}
+
+async function handleSignIn(): Promise<void> {
+  'use server'
+
+  let responseUrl: GoogleOauthConsentUrlResponse['url'] = ''
+  let responseMessage: GoogleOauthConsentUrlResponse['message'] = ''
+
+  try {
+    const googleOAuthResponse = await getGoogleOauthConsentUrl()
+
+    // If the response is not successful
+    if (!googleOAuthResponse.success) {
+      responseMessage = googleOAuthResponse.message
+      throw new Error(responseMessage)
+    }
+
+    responseUrl = googleOAuthResponse.url
+  } catch (error) {
+    responseMessage = `Opps! Something went wrong`
+    toast.error(responseMessage)
+    console.error(`AuthResponseErrro`, error)
+  } finally {
+    if (responseUrl) {
+      return redirect(responseUrl)
+    } else {
+      toast.error(responseMessage)
+    }
+  }
+}
 
 export function SignOut() {
   return (
-    <Button
-      className={'flex items-center rounded-md mx-auto'}
-      onClick={async () => {
-        document.cookie =
-          'canAuthenticate=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-        logOut()
-      }}
-      title='Sign Out'
-    >
-      <IconLogout2 className='w-6 h-6 mr-2 stroke-blue-600' />
-      <span>Sign Out</span>
-    </Button>
+    <form action={handleSignOut}>
+      <Button
+        className={'flex items-center rounded-md mx-auto'}
+        type='submit'
+        title='Sign Out'
+      >
+        <IconLogout2 className='w-6 h-6 mr-2 stroke-blue-600' />
+        <span>Sign Out</span>
+      </Button>
+    </form>
   )
 }
 
 export function SignIn() {
   return (
-    <Button
-      type='button'
-      className={`flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md`}
-      onClick={async () => {
-        const res = await getGoogleOauthConsentUrl()
-        if (res.url) {
-          window.location.href = res.url
-        } else {
-          toast(res.error ?? 'Failed to Login. Please try again later! 😢', {
-            icon: <Error className='inline-block' />,
-            position: 'bottom-center',
-            className: 'text-center rtl select-none',
-            style: {
-              backgroundColor: '#FDE7E7',
-              color: '#C53030',
-              border: '1px solid #C53030',
-              gap: '1.5rem',
-              textAlign: 'justify'
-            }
-          })
-        }
-      }}
-      withArrow
-    >
-      <IconBrandGoogle className='w-6 h-6 mr-2' />
-      <span>Continue with Google</span>
-    </Button>
+    <form action={handleSignIn}>
+      <Button
+        type='submit'
+        className={`flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md`}
+      >
+        <IconBrandGoogle className='w-6 h-6 mr-2' />
+        <span>Continue with Google</span>
+      </Button>
+    </form>
   )
 }

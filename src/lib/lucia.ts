@@ -20,7 +20,12 @@ export const getUser = async () => {
   if (!sessionId) {
     return null
   }
+
   const { session, user } = await lucia.validateSession(sessionId)
+  if (!user || !session) {
+    return null
+  }
+
   try {
     if (session && session.fresh) {
       // refreshing their session cookie
@@ -34,7 +39,7 @@ export const getUser = async () => {
   } catch (error) {}
   const dbUser = await database.user.findUnique({
     where: {
-      id: user?.id
+      id: user.id
     },
     select: {
       name: true,

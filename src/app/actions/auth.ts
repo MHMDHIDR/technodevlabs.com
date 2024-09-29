@@ -1,10 +1,11 @@
 'use server'
 
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 import { generateCodeVerifier, generateState } from 'arctic'
 import { googleOAuthClient } from '@/lib/google-oauth'
 import { lucia } from '@/lib/lucia'
-import { redirect } from 'next/navigation'
+import type { GoogleOauthConsentUrlResponse } from '@/types'
 
 export const logOut = async () => {
   const sessionCookie = lucia.createBlankSessionCookie()
@@ -12,25 +13,38 @@ export const logOut = async () => {
   return redirect('/auth')
 }
 
-export const getGoogleOauthConsentUrl = async () => {
-  try {
-    const state = generateState()
-    const codeVerifier = generateCodeVerifier()
+/**
+ * Get the Google OAuth consent URL
+ * @returns {Promise<GoogleOauthConsentUrlResponse>}
+ */
+export const getGoogleOauthConsentUrl =
+  async (): Promise<GoogleOauthConsentUrlResponse> => {
+    try {
+      const state = generateState()
+      const codeVerifier = generateCodeVerifier()
 
-    cookies().set('codeVerifier', codeVerifier, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
-    })
-    cookies().set('state', state, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
-    })
+      cookies().set('codeVerifier', codeVerifier, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production'
+      })
+      cookies().set('state', state, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production'
+      })
 
-    const authUrl = await googleOAuthClient.createAuthorizationURL(state, codeVerifier, {
-      scopes: ['email', 'profile']
-    })
-    return { success: true, url: authUrl.toString() }
-  } catch (error) {
-    return { success: false, error: 'Something went wrong' }
+      const authUrl = await googleOAuthClient.createAuthorizationURL(
+        state,
+        codeVerifier,
+        {
+          scopes: ['email', 'profile']
+        }
+      )
+      return {
+        success: true,
+        url: authUrl.toString(),
+        message: 'Successfully Logged In!'
+      }
+    } catch (error) {
+      return { success: false, url: '', message: 'Something went wrong!' }
+    }
   }
-}
