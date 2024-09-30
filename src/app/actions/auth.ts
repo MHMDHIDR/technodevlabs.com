@@ -7,7 +7,11 @@ import { googleOAuthClient } from '@/lib/google-oauth'
 import { lucia } from '@/lib/lucia'
 import type { GoogleOauthConsentUrlResponse } from '@/types'
 
-export const logOut = async () => {
+/**
+ *  Log out the user
+ * @returns {Promise<void>}
+ */
+export async function logOut(): Promise<void> {
   const sessionCookie = lucia.createBlankSessionCookie()
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
   cookies().delete('can-authenticate')

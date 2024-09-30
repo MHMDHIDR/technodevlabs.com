@@ -68,11 +68,9 @@ export function DashboardSidebar({ user }: { user: User }) {
               label: 'Sign Out',
               href: '',
               type: 'button',
-              icon: <IconLogout2 className='w-6 h-6 mr-2 stroke-blue-600' />
+              icon: <IconLogout2 className='w-6 h-6 mr-2 stroke-red-600' />
             }}
-            onClick={async () => {
-              await logOut()
-            }}
+            onClick={async () => await logOut()}
           />
           <SidebarLink
             link={{
