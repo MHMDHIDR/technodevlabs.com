@@ -1,15 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { User } from 'next-auth'
 import Image from 'next/image'
-import { IconLogout2, IconBrandTabler, IconBook, IconCode } from '@tabler/icons-react'
+import { useUser, useClerk } from '@clerk/nextjs'
+import { IconBrandTabler, IconBook, IconCode, IconLogout2 } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
-import { signOut } from 'next-auth/react'
+import { APP_TITLE } from '@/data/constants'
 import { deleteCookieAction } from '@/app/actions/delete-cookie'
 
-export function DashboardSidebar({ user }: { user: User }) {
+export function DashboardSidebar() {
   const links = [
     {
       label: 'Dashboard',
@@ -33,59 +32,53 @@ export function DashboardSidebar({ user }: { user: User }) {
       )
     }
   ]
+  const { isLoaded, isSignedIn, user } = useUser()
+  const { signOut } = useClerk()
   const [open, setOpen] = useState(false)
+
+  if (!isLoaded || !isSignedIn) {
+    return null
+  }
 
   return !user ? null : (
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className='justify-between gap-10'>
         <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-          {open ? (
-            <div className='flex gap-x-2'>
-              <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
-              <span
-                className={`[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl`}
-              >
-                TechnoDevLabs
-              </span>
-            </div>
-          ) : (
-            <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
-          )}
-          <div className='mt-8 flex flex-col gap-2'>
+          <div className='flex flex-col gap-2'>
             {links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
             ))}
           </div>
         </div>
-        <div>
-          <SidebarLink
-            link={{
-              label: 'Sign Out',
-              href: '',
-              type: 'button',
-              icon: <IconLogout2 className='w-6 h-6 mr-2 stroke-red-600' />
-            }}
-            onClick={async () => {
-              try {
-                await deleteCookieAction({ name: 'can-authenticate' })
-                await signOut({ redirect: true, callbackUrl: '/auth' })
-              } catch (error) {
-                console.error(error)
-              }
-            }}
-          />
 
+        <div className='mt-8 flex flex-col gap-2'>
+          <button
+            className='flex items-center justify-start gap-2 group/sidebar py-2'
+            onClick={async () => {
+              await deleteCookieAction({ name: 'can-authenticate' })
+              await signOut()
+            }}
+          >
+            <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
+            <span
+              className={`text-neutral-700 dark:text-neutral-200 text-sm transition-opacity duration-500 ${
+                open ? 'opacity-100 left-0' : 'opacity-0 absolute -left-40'
+              }`}
+            >
+              Sign Out
+            </span>
+          </button>
           <SidebarLink
             link={{
-              label: user.name ?? APP_TITLE,
+              label: user.fullName ?? APP_TITLE,
               href: '/dashboard',
               icon: (
                 <Image
-                  src={user.image ?? '/images/logo.png'}
+                  src={user.imageUrl ?? '/images/logo.png'}
                   className='h-7 w-7 flex-shrink-0 rounded-full'
                   width={50}
                   height={50}
-                  alt={user.name ?? APP_TITLE}
+                  alt={user.username ?? APP_TITLE}
                 />
               )
             }}
