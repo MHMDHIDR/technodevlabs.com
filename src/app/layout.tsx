@@ -1,8 +1,6 @@
 import { ReactNode } from 'react'
 import { Cairo as FontSans } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/react'
 import { Providers } from '@/app/providers'
-import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 import './globals.css'
 
@@ -71,11 +69,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers>
-          {children}
-          <Analytics />
-          <Toaster />
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

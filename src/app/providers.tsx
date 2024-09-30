@@ -1,5 +1,7 @@
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ClerkProvider, ClerkLoaded } from '@clerk/nextjs'
+import { Analytics } from '@vercel/analytics/react'
+import { Toaster } from '@/components/ui/sonner'
 import type { ThemeProviderProps } from 'next-themes/dist/types'
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -8,6 +10,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ClerkLoaded>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           {children}
+
+          <Analytics />
+          <Toaster />
         </ThemeProvider>
       </ClerkLoaded>
     </ClerkProvider>
