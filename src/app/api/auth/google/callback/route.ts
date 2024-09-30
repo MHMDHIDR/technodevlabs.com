@@ -7,70 +7,63 @@ import { NextRequest } from 'next/server'
 
 // http://localhost:3000/api/auth/google/callback
 export async function GET(req: NextRequest, res: Response) {
-  const url = req.nextUrl
-  const code = url.searchParams.get('code')
-  const state = url.searchParams.get('state')
+  try {
+    const url = req.nextUrl
+    const code = url.searchParams.get('code')
+    const state = url.searchParams.get('state')
 
-  if (!code || !state) {
-    console.error('no code or state')
-    return new Response('Invalid Request', { status: 400 })
-  }
-
-  const codeVerifier = cookies().get('codeVerifier')?.value
-  const savedState = cookies().get('state')?.value
-
-  if (!codeVerifier || !savedState) {
-    console.error('no code verifier or state')
-    return new Response('Invalid Request', { status: 400 })
-  }
-
-  if (state !== savedState) {
-    console.error('state mismatch')
-    return new Response('Invalid Request', { status: 400 })
-  }
-
-  const { accessToken } = await googleOAuthClient.validateAuthorizationCode(
-    code,
-    codeVerifier
-  )
-  const googleResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
+    if (!code || !state) {
+      return new Response('Invalid Request: Missing code or state', { status: 400 })
     }
-  })
 
-  const googleData = (await googleResponse.json()) as {
-    id: string
-    email: string
-    name: string
-    picture: string
-  }
+    const codeVerifier = cookies().get('codeVerifier')?.value
+    const savedState = cookies().get('state')?.value
 
-  let userId: string = ''
-  // if the email exists in our record, we can create a cookie for them and sign them in
-  // if the email doesn't exist, we create a new user, then craete cookie to sign them in
-
-  const existingUser = await database.user.findUnique({
-    where: {
-      email: googleData.email
+    if (!codeVerifier || !savedState || state !== savedState) {
+      return new Response('Invalid Request: Verification failed', { status: 400 })
     }
-  })
-  if (existingUser) {
-    userId = existingUser.id
-  } else {
-    const user = await database.user.create({
-      data: {
+
+    // Validate the authorization code with Google OAuth
+    const { accessToken } = await googleOAuthClient.validateAuthorizationCode(
+      code,
+      codeVerifier
+    )
+
+    // Fetch user data from Google API
+    const googleResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    })
+
+    if (!googleResponse.ok) {
+      return new Response('Failed to fetch user info from Google', { status: 500 })
+    }
+
+    const googleData = (await googleResponse.json()) as {
+      id: string
+      email: string
+      name: string
+      picture: string
+    }
+
+    // Check if user exists and create session
+    const user = await database.user.upsert({
+      where: { email: googleData.email },
+      create: {
         name: googleData.name,
         email: googleData.email,
         picture: googleData.picture
-      }
+      },
+      update: {}
     })
-    userId = user.id
+
+    // Create session and set session cookie
+    const session = await lucia.createSession(user.id, {})
+    const sessionCookie = lucia.createSessionCookie(session.id)
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+
+    return redirect('/dashboard')
+  } catch (error) {
+    console.error('Error in Google OAuth callback:', error)
+    return new Response('Internal Server Error', { status: 500 })
   }
-
-  const session = await lucia.createSession(userId, {})
-  const sessionCookie = lucia.createSessionCookie(session.id)
-  cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-
-  return redirect('/dashboard')
 }
