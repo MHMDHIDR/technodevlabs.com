@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
 import Layout from '@/components/custom/layout'
-import { Paper, Book, Chat, NotFoundIcon } from '@/components/custom/icons'
+import { NotFoundIcon } from '@/components/custom/icons'
 import { Button } from '@/components/custom/button'
 import { Block } from '@/components/custom/block'
 
@@ -34,14 +35,14 @@ export default function NotFound() {
               href='/projects'
               blockLabel='Projects'
               blockDescription='Dive into our projects to see our latest projects.'
-              blockIcon={<Paper />}
+              blockIcon={<IconCode />}
             ></Block>
 
             <Block
               href='/posts'
               blockLabel='Our Blog'
               blockDescription='Read the latest posts on our blog.'
-              blockIcon={<Book />}
+              blockIcon={<IconBook />}
             >
               Read the latest posts
             </Block>
@@ -50,7 +51,7 @@ export default function NotFound() {
               href='/contact'
               blockLabel='Chat to Us'
               blockDescription='Can’t find what you’re looking for? Chat to our team.'
-              blockIcon={<Chat />}
+              blockIcon={<IconMessage />}
             >
               Chat to our team
             </Block>

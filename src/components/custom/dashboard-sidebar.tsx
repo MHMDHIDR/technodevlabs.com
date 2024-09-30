@@ -2,13 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import {
-  IconLogout2,
-  IconArrowLeft,
-  IconBrandTabler,
-  IconSettings,
-  IconUserBolt
-} from '@tabler/icons-react'
+import { IconLogout2, IconBrandTabler, IconBook, IconCode } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { logOut } from '@/app/actions/auth'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
@@ -27,14 +21,14 @@ export function DashboardSidebar({ user }: { user: User }) {
       label: 'Projects',
       href: '/dashboard/projects',
       icon: (
-        <IconUserBolt className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
+        <IconCode className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
       )
     },
     {
       label: 'Posts',
       href: '/dashboard/posts',
       icon: (
-        <IconSettings className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
+        <IconBook className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
       )
     }
   ]
