@@ -45,3 +45,9 @@ export type GoogleOauthConsentUrlResponse = {
   url: string
   message: string
 }
+
+export type User = {
+  name: string
+  email: string
+  picture: string
+} | null

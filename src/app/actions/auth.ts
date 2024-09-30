@@ -10,6 +10,7 @@ import type { GoogleOauthConsentUrlResponse } from '@/types'
 export const logOut = async () => {
   const sessionCookie = lucia.createBlankSessionCookie()
   cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
+  cookies().delete('can-authenticate')
   return redirect('/auth')
 }
 

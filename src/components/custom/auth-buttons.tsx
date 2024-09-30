@@ -1,11 +1,9 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { IconBrandGoogle } from '@tabler/icons-react'
-import { IconLogout2 } from '@tabler/icons-react'
+import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
 import { Button } from '@/components/custom/button'
 import { getGoogleOauthConsentUrl, logOut } from '@/app/actions/auth'
 import type { GoogleOauthConsentUrlResponse } from '@/types'
-import { toast } from 'sonner'
 
 async function handleSignOut() {
   'use server'
@@ -32,13 +30,12 @@ async function handleSignIn(): Promise<void> {
     responseUrl = googleOAuthResponse.url
   } catch (error) {
     responseMessage = `Opps! Something went wrong`
-    toast.error(responseMessage)
     console.error(`AuthResponseErrro`, error)
   } finally {
     if (responseUrl) {
       return redirect(responseUrl)
     } else {
-      toast.error(responseMessage)
+      console.error(responseMessage)
     }
   }
 }
