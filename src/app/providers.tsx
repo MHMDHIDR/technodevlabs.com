@@ -1,12 +1,16 @@
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import { ClerkProvider } from '@clerk/nextjs'
+import { ClerkProvider, ClerkLoaded } from '@clerk/nextjs'
 import type { ThemeProviderProps } from 'next-themes/dist/types'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-      <ClerkProvider afterSignOutUrl={`/auth`}>{children}</ClerkProvider>
-    </ThemeProvider>
+    <ClerkProvider afterSignOutUrl={`/auth`}>
+      <ClerkLoaded>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          {children}
+        </ThemeProvider>
+      </ClerkLoaded>
+    </ClerkProvider>
   )
 }
 
