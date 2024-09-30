@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Cairo as FontSans } from 'next/font/google'
 import { Providers } from '@/app/providers'
 import { cn } from '@/lib/utils'
+import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
@@ -63,14 +64,16 @@ export default function RootLayout({
           content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
         />
       </head>
-      <body
-        className={cn(
-          'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950',
-          fontSans.variable
-        )}
-      >
-        <Providers>{children}</Providers>
-      </body>
+      <ClerkProvider afterSignOutUrl={`/auth`}>
+        <body
+          className={cn(
+            'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950',
+            fontSans.variable
+          )}
+        >
+          <Providers>{children}</Providers>
+        </body>
+      </ClerkProvider>
     </html>
   )
 }
