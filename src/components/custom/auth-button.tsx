@@ -1,8 +1,8 @@
-import { getUser } from '@/lib/lucia'
+import { auth } from '@/auth'
 import { SignIn, SignOut } from '@/components/custom/auth-buttons'
 
 export default async function AuthButton() {
-  const user = await getUser()
+  const session = await auth()
 
-  return user ? <SignOut /> : <SignIn />
+  return !session || !session.user ? <SignIn /> : <SignOut />
 }

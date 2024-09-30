@@ -34,12 +34,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refreshToken      String? @db.String // Changed to CamelCase
-  accessToken       String? @db.String // Changed to CamelCase
-  expiresAt         Int? // Changed to CamelCase
-  tokenType         String? // Changed to CamelCase
+  refreshToken      String? @db.String
+  accessToken       String? @db.String
+  expiresAt         Int?
+  tokenType         String?
   scope             String?
-  idToken           String? @db.String // Changed to CamelCase
+  idToken           String? @db.String
   sessionState      String?
 
   createdAt DateTime @default(now())

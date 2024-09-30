@@ -14,7 +14,7 @@
     "studio": "npx prisma studio"
   },
   "dependencies": {
-    "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@auth/prisma-adapter": "^2.5.3",
     "@prisma/client": "^5.20.0",
     "@radix-ui/react-label": "^2.1.0",
     "@react-email/components": "^0.0.25",
@@ -27,8 +27,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.8.0",
-    "lucia": "^3.2.0",
     "next": "14.2.13",
+    "next-auth": "5.0.0-beta.17",
     "next-themes": "^0.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

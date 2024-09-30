@@ -2,47 +2,18 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
 import { Button } from '@/components/custom/button'
-import { getGoogleOauthConsentUrl, logOut } from '@/app/actions/auth'
-import type { GoogleOauthConsentUrlResponse } from '@/types'
-
-async function handleSignOut() {
-  'use server'
-
-  cookies().delete('can-authenticate')
-  await logOut()
-}
-
-async function handleSignIn(): Promise<void> {
-  'use server'
-
-  let responseUrl: GoogleOauthConsentUrlResponse['url'] = ''
-  let responseMessage: GoogleOauthConsentUrlResponse['message'] = ''
-
-  try {
-    const googleOAuthResponse = await getGoogleOauthConsentUrl()
-
-    // If the response is not successful
-    if (!googleOAuthResponse.success) {
-      responseMessage = googleOAuthResponse.message
-      throw new Error(responseMessage)
-    }
-
-    responseUrl = googleOAuthResponse.url
-  } catch (error) {
-    responseMessage = `Opps! Something went wrong`
-    console.error(`AuthResponseErrro`, error)
-  } finally {
-    if (responseUrl) {
-      return redirect(responseUrl)
-    } else {
-      console.error(responseMessage)
-    }
-  }
-}
+import { signIn, signOut } from '@/auth'
 
 export function SignOut() {
   return (
-    <form action={handleSignOut}>
+    <form
+      action={async () => {
+        'use server'
+        cookies().delete('can-authenticate')
+        await signOut()
+        return redirect('/auth')
+      }}
+    >
       <Button
         className={'flex items-center rounded-md mx-auto'}
         type='submit'
@@ -57,7 +28,12 @@ export function SignOut() {
 
 export function SignIn() {
   return (
-    <form action={handleSignIn}>
+    <form
+      action={async () => {
+        'use server'
+        await signIn('google')
+      }}
+    >
       <Button
         type='submit'
         className={`flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md`}

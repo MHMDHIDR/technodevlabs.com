@@ -40,11 +40,11 @@ export type BlockProps = {
   children?: string
 }
 
-export type GoogleOauthConsentUrlResponse = {
-  success: boolean
-  url: string
-  message: string
-}
+// export type GoogleOauthConsentUrlResponse = {
+//   success: boolean
+//   url: string
+//   message: string
+// }
 
 export type User = {
   name: string
