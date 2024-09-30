@@ -10,7 +10,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ClerkLoaded>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           {children}
-
           <Analytics />
           <Toaster />
         </ThemeProvider>
