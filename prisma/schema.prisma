@@ -7,25 +7,20 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum UserRole {
-  USER
-  ADMIN
-}
-
 model User {
-  id             String          @id @default(auto()) @map("_id") @db.ObjectId
-  name           String?
-  email          String?         @unique
-  emailVerified  DateTime?
-  image          String?
-  accounts       Account[]
-  sessions       Session[]
-  Authenticators Authenticator[]
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role      UserRole @default(USER) // Include the UserRole field
-  posts     Post[] // Changed "Post" to "posts" to follow naming conventions
+  Post      Post[]
 }
 
 model Account {
@@ -34,13 +29,13 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refreshToken      String? @db.String
-  accessToken       String? @db.String
-  expiresAt         Int?
-  tokenType         String?
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
   scope             String?
-  idToken           String? @db.String
-  sessionState      String?
+  id_token          String? @db.String
+  session_state     String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -84,6 +79,11 @@ model Authenticator {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, credentialID])
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }
 
 model Post {

@@ -1,10 +1,10 @@
+import { auth } from '@/auth'
 import { notFound } from 'next/navigation'
-import { getUser } from '@/lib/lucia'
 
 export default async function DasboardPage() {
-  const user = await getUser()
+  const session = await auth()
 
-  if (!user) {
+  if (!session || !session.user) {
     notFound()
   }
 

@@ -1,25 +1,26 @@
-import NextAuth, { DefaultSession } from 'next-auth'
-import Google from 'next-auth/providers/google'
+import NextAuth from 'next-auth'
+import authConfig from './auth.config'
+import { prisma } from '@/lib/db'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import { prisma } from '@/lib/prisma'
 
-// Extend the NextAuth session to include the user ID
-declare module 'next-auth' {
-  interface Session {
-    user: {
-      id: string // Add the user's ID to the session
-    } & DefaultSession['user'] // Keep the default session user properties
-  }
-}
-
-// Initialize NextAuth with the Prisma adapter and Google provider
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  trustHost: true,
   adapter: PrismaAdapter(prisma),
-  providers: [Google],
+  secret: process.env.AUTH_SECRET, // Used to sign the session cookie so AuthJS can verify the session
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60 // 30 days in seconds (this value is also the default)
+  },
+  pages: {
+    signIn: '/auth'
+  },
   callbacks: {
-    session({ session, user }) {
-      session.user.id = user.id
-      return session
+    async signIn({ account, profile }) {
+      if (account && account.provider === 'google') {
+        return profile?.email_verified === true ? true : false
+      }
+      return true
     }
-  }
+  },
+  ...authConfig
 })

@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
-import { getUser } from '@/lib/lucia'
+import { auth } from '@/auth'
 
 export default async function DashboardProjects() {
-  const user = await getUser()
+  const session = await auth()
 
-  if (!user) {
+  if (!session || !session.user) {
     notFound()
   }
 

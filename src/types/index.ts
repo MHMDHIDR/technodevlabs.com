@@ -39,15 +39,3 @@ export type BlockProps = {
   blockIcon: JSX.Element
   children?: string
 }
-
-// export type GoogleOauthConsentUrlResponse = {
-//   success: boolean
-//   url: string
-//   message: string
-// }
-
-export type User = {
-  name: string
-  email: string
-  picture: string
-} | null

@@ -1,12 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { User } from 'next-auth'
 import Image from 'next/image'
 import { IconLogout2, IconBrandTabler, IconBook, IconCode } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
-import { logOut } from '@/app/actions/auth'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
-import type { User } from '@/types'
+import { signOut } from 'next-auth/react'
+import { deleteCookieAction } from '@/app/actions/delete-cookie'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const links = [
@@ -64,19 +65,27 @@ export function DashboardSidebar({ user }: { user: User }) {
               type: 'button',
               icon: <IconLogout2 className='w-6 h-6 mr-2 stroke-red-600' />
             }}
-            onClick={async () => await logOut()}
+            onClick={async () => {
+              try {
+                await deleteCookieAction({ name: 'can-authenticate' })
+                await signOut({ redirect: true, callbackUrl: '/auth' })
+              } catch (error) {
+                console.error(error)
+              }
+            }}
           />
+
           <SidebarLink
             link={{
-              label: user.name,
+              label: user.name ?? APP_TITLE,
               href: '/dashboard',
               icon: (
                 <Image
-                  src={user.picture ?? '/images/logo.png'}
+                  src={user.image ?? '/images/logo.png'}
                   className='h-7 w-7 flex-shrink-0 rounded-full'
                   width={50}
                   height={50}
-                  alt={user.name ?? 'Avatar'}
+                  alt={user.name ?? APP_TITLE}
                 />
               )
             }}

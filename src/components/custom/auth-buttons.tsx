@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
 import { Button } from '@/components/custom/button'
 import { signIn, signOut } from '@/auth'
@@ -10,8 +9,7 @@ export function SignOut() {
       action={async () => {
         'use server'
         cookies().delete('can-authenticate')
-        await signOut()
-        return redirect('/auth')
+        await signOut({ redirectTo: '/auth' })
       }}
     >
       <Button
@@ -31,7 +29,9 @@ export function SignIn() {
     <form
       action={async () => {
         'use server'
-        await signIn('google')
+        await signIn('google', {
+          redirectTo: '/dashboard'
+        })
       }}
     >
       <Button

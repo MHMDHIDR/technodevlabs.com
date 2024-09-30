@@ -164,7 +164,7 @@ export const SidebarLink = ({
   link: Links
   className?: string
   onClick?: () => void
-  props?: LinkProps
+  props?: LinkProps | React.ComponentProps<'button'>
 }) => {
   const { open, animate } = useSidebar()
 
@@ -175,6 +175,7 @@ export const SidebarLink = ({
         className
       )}
       onClick={onClick}
+      {...props}
     >
       {link.icon}
 
