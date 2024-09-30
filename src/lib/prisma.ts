@@ -1,6 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 
-const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined }
+const globalForPrisma = global as unknown as {
+  prisma: PrismaClient | undefined
+}
 
 export const database =
   globalForPrisma.prisma ??
@@ -8,8 +10,9 @@ export const database =
     log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
   })
 
-// Prevent multiple instances in development
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = database
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = database
+}
 
 // import { PrismaClient } from '@prisma/client'
 
