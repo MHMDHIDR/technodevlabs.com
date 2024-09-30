@@ -1,7 +1,7 @@
 datasource db {
   provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_PRISMA_URL")
 }
 
 generator client {
@@ -29,9 +29,8 @@ model User {
 model Session {
   id        String   @id @default(cuid())
   userId    String
-  expiresAt DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Post {
