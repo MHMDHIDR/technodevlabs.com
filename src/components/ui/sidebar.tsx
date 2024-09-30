@@ -1,7 +1,8 @@
 'use client'
+
+import React, { useState, createContext, useContext } from 'react'
 import { cn } from '@/lib/utils'
 import Link, { LinkProps } from 'next/link'
-import React, { useState, createContext, useContext } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { IconMenu2, IconX } from '@tabler/icons-react'
 
@@ -88,7 +89,7 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          'h-full px-4 py-4 hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0',
+          'h-full px-4 py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0',
           className
         )}
         animate={{
@@ -120,7 +121,7 @@ export const MobileSidebar = ({
       >
         <div className='flex justify-end z-20 w-full'>
           <IconMenu2
-            className='text-neutral-800 dark:text-neutral-200'
+            className='text-neutral-800 dark:text-neutral-200 cursor-pointer hover:text-purple-500 dark:hover:text-purple-400'
             onClick={() => setOpen(!open)}
           />
         </div>
