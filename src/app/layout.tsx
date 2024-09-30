@@ -63,6 +63,10 @@ export default function RootLayout({
           property='twitter:description'
           content='TechnoDevLabs.com is a software development agency that provides software development services to clients mainly towards the middle-eastern.'
         />
+        <meta
+          http-equiv='Content-Security-Policy'
+          content="default-src 'self' ; script-src 'self'; style-src 'self' 'unsafe-inline'; script-src-elem *; connect-src *; worker-src blob: *; img-src *"
+        />
       </head>
       <ClerkProvider afterSignOutUrl={`/auth`}>
         <body
