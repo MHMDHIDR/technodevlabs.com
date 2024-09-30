@@ -16,37 +16,25 @@ export const lucia = new Lucia(adapter, {
   }
 })
 
-export const getUser = async (): Promise<User> => {
+export const getUser = async (): Promise<User | null> => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value || null
-  if (!sessionId) {
-    return null
-  }
-
-  const { session, user } = await lucia.validateSession(sessionId)
-  if (!user || !session) {
-    return null
-  }
+  if (!sessionId) return null
 
   try {
-    if (session && session.fresh) {
-      // refreshing their session cookie
+    const { session, user } = await lucia.validateSession(sessionId)
+    if (!user || !session) return null
+
+    if (session.fresh) {
       const sessionCookie = lucia.createSessionCookie(session.id)
       cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
     }
-    if (!session) {
-      const sessionCookie = lucia.createBlankSessionCookie()
-      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
-    }
-  } catch (error) {}
-  const dbUser = await database.user.findUnique({
-    where: {
-      id: user.id
-    },
-    select: {
-      name: true,
-      email: true,
-      picture: true
-    }
-  })
-  return dbUser
+
+    return await database.user.findUnique({
+      where: { id: user.id },
+      select: { name: true, email: true, picture: true }
+    })
+  } catch (error) {
+    console.error('Error in getUser:', error)
+    return null
+  }
 }
