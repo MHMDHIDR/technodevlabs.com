@@ -1,7 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_PRISMA_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -14,7 +13,7 @@ enum UserRole {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id") @db.ObjectId
   email     String   @unique
   name      String
   picture   String
@@ -27,18 +26,19 @@ model User {
 }
 
 model Session {
-  id        String   @id @default(cuid())
-  userId    String
-  expiresAt DateTime
-  user      User     @relation(fields: [userId], references: [id])
+  id        String   @id @default(cuid()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  expiresAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String   @id @default(cuid()) @map("_id") @db.ObjectId
   title     String
   content   String
   published Boolean  @default(false)
-  authorId  String
+  authorId  String   @db.ObjectId
   createdAt DateTime @default(now())
 
   author User @relation(fields: [authorId], references: [id])
