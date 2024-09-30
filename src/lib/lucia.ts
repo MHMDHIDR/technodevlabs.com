@@ -16,6 +16,23 @@ export const lucia = new Lucia(adapter, {
   }
 })
 
+const retryPrismaQuery = async <T>(
+  fn: () => Promise<T>,
+  retries: number = 3
+): Promise<T | null> => {
+  try {
+    return await fn()
+  } catch (error) {
+    if (retries > 0) {
+      console.warn(`Retrying Prisma query, attempts left: ${retries}`)
+      return retryPrismaQuery(fn, retries - 1)
+    } else {
+      console.error('Prisma query failed after retries:', error)
+      return null
+    }
+  }
+}
+
 export const getUser = async (): Promise<User | null> => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value || null
   if (!sessionId) return null
@@ -29,10 +46,12 @@ export const getUser = async (): Promise<User | null> => {
       cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes)
     }
 
-    return await database.user.findUnique({
-      where: { id: user.id },
-      select: { name: true, email: true, picture: true }
-    })
+    return await retryPrismaQuery(() =>
+      database.user.findUnique({
+        where: { id: user.id },
+        select: { name: true, email: true, picture: true }
+      })
+    )
   } catch (error) {
     console.error('Error in getUser:', error)
     return null
