@@ -8,7 +8,11 @@ async function authenticate(formData: FormData) {
   'use server'
 
   if (formData.get('password') === 'technodevlabs') {
-    cookies().set('can-authenticate', 'true', { httpOnly: true, secure: true })
+    cookies().set('can-authenticate', 'true', {
+      httpOnly: true,
+      secure: true,
+      path: process.env.NEXT_PUBLIC_URL
+    })
   }
 }
 
