@@ -1,24 +1,27 @@
+import Link from 'next/link'
+import { IconPlus } from '@tabler/icons-react'
 import { Button } from '@/components/custom/button'
 import EmptyState from '@/components/custom/empty-state'
 import { getPosts } from '@/data/posts'
-import { IconPlus } from '@tabler/icons-react'
-import Link from 'next/link'
 
 export default async function DashboardPosts() {
   const posts = await getPosts()
 
   return (
     <section className='flex flex-col'>
-      <h3 className='text-center'>Our Posts</h3>
+      <h3 className='text-center text-2xl font-bold mb-6'>Our Posts</h3>
 
-      {/* Add <Button> on the left side of the page with tailwindcss */}
-      <Link href='/dashboard/posts/add' className='self-end'>
-        <Button className='flex items-center px-1.5'>
-          <IconPlus /> <span>Add</span>
-        </Button>
-      </Link>
+      {/* Add <Button> on the right side of the page with tailwindcss */}
+      <div className='mb-6 self-end'>
+        <Link href='/dashboard/posts/add'>
+          <Button className='flex items-center space-x-2 px-4 py-2'>
+            <IconPlus className='h-5 w-5' />
+            <span>Add Post</span>
+          </Button>
+        </Link>
+      </div>
 
-      {!posts ? (
+      {!posts || posts.length === 0 ? (
         <EmptyState>
           <Link href='/dashboard/posts/add'>
             <Button className='flex items-center'>
@@ -28,20 +31,25 @@ export default async function DashboardPosts() {
           </Link>
         </EmptyState>
       ) : (
-        posts.map(post => (
-          <div
-            key={post.id}
-            className='flex items-center justify-between p-2 border-b gap-x-3'
-          >
-            <Link href={`/dashboard/posts/${post.id}`} className=''>
-              <h4 className='text-lg font-semibold'>{post.title}</h4>
-              <p
-                className='text-sm'
-                dangerouslySetInnerHTML={{ __html: post.content.slice(0, 150) }}
-              />
+        <div className='grid grid-cols-1 gap-6'>
+          {posts.map(post => (
+            <Link
+              key={post.id}
+              href={`/dashboard/posts/${post.id}`}
+              className='group block'
+            >
+              <div className='bg-white shadow-lg rounded-lg p-5 hover:shadow-xl border border-gray-200 hover:border-blue-500 duration-300'>
+                <h4 className='text-lg font-semibold group-hover:text-blue-600 transition duration-300'>
+                  {post.title}
+                </h4>
+                <div
+                  className='text-sm text-gray-700 mt-2'
+                  dangerouslySetInnerHTML={{ __html: post.content.slice(0, 150) + '...' }}
+                />
+              </div>
             </Link>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </section>
   )

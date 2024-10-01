@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
@@ -10,6 +10,7 @@ import { SubmitButton } from '@/app/contact/submit-button'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewPostAction } from '@/app/actions/add-new-post'
+import { getPostAction } from '@/app/actions/get-post'
 
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) {
@@ -29,7 +30,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
+          editor.isActive('heading', { level: 1 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
@@ -40,7 +41,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
+          editor.isActive('heading', { level: 2 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
@@ -51,7 +52,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
+          editor.isActive('heading', { level: 3 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
@@ -135,16 +136,28 @@ const MenuBar = ({ editor }: { editor: any }) => {
   )
 }
 
-export default function DashboardPostAdd() {
+export default function DashboardPostEdit({
+  params: { postId }
+}: {
+  params: { postId: string }
+}) {
   const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
 
-  /**
-   * Using the fantastic tiptap editor
-   * @see https://tiptap.dev/docs/examples/basics/default-text-editor
-   */
+  useEffect(() => {
+    const fetchPost = async () => {
+      const post = await getPostAction({ postId })
+      if (!post) return
+
+      setTitle(post.title)
+      setContent(post.content)
+    }
+    fetchPost()
+  }, [postId]) // Make sure to include postId as a dependency
+
   const editor = useEditor({
     extensions: [StarterKit, Image],
-    content: '',
+    content: content,
     editorProps: {
       attributes: {
         class:
@@ -153,23 +166,28 @@ export default function DashboardPostAdd() {
     }
   })
 
-  // Convert this into a server action with a name of addNewPostAction()
+  // Effect to update the editor content when content state changes
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(content) // Update editor content whenever content state changes
+    }
+  }, [content, editor])
+
   const submitPost = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!editor) return
-    const content = editor.getHTML() ?? ''
+    const content = editor.getHTML()
 
     await addNewPostAction({ title, content })
 
-    // Reset form after submission
     setTitle('')
-    editor?.commands.setContent('')
+    editor.commands.setContent('') // Clear the editor after submission
   }
 
   return (
     <section className='max-w-4xl p-6 mx-auto'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>Add New Post</h3>
+      <h3 className='mb-6 text-2xl font-bold text-center'>Edit New Post</h3>
 
       <form onSubmit={submitPost} className='space-y-6'>
         <LabelInputContainer>
@@ -187,7 +205,8 @@ export default function DashboardPostAdd() {
         <LabelInputContainer>
           <Label htmlFor='content'>Post Content</Label>
           <MenuBar editor={editor} />
-          <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
+          <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
+            {/* EditorContent will render the content here */}
             <EditorContent
               editor={editor}
               className='p-4 bg-neutral-50 dark:bg-neutral-800 min-h-52 text-lg'
@@ -195,7 +214,7 @@ export default function DashboardPostAdd() {
           </div>
         </LabelInputContainer>
 
-        <SubmitButton>Add Post</SubmitButton>
+        <SubmitButton>Edit Post</SubmitButton>
       </form>
     </section>
   )
