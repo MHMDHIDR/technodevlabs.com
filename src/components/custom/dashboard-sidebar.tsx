@@ -3,11 +3,11 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { signOut } from 'next-auth/react'
-import { User } from 'next-auth'
 import { IconBrandTabler, IconBook, IconCode, IconLogout2 } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
-import { deleteCookieAction } from '@/app/actions/delete-cookie'
+import { deleteCookieAction } from '@/app/actions'
+import type { User } from 'next-auth'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const links = [

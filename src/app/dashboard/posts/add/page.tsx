@@ -171,7 +171,10 @@ export default function DashboardPostAdd() {
           <Label htmlFor='content'>Post Content</Label>
           <MenuBar editor={editor} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
-            <EditorContent editor={editor} className='p-2 bg-neutral-800 min-h-52' />
+            <EditorContent
+              editor={editor}
+              className='p-4 bg-neutral-50 dark:bg-neutral-800 min-h-52 text-lg'
+            />
           </div>
         </LabelInputContainer>
 
