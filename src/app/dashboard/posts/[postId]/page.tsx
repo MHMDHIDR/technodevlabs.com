@@ -163,7 +163,8 @@ export default function DashboardPostUpdate({
         class:
           'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
       }
-    }
+    },
+    immediatelyRender: false
   })
 
   // Effect to update the editor content when content state changes

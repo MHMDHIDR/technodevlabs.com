@@ -150,7 +150,8 @@ export default function DashboardPostAdd() {
         class:
           'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
       }
-    }
+    },
+    immediatelyRender: false
   })
 
   // Convert this into a server action with a name of addNewPostAction()
