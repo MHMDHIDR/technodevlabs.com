@@ -154,7 +154,7 @@ export default function DashboardPostAdd() {
   })
 
   // Convert this into a server action with a name of addNewPostAction()
-  const submitPost = async (e: React.FormEvent) => {
+  const addPost = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!editor) return
@@ -171,7 +171,7 @@ export default function DashboardPostAdd() {
     <section className='max-w-4xl p-6 mx-auto'>
       <h3 className='mb-6 text-2xl font-bold text-center'>Add New Post</h3>
 
-      <form onSubmit={submitPost} className='space-y-6'>
+      <form onSubmit={addPost} className='space-y-6'>
         <LabelInputContainer>
           <Label htmlFor='title'>Post Title</Label>
           <Input

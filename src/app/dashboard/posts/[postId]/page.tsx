@@ -9,8 +9,8 @@ import { Input } from '@/components/ui/input'
 import { SubmitButton } from '@/app/contact/submit-button'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
-import { addNewPostAction } from '@/app/actions/add-new-post'
 import { getPostAction } from '@/app/actions/get-post'
+import { updatePostAction } from '@/app/actions/update-post'
 
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) {
@@ -136,7 +136,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
   )
 }
 
-export default function DashboardPostEdit({
+export default function DashboardPostUpdate({
   params: { postId }
 }: {
   params: { postId: string }
@@ -153,7 +153,7 @@ export default function DashboardPostEdit({
       setContent(post.content)
     }
     fetchPost()
-  }, [postId]) // Make sure to include postId as a dependency
+  }, [postId])
 
   const editor = useEditor({
     extensions: [StarterKit, Image],
@@ -173,13 +173,13 @@ export default function DashboardPostEdit({
     }
   }, [content, editor])
 
-  const submitPost = async (e: React.FormEvent) => {
+  const editPost = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!editor) return
     const content = editor.getHTML()
 
-    await addNewPostAction({ title, content })
+    await updatePostAction({ postId, title, content })
 
     setTitle('')
     editor.commands.setContent('') // Clear the editor after submission
@@ -187,9 +187,9 @@ export default function DashboardPostEdit({
 
   return (
     <section className='max-w-4xl p-6 mx-auto'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>Edit New Post</h3>
+      <h3 className='mb-6 text-2xl font-bold text-center select-none'>{title}</h3>
 
-      <form onSubmit={submitPost} className='space-y-6'>
+      <form onSubmit={editPost} className='space-y-6'>
         <LabelInputContainer>
           <Label htmlFor='title'>Post Title</Label>
           <Input
@@ -206,7 +206,6 @@ export default function DashboardPostEdit({
           <Label htmlFor='content'>Post Content</Label>
           <MenuBar editor={editor} />
           <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
-            {/* EditorContent will render the content here */}
             <EditorContent
               editor={editor}
               className='p-4 bg-neutral-50 dark:bg-neutral-800 min-h-52 text-lg'
