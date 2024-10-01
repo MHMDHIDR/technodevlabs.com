@@ -86,22 +86,20 @@ export const DesktopSidebar = ({
 }: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar()
   return (
-    <>
-      <motion.div
-        className={cn(
-          'h-full px-4 py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0',
-          className
-        )}
-        animate={{
-          width: animate ? (open ? '270px' : '60px') : '270px'
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    </>
+    <motion.div
+      className={cn(
+        'h-full px-4 py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0',
+        className
+      )}
+      animate={{
+        width: animate ? (open ? '270px' : '60px') : '270px'
+      }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      {...props}
+    >
+      {children}
+    </motion.div>
   )
 }
 
@@ -112,46 +110,44 @@ export const MobileSidebar = ({
 }: React.ComponentProps<'div'>) => {
   const { open, setOpen } = useSidebar()
   return (
-    <>
-      <div
-        className={cn(
-          'h-10 px-4 py-4 flex flex-row md:hidden  items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full'
-        )}
-        {...props}
-      >
-        <div className='flex justify-end z-20 w-full'>
-          <IconMenu2
-            className='text-neutral-800 dark:text-neutral-200 cursor-pointer hover:text-purple-500 dark:hover:text-purple-400'
-            onClick={() => setOpen(!open)}
-          />
-        </div>
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ x: '-100%', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: '-100%', opacity: 0 }}
-              transition={{
-                duration: 0.3,
-                ease: 'easeInOut'
-              }}
-              className={cn(
-                'fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between',
-                className
-              )}
-            >
-              <div
-                className='absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200'
-                onClick={() => setOpen(!open)}
-              >
-                <IconX />
-              </div>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <div
+      className={cn(
+        'mt-6 h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full'
+      )}
+      {...props}
+    >
+      <div className='z-20 flex justify-end w-full'>
+        <IconMenu2
+          className='cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
+          onClick={() => setOpen(!open)}
+        />
       </div>
-    </>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ x: '-100%', opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: '-100%', opacity: 0 }}
+            transition={{
+              duration: 0.3,
+              ease: 'easeInOut'
+            }}
+            className={cn(
+              'fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between',
+              className
+            )}
+          >
+            <div
+              className='absolute z-50 cursor-pointer right-10 top-10 text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
+              onClick={() => setOpen(!open)}
+            >
+              <IconX />
+            </div>
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 

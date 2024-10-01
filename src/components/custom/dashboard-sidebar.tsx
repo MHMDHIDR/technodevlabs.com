@@ -16,21 +16,21 @@ export function DashboardSidebar({ user }: { user: User }) {
       label: 'Dashboard',
       href: '/dashboard',
       icon: (
-        <IconBrandTabler className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
+        <IconBrandTabler className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     },
     {
       label: 'Projects',
       href: '/dashboard/projects',
       icon: (
-        <IconCode className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
+        <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     },
     {
       label: 'Posts',
       href: '/dashboard/posts',
       icon: (
-        <IconBook className='text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0' />
+        <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     }
   ]
@@ -39,7 +39,7 @@ export function DashboardSidebar({ user }: { user: User }) {
   return !user ? null : (
     <Sidebar open={open} setOpen={setOpen}>
       <SidebarBody className='justify-between gap-10'>
-        <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+        <div className='flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
           <div className='flex flex-col gap-2'>
             {links.map((link, idx) => (
               <SidebarLink key={idx} link={link} />
@@ -47,9 +47,9 @@ export function DashboardSidebar({ user }: { user: User }) {
           </div>
         </div>
 
-        <div className='mt-8 flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 mt-8'>
           <button
-            className='flex items-center justify-start gap-2 group/sidebar py-2'
+            className='flex items-center justify-start gap-2 py-2 group/sidebar'
             onClick={async () => {
               await deleteCookieAction({ name: 'can-authenticate' })
               await signOut()
@@ -72,7 +72,7 @@ export function DashboardSidebar({ user }: { user: User }) {
               icon: (
                 <Image
                   src={user.image ?? '/images/logo.png'}
-                  className='h-7 w-7 flex-shrink-0 rounded-full'
+                  className='flex-shrink-0 rounded-full h-7 w-7'
                   width={50}
                   height={50}
                   alt={user.name ?? APP_TITLE}

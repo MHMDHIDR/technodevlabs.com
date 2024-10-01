@@ -34,7 +34,7 @@ export default function Footer() {
           <div className='col-span-1'>
             <h4 className='font-semibold text-gray-100'>Company</h4>
 
-            <div className='grid mt-3 space-y-3'>
+            <div className='mt-3 grid space-y-3'>
               <div>
                 <Link
                   className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
@@ -66,7 +66,7 @@ export default function Footer() {
           <div className='col-span-1'>
             <h4 className='font-semibold text-gray-100'>Legal</h4>
 
-            <div className='grid mt-3 space-y-3'>
+            <div className='mt-3 grid space-y-3'>
               <div>
                 <Link
                   className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
@@ -90,7 +90,7 @@ export default function Footer() {
             <h4 className='font-semibold text-gray-100'>Our Vision</h4>
 
             <form>
-              <div className='flex flex-col items-center gap-2 py-2 mt-4 text-gray-200 rounded-lg sm:flex-row sm:gap-3'>
+              <div className='flex flex-col items-center py-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3'>
                 <p className='text-justify'>
                   At TechnoDevLabs, we strive to be a trusted partner for businesses in
                   the Middle East, delivering innovative and tailored software solutions
@@ -104,7 +104,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className='grid mt-5 sm:mt-12 gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center'>
+        <div className='mt-5 grid sm:mt-12 gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center'>
           <div className='flex items-center justify-between'>
             <p className='text-sm text-gray-400 dark:text-neutral-400'>
               &copy; {new Date().getFullYear()} TechnoDevLabs. All rights reserved.
