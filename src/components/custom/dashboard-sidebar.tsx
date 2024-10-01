@@ -2,13 +2,15 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { useUser, useClerk } from '@clerk/nextjs'
 import { IconBrandTabler, IconBook, IconCode, IconLogout2 } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
 import { deleteCookieAction } from '@/app/actions/delete-cookie'
+// import { signOut } from '@/auth'
+import { signOut } from 'next-auth/react'
+import { User } from 'next-auth'
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ user }: { user: User }) {
   const links = [
     {
       label: 'Dashboard',
@@ -32,13 +34,7 @@ export function DashboardSidebar() {
       )
     }
   ]
-  const { isLoaded, isSignedIn, user } = useUser()
-  const { signOut } = useClerk()
   const [open, setOpen] = useState(false)
-
-  if (!isLoaded || !isSignedIn) {
-    return null
-  }
 
   return !user ? null : (
     <Sidebar open={open} setOpen={setOpen}>
@@ -68,17 +64,18 @@ export function DashboardSidebar() {
               Sign Out
             </span>
           </button>
+
           <SidebarLink
             link={{
-              label: user.fullName ?? APP_TITLE,
+              label: user.name ?? APP_TITLE,
               href: '/dashboard',
               icon: (
                 <Image
-                  src={user.imageUrl ?? '/images/logo.png'}
+                  src={user.image ?? '/images/logo.png'}
                   className='h-7 w-7 flex-shrink-0 rounded-full'
                   width={50}
                   height={50}
-                  alt={user.username ?? APP_TITLE}
+                  alt={user.name ?? APP_TITLE}
                 />
               )
             }}
