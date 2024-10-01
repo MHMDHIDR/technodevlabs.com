@@ -2,13 +2,12 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { signOut } from 'next-auth/react'
+import { User } from 'next-auth'
 import { IconBrandTabler, IconBook, IconCode, IconLogout2 } from '@tabler/icons-react'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
 import { deleteCookieAction } from '@/app/actions/delete-cookie'
-// import { signOut } from '@/auth'
-import { signOut } from 'next-auth/react'
-import { User } from 'next-auth'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const links = [
@@ -42,7 +41,7 @@ export function DashboardSidebar({ user }: { user: User }) {
         <div className='flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
           <div className='flex flex-col gap-2'>
             {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} />
+              <SidebarLink key={idx} link={link} onClick={() => setOpen(!open)} />
             ))}
           </div>
         </div>
