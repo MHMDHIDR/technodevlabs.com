@@ -1,22 +1,42 @@
 'use server'
 
 import { database } from '@/db/database'
-import { posts as post } from '@/db/schema'
+import { posts as post, users } from '@/db/schema'
 import { eq } from 'drizzle-orm'
-import type { Post } from '@/types'
+import type { PostWithAuthor } from '@/types'
 
 /**
- * A Function to Get a post by Slug
+ * A function to get a post by slug, including the author (user) details.
  * @param slug
- * @returns Promise<Post>
+ * @returns Promise<Post & { author: { id: string; name: string | null; email: string; image: string | null } } | undefined>
  */
 export async function getPostBySlugAction({
   slug
 }: {
   slug: string
-}): Promise<Post | undefined> {
+}): Promise<PostWithAuthor | undefined> {
   const fetchedPost = await database.query.posts.findFirst({
-    where: eq(post.slug, slug)
+    where: eq(post.slug, slug),
+    with: {
+      user: true // Fetch the related user (author)
+    }
   })
-  return fetchedPost
+
+  // If no post is found, return undefined
+  if (!fetchedPost) {
+    return undefined
+  }
+
+  // Extracting post and author details
+  const postWithAuthor = {
+    ...fetchedPost,
+    author: {
+      id: fetchedPost.user.id,
+      name: fetchedPost.user.name,
+      email: fetchedPost.user.email,
+      image: fetchedPost.user.image
+    }
+  }
+
+  return postWithAuthor
 }

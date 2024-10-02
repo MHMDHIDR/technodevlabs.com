@@ -48,3 +48,12 @@ export type Post = {
   createdAt: Date
   updatedAt: Date
 }
+
+export type PostWithAuthor = Post & {
+  author: {
+    id: string
+    email: string
+    name: string | null
+    image: string | null
+  }
+}

@@ -1,8 +1,9 @@
+import Image from 'next/image'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
-import { removeSlug } from '@/lib/utils'
+import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
 
 export async function generateMetadata({
   params: { slug }
@@ -33,6 +34,33 @@ export default async function BlogPostContentPage({
       <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-bold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
         <Cover>{post.title}</Cover>
       </h1>
+
+      <div className='flex items-center justify-between'>
+        <div className='flex items-center gap-x-2 select-none'>
+          <Image
+            src={post.author.image ?? '/images/logo.svg'}
+            alt={post.author.name ?? APP_TITLE}
+            className='w-12 h-12 rounded-full'
+            width={48}
+            height={48}
+          />
+          <span className='text-lg font-semibold'>{post.author.name}</span>
+          <span
+            className='text-sm text-neutral-500 dark:text-neutral-400'
+            title={`Published On: ${new Date(post.createdAt).toDateString()}`}
+          >
+            {formatDate(new Date(post.updatedAt).toDateString())}
+          </span>
+        </div>
+
+        <span
+          className='text-sm text-neutral-500 dark:text-neutral-400 select-none'
+          aria-label='Read Time'
+          title={`Read Time: ${calculateReadTime(post.content)}`}
+        >
+          {calculateReadTime(post.content)}
+        </span>
+      </div>
 
       <div className='mt-8 container max-w-4xl mx-auto bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-600 rounded-lg'>
         <article className='p-4 rounded-lg'>
