@@ -84,7 +84,7 @@ export const FlipWords = ({
                   delay: wordIndex * 0.3 + letterIndex * 0.05,
                   duration: 0.2
                 }}
-                className='inline-block text-transparent bg-gradient-to-br from-blue-300 to-purple-800 bg-clip-text'
+                className='inline-block text-transparent bg-gradient-to-br from-purple-900 to-purple-400 bg-clip-text'
               >
                 {letter}
               </motion.span>
