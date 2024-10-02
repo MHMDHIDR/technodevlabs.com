@@ -4,8 +4,6 @@ import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
 import { removeSlug } from '@/lib/utils'
 
-const POST_CONTENT_LENGTH = 500 // Adjust this based on your content length needs
-
 export async function generateMetadata({
   params: { slug }
 }: {
@@ -40,12 +38,7 @@ export default async function BlogPostContentPage({
         <article className='p-4 rounded-lg'>
           <div
             className='leading-10 mb-20'
-            dangerouslySetInnerHTML={{
-              __html:
-                modifiedContent.length > POST_CONTENT_LENGTH
-                  ? modifiedContent.slice(0, POST_CONTENT_LENGTH) + '...'
-                  : modifiedContent
-            }}
+            dangerouslySetInnerHTML={{ __html: modifiedContent }}
           />
         </article>
       </div>
