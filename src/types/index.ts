@@ -1,4 +1,3 @@
-// User Email
 export type emailMethodProps = {
   name?: string
   subject: string
@@ -22,7 +21,7 @@ export type emailProps = {
   mailSent?: number
 }
 
-export interface CreateEmailResponse {
+export type CreateEmailResponse = {
   data: {
     id: string
   } | null
@@ -38,4 +37,14 @@ export type BlockProps = {
   blockDescription: string
   blockIcon: JSX.Element
   children?: string
+}
+
+export type Post = {
+  id: string
+  title: string
+  userId: string
+  content: string
+  slug: string
+  createdAt: Date
+  updatedAt: Date
 }

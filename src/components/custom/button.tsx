@@ -14,7 +14,7 @@ export function Button({ className, withArrow, children, ...props }: ButtonProps
     >
       <span
         className={cn(
-          `px-10 py-1.5 h-full relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-block`,
+          `px-10 py-1.5 h-full text-white relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-block`,
           className
         )}
       >

@@ -6,7 +6,6 @@ import {
   APP_TITLE,
   APP_TWITTER_URL
 } from '@/data/constants'
-import type { customEmailProps } from '@/types'
 import {
   Body,
   Container,
@@ -19,6 +18,7 @@ import {
   Link
 } from '@react-email/components'
 import { Facebook, Instagram, TikTok, Twitter } from '@/components/custom/icons'
+import type { customEmailProps } from '@/types'
 
 export const EmailTemplate = ({
   title,

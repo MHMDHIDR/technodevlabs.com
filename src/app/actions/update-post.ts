@@ -26,7 +26,8 @@ export async function updatePostAction({
     throw new Error('Unauthorized')
   }
 
-  const updatedPost = await database
+  //const updatedPost =
+  await database
     .update(posts)
     .set({
       title,
@@ -34,8 +35,6 @@ export async function updatePostAction({
       updatedAt: new Date()
     })
     .where(eq(posts.id, postId))
-
-  console.log({ updatedPost })
 
   revalidatePath('/dashboard/posts')
   redirect('/dashboard/posts')

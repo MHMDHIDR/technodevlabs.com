@@ -1,6 +1,13 @@
-import Layout from '@/components/custom/layout'
+import Link from 'next/link'
+import { IconPlus } from '@tabler/icons-react'
+import { auth } from '@/auth'
 import { Cover } from '@/components/ui/cover'
+import { Button } from '@/components/custom/button'
+import Layout from '@/components/custom/layout'
+import EmptyState from '@/components/custom/empty-state'
+import { PostCard } from '@/components/custom/post-card'
 import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import { getPosts } from '@/data/posts'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -22,22 +29,14 @@ export const metadata: Metadata = {
   }
 }
 
-export default function PostsPage() {
-  // return a list of posts
-  const posts = [
-    {
-      title: 'Post 1',
-      content: 'This is the content of post 1.'
-    },
-    {
-      title: 'Post 2',
-      content: 'This is the content of post 2.'
-    },
-    {
-      title: 'Post 3',
-      content: 'This is the content of post 3.'
-    }
-  ]
+export default async function PostsPage() {
+  const posts = await getPosts()
+  const session = await auth()
+  let user = null
+
+  if (session && session.user) {
+    user = session.user
+  }
 
   return (
     <Layout className={`p-4 py-20`}>
@@ -45,12 +44,27 @@ export default function PostsPage() {
         <Cover>Posts</Cover>
       </h1>
 
-      {posts.map(post => (
-        <div key={post.title}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
+      {!posts || posts.length === 0 ? (
+        <EmptyState>
+          {user ? (
+            <Link href='/dashboard/posts/add'>
+              <Button className='flex items-center'>
+                <IconPlus className='h-4 w-4' />
+                <span>Add Post</span>
+              </Button>
+            </Link>
+          ) : null}
+          <p className='text-gray-500 dark:text-gray-400 mt-4 text-lg'>
+            There are no posts available.
+          </p>
+        </EmptyState>
+      ) : (
+        <div className='grid grid-cols-1 gap-6'>
+          {posts.map(post => (
+            <PostCard post={post} key={post.id} />
+          ))}
         </div>
-      ))}
+      )}
     </Layout>
   )
 }

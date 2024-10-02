@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { SubmitButton } from '@/app/contact/submit-button'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
-import { getPostAction } from '@/app/actions/get-post'
+import { getPostByIdAction } from '@/app/actions/get-post'
 import { updatePostAction } from '@/app/actions/update-post'
 
 const MenuBar = ({ editor }: { editor: any }) => {
@@ -146,7 +146,7 @@ export default function DashboardPostUpdate({
 
   useEffect(() => {
     const fetchPost = async () => {
-      const post = await getPostAction({ postId })
+      const post = await getPostByIdAction({ postId })
       if (!post) return
 
       setTitle(post.title)

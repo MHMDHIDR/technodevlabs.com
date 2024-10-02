@@ -3,6 +3,7 @@
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
+import { createSlug } from '@/lib/utils'
 import { redirect } from 'next/navigation'
 
 export async function addNewPostAction({
@@ -23,9 +24,11 @@ export async function addNewPostAction({
   }
 
   // Insert post with userId
-  const newPost = await database.insert(posts).values({
+  // const newPost =
+  await database.insert(posts).values({
     userId: user.id,
     title,
+    slug: createSlug(title),
     content,
     createdAt: new Date(),
     updatedAt: new Date()

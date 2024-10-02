@@ -11,7 +11,6 @@ export default async function DashboardPosts() {
     <section className='flex flex-col'>
       <h3 className='text-center text-2xl font-bold mb-6'>Our Posts</h3>
 
-      {/* Add <Button> on the right side of the page with tailwindcss */}
       <div className='mb-6 self-end'>
         <Link href='/dashboard/posts/add'>
           <Button className='flex items-center space-x-2 px-4 py-2'>
@@ -38,12 +37,12 @@ export default async function DashboardPosts() {
               href={`/dashboard/posts/${post.id}`}
               className='group block'
             >
-              <div className='bg-white shadow-lg rounded-lg p-5 hover:shadow-xl border border-gray-200 hover:border-blue-500 duration-300'>
+              <div className='bg-neutral-50 dark:bg-gray-900 shadow-lg dark:shadow-gray-800 rounded-lg p-5 hover:shadow-xl border border-gray-200 dark:border-gray-400 hover:border-blue-500 duration-300'>
                 <h4 className='text-lg font-semibold group-hover:text-blue-600 transition duration-300'>
                   {post.title}
                 </h4>
                 <div
-                  className='text-sm text-gray-700 mt-2'
+                  className='text-sm text-gray-700 dark:text-gray-300 mt-2'
                   dangerouslySetInnerHTML={{ __html: post.content.slice(0, 150) + '...' }}
                 />
               </div>
