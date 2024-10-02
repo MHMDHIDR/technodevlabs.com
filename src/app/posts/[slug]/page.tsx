@@ -4,6 +4,10 @@ import { Cover } from '@/components/ui/cover'
 import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
 import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
+import { auth } from '@/auth'
+import Link from 'next/link'
+import { Button } from '@/components/custom/button'
+import { IconEdit, IconPlus } from '@tabler/icons-react'
 
 export async function generateMetadata({
   params: { slug }
@@ -23,6 +27,13 @@ export default async function BlogPostContentPage({
 }) {
   const post = await getPostBySlugAction({ slug })
   if (!post) return null
+
+  const session = await auth()
+  let user = null
+
+  if (session && session.user) {
+    user = session.user
+  }
 
   const modifiedContent = post.content.replace(
     /<img/g,
@@ -51,6 +62,14 @@ export default async function BlogPostContentPage({
           >
             {formatDate(new Date(post.updatedAt).toDateString())}
           </span>
+          {user ? (
+            <Link href={`/dashboard/posts/${post.id}`}>
+              <Button className='flex items-center gap-x-2 px-2 text-gray-800 dark:text-gray-100'>
+                <IconEdit className='h-4 w-4' />
+                <span>Edit Post</span>
+              </Button>
+            </Link>
+          ) : null}
         </div>
 
         <span
