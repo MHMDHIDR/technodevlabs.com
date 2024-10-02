@@ -10,11 +10,11 @@ import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
 
-type Props = {
+export async function generateMetadata({
+  params
+}: {
   params: { slug: string }
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+}): Promise<Metadata> {
   const post = await getPostBySlugAction({ slug: params.slug })
   if (!post) return {}
 
@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description:
       (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_DESCRIPTION,
     openGraph: {
+      title: (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE,
       images: [image, APP_LOGO_opengraph]
     }
   }
@@ -59,7 +60,7 @@ export default async function BlogPostContentPage({
       </h1>
 
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col items-center select-none md:flex-row gap-3'>
+        <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
           <figure className='flex items-center gap-x-2'>
             <Image
               src={post.author.image ?? '/images/logo.svg'}
