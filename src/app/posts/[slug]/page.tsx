@@ -47,24 +47,31 @@ export default async function BlogPostContentPage({
       </h1>
 
       <div className='flex items-center justify-between'>
-        <div className='flex items-center select-none gap-x-2'>
-          <Image
-            src={post.author.image ?? '/images/logo.svg'}
-            alt={post.author.name ?? APP_TITLE}
-            className='w-12 h-12 rounded-full'
-            width={48}
-            height={48}
-          />
-          <span className='text-lg font-semibold'>{post.author.name}</span>
+        <div className='flex flex-col md:flex-row items-center select-none gap-3'>
+          <figure className='flex items-center gap-x-2'>
+            <Image
+              src={post.author.image ?? '/images/logo.svg'}
+              alt={post.author.name ?? APP_TITLE}
+              className='w-7 md:w-12 h-7 md:h-12 rounded-full'
+              width={48}
+              height={48}
+            />
+            <figcaption className='flex items-center gap-x-2'>
+              <span className='text-sm md:text-lg font-semibold'>{post.author.name}</span>
+            </figcaption>
+          </figure>
           <span
-            className='text-sm text-neutral-500 dark:text-neutral-400'
+            className='text-sm text-neutral-500 dark:text-neutral-400 self-start md:self-center'
             title={`Published On: ${new Date(post.createdAt).toDateString()}`}
           >
             {formatDate(new Date(post.updatedAt).toDateString())}
           </span>
           {user ? (
-            <Link href={`/dashboard/posts/${post.id}`}>
-              <Button className='flex items-center px-2 gap-x-2'>
+            <Link
+              href={`/dashboard/posts/${post.id}`}
+              className='self-start md:self-center'
+            >
+              <Button className='flex items-center gap-x-2 px-2 -ml-1'>
                 <IconEdit className='w-4 h-4' />
                 <span>Edit Post</span>
               </Button>

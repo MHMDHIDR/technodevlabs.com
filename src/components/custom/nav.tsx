@@ -41,9 +41,9 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center transition-all duration-600 ${
+      className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center transition-all duration-600 ${
         hasScrolled
-          ? 'py-2 backdrop-blur-sm bg-white/60 dark:bg-neutral-900/40 shadow-sm shadow-purple-900'
+          ? 'py-2 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/60 shadow-sm shadow-purple-900'
           : 'py-5 bg-white dark:bg-neutral-900'
       } px-4 sm:px-10`}
     >
