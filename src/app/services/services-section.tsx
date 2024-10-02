@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
+import { usePathname } from 'next/navigation'
 import {
   IconCode,
   IconCloudUpload,
@@ -11,7 +11,7 @@ import {
   IconShieldLock,
   IconLayersLinked
 } from '@tabler/icons-react'
-import { usePathname } from 'next/navigation'
+import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
 export function ServicesSection() {
   const pathname = usePathname()

@@ -33,7 +33,7 @@ export function PostCard({ post }: { post: Post }) {
             {formatDate(new Date(post.updatedAt).toDateString())}
           </span>
 
-          <Button className='flex px-3' withArrow>
+          <Button className='flex px-3 text-gray-100 ' withArrow>
             Read More
           </Button>
         </div>

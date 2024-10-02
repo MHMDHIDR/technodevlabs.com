@@ -38,7 +38,7 @@ export function Hero() {
           <div className='absolute inset-0 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500' />
           <Link
             href={'/#contact'}
-            className='relative inline-block px-8 py-2 text-white transition duration-200 bg-black rounded-md hover:bg-transparent'
+            className='relative inline-block px-8 py-2 text-white bg-black transition duration-200 rounded-md hover:bg-transparent'
           >
             Get Started
           </Link>

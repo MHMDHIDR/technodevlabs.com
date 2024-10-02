@@ -23,11 +23,7 @@ export default function NotFound() {
 
             <div className='flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto'>
               <Link href={`/`}>
-                <Button
-                  type='button'
-                  className='text-gray-800 dark:text-gray-100'
-                  withArrow
-                >
+                <Button type='button' withArrow>
                   Home
                 </Button>
               </Link>

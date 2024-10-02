@@ -64,7 +64,7 @@ export default async function BlogPostContentPage({
           </span>
           {user ? (
             <Link href={`/dashboard/posts/${post.id}`}>
-              <Button className='flex items-center px-2 text-gray-800 gap-x-2 dark:text-gray-100'>
+              <Button className='flex items-center px-2 gap-x-2'>
                 <IconEdit className='w-4 h-4' />
                 <span>Edit Post</span>
               </Button>

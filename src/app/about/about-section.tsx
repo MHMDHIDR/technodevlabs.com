@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { ImagesSlider } from '@/components/ui/images-slider'
 import Divider from '@/components/custom/divider'
+import { Button } from '@/components/custom/button'
 
 export function AboutSection() {
   const images = [
@@ -51,6 +52,8 @@ export function AboutSection() {
             development services to clients mainly towards the middle-eastern.
           </motion.p>
         )}
+
+        {/* Call To Action Button */}
         {usePathname() === '/' ? (
           <Link
             href={`/about`}
@@ -59,7 +62,15 @@ export function AboutSection() {
             <span>Know More! →</span>
             <div className='absolute inset-x-0 w-3/4 h-px mx-auto -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
           </Link>
-        ) : null}
+        ) : (
+          <div className='my-10'>
+            <Link href={`/contact`}>
+              <Button className='text-gray-100 rounded-full' withArrow>
+                Let's Bring Your Project to Life
+              </Button>
+            </Link>
+          </div>
+        )}
       </motion.div>
     </ImagesSlider>
   )
