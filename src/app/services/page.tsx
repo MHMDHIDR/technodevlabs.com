@@ -1,7 +1,7 @@
 import Layout from '@/components/custom/layout'
 import { ServicesSection } from '@/app/services/services-section'
 import { Cover } from '@/components/ui/cover'
-import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
+import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: '/images/technodevlabs-opengraph.png',
+        url: APP_LOGO_opengraph,
         width: 1200,
         height: 650,
         alt: APP_DESCRIPTION

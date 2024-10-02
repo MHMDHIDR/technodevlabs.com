@@ -5,6 +5,8 @@ export const APP_DESCRIPTION =
 
 export const APP_LOGO = '/images/logo.svg'
 
+export const APP_LOGO_opengraph = '/images/technodevlabs-opengraph.png'
+
 export const APP_LOGO_sm = '/images/logo.svg'
 
 export const ADMIN_EMAIL = 'support@technodevlabs.com'

@@ -6,8 +6,6 @@ import { Monitor, Moon, Sun } from '@/components/custom/icons'
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()
 
-  console.log(theme === 'light')
-
   return (
     <div className='flex items-center p-1 mx-auto border rounded-full space-x-2 max-w-fit md:mx-0'>
       <button

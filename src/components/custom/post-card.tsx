@@ -39,7 +39,7 @@ export function PostCard({ post }: { post: Post }) {
           </span>
 
           <Button
-            className='flex items-center px-3 text-gray-100 text-xs sm:text-sm md:text-xs lg:text-base'
+            className='flex items-center px-3 text-xs text-gray-100 sm:text-sm md:text-xs lg:text-base'
             withArrow
           >
             Read More

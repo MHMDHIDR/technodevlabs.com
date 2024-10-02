@@ -3,11 +3,10 @@ import { Cairo as FontSans } from 'next/font/google'
 import { Providers } from '@/app/providers'
 import { cn } from '@/lib/utils'
 import './globals.css'
+import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import type { Metadata } from 'next'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
-
-import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
-import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
     description: APP_DESCRIPTION,
     images: [
       {
-        url: '/images/technodevlabs-opengraph.png',
+        url: APP_LOGO_opengraph,
         width: 1200,
         height: 650,
         alt: APP_DESCRIPTION
