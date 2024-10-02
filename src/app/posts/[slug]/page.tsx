@@ -37,7 +37,7 @@ export default async function BlogPostContentPage({
 
   const modifiedContent = post.content.replace(
     /<img/g,
-    '<img class="shadow-lg rounded-xl dark:shadow-slate-500"'
+    `<img class="shadow-lg rounded-xl dark:shadow-slate-500 md:max-w-lg my-3" loading="lazy" alt="${post.title}"`
   )
 
   return (
@@ -52,7 +52,7 @@ export default async function BlogPostContentPage({
             <Image
               src={post.author.image ?? '/images/logo.svg'}
               alt={post.author.name ?? APP_TITLE}
-              className='w-7 md:w-12 h-7 md:h-12 rounded-full'
+              className='w-7 md:w-10 h-7 md:h-10 rounded-full'
               width={48}
               height={48}
             />
@@ -88,7 +88,7 @@ export default async function BlogPostContentPage({
         </span>
       </div>
 
-      <div className='container max-w-4xl mx-auto mt-8 border rounded-lg bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
+      <div className='container max-w-7xl mx-auto mt-8 border rounded-lg bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
         <article className='p-4 rounded-lg'>
           <div
             className='mb-20 leading-10'

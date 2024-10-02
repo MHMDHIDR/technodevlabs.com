@@ -6,12 +6,14 @@ import { Monitor, Moon, Sun } from '@/components/custom/icons'
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()
 
+  console.log(theme === 'light')
+
   return (
     <div className='flex items-center p-1 mx-auto border rounded-full space-x-2 max-w-fit md:mx-0'>
       <button
         onClick={() => setTheme('light')}
         className={`${
-          theme === 'light' ? 'bg-primary/30' : 'bg-transparent'
+          theme === 'light' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
       >
         <Sun />
@@ -19,7 +21,7 @@ export default function ThemeToggle() {
       <button
         onClick={() => setTheme('system')}
         className={`${
-          theme === 'system' ? 'bg-primary/30' : 'bg-transparent'
+          theme === 'system' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
       >
         <Monitor />
@@ -28,7 +30,7 @@ export default function ThemeToggle() {
       <button
         onClick={() => setTheme('dark')}
         className={`${
-          theme === 'dark' ? 'bg-primary/30' : 'bg-transparent'
+          theme === 'dark' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
       >
         <Moon />

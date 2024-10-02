@@ -20,7 +20,7 @@ export default function Home() {
         </section>
 
         <section id='posts' className='py-20'>
-          <PostsSection />
+          <PostsSection pathname='/' />
         </section>
 
         <section id='contact' className='py-20'>
