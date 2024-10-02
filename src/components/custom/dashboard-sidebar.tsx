@@ -46,9 +46,9 @@ export function DashboardSidebar({ user }: { user: User }) {
           </div>
         </div>
 
-        <div className='flex flex-col gap-2 mt-8'>
+        <div className='flex flex-col mt-8 gap-2'>
           <button
-            className='flex items-center justify-start gap-2 py-2 group/sidebar'
+            className='flex items-center justify-start py-2 gap-2 group/sidebar'
             onClick={async () => {
               await deleteCookieAction({ name: 'can-authenticate' })
               await signOut()

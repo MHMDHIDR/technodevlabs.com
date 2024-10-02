@@ -1,13 +1,13 @@
+import Link from 'next/link'
 import Image from 'next/image'
+import { IconEdit } from '@tabler/icons-react'
+import { auth } from '@/auth'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
+import { Button } from '@/components/custom/button'
 import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_TITLE } from '@/data/constants'
 import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
-import { auth } from '@/auth'
-import Link from 'next/link'
-import { Button } from '@/components/custom/button'
-import { IconEdit, IconPlus } from '@tabler/icons-react'
 
 export async function generateMetadata({
   params: { slug }
@@ -37,7 +37,7 @@ export default async function BlogPostContentPage({
 
   const modifiedContent = post.content.replace(
     /<img/g,
-    '<img class="rounded-xl shadow-lg dark:shadow-slate-500"'
+    '<img class="shadow-lg rounded-xl dark:shadow-slate-500"'
   )
 
   return (
@@ -47,7 +47,7 @@ export default async function BlogPostContentPage({
       </h1>
 
       <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-x-2 select-none'>
+        <div className='flex items-center select-none gap-x-2'>
           <Image
             src={post.author.image ?? '/images/logo.svg'}
             alt={post.author.name ?? APP_TITLE}
@@ -64,8 +64,8 @@ export default async function BlogPostContentPage({
           </span>
           {user ? (
             <Link href={`/dashboard/posts/${post.id}`}>
-              <Button className='flex items-center gap-x-2 px-2 text-gray-800 dark:text-gray-100'>
-                <IconEdit className='h-4 w-4' />
+              <Button className='flex items-center px-2 text-gray-800 gap-x-2 dark:text-gray-100'>
+                <IconEdit className='w-4 h-4' />
                 <span>Edit Post</span>
               </Button>
             </Link>
@@ -73,7 +73,7 @@ export default async function BlogPostContentPage({
         </div>
 
         <span
-          className='text-sm text-neutral-500 dark:text-neutral-400 select-none'
+          className='text-sm select-none text-neutral-500 dark:text-neutral-400'
           aria-label='Read Time'
           title={`Read Time: ${calculateReadTime(post.content)}`}
         >
@@ -81,10 +81,10 @@ export default async function BlogPostContentPage({
         </span>
       </div>
 
-      <div className='mt-8 container max-w-4xl mx-auto bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-600 rounded-lg'>
+      <div className='container max-w-4xl mx-auto mt-8 border rounded-lg bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
         <article className='p-4 rounded-lg'>
           <div
-            className='leading-10 mb-20'
+            className='mb-20 leading-10'
             dangerouslySetInnerHTML={{ __html: modifiedContent }}
           />
         </article>

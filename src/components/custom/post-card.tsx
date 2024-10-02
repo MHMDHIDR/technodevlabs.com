@@ -3,15 +3,15 @@ import { Button } from '@/components/custom/button'
 import { Meteors } from '@/components/ui/meteors'
 import { IconArticle } from '@tabler/icons-react'
 import { POST_CONTENT_LENGTH, POST_TITLE_LENGTH } from '@/data/constants'
-import type { Post } from '@/types'
 import { formatDate } from '@/lib/utils'
+import type { Post } from '@/types'
 
 export function PostCard({ post }: { post: Post }) {
   return (
-    <Link href={`/posts/${post.slug}`} className='w-full relative max-w-xs group'>
+    <Link href={`/posts/${post.slug}`} className='relative max-w-xs group'>
       <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl' />
-      <div className='relative shadow-xl bg-gray-900 border border-gray-800  px-4 py-8 h-full overflow-hidden rounded-2xl flex flex-col justify-end items-start'>
-        <h1 className='flex items-center gap-x-2 text-lg text-white mb-1 relative z-50 uppercase truncate'>
+      <div className='relative flex flex-col items-start justify-end h-full px-4 py-8 overflow-hidden bg-gray-900 border border-gray-800 shadow-xl rounded-2xl'>
+        <h1 className='relative z-50 flex items-center mb-1 text-lg text-white uppercase truncate gap-x-2'>
           <IconArticle className='stroke-1' />
           {post.title.length > POST_TITLE_LENGTH
             ? post.title.slice(0, POST_TITLE_LENGTH) + '...'
@@ -28,7 +28,7 @@ export function PostCard({ post }: { post: Post }) {
           }}
         />
 
-        <div className='flex flex-row justify-between items-center mt-10 w-full'>
+        <div className='flex flex-row items-center justify-between w-full mt-10'>
           <span className='text-sm text-gray-500'>
             {formatDate(new Date(post.updatedAt).toDateString())}
           </span>

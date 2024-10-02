@@ -5,7 +5,7 @@ import { Cover } from '@/components/ui/cover'
 import { Button } from '@/components/custom/button'
 import Layout from '@/components/custom/layout'
 import EmptyState from '@/components/custom/empty-state'
-import { PostCard } from '@/components/custom/post-card'
+import { PostsSection } from '@/app/posts/posts-section'
 import { APP_TITLE, APP_DESCRIPTION } from '@/data/constants'
 import { getPosts } from '@/data/posts'
 import type { Metadata } from 'next'
@@ -49,21 +49,17 @@ export default async function PostsPage() {
           {user ? (
             <Link href='/dashboard/posts/add'>
               <Button className='flex items-center'>
-                <IconPlus className='h-4 w-4' />
+                <IconPlus className='w-4 h-4' />
                 <span>Add Post</span>
               </Button>
             </Link>
           ) : null}
-          <p className='text-gray-500 dark:text-gray-400 mt-4 text-lg'>
+          <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             There are no posts available.
           </p>
         </EmptyState>
       ) : (
-        <div className='grid grid-cols-1 gap-6'>
-          {posts.map(post => (
-            <PostCard post={post} key={post.id} />
-          ))}
-        </div>
+        <PostsSection />
       )}
     </Layout>
   )

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FlipWords } from '@/components/ui/flip-words'
 import { LampContainer } from '@/components/ui/lamp'
+import Link from 'next/link'
 
 export function Hero() {
   // detect if the user is using a mobile device
@@ -35,9 +36,12 @@ export function Hero() {
 
         <button className='relative p-1 w-fit'>
           <div className='absolute inset-0 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500' />
-          <div className='px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent'>
+          <Link
+            href={'/#contact'}
+            className='relative inline-block px-8 py-2 text-white transition duration-200 bg-black rounded-md hover:bg-transparent'
+          >
             Get Started
-          </div>
+          </Link>
         </button>
       </motion.div>
     </LampContainer>

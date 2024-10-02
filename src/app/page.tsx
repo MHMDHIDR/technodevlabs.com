@@ -1,8 +1,9 @@
 import Layout from '@/components/custom/layout'
 import { Hero } from '@/components/custom/hero'
-import { AboutSection } from './about/about-section'
-import { ServicesSection } from './services/services-section'
-import { ContactForm } from './contact/contact-form'
+import { AboutSection } from '@/app/about/about-section'
+import { ServicesSection } from '@/app/services/services-section'
+import { ContactForm } from '@/app/contact/contact-form'
+import { PostsSection } from '@/app/posts/posts-section'
 
 export default function Home() {
   return (
@@ -16,6 +17,10 @@ export default function Home() {
 
         <section id='services' className='py-20'>
           <ServicesSection />
+        </section>
+
+        <section id='posts' className='py-20'>
+          <PostsSection />
         </section>
 
         <section id='contact' className='py-20'>

@@ -24,7 +24,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
   }
 
   return (
-    <div className='flex flex-wrap gap-2 p-2 bg-gray-100 dark:bg-gray-700 rounded-t-md'>
+    <div className='flex flex-wrap p-2 bg-gray-100 gap-2 dark:bg-gray-700 rounded-t-md'>
       <Button
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
@@ -191,7 +191,7 @@ export default function DashboardPostAdd() {
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
               editor={editor}
-              className='p-4 bg-neutral-50 dark:bg-neutral-800 min-h-52 text-lg'
+              className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
             />
           </div>
         </LabelInputContainer>

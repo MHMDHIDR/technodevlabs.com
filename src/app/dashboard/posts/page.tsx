@@ -9,12 +9,12 @@ export default async function DashboardPosts() {
 
   return (
     <section className='flex flex-col'>
-      <h3 className='text-center text-2xl font-bold mb-6'>Our Posts</h3>
+      <h3 className='mb-6 text-2xl font-bold text-center'>Our Posts</h3>
 
-      <div className='mb-6 self-end'>
+      <div className='self-end mb-6'>
         <Link href='/dashboard/posts/add'>
-          <Button className='flex items-center space-x-2 px-4 py-2'>
-            <IconPlus className='h-5 w-5' />
+          <Button className='flex items-center px-4 py-2 space-x-2'>
+            <IconPlus className='w-5 h-5' />
             <span>Add Post</span>
           </Button>
         </Link>
@@ -24,7 +24,7 @@ export default async function DashboardPosts() {
         <EmptyState>
           <Link href='/dashboard/posts/add'>
             <Button className='flex items-center'>
-              <IconPlus className='h-4 w-4' />
+              <IconPlus className='w-4 h-4' />
               <span>Add Post</span>
             </Button>
           </Link>
@@ -35,14 +35,14 @@ export default async function DashboardPosts() {
             <Link
               key={post.id}
               href={`/dashboard/posts/${post.id}`}
-              className='group block'
+              className='block group'
             >
-              <div className='bg-neutral-50 dark:bg-gray-900 shadow-lg dark:shadow-gray-800 rounded-lg p-5 hover:shadow-xl border border-gray-200 dark:border-gray-400 hover:border-blue-500 duration-300'>
+              <div className='p-5 border border-gray-200 rounded-lg shadow-lg bg-neutral-50 dark:bg-gray-900 dark:shadow-gray-800 hover:shadow-xl dark:border-gray-400 hover:border-blue-500 duration-300'>
                 <h4 className='text-lg font-semibold group-hover:text-blue-600 transition duration-300'>
                   {post.title}
                 </h4>
                 <div
-                  className='text-sm text-gray-700 dark:text-gray-300 mt-2'
+                  className='mt-2 text-sm text-gray-700 dark:text-gray-300'
                   dangerouslySetInnerHTML={{ __html: post.content.slice(0, 150) + '...' }}
                 />
               </div>
