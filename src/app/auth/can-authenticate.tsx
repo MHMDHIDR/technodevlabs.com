@@ -29,6 +29,7 @@ export default function CanAuthenticate({ children }: { children: React.ReactNod
             name='password'
             placeholder='Enter the password'
             min={5}
+            autoFocus
             required
           />
         </LabelInputContainer>

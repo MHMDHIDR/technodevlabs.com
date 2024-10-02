@@ -13,7 +13,9 @@ export function SignOut() {
       }}
     >
       <Button
-        className={'flex items-center rounded-md mx-auto'}
+        className={
+          'flex items-center rounded-md mx-auto text-gray-800 dark:text-gray-100'
+        }
         type='submit'
         title='Sign Out'
       >
