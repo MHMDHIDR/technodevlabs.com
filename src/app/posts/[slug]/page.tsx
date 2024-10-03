@@ -18,17 +18,29 @@ export async function generateMetadata({
   const post = await getPostBySlugAction({ slug: params.slug })
   if (!post) return {}
 
-  // extract the first image from the post content, when there is <img> get src="" value
   const firstImage = post.content.match(/<img[^>]+src="([^">]+)"/)
   const image: string = firstImage ? firstImage[1] : APP_LOGO_opengraph
 
+  const title = (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
+  const description = post.content.slice(0, 200).replace(/<[^>]*>/g, '') + '...'
+
   return {
-    title: (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE,
-    description:
-      (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_DESCRIPTION,
+    title,
+    description,
     openGraph: {
-      title: (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE,
-      images: [image, APP_LOGO_opengraph]
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      type: 'article',
+      publishedTime: post.createdAt.toISOString(),
+      modifiedTime: post.updatedAt.toISOString(),
+      authors: [post.author.name ?? 'Unknown']
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image]
     }
   }
 }
@@ -60,7 +72,7 @@ export default async function BlogPostContentPage({
       </h1>
 
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col items-center select-none gap-3 md:flex-row'>
+        <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
           <figure className='flex items-center gap-x-2'>
             <Image
               src={post.author.image ?? '/images/logo.svg'}
