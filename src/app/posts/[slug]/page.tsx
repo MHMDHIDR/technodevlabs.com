@@ -21,10 +21,14 @@ export async function generateMetadata({
   const firstImage = post.content.match(/<img[^>]+src="([^">]+)"/)
   const image: string = firstImage ? firstImage[1] : APP_LOGO_opengraph
 
+  const postTitle = post.title
+  const postContent = post.content
+
   const title =
-    (post.title ? post.title : removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
-  const description =
-    post.content.slice(0, 200).replace(/<[^>]*>/g, '') + '...' ?? APP_DESCRIPTION
+    (postTitle ? postTitle : removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
+  const description = postContent
+    ? postContent.slice(0, 200).replace(/<[^>]*>/g, '') + '...'
+    : APP_DESCRIPTION
 
   return {
     title,
