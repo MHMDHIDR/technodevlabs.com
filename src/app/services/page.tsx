@@ -14,7 +14,7 @@ export const metadata: Metadata = {
       {
         url: APP_LOGO_opengraph,
         width: 1200,
-        height: 650,
+        height: 630,
         alt: APP_DESCRIPTION
       }
     ],
