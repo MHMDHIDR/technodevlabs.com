@@ -22,7 +22,8 @@ export async function generateMetadata({
   const image: string = firstImage ? firstImage[1] : APP_LOGO_opengraph
 
   const title = (post.title ?? removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
-  const description = post.content.slice(0, 200).replace(/<[^>]*>/g, '') + '...'
+  const description =
+    post.content.slice(0, 200).replace(/<[^>]*>/g, '') + '...' ?? APP_DESCRIPTION
 
   return {
     title,
