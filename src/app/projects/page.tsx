@@ -2,22 +2,26 @@ import Layout from '@/components/custom/layout'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: `Projects | ${APP_TITLE}`,
-  description: APP_DESCRIPTION,
-  openGraph: {
-    title: `Projects | ${APP_TITLE}`,
-    description: APP_DESCRIPTION,
-    images: [
-      {
-        url: APP_LOGO_opengraph,
-        width: 1200,
-        height: 630,
-        alt: APP_DESCRIPTION
-      }
-    ],
-    type: 'website',
-    locale: 'en_US'
+export async function generateMetadata(): Promise<Metadata> {
+  const image = APP_LOGO_opengraph
+  const title = `Projects | ${APP_TITLE}`
+  const description = APP_DESCRIPTION
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image]
+    }
   }
 }
 
