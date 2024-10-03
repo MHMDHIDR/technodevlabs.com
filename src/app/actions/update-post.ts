@@ -1,11 +1,11 @@
 'use server'
 
-import { auth } from '@/auth'
-import { database } from '@/db/database'
-import { eq } from 'drizzle-orm'
-import { posts } from '@/db/schema'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { database } from '@/db/database'
+import { eq } from 'drizzle-orm'
+import { auth } from '@/auth'
+import { posts } from '@/db/schema'
 
 export async function updatePostAction({
   postId,

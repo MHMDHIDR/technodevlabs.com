@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { IconEdit } from '@tabler/icons-react'
@@ -60,7 +60,7 @@ export default async function BlogPostContentPage({
       </h1>
 
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
+        <div className='flex flex-col items-center select-none gap-3 md:flex-row'>
           <figure className='flex items-center gap-x-2'>
             <Image
               src={post.author.image ?? '/images/logo.svg'}

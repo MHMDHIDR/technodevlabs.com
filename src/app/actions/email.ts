@@ -7,13 +7,7 @@ import type { CreateEmailResponse, emailMethodProps } from '@/types'
 
 const { RESEND_API_KEY } = process.env
 
-export default async function emailAction({
-  name,
-  subject,
-  from,
-  to,
-  msg
-}: emailMethodProps) {
+export async function emailAction({ name, subject, from, to, msg }: emailMethodProps) {
   const resend = new Resend(RESEND_API_KEY)
 
   const { data, error: cause }: CreateEmailResponse = await resend.emails.send({

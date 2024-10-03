@@ -5,10 +5,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import { signOut, getSession } from 'next-auth/react'
+import { IconLogout2 } from '@tabler/icons-react'
+import { deleteCookieAction } from '@/app/actions'
+import { auth } from '@/auth'
+import type { User } from 'next-auth'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
 
   const toggleMobileMenu = () => {
@@ -24,8 +30,20 @@ export default function Nav() {
       }
     }
 
+    const getUser = async () => {
+      const session = await getSession()
+      if (session) {
+        setUser(session.user)
+      }
+    }
+    getUser()
+
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    return () => {
+      setUser(null)
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   /**
@@ -153,6 +171,23 @@ export default function Nav() {
             >
               Contact
             </Link>
+            {user ? (
+              <button
+                className='flex items-center justify-start py-2 gap-2 group/sidebar'
+                onClick={async () => {
+                  await deleteCookieAction({ name: 'can-authenticate' })
+                  await signOut()
+                }}
+                title='Sign Out'
+              >
+                <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
+                <span
+                  className={`text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500`}
+                >
+                  Sign Out
+                </span>
+              </button>
+            ) : null}
           </div>
         </div>
       </nav>

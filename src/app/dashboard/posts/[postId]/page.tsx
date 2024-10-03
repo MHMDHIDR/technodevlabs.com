@@ -10,7 +10,7 @@ import { SubmitButton } from '@/app/contact/submit-button'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { getPostByIdAction } from '@/app/actions/get-post'
-import { updatePostAction } from '@/app/actions/update-post'
+import { updatePostAction } from '@/app/actions'
 
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) {
