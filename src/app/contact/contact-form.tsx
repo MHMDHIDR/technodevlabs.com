@@ -163,7 +163,7 @@ export function ContactForm() {
           {status === 'loading' ? 'Sending...' : 'Send'}
         </SubmitButton>
 
-        <Divider className='my-10' />
+        <Divider className='my-10 mb-20' />
 
         <div className='flex flex-col space-y-4'>
           Email us at{' '}
