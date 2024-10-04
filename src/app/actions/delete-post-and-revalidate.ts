@@ -7,8 +7,9 @@ export async function deletePostAndRevalidate(postId: string) {
   const { success, message } = await deletePostAction({ postId })
 
   if (success) {
-    revalidatePath('/dashboard/posts')
+    revalidatePath('/')
     revalidatePath('/posts')
+    revalidatePath('/dashboard/posts')
   }
 
   return { success, message }
