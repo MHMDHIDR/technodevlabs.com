@@ -7,12 +7,15 @@ import { formatDate } from '@/lib/utils'
 import type { Post } from '@/types'
 
 export function PostCard({ post }: { post: Post }) {
-  const modifiedContent = post.content.replace(/<img/g, '<img class="rounded-lg"')
+  const modifiedContent = post.content.replace(
+    /<img/g,
+    '<img class="rounded-lg max-w-72 max-h-56 m-2"'
+  )
 
   return (
     <Link
       href={`/posts/${post.slug}`}
-      className='relative max-w-xl md:max-w-md lg:max-w-sm group-[-one-col]:col-span-3 xl:max-w-2xl'
+      className='relative max-w-xs group-[-one-col]:col-span-3 min-h-[26rem] min-w-80'
     >
       <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl' />
       <div className='relative flex flex-col items-start justify-end h-full px-4 py-8 overflow-hidden bg-gray-900 border border-gray-800 shadow-xl rounded-2xl'>

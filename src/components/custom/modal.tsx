@@ -15,6 +15,7 @@ export function Modal({ title, description, className, trigger, children }: Moda
         `flex items-center justify-center border hover:border-red-500 rounded-md`,
         className
       )}
+      title={title}
     >
       <AnimatedModal>
         <ModalTrigger className='flex justify-center text-white bg-black dark:bg-white dark:text-black group/modal-btn'>

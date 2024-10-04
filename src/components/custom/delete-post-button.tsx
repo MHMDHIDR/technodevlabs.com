@@ -1,17 +1,27 @@
 'use client'
 
-import { deletePostAction } from '@/app/actions'
 import { IconLoader3 } from '@tabler/icons-react'
 import { useTransition } from 'react'
 import { Error, Success } from '@/components/custom/icons'
 import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+import { useModal } from '../ui/animated-modal'
+import { deletePostAndRevalidate } from '@/app/actions'
 
-export function DeletePostButton({ postId }: { postId: string }) {
+export function DeletePostButton({
+  postId,
+  redirectTo
+}: {
+  postId: string
+  redirectTo?: string
+}) {
   const [isPending, startTransition] = useTransition()
+  const { replace } = useRouter()
+  const { setOpen } = useModal()
 
   const handleDelete = () => {
     startTransition(async () => {
-      const { success, message } = await deletePostAction({ postId })
+      const { success, message } = await deletePostAndRevalidate(postId)
 
       if (!success) {
         toast(message, {
@@ -41,6 +51,9 @@ export function DeletePostButton({ postId }: { postId: string }) {
           textAlign: 'justify'
         }
       })
+
+      replace(redirectTo ?? '/dashboard/posts')
+      setOpen(false)
     })
   }
 

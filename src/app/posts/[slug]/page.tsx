@@ -1,14 +1,17 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import Image from 'next/image'
-import { IconEdit } from '@tabler/icons-react'
+import { getPostBySlugAction } from '@/app/actions/get-post'
 import { auth } from '@/auth'
+import { Button } from '@/components/custom/button'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
-import { Button } from '@/components/custom/button'
-import { getPostBySlugAction } from '@/app/actions/get-post'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
+import { IconEdit } from '@tabler/icons-react'
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { DeletePostButton } from '@/components/custom/delete-post-button'
+import { Modal } from '@/components/custom/modal'
+import { IconTrash } from '@tabler/icons-react'
 
 export async function generateMetadata({
   params
@@ -98,15 +101,24 @@ export default async function BlogPostContentPage({
             {formatDate(new Date(post.updatedAt).toDateString())}
           </span>
           {user ? (
-            <Link
-              href={`/dashboard/posts/${post.id}`}
-              className='self-start md:self-center'
-            >
-              <Button className='flex items-center px-2 -ml-1 gap-x-2'>
-                <IconEdit className='w-4 h-4' />
-                <span>Edit Post</span>
-              </Button>
-            </Link>
+            <>
+              <Link
+                href={`/dashboard/posts/${post.id}`}
+                className='self-start md:self-center'
+              >
+                <Button className='flex items-center px-2 -ml-1 gap-x-2'>
+                  <IconEdit className='w-4 h-4' />
+                  <span>Edit Post</span>
+                </Button>
+              </Link>
+              <Modal
+                title='Delete Post'
+                description='Are you sure you want to delete this post?'
+                trigger={<IconTrash className='w-10 h-4 text-red-500' />}
+              >
+                <DeletePostButton postId={post.id ?? ''} redirectTo='/posts' />
+              </Modal>
+            </>
           ) : null}
         </div>
 

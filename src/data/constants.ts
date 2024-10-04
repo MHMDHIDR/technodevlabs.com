@@ -7,8 +7,6 @@ export const APP_LOGO = '/images/logo.svg'
 
 export const APP_LOGO_opengraph = '/images/technodevlabs-opengraph.png'
 
-export const APP_LOGO_sm = '/images/logo.svg'
-
 export const ADMIN_EMAIL = 'support@technodevlabs.com'
 
 export const APP_FB_URL = `https://www.facebook.com/profile.php?id=61566052719178`

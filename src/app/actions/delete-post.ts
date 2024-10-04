@@ -19,14 +19,9 @@ export async function deletePostAction({ postId }: { postId: string }) {
 
     const deletedPost = await database.delete(posts).where(eq(posts.id, postId))
 
-    console.log('deletedPost :>> ', deletedPost)
-
     if (deletedPost.length !== 0) {
       return { success: false, message: 'Failed to delete post or post not found' }
     }
-
-    revalidatePath('/dashboard/posts')
-    revalidatePath('/posts')
 
     return { success: true, message: 'Post deleted successfully' }
   } catch (error) {

@@ -11,7 +11,7 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
   return posts && postsCount !== 0 ? (
     <div className='container max-w-5xl'>
       <div
-        className={`grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center${
+        className={`grid gap-20 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center${
           postsCount === 1 ? ' group-one-col' : ''
         }`}
       >

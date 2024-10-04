@@ -6,12 +6,13 @@ import { Modal } from '@/components/custom/modal'
 import { getPosts } from '@/data/posts'
 import { formatDate } from '@/lib/format-date'
 import { IconTrash } from '@tabler/icons-react'
+import { POST_TITLE_LENGTH } from '@/data/constants'
 
 export default async function DashboardPosts() {
   const { posts, postsCount } = await getPosts()
 
   return (
-    <section className='flex flex-col'>
+    <section className='flex flex-col container py-10'>
       <h3 className='mb-6 text-2xl font-bold text-center'>Our Blog Posts</h3>
 
       <div className='self-end mb-6'>
@@ -32,15 +33,17 @@ export default async function DashboardPosts() {
                 <Link href={`/dashboard/posts/${post.id}`} className='block group'>
                   <div className='p-5 border border-gray-200 rounded-lg shadow-lg bg-neutral-50 dark:bg-gray-900 dark:shadow-gray-800 hover:shadow-xl dark:border-gray-400 hover:border-blue-500 duration-300'>
                     <div className='flex items-center justify-between'>
-                      <h4 className='text-lg font-semibold group-hover:text-blue-600 transition duration-300'>
-                        {post.title}
+                      <h4 className='text-sm md:text-lg font-semibold group-hover:text-blue-600 transition duration-300'>
+                        {post.title.length > POST_TITLE_LENGTH
+                          ? post.title.slice(0, POST_TITLE_LENGTH) + '...'
+                          : post.title}
                       </h4>
-                      <span className='text-sm text-gray-500'>
+                      <span className='text-xs md:text-sm text-gray-500'>
                         {formatDate(new Date(post.updatedAt).toDateString())}
                       </span>
                     </div>
                     <div
-                      className='mt-2 text-sm text-gray-700 dark:text-gray-300'
+                      className='mt-2 text-sm text-gray-700 dark:text-gray-300 truncate'
                       dangerouslySetInnerHTML={{ __html: abstract + '...' }}
                     />
                   </div>
