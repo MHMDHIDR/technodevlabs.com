@@ -22,5 +22,5 @@ export const APP_TIKTOK_URL = `https://www.tiktok.com/@technodevlabs`
  */
 export const DEFAULT_DURATION = 3000
 
-export const POST_TITLE_LENGTH = 30
+export const POST_TITLE_LENGTH = 25
 export const POST_CONTENT_LENGTH = 200
