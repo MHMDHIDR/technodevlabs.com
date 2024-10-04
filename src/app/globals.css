@@ -146,4 +146,50 @@
     animation: status-icon-circle 2s linear both infinite;
   }
   /* ===================== Status ICONS ENDS Here ===================== */
+
+  @keyframes status-icon-circle {
+    0% {
+      stroke-dasharray: 0, 260.752190248px;
+      stroke-dashoffset: 0;
+    }
+
+    35% {
+      stroke-dasharray: 120px, 120px;
+      stroke-dashoffset: -120px;
+    }
+
+    70% {
+      stroke-dasharray: 0, 260.752190248px;
+      stroke-dashoffset: -260.752190248px;
+    }
+
+    100% {
+      stroke-dasharray: 260.752190248px, 0;
+      stroke-dashoffset: -260.752190248px;
+    }
+  }
+
+  @keyframes ani-error-line {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes status-icon-path {
+    0% {
+      stroke-dashoffset: 62px;
+    }
+
+    65% {
+      stroke-dashoffset: -5px;
+    }
+
+    84% {
+      stroke-dashoffset: 4px;
+    }
+
+    100% {
+      stroke-dashoffset: -2px;
+    }
+  }
 }

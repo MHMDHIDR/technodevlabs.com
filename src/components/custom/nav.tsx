@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
 import { signOut, getSession } from 'next-auth/react'
-import { IconLogout2 } from '@tabler/icons-react'
+import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import { deleteCookieAction } from '@/app/actions'
 import { auth } from '@/auth'
 import type { User } from 'next-auth'
@@ -68,7 +68,7 @@ export default function Nav() {
       <nav className='container w-full px-0 mx-auto sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <Link
-            className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-none focus:opacity-80'
+            className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-purple-900 focus:opacity-80'
             href='/'
             aria-label='Brand'
           >
@@ -130,7 +130,7 @@ export default function Nav() {
         >
           <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
-              className={`font-medium focus:outline-none ${activeLinkClass(
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
                 '/#projects'
               )}`}
               href={pathname === '/' ? '/#projects' : '/projects'}
@@ -140,7 +140,9 @@ export default function Nav() {
               Projects
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${activeLinkClass('/about')}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
+                '/about'
+              )}`}
               href={pathname === '/' ? '/#about' : '/about'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -148,7 +150,9 @@ export default function Nav() {
               About
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${activeLinkClass('/services')}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
+                '/services'
+              )}`}
               href={pathname === '/' ? '/#services' : '/services'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -156,7 +160,9 @@ export default function Nav() {
               Services
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${activeLinkClass('/posts')}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
+                '/posts'
+              )}`}
               href={pathname === '/' ? '/#posts' : '/posts'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -164,7 +170,9 @@ export default function Nav() {
               Blog
             </Link>
             <Link
-              className={`font-medium focus:outline-none ${activeLinkClass('/contact')}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
+                '/contact'
+              )}`}
               href={pathname === '/' ? '/#contact' : '/contact'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -172,21 +180,36 @@ export default function Nav() {
               Contact
             </Link>
             {user ? (
-              <button
-                className='flex items-center justify-start py-2 gap-2 group/sidebar'
-                onClick={async () => {
-                  await deleteCookieAction({ name: 'can-authenticate' })
-                  await signOut()
-                }}
-                title='Sign Out'
-              >
-                <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
-                <span
-                  className={`text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500`}
+              <>
+                <Link
+                  className={`focus:outline-purple-900 flex`}
+                  href={'/dashboard'}
+                  aria-current='page'
+                  title='Dashboard'
+                  aria-label='Dashboard'
+                  onClick={toggleMobileMenu}
                 >
-                  Sign Out
-                </span>
-              </button>
+                  <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
+                  <span className='text-sm sm:hidden lg:inline-block'>Dashboard</span>
+                </Link>
+
+                <button
+                  className='flex items-center justify-start py-2 gap-2'
+                  onClick={async () => {
+                    await deleteCookieAction({ name: 'can-authenticate' })
+                    await signOut()
+                  }}
+                  title='Sign Out'
+                  aria-label='Sign Out'
+                >
+                  <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
+                  <span
+                    className={`text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500`}
+                  >
+                    Sign Out
+                  </span>
+                </button>
+              </>
             ) : null}
           </div>
         </div>

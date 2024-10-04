@@ -52,6 +52,7 @@ export const ModalTrigger = ({
         className
       )}
       onClick={() => setOpen(true)}
+      type='button'
     >
       {children}
     </button>
@@ -65,18 +66,30 @@ export const ModalBody = ({
   children: ReactNode
   className?: string
 }) => {
-  const { open } = useModal()
+  const { open, setOpen } = useModal()
+
+  // Add event listener for 'Esc' key to close the modal
+  const handleEscKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      setOpen(false)
+    }
+  }
 
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden'
+      document.addEventListener('keydown', handleEscKey)
     } else {
       document.body.style.overflow = 'auto'
     }
-  }, [open])
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener('keydown', handleEscKey)
+    }
+  }, [open, setOpen])
 
   const modalRef = useRef(null)
-  const { setOpen } = useModal()
   useOutsideClick(modalRef, () => setOpen(false))
 
   return (
@@ -101,7 +114,7 @@ export const ModalBody = ({
           <motion.div
             ref={modalRef}
             className={cn(
-              'min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden',
+              'min-h-[10%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden',
               className
             )}
             initial={{
@@ -143,9 +156,7 @@ export const ModalContent = ({
   children: ReactNode
   className?: string
 }) => {
-  return (
-    <div className={cn('flex flex-col flex-1 p-8 md:p-10', className)}>{children}</div>
-  )
+  return <div className={cn('flex flex-col flex-1 p-3.5', className)}>{children}</div>
 }
 
 export const ModalFooter = ({
@@ -155,11 +166,20 @@ export const ModalFooter = ({
   children: ReactNode
   className?: string
 }) => {
+  const { setOpen } = useModal()
   return (
     <div
-      className={cn('flex justify-end p-4 bg-gray-100 dark:bg-neutral-900', className)}
+      className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}
     >
-      {children}
+      <>
+        <button
+          onClick={() => setOpen(false)}
+          className='px-2 py-1 text-sm text-black bg-gray-200 border border-gray-300 dark:bg-black dark:border-black dark:text-white rounded-md w-28'
+        >
+          Cancel
+        </button>
+        {children}
+      </>
     </div>
   )
 }

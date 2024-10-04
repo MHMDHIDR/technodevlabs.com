@@ -17,23 +17,18 @@ export async function updatePostAction({
   content: string
 }) {
   const session = await auth()
-  if (!session) {
+  if (!session || !session.user || !session.user.id) {
     throw new Error('Unauthorized')
   }
 
-  const user = session.user
-  if (!user || !user.id) {
-    throw new Error('Unauthorized')
+  if (!postId) {
+    throw new Error('Post ID is required')
   }
 
   //const updatedPost =
   await database
     .update(posts)
-    .set({
-      title,
-      content,
-      updatedAt: new Date()
-    })
+    .set({ title, content, updatedAt: new Date() })
     .where(eq(posts.id, postId))
 
   revalidatePath('/dashboard/posts')

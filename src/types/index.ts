@@ -57,3 +57,11 @@ export type PostWithAuthor = Post & {
     image: string | null
   }
 }
+
+export type ModalProps = {
+  title: string
+  description: React.ReactNode
+  className?: string
+  trigger: React.ReactNode
+  children: React.ReactNode
+}

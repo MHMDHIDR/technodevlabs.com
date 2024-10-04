@@ -1,14 +1,13 @@
-import Link from 'next/link'
-import { IconPlus } from '@tabler/icons-react'
-import { auth } from '@/auth'
-import { Cover } from '@/components/ui/cover'
-import { Button } from '@/components/custom/button'
-import Layout from '@/components/custom/layout'
-import EmptyState from '@/components/custom/empty-state'
 import { PostsSection } from '@/app/posts/posts-section'
-import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import { auth } from '@/auth'
+import { AddPostButton } from '@/components/custom/add-post-button'
+import EmptyState from '@/components/custom/empty-state'
+import Layout from '@/components/custom/layout'
+import { Cover } from '@/components/ui/cover'
+import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { getPosts } from '@/data/posts'
 import type { Metadata } from 'next'
+import type { User } from 'next-auth'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -34,9 +33,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PostsPage() {
-  const posts = await getPosts()
+  const { postsCount } = await getPosts()
   const session = await auth()
-  let user = null
+  let user: User | null = null
 
   if (session && session.user) {
     user = session.user
@@ -48,16 +47,15 @@ export default async function PostsPage() {
         <Cover>Posts</Cover>
       </h1>
 
-      {!posts || posts.length === 0 ? (
+      {user ? (
+        <div className='w-fit mb-6 ml-auto'>
+          <AddPostButton />
+        </div>
+      ) : null}
+
+      {postsCount === 0 ? (
         <EmptyState>
-          {user ? (
-            <Link href='/dashboard/posts/add'>
-              <Button className='flex items-center'>
-                <IconPlus className='w-4 h-4' />
-                <span>Add Post</span>
-              </Button>
-            </Link>
-          ) : null}
+          {user ? <AddPostButton /> : null}
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             There are no posts available.
           </p>
