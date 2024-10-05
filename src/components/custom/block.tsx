@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import type { BlockProps } from '@/types'
 import { cn, clsx } from '@/lib/utils'
+import type { BlockProps } from '@/types'
 
 export const Block = ({
   href,
@@ -14,9 +14,10 @@ export const Block = ({
     <Link
       href={href}
       className={cn(
-        `p-6 select-none rounded-lg bg-blue-50 dark:bg-gray-800 group${clsx(
-          !href ? 'pointer-events-none' : ''
-        )}`,
+        `p-6 select-none rounded-lg bg-blue-50 dark:bg-gray-800 group${clsx({
+          'pointer-events-none': !href,
+          '': href
+        })}`,
         className
       )}
       title={blockDescription}

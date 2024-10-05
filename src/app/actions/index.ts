@@ -1,6 +1,8 @@
 export { emailAction } from '@/app/actions/email'
 export { deleteCookieAction } from '@/app/actions/delete-cookie'
 export { addNewPostAction } from '@/app/actions/add-new-post'
+export { addNewProjectAction } from '@/app/actions/add-new-project'
 export { updatePostAction } from '@/app/actions/update-post'
 export { deletePostAction } from '@/app/actions/delete-post'
 export { deletePostAndRevalidate } from '@/app/actions/delete-post-and-revalidate'
+export { updateLayoutAction } from '@/app/actions/settings/layout'

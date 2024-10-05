@@ -3,7 +3,7 @@ import { getPosts } from '@/data/posts'
 import { getProjects } from '@/data/projects'
 import { IconBook, IconCode } from '@tabler/icons-react'
 
-export default async function DasboardPage() {
+export default async function DashboardPage() {
   const { postsCount } = await getPosts()
   const { projectsCount } = await getProjects()
 

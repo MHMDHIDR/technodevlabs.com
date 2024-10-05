@@ -1,13 +1,19 @@
 'use client'
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { signOut } from 'next-auth/react'
-import { IconBrandTabler, IconBook, IconCode, IconLogout2 } from '@tabler/icons-react'
+import { deleteCookieAction } from '@/app/actions'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
-import { deleteCookieAction } from '@/app/actions'
+import {
+  IconBook,
+  IconBrandTabler,
+  IconCode,
+  IconLogout2,
+  IconSettings
+} from '@tabler/icons-react'
 import type { User } from 'next-auth'
+import { signOut } from 'next-auth/react'
+import Image from 'next/image'
+import { useState } from 'react'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const links = [
@@ -30,6 +36,13 @@ export function DashboardSidebar({ user }: { user: User }) {
       href: '/dashboard/posts',
       icon: (
         <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
+      )
+    },
+    {
+      label: 'Settings',
+      href: '/dashboard/settings',
+      icon: (
+        <IconSettings className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     }
   ]

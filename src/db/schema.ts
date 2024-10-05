@@ -1,5 +1,12 @@
 import { relations, sql } from 'drizzle-orm'
-import { integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import {
+  integer,
+  pgEnum,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable('tdl_user', {
   id: text('id')
@@ -81,6 +88,19 @@ export const projects = pgTable('tdl_project', {
     .notNull()
     .default(sql`ARRAY[]::text[]`),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
+})
+
+export const layoutEnum = pgEnum('layout', ['dotted', 'grid'])
+
+/** Future scalibility: If we want to add more settings
+ * export const settings = pgTable('tdl_setting', {
+ *    id: text('id').primaryKey().default(() => crypto.randomUUID()),
+ *    key: text('key').primaryKey(),
+ *    value: text('value').notNull(),
+ *  })
+ **/
+export const settings = pgTable('tdl_setting', {
+  layout: layoutEnum('layout').notNull().default('dotted')
 })
 
 export const usersRelations = relations(posts, ({ one }) => ({

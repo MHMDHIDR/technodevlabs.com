@@ -158,7 +158,6 @@ export default function DashboardPostAdd() {
     immediatelyRender: false
   })
 
-  // Convert this into a server action with a name of addNewPostAction()
   const addPost = async (e: React.FormEvent) => {
     e.preventDefault()
 

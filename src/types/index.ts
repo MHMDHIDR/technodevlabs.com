@@ -4,7 +4,8 @@ import {
   sessions,
   verificationTokens,
   posts,
-  projects
+  projects,
+  settings
 } from '@/db/schema'
 import React from 'react'
 
@@ -15,6 +16,7 @@ export type Session = typeof sessions.$inferSelect
 export type VerificationToken = typeof verificationTokens.$inferSelect
 export type Post = typeof posts.$inferSelect
 export type Project = typeof projects.$inferSelect
+export type Setting = typeof settings.$inferSelect
 
 export type emailMethodProps = {
   name?: string

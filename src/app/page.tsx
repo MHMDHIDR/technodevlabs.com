@@ -4,8 +4,12 @@ import { AboutSection } from '@/app/about/about-section'
 import { ServicesSection } from '@/app/services/services-section'
 import { ContactForm } from '@/app/contact/contact-form'
 import { PostsSection } from '@/app/posts/posts-section'
+import { getSettings } from '@/data/settings'
+import { clsx } from '@/lib/utils'
 
-export default function Home() {
+export default async function Home() {
+  const settings = await getSettings()
+
   return (
     <Layout>
       <Hero />
@@ -14,9 +18,12 @@ export default function Home() {
         <AboutSection />
       </section>
 
-      {/* Background Dotted / Grid */}
-      <div className='h-fit p-4 py-20 w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative'>
-        {/* <div className='h-fit p-4 py-20 w-full dark:bg-black bg-white dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative'> */}
+      <div
+        className={`h-fit p-4 py-20 w-full dark:bg-black bg-white relative ${clsx({
+          'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings?.layout === 'grid',
+          'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
+        })}`}
+      >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
 
         <section id='services' className='py-20'>

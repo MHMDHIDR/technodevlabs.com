@@ -4,7 +4,7 @@ import { Button } from '@/components/custom/button'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
-import { calculateReadTime, formatDate, removeSlug } from '@/lib/utils'
+import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
 import { IconEdit } from '@tabler/icons-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
@@ -13,6 +13,7 @@ import { DeletePostButton } from '@/components/custom/delete-post-button'
 import { Modal } from '@/components/custom/modal'
 import { IconTrash } from '@tabler/icons-react'
 import { notFound } from 'next/navigation'
+import { getSettings } from '@/data/settings'
 
 export async function generateMetadata({
   params
@@ -60,6 +61,7 @@ export default async function BlogPostContentPage({
 }: {
   params: { slug: string }
 }) {
+  const settings = await getSettings()
   const post = await getPostBySlugAction({ slug })
   if (!post) return notFound()
 
@@ -77,7 +79,12 @@ export default async function BlogPostContentPage({
 
   return (
     <Layout>
-      <div className='h-[50rem] p-4 py-20 w-full dark:bg-black bg-white dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative'>
+      <div
+        className={`h-fit p-4 py-20 w-full dark:bg-black bg-white relative ${clsx({
+          'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings?.layout === 'grid',
+          'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
+        })}`}
+      >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
 
         <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-bold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
