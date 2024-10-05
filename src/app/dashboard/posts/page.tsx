@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { AddPostButton } from '@/components/custom/add-post-button'
+import { AddButton } from '@/components/custom/add-button'
 import { DeletePostButton } from '@/components/custom/delete-post-button'
 import EmptyState from '@/components/custom/empty-state'
 import { Modal } from '@/components/custom/modal'
@@ -13,18 +13,21 @@ export default async function DashboardPosts() {
 
   return (
     <section className='flex flex-col container py-10'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>Our Blog Posts</h3>
-
       <div className='self-end mb-6'>
-        <AddPostButton />
+        <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
       </div>
 
       {postsCount === 0 ? (
         <EmptyState>
-          <AddPostButton />
+          <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
+          <p className='mt-4 text-lg text-gray-500 dark:text-gray-400 select-none'>
+            Sorry, there are no posts available.
+          </p>
         </EmptyState>
       ) : (
         <div className='grid grid-cols-1 gap-6'>
+          <h3 className='mb-6 text-2xl font-bold text-center'>Our Blog Posts</h3>
+
           {posts.map(post => {
             const abstract = post.content.replace(/<[^>]*>/g, ' ').slice(0, 150)
 

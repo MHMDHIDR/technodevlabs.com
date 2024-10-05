@@ -2,12 +2,12 @@ import { Button } from '@/components/custom/button'
 import { IconPlus } from '@tabler/icons-react'
 import Link from 'next/link'
 
-export function AddPostButton() {
+export function AddButton({ children, href }: { children: string; href: string }) {
   return (
-    <Link href='/dashboard/posts/add' aria-label='Add Post' title='Add Post'>
+    <Link href={href} aria-label={children} title={children}>
       <Button className='flex items-center gap-x-2 px-3'>
         <IconPlus className='w-4 h-4' />
-        <span>Add Post</span>
+        <span>{children}</span>
       </Button>
     </Link>
   )

@@ -1,6 +1,6 @@
 import { PostsSection } from '@/app/posts/posts-section'
 import { auth } from '@/auth'
-import { AddPostButton } from '@/components/custom/add-post-button'
+import { AddButton } from '@/components/custom/add-button'
 import EmptyState from '@/components/custom/empty-state'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
@@ -49,13 +49,13 @@ export default async function PostsPage() {
 
       {user ? (
         <div className='w-fit mb-6 ml-auto'>
-          <AddPostButton />
+          <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
         </div>
       ) : null}
 
       {postsCount === 0 ? (
         <EmptyState>
-          {user ? <AddPostButton /> : null}
+          {user ? <AddButton href='/dashboard/posts/add'>Add Post</AddButton> : null}
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             There are no posts available.
           </p>

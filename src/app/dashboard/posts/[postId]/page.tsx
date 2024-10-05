@@ -7,7 +7,7 @@ import Image from '@tiptap/extension-image'
 import { updatePostAction } from '@/app/actions'
 import { getPostByIdAction } from '@/app/actions/get-post'
 import { SubmitButton } from '@/app/contact/submit-button'
-import { AddPostButton } from '@/components/custom/add-post-button'
+import { AddButton } from '@/components/custom/add-button'
 import { Button } from '@/components/custom/button'
 import EmptyState from '@/components/custom/empty-state'
 import LabelInputContainer from '@/components/custom/label-input-container'
@@ -203,7 +203,7 @@ export default function DashboardPostUpdate({
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             Sorry the post you are looking for does not exist.
           </p>
-          <AddPostButton />
+          <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
         </EmptyState>
       ) : (
         <>
