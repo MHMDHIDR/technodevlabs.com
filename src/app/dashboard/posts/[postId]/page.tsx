@@ -1,16 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useEditor, EditorContent } from '@tiptap/react'
+import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
-import { Button } from '@/components/custom/button'
-import { Input } from '@/components/ui/input'
-import { SubmitButton } from '@/app/contact/submit-button'
-import { Label } from '@/components/ui/label'
-import LabelInputContainer from '@/components/custom/label-input-container'
-import { getPostByIdAction } from '@/app/actions/get-post'
 import { updatePostAction } from '@/app/actions'
+import { getPostByIdAction } from '@/app/actions/get-post'
+import { SubmitButton } from '@/app/contact/submit-button'
+import { AddPostButton } from '@/components/custom/add-post-button'
+import { Button } from '@/components/custom/button'
+import EmptyState from '@/components/custom/empty-state'
+import LabelInputContainer from '@/components/custom/label-input-container'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import type { Post } from '@/types'
 
 const MenuBar = ({ editor }: { editor: any }) => {
   if (!editor) {
@@ -141,23 +144,30 @@ export default function DashboardPostUpdate({
 }: {
   params: { postId: string }
 }) {
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
+  const [post, setPost] = useState<{
+    title: Post['title']
+    content: Post['content']
+  } | null>({
+    title: '',
+    content: ''
+  })
 
   useEffect(() => {
     const fetchPost = async () => {
       const post = await getPostByIdAction({ postId })
-      if (!post) return
+      if (!post) {
+        setPost(null)
+        return
+      }
 
-      setTitle(post.title)
-      setContent(post.content)
+      setPost({ title: post.title, content: post.content })
     }
     fetchPost()
   }, [postId])
 
   const editor = useEditor({
     extensions: [StarterKit, Image],
-    content: content,
+    content: post && post.content,
     editorProps: {
       attributes: {
         class:
@@ -169,53 +179,66 @@ export default function DashboardPostUpdate({
 
   // Effect to update the editor content when content state changes
   useEffect(() => {
-    if (editor) {
-      editor.commands.setContent(content) // Update editor content whenever content state changes
+    if (editor && post) {
+      editor.commands.setContent(post.content) // Update editor content whenever content state changes
     }
-  }, [content, editor])
+  }, [post && post.content, editor])
 
   const editPost = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!editor) return
+    if (!editor || !post) return
     const content = editor.getHTML()
 
-    await updatePostAction({ postId, title, content })
+    await updatePostAction({ postId, title: post.title, content })
 
-    setTitle('')
+    setPost({ title: '', content: '' })
     editor.commands.setContent('') // Clear the editor after submission
   }
 
   return (
     <section className='max-w-4xl p-6 mx-auto'>
-      <h3 className='mb-6 text-2xl font-bold text-center select-none'>{title}</h3>
+      {post === null ? (
+        <EmptyState>
+          <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
+            Sorry the post you are looking for does not exist.
+          </p>
+          <AddPostButton />
+        </EmptyState>
+      ) : (
+        <>
+          <h3 className='mb-6 text-2xl font-bold text-center select-none'>
+            {post.title}
+          </h3>
 
-      <form onSubmit={editPost} className='space-y-6'>
-        <LabelInputContainer>
-          <Label htmlFor='title'>Post Title</Label>
-          <Input
-            type='text'
-            id='title'
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-            required
-          />
-        </LabelInputContainer>
+          <form onSubmit={editPost} className='space-y-6'>
+            <LabelInputContainer>
+              <Label htmlFor='title'>Post Title</Label>
+              <Input
+                type='text'
+                id='title'
+                value={post.title}
+                onChange={e => setPost({ ...post, title: e.target.value })}
+                className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                required
+              />
+            </LabelInputContainer>
 
-        <LabelInputContainer>
-          <Label htmlFor='content'>Post Content</Label>
-          <MenuBar editor={editor} />
-          <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
-            <EditorContent
-              editor={editor}
-              className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
-            />
-          </div>
-        </LabelInputContainer>
+            <LabelInputContainer>
+              <Label htmlFor='content'>Post Content</Label>
+              <MenuBar editor={editor} />
+              <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
+                <EditorContent
+                  editor={editor}
+                  className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
+                />
+              </div>
+            </LabelInputContainer>
 
-        <SubmitButton>Edit Post</SubmitButton>
-      </form>
+            <SubmitButton>Edit Post</SubmitButton>
+          </form>
+        </>
+      )}
     </section>
   )
 }

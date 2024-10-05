@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm'
+import { relations, sql } from 'drizzle-orm'
 import { integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
 
 // Users table
@@ -71,6 +71,20 @@ export const posts = pgTable('tdl_post', {
   slug: text('slug').notNull(),
   content: text('content').notNull(),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull(),
+  updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
+})
+
+export const projects = pgTable('tdl_project', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  title: text('title').notNull(),
+  description: text('description').notNull(),
+  url: text('url').notNull(),
+  images: text('images')
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
 })
 

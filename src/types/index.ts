@@ -1,3 +1,21 @@
+import {
+  users,
+  accounts,
+  sessions,
+  verificationTokens,
+  posts,
+  projects
+} from '@/db/schema'
+import React from 'react'
+
+// Inferred types from Drizzle ORM
+export type User = typeof users.$inferSelect
+export type Account = typeof accounts.$inferSelect
+export type Session = typeof sessions.$inferSelect
+export type VerificationToken = typeof verificationTokens.$inferSelect
+export type Post = typeof posts.$inferSelect
+export type Project = typeof projects.$inferSelect
+
 export type emailMethodProps = {
   name?: string
   subject: string
@@ -35,20 +53,11 @@ export type BlockProps = {
   href: string
   blockLabel: string
   blockDescription: string
-  blockIcon: JSX.Element
-  children?: string
+  blockIcon: React.ReactNode
+  children?: React.ReactNode | string
 }
 
-export type Post = {
-  id: string
-  title: string
-  userId: string
-  content: string
-  slug: string
-  createdAt: Date
-  updatedAt: Date
-}
-
+// Note: We're using the inferred Post type here instead of redefining it
 export type PostWithAuthor = Post & {
   author: {
     id: string

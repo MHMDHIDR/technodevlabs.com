@@ -36,7 +36,9 @@ export default function NotFound() {
               blockLabel='Projects'
               blockDescription='Dive into our projects to see our latest projects.'
               blockIcon={<IconCode />}
-            ></Block>
+            >
+              Start Exploring
+            </Block>
 
             <Block
               href='/posts'
@@ -49,11 +51,11 @@ export default function NotFound() {
 
             <Block
               href='/contact'
-              blockLabel='Chat to Us'
+              blockLabel='Chat with Us'
               blockDescription='Can’t find what you’re looking for? Chat to our team.'
               blockIcon={<IconMessage />}
             >
-              Chat to our team
+              Chat with our team
             </Block>
           </div>
         </div>

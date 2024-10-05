@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { DeletePostButton } from '@/components/custom/delete-post-button'
 import { Modal } from '@/components/custom/modal'
 import { IconTrash } from '@tabler/icons-react'
+import { notFound } from 'next/navigation'
 
 export async function generateMetadata({
   params
@@ -60,7 +61,7 @@ export default async function BlogPostContentPage({
   params: { slug: string }
 }) {
   const post = await getPostBySlugAction({ slug })
-  if (!post) return null
+  if (!post) return notFound()
 
   const session = await auth()
   let user = null

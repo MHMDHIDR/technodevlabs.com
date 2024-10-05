@@ -9,7 +9,13 @@ export const Block = ({
   children
 }: BlockProps): JSX.Element => {
   return (
-    <Link href={href} className='p-6 rounded-lg bg-blue-50 dark:bg-gray-800 group'>
+    <Link
+      href={href}
+      className={`p-6 select-none rounded-lg bg-blue-50 dark:bg-gray-800 group${
+        !href ? ' pointer-events-none' : ''
+      }`}
+      title={blockDescription}
+    >
       <span className='text-gray-500 dark:text-gray-400'>{blockIcon}</span>
 
       <h3 className='mt-6 font-medium text-gray-700 dark:text-gray-200'>{blockLabel}</h3>
