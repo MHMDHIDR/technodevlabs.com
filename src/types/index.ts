@@ -54,6 +54,7 @@ export type BlockProps = {
   blockLabel: string
   blockDescription: string
   blockIcon: React.ReactNode
+  className?: string
   children?: React.ReactNode | string
 }
 

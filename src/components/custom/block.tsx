@@ -1,19 +1,24 @@
 import Link from 'next/link'
 import type { BlockProps } from '@/types'
+import { cn, clsx } from '@/lib/utils'
 
 export const Block = ({
   href,
   blockLabel,
   blockDescription,
   blockIcon,
+  className,
   children
 }: BlockProps): JSX.Element => {
   return (
     <Link
       href={href}
-      className={`p-6 select-none rounded-lg bg-blue-50 dark:bg-gray-800 group${
-        !href ? ' pointer-events-none' : ''
-      }`}
+      className={cn(
+        `p-6 select-none rounded-lg bg-blue-50 dark:bg-gray-800 group${clsx(
+          !href ? 'pointer-events-none' : ''
+        )}`,
+        className
+      )}
       title={blockDescription}
     >
       <span className='text-gray-500 dark:text-gray-400'>{blockIcon}</span>
