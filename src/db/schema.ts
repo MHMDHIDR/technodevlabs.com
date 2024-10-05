@@ -1,7 +1,6 @@
 import { relations, sql } from 'drizzle-orm'
 import { integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
 
-// Users table
 export const users = pgTable('tdl_user', {
   id: text('id')
     .primaryKey()
@@ -12,7 +11,6 @@ export const users = pgTable('tdl_user', {
   image: text('image')
 })
 
-// Accounts table
 export const accounts = pgTable(
   'tdl_account',
   {
@@ -37,7 +35,6 @@ export const accounts = pgTable(
   })
 )
 
-// Sessions table
 export const sessions = pgTable('tdl_session', {
   sessionToken: text('sessionToken').primaryKey(),
   userId: text('userId')
@@ -46,7 +43,6 @@ export const sessions = pgTable('tdl_session', {
   expires: timestamp('expires', { mode: 'date' }).notNull()
 })
 
-// Verification tokens table
 export const verificationTokens = pgTable(
   'tdl_verificationToken',
   {
@@ -59,7 +55,6 @@ export const verificationTokens = pgTable(
   })
 )
 
-// Posts table
 export const posts = pgTable('tdl_post', {
   id: text('id')
     .primaryKey()
@@ -88,7 +83,6 @@ export const projects = pgTable('tdl_project', {
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
 })
 
-// user Relations with posts
 export const usersRelations = relations(posts, ({ one }) => ({
   user: one(users, {
     fields: [posts.userId],
