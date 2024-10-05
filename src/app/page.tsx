@@ -7,13 +7,17 @@ import { PostsSection } from '@/app/posts/posts-section'
 
 export default function Home() {
   return (
-    <section>
-      <Layout>
-        <Hero />
+    <Layout>
+      <Hero />
 
-        <section id='about'>
-          <AboutSection />
-        </section>
+      <section id='about'>
+        <AboutSection />
+      </section>
+
+      {/* Background Dotted / Grid */}
+      <div className='h-fit p-4 py-20 w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative'>
+        {/* <div className='h-fit p-4 py-20 w-full dark:bg-black bg-white dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative'> */}
+        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
 
         <section id='services' className='py-20'>
           <ServicesSection />
@@ -26,7 +30,7 @@ export default function Home() {
         <section id='contact' className='py-20'>
           <ContactForm />
         </section>
-      </Layout>
-    </section>
+      </div>
+    </Layout>
   )
 }

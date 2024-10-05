@@ -29,12 +29,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function ServicesPage() {
   return (
-    <Layout className={`p-4 py-20 pb-40`}>
-      <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-semibold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-        <Cover>Our Services</Cover>
-      </h1>
+    <Layout>
+      <div className='h-fit p-4 py-20 w-full dark:bg-black bg-white dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative'>
+        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
 
-      <ServicesSection />
+        <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-semibold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
+          <Cover>Our Services</Cover>
+        </h1>
+
+        <ServicesSection />
+      </div>
     </Layout>
   )
 }

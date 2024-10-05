@@ -13,7 +13,7 @@ export const BentoGrid = ({
   children?: React.ReactNode
 }) => {
   return (
-    <div className='flex flex-col gap-y-32'>
+    <div className='flex flex-col gap-y-10'>
       <div
         className={cn(
           'grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ',
@@ -26,7 +26,7 @@ export const BentoGrid = ({
       {usePathname() === '/' ? (
         <Link
           href={`/services`}
-          className='relative px-4 py-2 mx-auto mt-4 text-center border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
+          className='relative px-4 py-2 mx-auto text-center border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
         >
           <span>Explore More Services →</span>
           <div className='absolute inset-x-0 w-3/4 h-px mx-auto -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
