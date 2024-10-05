@@ -20,17 +20,8 @@ import {
 import { Facebook, Instagram, TikTok, Twitter } from '@/components/custom/icons'
 import type { customEmailProps } from '@/types'
 
-export const EmailTemplate = ({
-  title,
-  msg,
-  buttonLink,
-  buttonLabel
-}: customEmailProps) => {
-  const formattedMsg = msg
-    ? typeof msg === 'string'
-      ? msg.replace(/\n/g, '<br>')
-      : msg
-    : ''
+export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEmailProps) => {
+  const formattedMsg = msg ? (typeof msg === 'string' ? msg.replace(/\n/g, '<br>') : msg) : ''
 
   return (
     <Html>
@@ -71,11 +62,7 @@ export const EmailTemplate = ({
                 direction: 'rtl'
               }}
             >
-              <Heading
-                as='h2'
-                style={{ textAlign: 'center', userSelect: 'none' }}
-                key='h2'
-              >
+              <Heading as='h2' style={{ textAlign: 'center', userSelect: 'none' }} key='h2'>
                 {title ?? 'طلب استعادة كلمة المرور'}
               </Heading>
 
@@ -103,10 +90,7 @@ export const EmailTemplate = ({
               </Text>
 
               {buttonLink && (
-                <div
-                  style={{ textAlign: 'center', marginTop: '1.75rem' }}
-                  key='buttonDiv'
-                >
+                <div style={{ textAlign: 'center', marginTop: '1.75rem' }} key='buttonDiv'>
                   <Link
                     style={{
                       padding: '0.5rem 1.5rem',
@@ -150,8 +134,8 @@ export const EmailTemplate = ({
                       fontSize: '0.625rem'
                     }}
                   >
-                    إذا كنت تعتقد أن هذا البريد الالكتروني وصلك بالخطأ، أو أن هنالك مشكلة
-                    ما، يرجى تجاهل هذا البريد من فضلك!
+                    إذا كنت تعتقد أن هذا البريد الالكتروني وصلك بالخطأ، أو أن هنالك مشكلة ما، يرجى
+                    تجاهل هذا البريد من فضلك!
                   </small>
                 </>
               )}
@@ -201,8 +185,7 @@ export const EmailTemplate = ({
             </section>
 
             {buttonLink &&
-              (buttonLink.includes('reset-password') ||
-                buttonLink.includes('activate')) && (
+              (buttonLink.includes('reset-password') || buttonLink.includes('activate')) && (
                 <Text
                   style={{
                     marginTop: '0.5rem',

@@ -5,13 +5,7 @@ import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
 
-export async function addNewPostAction({
-  title,
-  content
-}: {
-  title: string
-  content: string
-}) {
+export async function addNewPostAction({ title, content }: { title: string; content: string }) {
   try {
     const session = await auth()
     if (!session) {
@@ -46,8 +40,7 @@ export async function addNewPostAction({
         ) {
           return {
             success: false,
-            message:
-              'A post with this title already exists. Please choose a different title.'
+            message: 'A post with this title already exists. Please choose a different title.'
           }
         }
       }

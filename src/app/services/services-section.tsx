@@ -17,8 +17,7 @@ export function ServicesSection() {
   const pathname = usePathname()
 
   // Conditionally display first 3 items if on homepage
-  const displayedItems =
-    pathname === '/services' ? servicesItems : servicesItems.slice(0, 3)
+  const displayedItems = pathname === '/services' ? servicesItems : servicesItems.slice(0, 3)
 
   return (
     <BentoGrid className='max-w-4xl mx-auto gap-4'>
@@ -67,8 +66,7 @@ const servicesItems = [
   },
   {
     title: 'Mobile App Development',
-    description:
-      'iOS and Android apps designed to enhance user experience and functionality.',
+    description: 'iOS and Android apps designed to enhance user experience and functionality.',
     header: (
       <Image
         src='/images/services/mobile-app-development.webp'
@@ -82,8 +80,7 @@ const servicesItems = [
   },
   {
     title: 'Data Analytics & BI',
-    description:
-      'Transform data into actionable insights to drive your business forward.',
+    description: 'Transform data into actionable insights to drive your business forward.',
     header: (
       <Image
         src='/images/services/data-analytics.webp'
@@ -97,8 +94,7 @@ const servicesItems = [
   },
   {
     title: 'Database Management',
-    description:
-      'Efficient and secure database solutions for high-performance applications.',
+    description: 'Efficient and secure database solutions for high-performance applications.',
     header: (
       <Image
         src='/images/services/database-management.webp'

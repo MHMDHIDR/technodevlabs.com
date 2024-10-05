@@ -130,9 +130,7 @@ export default function Nav() {
         >
           <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
-                '/#projects'
-              )}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/#projects')}`}
               href={pathname === '/' ? '/#projects' : '/projects'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -140,9 +138,7 @@ export default function Nav() {
               Projects
             </Link>
             <Link
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
-                '/about'
-              )}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/about')}`}
               href={pathname === '/' ? '/#about' : '/about'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -150,9 +146,7 @@ export default function Nav() {
               About
             </Link>
             <Link
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
-                '/services'
-              )}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/services')}`}
               href={pathname === '/' ? '/#services' : '/services'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -160,9 +154,7 @@ export default function Nav() {
               Services
             </Link>
             <Link
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
-                '/posts'
-              )}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/posts')}`}
               href={pathname === '/' ? '/#posts' : '/posts'}
               aria-current='page'
               onClick={toggleMobileMenu}
@@ -170,9 +162,7 @@ export default function Nav() {
               Blog
             </Link>
             <Link
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass(
-                '/contact'
-              )}`}
+              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/contact')}`}
               href={pathname === '/' ? '/#contact' : '/contact'}
               aria-current='page'
               onClick={toggleMobileMenu}

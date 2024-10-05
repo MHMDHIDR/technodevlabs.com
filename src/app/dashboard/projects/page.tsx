@@ -9,9 +9,12 @@ import { IconTrash } from '@tabler/icons-react'
 
 export default async function DashboardProjects() {
   const { projects, projectsCount } = await getProjects()
+
   return (
     <section className='container'>
-      <h3 className='text-center'>Our Projects</h3>
+      <div className='self-end mb-6'>
+        <AddButton href='/dashboard/projects/add'>Add Project</AddButton>
+      </div>
 
       {projectsCount === 0 ? (
         <EmptyState>
@@ -22,10 +25,12 @@ export default async function DashboardProjects() {
         </EmptyState>
       ) : (
         <div className='grid grid-cols-1 gap-6'>
+          <h3 className='mb-6 text-2xl font-bold text-center'>Published Projects</h3>
+
           {projects.map(project => {
             return (
               <div className='relative' key={project.id}>
-                <Link href={`/dashboard/posts/${project.id}`} className='block group'>
+                <Link href={`/dashboard/projects/${project.id}`} className='block group'>
                   <div className='p-5 border border-gray-200 rounded-lg shadow-lg bg-neutral-50 dark:bg-gray-900 dark:shadow-gray-800 hover:shadow-xl dark:border-gray-400 hover:border-blue-500 duration-300'>
                     <div className='flex items-center justify-between'>
                       <h4 className='text-sm md:text-lg font-semibold group-hover:text-blue-600 transition duration-300'>

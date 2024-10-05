@@ -103,11 +103,7 @@ export const DesktopSidebar = ({
   )
 }
 
-export const MobileSidebar = ({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<'div'>) => {
+export const MobileSidebar = ({ className, children, ...props }: React.ComponentProps<'div'>) => {
   const { open, setOpen } = useSidebar()
   return (
     <div
@@ -167,10 +163,7 @@ export const SidebarLink = ({
   return (
     <Link
       href={link.href}
-      className={cn(
-        'flex items-center justify-start gap-2 group/sidebar py-2',
-        className
-      )}
+      className={cn('flex items-center justify-start gap-2 group/sidebar py-2', className)}
       onClick={onClick}
       {...props}
     >

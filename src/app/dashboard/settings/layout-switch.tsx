@@ -60,9 +60,7 @@ const LayoutSwitch = ({ initialLayout }: { initialLayout: Setting['layout'] }) =
         onCheckedChange={handleLayoutChange}
         disabled={isUpdating}
       />
-      <Label htmlFor='layout-switch'>
-        {layout === 'grid' ? 'Grid Layout' : 'Dotted Layout'}
-      </Label>
+      <Label htmlFor='layout-switch'>{layout === 'grid' ? 'Grid Layout' : 'Dotted Layout'}</Label>
     </div>
   )
 }

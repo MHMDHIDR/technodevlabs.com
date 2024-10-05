@@ -24,3 +24,12 @@ export const DEFAULT_DURATION = 3000
 
 export const POST_TITLE_LENGTH = 25
 export const POST_CONTENT_LENGTH = 200
+
+export const DEFAULT_PROJECT = {
+  id: '',
+  title: '',
+  url: '',
+  description: '',
+  images: [''],
+  updatedAt: new Date()
+}

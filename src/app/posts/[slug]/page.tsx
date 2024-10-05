@@ -29,8 +29,7 @@ export async function generateMetadata({
   const postTitle = post.title
   const postContent = post.content
 
-  const title =
-    (postTitle ? postTitle : removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
+  const title = (postTitle ? postTitle : removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
   const description = postContent
     ? postContent.slice(0, 200).replace(/<[^>]*>/g, '') + '...'
     : APP_DESCRIPTION
@@ -102,9 +101,7 @@ export default async function BlogPostContentPage({
                 height={48}
               />
               <figcaption className='flex items-center gap-x-2'>
-                <span className='text-sm font-semibold md:text-lg'>
-                  {post.author.name}
-                </span>
+                <span className='text-sm font-semibold md:text-lg'>{post.author.name}</span>
               </figcaption>
             </figure>
             <span
@@ -115,10 +112,7 @@ export default async function BlogPostContentPage({
             </span>
             {user ? (
               <>
-                <Link
-                  href={`/dashboard/posts/${post.id}`}
-                  className='self-start md:self-center'
-                >
+                <Link href={`/dashboard/posts/${post.id}`} className='self-start md:self-center'>
                   <Button className='flex items-center px-2 -ml-1 gap-x-2'>
                     <IconEdit className='w-4 h-4' />
                     <span>Edit Post</span>

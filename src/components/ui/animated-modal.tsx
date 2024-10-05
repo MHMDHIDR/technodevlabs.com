@@ -1,14 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import React, {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import React, { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react'
 
 interface ModalContextType {
   open: boolean
@@ -20,9 +13,7 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined)
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false)
 
-  return (
-    <ModalContext.Provider value={{ open, setOpen }}>{children}</ModalContext.Provider>
-  )
+  return <ModalContext.Provider value={{ open, setOpen }}>{children}</ModalContext.Provider>
 }
 
 export const useModal = () => {
@@ -59,13 +50,7 @@ export const ModalTrigger = ({
   )
 }
 
-export const ModalBody = ({
-  children,
-  className
-}: {
-  children: ReactNode
-  className?: string
-}) => {
+export const ModalBody = ({ children, className }: { children: ReactNode; className?: string }) => {
   const { open, setOpen } = useModal()
 
   // Add event listener for 'Esc' key to close the modal
@@ -168,9 +153,7 @@ export const ModalFooter = ({
 }) => {
   const { setOpen } = useModal()
   return (
-    <div
-      className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}
-    >
+    <div className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}>
       <>
         <button
           onClick={() => setOpen(false)}
@@ -229,10 +212,7 @@ const CloseIcon = () => {
 
 // Hook to detect clicks outside of a component.
 // Add it in a separate file, I've added here for simplicity
-export const useOutsideClick = (
-  ref: React.RefObject<HTMLDivElement>,
-  callback: Function
-) => {
+export const useOutsideClick = (ref: React.RefObject<HTMLDivElement>, callback: Function) => {
   useEffect(() => {
     const listener = (event: any) => {
       // DO NOTHING if the element being clicked is the target element or their children

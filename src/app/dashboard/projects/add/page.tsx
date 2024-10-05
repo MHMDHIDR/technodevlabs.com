@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
+import Image from 'next/image'
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
 import { SubmitButton } from '@/app/contact/submit-button'
@@ -10,11 +11,38 @@ import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewProjectAction } from '@/app/actions'
 import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/custom/button'
+
+import { useUploadThing } from '@/components/ui/uploadthing'
+import { useDropzone } from '@uploadthing/react'
+import { generateClientDropzoneAccept, generatePermittedFileTypes } from 'uploadthing/client'
 
 export default function DashboardProjecttAdd() {
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
   const [description, setDescription] = useState('')
+  const [files, setFiles] = useState<File[]>([])
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    setFiles(acceptedFiles)
+  }, [])
+
+  const { startUpload, routeConfig } = useUploadThing('imageUploader', {
+    onClientUploadComplete: () => {
+      alert('uploaded successfully!')
+    },
+    onUploadError: () => {
+      alert('error occurred while uploading')
+    },
+    onUploadBegin: () => {
+      alert('upload has begun')
+    }
+  })
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    accept: generateClientDropzoneAccept(generatePermittedFileTypes(routeConfig).fileTypes)
+  })
 
   const { replace } = useRouter()
 
@@ -92,7 +120,7 @@ export default function DashboardProjecttAdd() {
         </LabelInputContainer>
 
         <LabelInputContainer>
-          <Label htmlFor='content'>Project Description</Label>
+          <Label htmlFor='description'>Project Description</Label>
           <Textarea
             id='description'
             value={description}
@@ -100,6 +128,25 @@ export default function DashboardProjecttAdd() {
             className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
             required
           />
+        </LabelInputContainer>
+
+        <LabelInputContainer>
+          <Label htmlFor='images'>Project Images</Label>
+          <div {...getRootProps()}>
+            <Input {...getInputProps()} />
+            <div className='flex items-center justify-center h-48 border-2 border-gray-300 border-dashed rounded-md flex-col'>
+              Drop files here!
+              {files.length > 0 && (
+                <Button
+                  type='button'
+                  className='p-2 bg-blue-500 text-white rounded'
+                  onClick={() => startUpload(files)}
+                >
+                  Upload {files.length} files
+                </Button>
+              )}
+            </div>
+          </div>
         </LabelInputContainer>
 
         <SubmitButton>Add Project</SubmitButton>

@@ -82,12 +82,11 @@ export default function Footer() {
             <form>
               <div className='flex flex-col items-center py-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3'>
                 <p className='text-justify'>
-                  At TechnoDevLabs, we strive to be a trusted partner for businesses in
-                  the Middle East, delivering innovative and tailored software solutions
-                  that meet the unique needs of our clients. Our goal is to empower
-                  organizations by providing high-quality, reliable, and scalable
-                  technology that drives growth and fosters success in a rapidly evolving
-                  digital landscape.
+                  At TechnoDevLabs, we strive to be a trusted partner for businesses in the Middle
+                  East, delivering innovative and tailored software solutions that meet the unique
+                  needs of our clients. Our goal is to empower organizations by providing
+                  high-quality, reliable, and scalable technology that drives growth and fosters
+                  success in a rapidly evolving digital landscape.
                 </p>
               </div>
             </form>

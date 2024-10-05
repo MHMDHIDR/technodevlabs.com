@@ -1,12 +1,5 @@
 import { relations, sql } from 'drizzle-orm'
-import {
-  integer,
-  pgEnum,
-  pgTable,
-  primaryKey,
-  text,
-  timestamp
-} from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('tdl_user', {
   id: text('id')

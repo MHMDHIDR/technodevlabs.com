@@ -32,9 +32,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         H1
@@ -43,9 +41,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         H2
@@ -54,9 +50,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         H3
@@ -65,9 +59,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleCode().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('code')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('code') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Code
@@ -98,9 +90,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('bold')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('bold') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Bold
@@ -109,9 +99,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('italic')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('italic') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Italic
@@ -151,8 +139,7 @@ export default function DashboardPostAdd() {
     content: '',
     editorProps: {
       attributes: {
-        class:
-          'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
       }
     },
     immediatelyRender: false

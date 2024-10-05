@@ -36,9 +36,9 @@ export async function addNewProjectAction({
       updatedAt: new Date()
     })
 
-    return { success: true, message: 'Post added successfully' }
+    return { success: true, message: 'Project added successfully' }
   } catch (error: unknown) {
-    console.error('Error adding new post:', error)
+    console.error('Error adding new project:', error)
 
     if (typeof error === 'object' && error !== null) {
       if ('code' in error && error.code === '23505') {
@@ -49,8 +49,7 @@ export async function addNewProjectAction({
         ) {
           return {
             success: false,
-            message:
-              'A post with this title already exists. Please choose a different title.'
+            message: 'A project with this title already exists. Please choose a different title.'
           }
         }
       }

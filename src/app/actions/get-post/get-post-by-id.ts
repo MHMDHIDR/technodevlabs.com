@@ -6,11 +6,7 @@ import { posts as post } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import type { Post } from '@/types'
 
-export async function getPostByIdAction({
-  postId
-}: {
-  postId: string
-}): Promise<Post | undefined> {
+export async function getPostByIdAction({ postId }: { postId: string }): Promise<Post | undefined> {
   const session = await auth()
   if (!session) {
     throw new Error('Unauthorized')

@@ -1,11 +1,9 @@
+import { withUt } from 'uploadthing/tw'
+import svgToDataUri from 'mini-svg-data-uri'
+import { default as flattenColorPalette } from 'tailwindcss/lib/util/flattenColorPalette'
 import type { Config } from 'tailwindcss'
 
-import svgToDataUri from 'mini-svg-data-uri'
-const {
-  default: flattenColorPalette
-} = require('tailwindcss/lib/util/flattenColorPalette')
-
-const config = {
+export default withUt({
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -128,6 +126,4 @@ const config = {
       )
     }
   ]
-} satisfies Config
-
-export default config
+} satisfies Config)

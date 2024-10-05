@@ -3,13 +3,7 @@
 import { deleteCookieAction } from '@/app/actions'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
-import {
-  IconBook,
-  IconBrandTabler,
-  IconCode,
-  IconLogout2,
-  IconSettings
-} from '@tabler/icons-react'
+import { IconBook, IconBrandTabler, IconCode, IconLogout2, IconSettings } from '@tabler/icons-react'
 import type { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
@@ -27,16 +21,12 @@ export function DashboardSidebar({ user }: { user: User }) {
     {
       label: 'Projects',
       href: '/dashboard/projects',
-      icon: (
-        <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
-      )
+      icon: <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
       label: 'Posts',
       href: '/dashboard/posts',
-      icon: (
-        <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
-      )
+      icon: <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
       label: 'Settings',

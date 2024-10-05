@@ -8,13 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
 import { deletePostAndRevalidate } from '@/app/actions'
 
-export function DeletePostButton({
-  postId,
-  redirectTo
-}: {
-  postId: string
-  redirectTo?: string
-}) {
+export function DeletePostButton({ postId, redirectTo }: { postId: string; redirectTo?: string }) {
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
   const { setOpen } = useModal()

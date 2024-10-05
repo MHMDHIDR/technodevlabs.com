@@ -49,8 +49,7 @@ export async function updatePostAction({
         ) {
           return {
             success: false,
-            message:
-              'A post with this title already exists. Please choose a different title.'
+            message: 'A post with this title already exists. Please choose a different title.'
           }
         }
       }

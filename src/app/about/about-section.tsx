@@ -36,20 +36,19 @@ export function AboutSection() {
           </motion.p>
         ) : (
           <motion.p className='container max-w-6xl py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
-            At TechnoDevLabs.com, we believe that software development is not just a
-            profession—it's an art form. Our team combines technical expertise with
-            creativity to deliver innovative digital solutions that empower businesses to
-            thrive in a competitive landscape. We approach programming with a playful
-            spirit, transforming complex challenges into engaging experiences that
-            resonate with users.
+            At TechnoDevLabs.com, we believe that software development is not just a profession—it's
+            an art form. Our team combines technical expertise with creativity to deliver innovative
+            digital solutions that empower businesses to thrive in a competitive landscape. We
+            approach programming with a playful spirit, transforming complex challenges into
+            engaging experiences that resonate with users.
             <Divider className='my-10' />
             Whether it’s building intuitive web applications or designing captivating user
-            interfaces, our passion for technology drives us to push boundaries and
-            explore new possibilities. Join us on this exciting journey as we shape the
-            future of digital innovation, one line of code at a time!
+            interfaces, our passion for technology drives us to push boundaries and explore new
+            possibilities. Join us on this exciting journey as we shape the future of digital
+            innovation, one line of code at a time!
             <Divider className='my-10' />
-            TechnoDevLabs.com is a software development agency that provides software
-            development services to clients mainly towards the middle-eastern.
+            TechnoDevLabs.com is a software development agency that provides software development
+            services to clients mainly towards the middle-eastern.
           </motion.p>
         )}
 

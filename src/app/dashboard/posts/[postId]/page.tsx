@@ -69,9 +69,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleCode().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('code')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('code') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Code
@@ -102,9 +100,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('bold')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('bold') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Bold
@@ -113,9 +109,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleItalic().run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('italic')
-            ? 'bg-gray-300 dark:bg-gray-900'
-            : 'bg-white dark:bg-gray-700'
+          editor.isActive('italic') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
         Italic
@@ -174,8 +168,7 @@ export default function DashboardPostUpdate({
     content: post && post.content,
     editorProps: {
       attributes: {
-        class:
-          'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
       }
     },
     immediatelyRender: false
@@ -245,9 +238,7 @@ export default function DashboardPostUpdate({
         </EmptyState>
       ) : (
         <>
-          <h3 className='mb-6 text-2xl font-bold text-center select-none'>
-            {post.title}
-          </h3>
+          <h3 className='mb-6 text-2xl font-bold text-center select-none'>{post.title}</h3>
 
           <form onSubmit={editPost} className='space-y-6'>
             <LabelInputContainer>

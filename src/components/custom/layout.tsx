@@ -1,13 +1,7 @@
 import Nav from '@/components/custom/nav'
 import Footer from '@/components/custom/footer'
 
-function Layout({
-  className,
-  children
-}: {
-  className?: string
-  children: React.ReactNode
-}) {
+function Layout({ className, children }: { className?: string; children: React.ReactNode }) {
   return (
     <>
       <Nav />
