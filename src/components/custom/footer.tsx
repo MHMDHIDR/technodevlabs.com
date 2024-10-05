@@ -21,68 +21,58 @@ export default function Footer() {
     <footer className='w-full mt-auto bg-gray-900 dark:bg-neutral-950'>
       <div className='mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto'>
         <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5'>
-          <div className='col-span-full lg:col-span-1'>
-            <Link
-              className='flex-none mx-auto text-xl font-semibold text-white focus:outline-none'
-              href='/'
-              aria-label='Brand'
-            >
+          <div className='col-span-full sm:col-span-1 flex sm:flex-col gap-x-48 mx-auto md:mx-0'>
+            <Link href='/' className='text-white flex-1' aria-label='Brand'>
               <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
             </Link>
+
+            <ThemeToggler />
           </div>
 
-          <div className='col-span-1'>
+          <div className='col-span-1 mx-auto md:mx-0'>
             <h4 className='font-semibold text-gray-100'>Company</h4>
 
             <div className='mt-3 grid space-y-3'>
-              <div>
-                <Link
-                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                  href='/about'
-                >
-                  About us
-                </Link>
-              </div>
-              <div>
-                <Link
-                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                  href='/posts'
-                >
-                  Blog
-                </Link>
-              </div>
-              <div>
-                <Link
-                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                  href='/contact'
-                >
-                  Contact
-                </Link>
-              </div>
-              <ThemeToggler />
+              <Link
+                className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                href='/about'
+              >
+                About us
+              </Link>
+
+              <Link
+                className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                href='/posts'
+              >
+                Blog
+              </Link>
+
+              <Link
+                className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                href='/contact'
+              >
+                Contact
+              </Link>
             </div>
           </div>
 
-          <div className='col-span-1'>
+          <div className='col-span-1 mx-auto md:mx-0'>
             <h4 className='font-semibold text-gray-100'>Legal</h4>
 
             <div className='mt-3 grid space-y-3'>
-              <div>
-                <Link
-                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                  href='/terms'
-                >
-                  Terms of Service
-                </Link>
-              </div>
-              <div>
-                <Link
-                  className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                  href='/privacy'
-                >
-                  Privacy Policy
-                </Link>
-              </div>
+              <Link
+                className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                href='/terms'
+              >
+                Terms of Service
+              </Link>
+
+              <Link
+                className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
+                href='/privacy'
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
 

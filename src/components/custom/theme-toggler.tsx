@@ -7,7 +7,7 @@ export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()
 
   return (
-    <div className='flex items-center p-1 mx-auto border rounded-full space-x-2 max-w-fit md:mx-0'>
+    <div className='flex items-center p-1 border rounded-full space-x-2 max-w-fit'>
       <button
         onClick={() => setTheme('light')}
         className={`${
