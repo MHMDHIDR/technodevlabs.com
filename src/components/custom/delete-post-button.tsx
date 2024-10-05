@@ -52,8 +52,8 @@ export function DeletePostButton({
         }
       })
 
-      replace(redirectTo ?? '/dashboard/posts')
       setOpen(false)
+      replace(redirectTo ?? '/dashboard/posts')
     })
   }
 

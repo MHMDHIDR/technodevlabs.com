@@ -63,7 +63,7 @@ export const posts = pgTable('tdl_post', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
   title: text('title').notNull(),
-  slug: text('slug').notNull(),
+  slug: text('slug').notNull().unique(),
   content: text('content').notNull(),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull(),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()

@@ -6,7 +6,10 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
 import { SubmitButton } from '@/app/contact/submit-button'
+import { Error, Success } from '@/components/custom/icons'
+import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewPostAction } from '@/app/actions'
@@ -137,6 +140,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
 
 export default function DashboardPostAdd() {
   const [title, setTitle] = useState('')
+  const { replace } = useRouter()
 
   /**
    * Using the fantastic tiptap editor
@@ -161,11 +165,41 @@ export default function DashboardPostAdd() {
     if (!editor) return
     const content = editor.getHTML() ?? ''
 
-    await addNewPostAction({ title, content })
+    const { success, message } = await addNewPostAction({ title, content })
+
+    if (!success) {
+      toast(message, {
+        icon: <Error className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#FDE7E7',
+          color: '#C53030',
+          border: '1px solid #C53030',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+      return
+    }
+
+    toast(message, {
+      icon: <Success className='inline-block' />,
+      position: 'bottom-center',
+      className: 'text-center rtl select-none',
+      style: {
+        backgroundColor: '#F0FAF0',
+        color: '#367E18',
+        border: '1px solid #367E18',
+        gap: '1.5rem',
+        textAlign: 'justify'
+      }
+    })
 
     // Reset form after submission
     setTitle('')
     editor?.commands.setContent('')
+    replace('/dashboard/posts')
   }
 
   return (

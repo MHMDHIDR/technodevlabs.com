@@ -5,7 +5,15 @@
  * @param date the date string to be formatted
  * @returns the formatted date
  */
-export const formatDate = (date: string): string => {
+export const formatDate = (date: string, isNormalDate?: boolean): string => {
+  if (isNormalDate) {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+  }
+
   const now = new Date().getTime()
   const givenDate = new Date(date).getTime()
   const diff = now - givenDate

@@ -5,6 +5,7 @@ import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import { updatePostAction } from '@/app/actions'
+import { useRouter } from 'next/navigation'
 import { getPostByIdAction } from '@/app/actions/get-post'
 import { SubmitButton } from '@/app/contact/submit-button'
 import { AddButton } from '@/components/custom/add-button'
@@ -13,6 +14,8 @@ import EmptyState from '@/components/custom/empty-state'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Error, Success } from '@/components/custom/icons'
+import { toast } from 'sonner'
 import type { Post } from '@/types'
 
 const MenuBar = ({ editor }: { editor: any }) => {
@@ -151,6 +154,7 @@ export default function DashboardPostUpdate({
     title: '',
     content: ''
   })
+  const { replace } = useRouter()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -190,10 +194,44 @@ export default function DashboardPostUpdate({
     if (!editor || !post) return
     const content = editor.getHTML()
 
-    await updatePostAction({ postId, title: post.title, content })
+    const { success, message } = await updatePostAction({
+      postId,
+      title: post.title,
+      content
+    })
+
+    if (!success) {
+      toast(message, {
+        icon: <Error className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#FDE7E7',
+          color: '#C53030',
+          border: '1px solid #C53030',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+      return
+    }
+
+    toast(message, {
+      icon: <Success className='inline-block' />,
+      position: 'bottom-center',
+      className: 'text-center rtl select-none',
+      style: {
+        backgroundColor: '#F0FAF0',
+        color: '#367E18',
+        border: '1px solid #367E18',
+        gap: '1.5rem',
+        textAlign: 'justify'
+      }
+    })
 
     setPost({ title: '', content: '' })
-    editor.commands.setContent('') // Clear the editor after submission
+    editor.commands.setContent('')
+    replace('/dashboard/posts')
   }
 
   return (

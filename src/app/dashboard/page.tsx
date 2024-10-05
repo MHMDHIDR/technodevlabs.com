@@ -11,7 +11,7 @@ export default async function DasboardPage() {
     <main className='container'>
       <div className='w-full max-w-6xl mx-auto mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
         <Block
-          href='/dashboard/posts'
+          href={!postsCount ? '/dashboard/posts/add' : '/dashboard/posts'}
           blockLabel='Posts'
           blockDescription={`View ${postsCount} posts on our blog.`}
           blockIcon={<IconBook />}
@@ -23,7 +23,7 @@ export default async function DasboardPage() {
         </Block>
 
         <Block
-          href={!projectsCount ? '' : '/dashboard/projects'}
+          href={!projectsCount ? '/dashboard/projects/add' : '/dashboard/projects'}
           blockLabel='Projects'
           blockDescription={`View ${projectsCount} from our latest projects.`}
           blockIcon={<IconCode />}

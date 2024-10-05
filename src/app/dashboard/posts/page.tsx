@@ -42,7 +42,7 @@ export default async function DashboardPosts() {
                           : post.title}
                       </h4>
                       <span className='text-xs md:text-sm text-gray-500'>
-                        {formatDate(new Date(post.updatedAt).toDateString())}
+                        {formatDate(new Date(post.updatedAt).toDateString(), true)}
                       </span>
                     </div>
                     <div
