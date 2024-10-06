@@ -178,10 +178,10 @@ export default function DashboardPostUpdate({
 
   // Effect to update the editor content when content state changes
   useEffect(() => {
-    if (editor) {
+    if (editor && post) {
       editor.commands.setContent(post.content) // Update editor content whenever content state changes
     }
-  }, [post, post.content, editor])
+  }, [post, editor])
 
   const editPost = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -189,11 +189,7 @@ export default function DashboardPostUpdate({
     if (!editor || !post) return
     const content = editor.getHTML()
 
-    const { success, message } = await updatePostAction({
-      postId,
-      title: post.title,
-      content
-    })
+    const { success, message } = await updatePostAction({ postId, title: post.title, content })
 
     if (!success) {
       toast(message, {

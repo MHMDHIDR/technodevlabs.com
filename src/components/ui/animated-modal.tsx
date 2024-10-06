@@ -53,14 +53,13 @@ export const ModalTrigger = ({
 export const ModalBody = ({ children, className }: { children: ReactNode; className?: string }) => {
   const { open, setOpen } = useModal()
 
-  // Add event listener for 'Esc' key to close the modal
-  const handleEscKey = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      setOpen(false)
-    }
-  }
-
   useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+
     if (open) {
       document.body.style.overflow = 'hidden'
       document.addEventListener('keydown', handleEscKey)
@@ -68,62 +67,34 @@ export const ModalBody = ({ children, className }: { children: ReactNode; classN
       document.body.style.overflow = 'auto'
     }
 
-    // Clean up the event listener
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [open, setOpen, handleEscKey])
+  }, [open, setOpen])
 
-  const modalRef = useRef(null)
+  const modalRef = useRef<HTMLDivElement | null>(null)
   useOutsideClick(modalRef, () => setOpen(false))
 
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{
-            opacity: 0
-          }}
-          animate={{
-            opacity: 1,
-            backdropFilter: 'blur(10px)'
-          }}
-          exit={{
-            opacity: 0,
-            backdropFilter: 'blur(0px)'
-          }}
-          className='fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, backdropFilter: 'blur(10px)' }}
+          exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+          className='fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50'
         >
           <Overlay />
-
           <motion.div
             ref={modalRef}
             className={cn(
               'min-h-[10%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden',
               className
             )}
-            initial={{
-              opacity: 0,
-              scale: 0.5,
-              rotateX: 40,
-              y: 40
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotateX: 0,
-              y: 0
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.8,
-              rotateX: 10
-            }}
-            transition={{
-              type: 'spring',
-              stiffness: 260,
-              damping: 15
-            }}
+            initial={{ opacity: 0, scale: 0.5, rotateX: 40, y: 40 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, rotateX: 10 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 15 }}
           >
             <CloseIcon />
             {children}
