@@ -10,9 +10,9 @@ const s3Client = new S3Client({
   credentials: { accessKeyId: env.AWS_ACCESS_ID, secretAccessKey: env.AWS_SECRET }
 })
 
-const generateUniqueFileName = (fileName: string) => {
-  const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(8).toString('hex')}`
-  return `${uniqueSuffix}-${fileName}`
+const generateUniqueFileName = (projectId: string, fileName: string) => {
+  const uniqueSuffix = crypto.randomBytes(8).toString('hex')
+  return `${projectId}/${uniqueSuffix}-${fileName}`
 }
 
 type FileData = {
@@ -28,10 +28,10 @@ type FileData = {
  * @param fileData  An array of file data (with base64 encoded files)
  * @returns       An array of URLs for the uploaded files
  */
-export async function uploadFiles(fileData: FileData[]) {
+export async function uploadFiles(fileData: FileData[], projectId: string) {
   const presignedUrls = await Promise.all(
     fileData.map(async file => {
-      const uniqueFileName = generateUniqueFileName(file.name)
+      const uniqueFileName = generateUniqueFileName(projectId, file.name)
       const putObjectParams = {
         Bucket: env.AWS_BUCKET_NAME,
         Key: uniqueFileName,
@@ -41,10 +41,7 @@ export async function uploadFiles(fileData: FileData[]) {
       const putCommand = new PutObjectCommand(putObjectParams)
       const presignedUrl = await getSignedUrl(s3Client, putCommand, { expiresIn: 3600 })
 
-      return {
-        presignedUrl,
-        fileName: uniqueFileName
-      }
+      return { presignedUrl, fileName: uniqueFileName }
     })
   )
 
@@ -55,10 +52,8 @@ export async function uploadFiles(fileData: FileData[]) {
 
     const response = await fetch(presignedUrl, {
       method: 'PUT',
-      body: binaryData, // Upload binary data
-      headers: {
-        'Content-Type': fileData[index].type
-      }
+      body: binaryData,
+      headers: { 'Content-Type': fileData[index].type }
     })
 
     if (!response.ok) {

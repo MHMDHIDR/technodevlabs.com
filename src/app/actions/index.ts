@@ -13,4 +13,5 @@ export { updatePostAction } from '@/app/actions/update-post'
 export { updateLayoutAction } from '@/app/actions/settings/layout'
 
 export { uploadFiles } from '@/app/actions/s3/upload'
+export { deleteFiles } from '@/app/actions/s3/delete'
 export { optimizeImage, isImageFile } from '@/app/actions/optimize-image'

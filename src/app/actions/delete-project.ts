@@ -5,6 +5,7 @@ import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { projects } from '@/db/schema'
 import type { Project } from '@/types'
+import { deleteFiles } from '@/app/actions'
 
 export async function deleteProjectAction({ projectId }: { projectId: Project['id'] }) {
   try {
@@ -17,13 +18,21 @@ export async function deleteProjectAction({ projectId }: { projectId: Project['i
       return { success: false, message: 'Project ID is required' }
     }
 
+    // Delete files from S3
+    const s3DeleteResult = await deleteFiles({ projectId })
+    if (!s3DeleteResult.success) {
+      return { success: false, message: 'Failed to delete project files from S3' }
+    }
+
+    // Delete project from database
     const deletedProject = await database.delete(projects).where(eq(projects.id, projectId))
 
+    // First we return if Failed to delete project, then we return the success status
     if (deletedProject.length !== 0) {
       return { success: false, message: 'Failed to delete project or project not found' }
     }
 
-    return { success: true, message: 'Project deleted successfully' }
+    return { success: true, message: 'Project and associated files deleted successfully' }
   } catch (error) {
     console.error('Error deleting project:', error)
     return { success: false, message: 'An unexpected error occurred' }

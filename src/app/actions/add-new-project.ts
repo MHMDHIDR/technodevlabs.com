@@ -5,17 +5,10 @@ import { database } from '@/db/database'
 import { projects } from '@/db/schema'
 import type { Project } from '@/types'
 
-export async function addNewProjectAction({
-  title,
-  description,
-  url,
-  images
-}: {
-  title: Project['title']
-  description: Project['description']
-  url: Project['url']
-  images?: Project['images']
-}) {
+// ProjectData is Project - updatedAt
+type projectData = Omit<Project, 'updatedAt'>
+
+export async function addNewProjectAction(projectData: projectData) {
   try {
     const session = await auth()
     if (!session) {
@@ -29,10 +22,7 @@ export async function addNewProjectAction({
 
     // Insert post with userId
     await database.insert(projects).values({
-      title,
-      description,
-      url,
-      images: images ?? [],
+      ...projectData,
       updatedAt: new Date()
     })
 

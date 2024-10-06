@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { SubmitButton } from '@/app/contact/submit-button'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
+import { Error as ErrorIcon, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewProjectAction } from '@/app/actions'
 import { Textarea } from '@/components/ui/textarea'
@@ -26,26 +27,31 @@ export default function DashboardProjectAdd() {
     setFiles(selectedFiles)
   }
 
-  const convertFileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.onerror = reject
-      reader.readAsDataURL(file) // Convert to Base64
-    })
-  }
-
   const addProject = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     if (files.length === 0) {
-      toast.error('Please select at least one image')
+      toast('Please select at least one image', {
+        icon: <ErrorIcon className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#FDE7E7',
+          color: '#C53030',
+          border: '1px solid #C53030',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+
       setIsSubmitting(false)
       return
     }
 
     try {
+      const projectId = crypto.randomUUID()
+
       const fileDataPromises = files.map(async file => {
         if (!isImageFile(file.type)) {
           throw new Error(`File ${file.name} is not a supported image type`)
@@ -58,7 +64,7 @@ export default function DashboardProjectAdd() {
           reader.readAsDataURL(file)
         })
 
-        const optimizedBase64 = await optimizeImage(base64, 80) // 80 is the quality, adjust as needed
+        const optimizedBase64 = await optimizeImage(base64, 80)
 
         return {
           name: file.name.replace(/\.[^.]+$/, '.webp'),
@@ -72,10 +78,11 @@ export default function DashboardProjectAdd() {
       const fileData = await Promise.all(fileDataPromises)
 
       // Upload files to S3 using the server action
-      const uploadedUrls = await uploadFiles(fileData)
+      const uploadedUrls = await uploadFiles(fileData, projectId)
 
       // Add project with uploaded image URLs
       const { success, message } = await addNewProjectAction({
+        id: projectId,
         title,
         description,
         url,
@@ -104,7 +111,7 @@ export default function DashboardProjectAdd() {
       setFiles([])
       replace('/dashboard/projects')
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred', {
+      toast(error instanceof Error ? error.message : 'An unexpected error occurred', {
         position: 'bottom-center',
         className: 'text-center rtl select-none',
         style: {
