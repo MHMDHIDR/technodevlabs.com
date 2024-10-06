@@ -8,7 +8,6 @@ import { APP_LOGO, APP_TITLE } from '@/data/constants'
 import { signOut, getSession } from 'next-auth/react'
 import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import { deleteCookieAction } from '@/app/actions'
-import { auth } from '@/auth'
 import type { User } from 'next-auth'
 
 export default function Nav() {

@@ -72,7 +72,7 @@ export const ModalBody = ({ children, className }: { children: ReactNode; classN
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [open, setOpen])
+  }, [open, setOpen, handleEscKey])
 
   const modalRef = useRef(null)
   useOutsideClick(modalRef, () => setOpen(false))

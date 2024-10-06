@@ -12,6 +12,8 @@ export const BentoGrid = ({
   className?: string
   children?: React.ReactNode
 }) => {
+  const pathname = usePathname()
+
   return (
     <div className='flex flex-col gap-y-10'>
       <div
@@ -23,7 +25,7 @@ export const BentoGrid = ({
         {children}
       </div>
 
-      {usePathname() === '/' ? (
+      {pathname === '/' ? (
         <Link
           href={`/services`}
           className='relative px-4 py-2 mx-auto text-center border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
@@ -31,10 +33,10 @@ export const BentoGrid = ({
           <span>Explore More Services →</span>
           <div className='absolute inset-x-0 w-3/4 h-px mx-auto -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
         </Link>
-      ) : usePathname() === '/services' ? (
+      ) : pathname === '/services' ? (
         <Link href={`/contact`} className='mx-auto'>
           <Button className='rounded-full' withArrow>
-            Let's Bring Your Project to Life
+            Let&apos; Bring Your Project to Life
           </Button>
         </Link>
       ) : null}
