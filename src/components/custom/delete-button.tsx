@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
 import { deleteEntryAndRevalidateAction } from '@/app/actions'
-import { DeleteType, DeleteTypeString } from '@/types'
+import type { DeleteType, DeleteTypeString } from '@/types'
 
 /**
  * A Button to delete a Post or Project

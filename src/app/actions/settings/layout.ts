@@ -5,7 +5,7 @@ import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { settings } from '@/db/schema'
-import { Setting } from '@/types'
+import type { Setting } from '@/types'
 
 export async function updateLayoutAction({ layout }: Setting) {
   try {
