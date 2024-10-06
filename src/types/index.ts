@@ -77,3 +77,11 @@ export type ModalProps = {
   trigger: React.ReactNode
   children: React.ReactNode
 }
+
+export enum DeleteType {
+  Post = 'post',
+  Project = 'project',
+  ProjectImage = 'projectImg'
+}
+
+export type DeleteTypeString = `${DeleteType}`

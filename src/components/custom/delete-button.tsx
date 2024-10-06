@@ -6,16 +6,34 @@ import { Error, Success } from '@/components/custom/icons'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
-import { deletePostAndRevalidate } from '@/app/actions'
+import { deleteEntryAndRevalidateAction } from '@/app/actions'
+import { DeleteType, DeleteTypeString } from '@/types'
 
-export function DeletePostButton({ postId, redirectTo }: { postId: string; redirectTo?: string }) {
+/**
+ * A Button to delete a Post or Project
+ * @param entryId  The ID of the entry to delete
+ * @param type  The type of entry to delete
+ * @param redirectTo  The path to redirect to after deletion
+ */
+export function DeleteButton({
+  entryId,
+  type,
+  redirectTo
+}: {
+  entryId: string
+  type: DeleteTypeString
+  redirectTo?: string
+}) {
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
   const { setOpen } = useModal()
 
   const handleDelete = () => {
     startTransition(async () => {
-      const { success, message } = await deletePostAndRevalidate(postId)
+      const { success, message } = await deleteEntryAndRevalidateAction({
+        entryId,
+        type: type as DeleteType
+      })
 
       if (!success) {
         toast(message, {

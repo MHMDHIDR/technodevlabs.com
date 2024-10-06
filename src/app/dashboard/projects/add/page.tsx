@@ -1,64 +1,110 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import Image from 'next/image'
-import { Input } from '@/components/ui/input'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { SubmitButton } from '@/app/contact/submit-button'
-import { Error, Success } from '@/components/custom/icons'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewProjectAction } from '@/app/actions'
 import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/custom/button'
+import { Input } from '@/components/ui/input'
+import FileUpload from '@/components/custom/file-upload'
+import { uploadFiles } from '@/app/actions'
+import { optimizeImage, isImageFile } from '@/app/actions'
 
-import { useUploadThing } from '@/components/ui/uploadthing'
-import { useDropzone } from '@uploadthing/react'
-import { generateClientDropzoneAccept, generatePermittedFileTypes } from 'uploadthing/client'
-
-export default function DashboardProjecttAdd() {
+export default function DashboardProjectAdd() {
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
   const [description, setDescription] = useState('')
   const [files, setFiles] = useState<File[]>([])
-
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    setFiles(acceptedFiles)
-  }, [])
-
-  const { startUpload, routeConfig } = useUploadThing('imageUploader', {
-    onClientUploadComplete: () => {
-      alert('uploaded successfully!')
-    },
-    onUploadError: () => {
-      alert('error occurred while uploading')
-    },
-    onUploadBegin: () => {
-      alert('upload has begun')
-    }
-  })
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop,
-    accept: generateClientDropzoneAccept(generatePermittedFileTypes(routeConfig).fileTypes)
-  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { replace } = useRouter()
 
+  const handleFilesSelected = (selectedFiles: File[]) => {
+    setFiles(selectedFiles)
+  }
+
+  const convertFileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.onerror = reject
+      reader.readAsDataURL(file) // Convert to Base64
+    })
+  }
+
   const addProject = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
 
-    const { success, message } = await addNewProjectAction({
-      title,
-      description,
-      url,
-      images: []
-    })
+    if (files.length === 0) {
+      toast.error('Please select at least one image')
+      setIsSubmitting(false)
+      return
+    }
 
-    if (!success) {
+    try {
+      const fileDataPromises = files.map(async file => {
+        if (!isImageFile(file.type)) {
+          throw new Error(`File ${file.name} is not a supported image type`)
+        }
+
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onload = () => resolve(reader.result as string)
+          reader.onerror = reject
+          reader.readAsDataURL(file)
+        })
+
+        const optimizedBase64 = await optimizeImage(base64, 80) // 80 is the quality, adjust as needed
+
+        return {
+          name: file.name.replace(/\.[^.]+$/, '.webp'),
+          type: 'image/webp',
+          size: optimizedBase64.length,
+          lastModified: file.lastModified,
+          base64: optimizedBase64
+        }
+      })
+
+      const fileData = await Promise.all(fileDataPromises)
+
+      // Upload files to S3 using the server action
+      const uploadedUrls = await uploadFiles(fileData)
+
+      // Add project with uploaded image URLs
+      const { success, message } = await addNewProjectAction({
+        title,
+        description,
+        url,
+        images: uploadedUrls
+      })
+
+      if (!success) {
+        throw new Error(message)
+      }
+
       toast(message, {
-        icon: <Error className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#F0FAF0',
+          color: '#367E18',
+          border: '1px solid #367E18',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+
+      setTitle('')
+      setUrl('')
+      setDescription('')
+      setFiles([])
+      replace('/dashboard/projects')
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred', {
         position: 'bottom-center',
         className: 'text-center rtl select-none',
         style: {
@@ -69,36 +115,18 @@ export default function DashboardProjecttAdd() {
           textAlign: 'justify'
         }
       })
-      return
+    } finally {
+      setIsSubmitting(false)
     }
-
-    toast(message, {
-      icon: <Success className='inline-block' />,
-      position: 'bottom-center',
-      className: 'text-center rtl select-none',
-      style: {
-        backgroundColor: '#F0FAF0',
-        color: '#367E18',
-        border: '1px solid #367E18',
-        gap: '1.5rem',
-        textAlign: 'justify'
-      }
-    })
-
-    // Reset form after submission
-    setTitle('')
-    replace('/dashboard/projects')
   }
 
   return (
-    <section className='max-w-4xl p-6 mx-auto'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>Add New Project</h3>
-
+    <section className='container mx-auto p-6'>
+      <h1 className='text-3xl font-bold mb-6'>Add New Project</h1>
       <form onSubmit={addProject} className='space-y-6'>
         <LabelInputContainer>
           <Label htmlFor='title'>Project Title</Label>
           <Input
-            type='text'
             id='title'
             value={title}
             onChange={e => setTitle(e.target.value)}
@@ -110,7 +138,6 @@ export default function DashboardProjecttAdd() {
         <LabelInputContainer>
           <Label htmlFor='url'>Project View URL</Label>
           <Input
-            type='text'
             id='url'
             value={url}
             onChange={e => setUrl(e.target.value)}
@@ -131,25 +158,13 @@ export default function DashboardProjecttAdd() {
         </LabelInputContainer>
 
         <LabelInputContainer>
-          <Label htmlFor='images'>Project Images</Label>
-          <div {...getRootProps()}>
-            <Input {...getInputProps()} />
-            <div className='flex items-center justify-center h-48 border-2 border-gray-300 border-dashed rounded-md flex-col'>
-              Drop files here!
-              {files.length > 0 && (
-                <Button
-                  type='button'
-                  className='p-2 bg-blue-500 text-white rounded'
-                  onClick={() => startUpload(files)}
-                >
-                  Upload {files.length} files
-                </Button>
-              )}
-            </div>
-          </div>
+          <Label htmlFor='images'>Project Images (Max 5MB)</Label>
+          <FileUpload onFilesSelected={handleFilesSelected} />
         </LabelInputContainer>
 
-        <SubmitButton>Add Project</SubmitButton>
+        <SubmitButton disabled={isSubmitting}>
+          {isSubmitting ? 'Adding Project...' : 'Add Project'}
+        </SubmitButton>
       </form>
     </section>
   )

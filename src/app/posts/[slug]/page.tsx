@@ -9,7 +9,7 @@ import { IconEdit } from '@tabler/icons-react'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { DeletePostButton } from '@/components/custom/delete-post-button'
+import { DeleteButton } from '@/components/custom/delete-button'
 import { Modal } from '@/components/custom/modal'
 import { IconTrash } from '@tabler/icons-react'
 import { notFound } from 'next/navigation'
@@ -123,7 +123,7 @@ export default async function BlogPostContentPage({
                   description='Are you sure you want to delete this post?'
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
-                  <DeletePostButton postId={post.id ?? ''} redirectTo='/posts' />
+                  <DeleteButton entryId={post.id ?? ''} redirectTo='/posts' type='post' />
                 </Modal>
               </>
             ) : null}

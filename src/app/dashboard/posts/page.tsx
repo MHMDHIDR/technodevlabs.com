@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { AddButton } from '@/components/custom/add-button'
-import { DeletePostButton } from '@/components/custom/delete-post-button'
+import { DeleteButton } from '@/components/custom/delete-button'
 import EmptyState from '@/components/custom/empty-state'
 import { Modal } from '@/components/custom/modal'
 import { getPosts } from '@/data/posts'
@@ -57,7 +57,7 @@ export default async function DashboardPosts() {
                   className='absolute bottom-0.5 right-0.5'
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
-                  <DeletePostButton postId={post.id ?? ''} />
+                  <DeleteButton entryId={post.id} type='post' />
                 </Modal>
               </div>
             )

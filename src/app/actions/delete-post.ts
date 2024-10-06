@@ -1,12 +1,12 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
+import type { Post } from '@/types'
 
-export async function deletePostAction({ postId }: { postId: string }) {
+export async function deletePostAction({ postId }: { postId: Post['id'] }) {
   try {
     const session = await auth()
     if (!session || !session.user || !session.user.id) {

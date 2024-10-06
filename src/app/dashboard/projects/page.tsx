@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { AddButton } from '@/components/custom/add-button'
-import { DeletePostButton } from '@/components/custom/delete-post-button'
+import { DeleteButton } from '@/components/custom/delete-button'
 import EmptyState from '@/components/custom/empty-state'
 import { Modal } from '@/components/custom/modal'
 import { getProjects } from '@/data/projects'
@@ -11,7 +11,7 @@ export default async function DashboardProjects() {
   const { projects, projectsCount } = await getProjects()
 
   return (
-    <section className='container'>
+    <section className='flex flex-col container py-10'>
       <div className='self-end mb-6'>
         <AddButton href='/dashboard/projects/add'>Add Project</AddButton>
       </div>
@@ -48,7 +48,11 @@ export default async function DashboardProjects() {
                   className='absolute bottom-0.5 right-0.5'
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
-                  <DeletePostButton postId={project.id ?? ''} />
+                  <DeleteButton
+                    entryId={project.id}
+                    redirectTo='/dashboard/projects'
+                    type='project'
+                  />
                 </Modal>
               </div>
             )

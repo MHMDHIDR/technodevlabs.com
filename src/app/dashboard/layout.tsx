@@ -1,7 +1,4 @@
 import { notFound } from 'next/navigation'
-import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
-import { extractRouterConfig } from 'uploadthing/server'
-import { ourFileRouter } from '@/app/api/uploadthing/core'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { auth } from '@/auth'
@@ -23,7 +20,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Cover>Dashboard</Cover>
         </h1>
 
-        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         {children}
       </main>
     </Layout>

@@ -1,0 +1,85 @@
+'use server'
+
+import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import crypto from 'crypto'
+import { env } from '@/env'
+
+const s3Client = new S3Client({
+  region: env.AWS_REGION,
+  credentials: { accessKeyId: env.AWS_ACCESS_ID, secretAccessKey: env.AWS_SECRET }
+})
+
+const generateUniqueFileName = (fileName: string) => {
+  const uniqueSuffix = `${Date.now()}-${crypto.randomBytes(8).toString('hex')}`
+  return `${uniqueSuffix}-${fileName}`
+}
+
+type FileData = {
+  name: string
+  type: string
+  size: number
+  lastModified: number
+  base64: string // Add base64 field
+}
+
+/**
+ * A function to upload files to S3
+ * @param fileData  An array of file data (with base64 encoded files)
+ * @returns       An array of URLs for the uploaded files
+ */
+export async function uploadFiles(fileData: FileData[]) {
+  const presignedUrls = await Promise.all(
+    fileData.map(async file => {
+      const uniqueFileName = generateUniqueFileName(file.name)
+      const putObjectParams = {
+        Bucket: env.AWS_BUCKET_NAME,
+        Key: uniqueFileName,
+        ContentType: file.type
+      }
+
+      const putCommand = new PutObjectCommand(putObjectParams)
+      const presignedUrl = await getSignedUrl(s3Client, putCommand, { expiresIn: 3600 })
+
+      return {
+        presignedUrl,
+        fileName: uniqueFileName
+      }
+    })
+  )
+
+  const uploadPromises = presignedUrls.map(async ({ presignedUrl, fileName }, index) => {
+    // Decode the base64 string to binary data
+    const base64Data = fileData[index].base64.split(',')[1] // Remove the data URI part
+    const binaryData = Buffer.from(base64Data, 'base64')
+
+    const response = await fetch(presignedUrl, {
+      method: 'PUT',
+      body: binaryData, // Upload binary data
+      headers: {
+        'Content-Type': fileData[index].type
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to upload ${fileName}`)
+    }
+
+    // Generate a GET URL for the uploaded file
+    const getObjectParams = {
+      Bucket: env.AWS_BUCKET_NAME,
+      Key: fileName
+    }
+    const getCommand = new GetObjectCommand(getObjectParams)
+    const getUrl = await getSignedUrl(s3Client, getCommand, { expiresIn: 3600 * 24 * 7 }) // URL valid for 7 days
+
+    // Remove query parameters from the signed URL to get a clean, permanent URL
+    const cleanUrl = new URL(getUrl)
+    cleanUrl.search = ''
+
+    return cleanUrl.toString()
+  })
+
+  const uploadedUrls = await Promise.all(uploadPromises)
+  return uploadedUrls
+}
