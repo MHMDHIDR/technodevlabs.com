@@ -1,20 +1,22 @@
 'use client'
 
-import { updateProjectAction } from '@/app/actions'
-import { getProjectByIdAction } from '@/app/actions/get-project'
+import { useState, useEffect } from 'react'
+import { updateProjectAction, getProjectByIdAction, uploadFiles } from '@/app/actions'
 import { SubmitButton } from '@/app/contact/submit-button'
-import { AddButton } from '@/components/custom/add-button'
 import EmptyState from '@/components/custom/empty-state'
-import { Error, Success } from '@/components/custom/icons'
+import { Error as ErrorIcon, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { DEFAULT_PROJECT } from '@/data/constants'
-import type { Project } from '@/types'
 import { Textarea } from '@/components/ui/textarea'
+import { FileUpload } from '@/components/custom/file-upload'
+import { UploadedFiles } from '@/components/custom/uploaded-files'
+import { LoadingCard } from '@/components/custom/loading'
+import { AddButton } from '@/components/custom/add-button'
+import { optimizeImage, isImageFile } from '@/app/actions'
+import type { Project } from '@/types'
 
 export default function DashboardProjectUpdate({
   params: { projectId }
@@ -22,8 +24,12 @@ export default function DashboardProjectUpdate({
   params: { projectId: string }
 }) {
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
+  const [files, setFiles] = useState<File[]>([])
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const { replace } = useRouter()
+  const handleFilesSelected = (selectedFiles: File[]) => {
+    setFiles(selectedFiles)
+  }
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -40,33 +46,63 @@ export default function DashboardProjectUpdate({
 
   const editProject = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
 
     try {
       if (!project) return
+
+      let uploadedUrls: string[] = []
+
+      if (files.length > 0) {
+        const fileDataPromises = files.map(async file => {
+          if (!isImageFile(file.type)) {
+            throw new Error(`File ${file.name} is not a supported image type`)
+          }
+
+          const base64 = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader()
+            reader.onload = () => resolve(reader.result as string)
+            reader.onerror = reject
+            reader.readAsDataURL(file)
+          })
+
+          const optimizedBase64 = await optimizeImage(base64, 80)
+
+          return {
+            name: file.name.replace(/\.[^.]+$/, '.webp'),
+            type: 'image/webp',
+            size: optimizedBase64.length,
+            lastModified: file.lastModified,
+            base64: optimizedBase64
+          }
+        })
+
+        const fileData = await Promise.all(fileDataPromises)
+
+        // Upload files to S3 using the server action
+        uploadedUrls = await uploadFiles(fileData, projectId)
+      }
+
+      const updatedImages = [...project.images, ...uploadedUrls]
 
       const { success, message } = await updateProjectAction({
         projectId,
         title: project.title,
         description: project.description,
         url: project.url,
-        images: project.images
+        images: updatedImages
       })
 
       if (!success) {
-        toast(message, {
-          icon: <Error className='inline-block' />,
-          position: 'bottom-center',
-          className: 'text-center rtl select-none',
-          style: {
-            backgroundColor: '#FDE7E7',
-            color: '#C53030',
-            border: '1px solid #C53030',
-            gap: '1.5rem',
-            textAlign: 'justify'
-          }
-        })
-        return
+        throw new Error(message)
       }
+
+      setProject(prevProject => ({
+        ...prevProject!,
+        images: updatedImages
+      }))
+
+      setFiles([])
 
       toast(message, {
         icon: <Success className='inline-block' />,
@@ -80,16 +116,36 @@ export default function DashboardProjectUpdate({
           textAlign: 'justify'
         }
       })
+    } catch (error) {
+      toast(error instanceof Error ? error.message : 'An unexpected error occurred', {
+        icon: <ErrorIcon className='inline-block' />,
+        position: 'bottom-center',
+        className: 'text-center rtl select-none',
+        style: {
+          backgroundColor: '#FDE7E7',
+          color: '#C53030',
+          border: '1px solid #C53030',
+          gap: '1.5rem',
+          textAlign: 'justify'
+        }
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
-      setProject(DEFAULT_PROJECT)
-    } catch (error) {}
-
-    replace('/dashboard/projects')
+  const handleImageDelete = (deletedImageUrl: string) => {
+    setProject(prevProject => ({
+      ...prevProject!,
+      images: prevProject!.images.filter(url => url !== deletedImageUrl)
+    }))
   }
 
   return (
     <section className='max-w-4xl p-6 mx-auto'>
-      {project === null ? (
+      {project === DEFAULT_PROJECT ? (
+        <LoadingCard renderedSkeletons={5} />
+      ) : project === null ? (
         <EmptyState>
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             Sorry the project you are looking for does not exist.
@@ -106,7 +162,7 @@ export default function DashboardProjectUpdate({
               <Input
                 type='text'
                 id='title'
-                defaultValue={project.title}
+                value={project.title}
                 onChange={e => setProject({ ...project, title: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 required
@@ -118,7 +174,7 @@ export default function DashboardProjectUpdate({
               <Input
                 type='text'
                 id='url'
-                defaultValue={project.url}
+                value={project.url}
                 onChange={e => setProject({ ...project, url: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 required
@@ -129,14 +185,27 @@ export default function DashboardProjectUpdate({
               <Label htmlFor='description'>Project Description</Label>
               <Textarea
                 id='description'
-                defaultValue={project.description}
+                value={project.description}
                 onChange={e => setProject({ ...project, description: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 required
               />
             </LabelInputContainer>
 
-            <SubmitButton>Edit Project</SubmitButton>
+            <LabelInputContainer>
+              <Label htmlFor='images'>Add New Project Images (Max 5MB)</Label>
+              <FileUpload onFilesSelected={handleFilesSelected} />
+            </LabelInputContainer>
+
+            <UploadedFiles
+              projectId={project.id}
+              projectImages={project.images}
+              onImageDelete={handleImageDelete}
+            />
+
+            <SubmitButton disabled={isSubmitting}>
+              {isSubmitting ? 'Updating Project...' : 'Update Project'}
+            </SubmitButton>
           </form>
         </>
       )}

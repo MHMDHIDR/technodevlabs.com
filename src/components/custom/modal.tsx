@@ -8,17 +8,30 @@ import {
 import { cn } from '@/lib/utils'
 import type { ModalProps } from '@/types'
 
-export function Modal({ title, description, className, trigger, children }: ModalProps) {
+export function Modal({
+  title,
+  description,
+  className,
+  isSmallButton,
+  trigger,
+  children
+}: ModalProps) {
   return (
     <div
       className={cn(
-        `flex items-center justify-center border hover:border-red-500 rounded-md`,
+        `flex items-center justify-center border hover:border-red-500 rounded-md z-10`,
         className
       )}
       title={title}
     >
       <AnimatedModal>
-        <ModalTrigger className='flex justify-center text-white bg-black dark:bg-white dark:text-black group/modal-btn'>
+        <ModalTrigger
+          className={
+            isSmallButton
+              ? 'absolute z-10 top-2 right-2 p-1 bg-red-500 rounded-full hover:bg-red-600 transition peer group-hover:scale-125'
+              : 'flex justify-center text-white bg-black dark:bg-white dark:text-black group/modal-btn'
+          }
+        >
           {trigger}
         </ModalTrigger>
         <ModalBody>

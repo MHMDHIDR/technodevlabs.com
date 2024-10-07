@@ -1,11 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { projects } from '@/db/schema'
-import { createSlug } from '@/lib/utils'
 import type { Project } from '@/types'
 
 export async function updateProjectAction({
@@ -16,10 +14,10 @@ export async function updateProjectAction({
   images
 }: {
   projectId: Project['id']
-  title: Project['title']
-  description: Project['description']
-  url: Project['url']
-  images?: Project['images']
+  title?: Project['title']
+  description?: Project['description']
+  url?: Project['url']
+  images?: Project['images'] | { removeImage: string }
 }) {
   try {
     const session = await auth()
@@ -31,16 +29,43 @@ export async function updateProjectAction({
       throw new Error('Project ID is required')
     }
 
+    // Fetch current project data
+    const [currentProject] = await database
+      .select()
+      .from(projects)
+      .where(eq(projects.id, projectId))
+
+    if (!currentProject) {
+      return { success: false, message: 'Project not found' }
+    }
+
+    // Prepare update object
+    const updateData: Partial<Project> = {}
+    if (title !== undefined) updateData.title = title
+    if (description !== undefined) updateData.description = description
+    if (url !== undefined) updateData.url = url
+
+    if (images) {
+      if ('removeImage' in images) {
+        // Remove the specified image
+        updateData.images = currentProject.images.filter(img => img !== images.removeImage)
+      } else {
+        // Set new images array
+        updateData.images = images
+      }
+    }
+
+    updateData.updatedAt = new Date()
+
     const updatedProject = await database
       .update(projects)
-      .set({ title, description, url, images: images ?? [], updatedAt: new Date() })
+      .set(updateData)
       .where(eq(projects.id, projectId))
 
     if (updatedProject.length !== 0) {
       return { success: false, message: 'Failed to update project or project not found' }
     }
 
-    revalidatePath('/dashboard/projects')
     return { success: true, message: 'Project updated successfully' }
   } catch (error) {
     console.error('Error updating project:', error)

@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation'
 import { SubmitButton } from '@/app/contact/submit-button'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
-import { Error as ErrorIcon, Success } from '@/components/custom/icons'
+import { Error as ErrorIcon } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewProjectAction } from '@/app/actions'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
-import FileUpload from '@/components/custom/file-upload'
+import { FileUpload } from '@/components/custom/file-upload'
 import { uploadFiles } from '@/app/actions'
 import { optimizeImage, isImageFile } from '@/app/actions'
 
@@ -169,7 +169,7 @@ export default function DashboardProjectAdd() {
           <FileUpload onFilesSelected={handleFilesSelected} />
         </LabelInputContainer>
 
-        <SubmitButton disabled={isSubmitting}>
+        <SubmitButton pending={isSubmitting} disabled={files.length === 0}>
           {isSubmitting ? 'Adding Project...' : 'Add Project'}
         </SubmitButton>
       </form>

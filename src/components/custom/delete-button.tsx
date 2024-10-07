@@ -7,37 +7,36 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
 import { deleteEntryAndRevalidateAction } from '@/app/actions'
-import type { DeleteType, DeleteTypeString } from '@/types'
+import type { DeleteTypes } from '@/types'
 
-/**
- * A Button to delete a Post or Project
- * @param entryId  The ID of the entry to delete
- * @param type  The type of entry to delete
- * @param redirectTo  The path to redirect to after deletion
- */
 export function DeleteButton({
   entryId,
   type,
-  redirectTo
+  redirectTo,
+  projectId,
+  onSuccess
 }: {
   entryId: string
-  type: DeleteTypeString
+  type: DeleteTypes
   redirectTo?: string
+  projectId?: string
+  onSuccess?: () => void
 }) {
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
-  const { setOpen } = useModal()
+  const { open, setOpen } = useModal()
 
   const handleDelete = () => {
     startTransition(async () => {
       const { success, message } = await deleteEntryAndRevalidateAction({
         entryId,
-        type: type as DeleteType
+        type,
+        projectId
       })
 
       if (!success) {
         toast(message, {
-          icon: <Error className='inline-block' />,
+          icon: <Error />,
           position: 'bottom-center',
           className: 'text-center rtl select-none',
           style: {
@@ -52,7 +51,7 @@ export function DeleteButton({
       }
 
       toast(message, {
-        icon: <Success className='inline-block' />,
+        icon: <Success />,
         position: 'bottom-center',
         className: 'text-center rtl select-none',
         style: {
@@ -64,20 +63,27 @@ export function DeleteButton({
         }
       })
 
-      setOpen(false)
-      replace(redirectTo ?? '/dashboard/posts')
+      if (type === 'projectImg') {
+        onSuccess?.()
+
+        console.log('open :>> ', open)
+      } else {
+        replace(redirectTo ?? `/dashboard/${type}s`)
+      }
     })
+
+    setOpen(false)
   }
 
   return (
     <button
-      className='px-2 py-1 text-sm text-white bg-black border border-black dark:bg-white dark:text-black rounded-md w-28'
       onClick={handleDelete}
       disabled={isPending}
+      className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:opacity-50'
     >
       {isPending ? (
-        <span className='flex gap-x-2'>
-          <IconLoader3 className='w-5 h-5 animate-spin' />
+        <span className='flex items-center'>
+          <IconLoader3 className='animate-spin mr-2' />
           Deleting...
         </span>
       ) : (

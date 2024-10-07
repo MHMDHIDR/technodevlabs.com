@@ -1,32 +1,54 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { deletePostAction, deleteProjectAction } from '@/app/actions'
-import type { DeleteType } from '@/types'
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { deletePostAction, deleteProjectAction, deleteSingleObject } from '@/app/actions'
+import type { DeleteTypes } from '@/types'
 
-/**
- * A Server Action to Delete an entry and revalidate the cache
- * @param entryId  The ID of the entry to delete
- * @param type  The type of entry to delete
- * @returns  The success status and message
- */
 export async function deleteEntryAndRevalidateAction({
   entryId,
-  type
+  type,
+  projectId
 }: {
   entryId: string
-  type: DeleteType
+  type: DeleteTypes
+  /**
+   * Only needed for projectImg type
+   */
+  projectId?: string
 }): Promise<{ success: boolean; message: string }> {
-  const { success, message } =
-    type === 'post'
-      ? await deletePostAction({ postId: entryId })
-      : await deleteProjectAction({ projectId: entryId })
+  let result: { success: boolean; message: string }
 
-  if (success) {
-    revalidatePath('/')
-    revalidatePath(type === 'post' ? '/posts' : '/projects')
-    revalidatePath(type === 'post' ? '/dashboard/posts' : '/dashboard/projects')
+  switch (type) {
+    case 'post':
+      result = await deletePostAction({ postId: entryId })
+      break
+    case 'project':
+      result = await deleteProjectAction({ projectId: entryId })
+      break
+    case 'projectImg':
+      if (!projectId) {
+        return { success: false, message: 'Project ID is required for image deletion' }
+      }
+      result = await deleteSingleObject({ imageUrl: entryId })
+      break
+    default:
+      return { success: false, message: 'Invalid type' }
   }
 
-  return { success, message }
+  if (result.success) {
+    revalidatePath('/')
+    console.log('Revalidated path:', '/')
+
+    if (type === 'projectImg') {
+      revalidatePath(`/dashboard/projects/${projectId}`, 'page')
+      revalidateTag(`/dashboard/projects/${projectId}`)
+
+      console.log('Revalidated path:', `/dashboard/projects/${projectId}`)
+    } else {
+      revalidatePath(`/dashboard/${type}s`)
+      console.log('Revalidated path:', `/dashboard/${type}s`)
+    }
+  }
+
+  return result
 }

@@ -3,11 +3,10 @@
 import { updateLayoutAction } from '@/app/actions'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import type { Setting } from '@/types'
 import { useState } from 'react'
-
 import { Error } from '@/components/custom/icons'
 import { toast } from 'sonner'
+import type { Setting } from '@/types'
 
 const LayoutSwitch = ({ initialLayout }: { initialLayout: Setting['layout'] }) => {
   const [layout, setLayout] = useState(initialLayout)

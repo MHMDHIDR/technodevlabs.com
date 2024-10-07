@@ -74,14 +74,9 @@ export type ModalProps = {
   title: string
   description: React.ReactNode
   className?: string
+  isSmallButton?: boolean
   trigger: React.ReactNode
   children: React.ReactNode
 }
 
-export enum DeleteType {
-  Post = 'post',
-  Project = 'project',
-  ProjectImage = 'projectImg'
-}
-
-export type DeleteTypeString = `${DeleteType}`
+export type DeleteTypes = 'post' | 'project' | 'projectImg'

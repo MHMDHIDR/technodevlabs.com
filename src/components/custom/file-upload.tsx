@@ -7,7 +7,7 @@ type FileUploadProps = {
   ignoreRequired?: boolean
 }
 
-const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
   const [files, setFiles] = useState<File[]>([])
 
   const onFileAdd = useCallback(
@@ -57,5 +57,3 @@ const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
     </>
   )
 }
-
-export default FileUpload

@@ -4,8 +4,8 @@ import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { projects } from '@/db/schema'
+import { deleteMultipleObjects } from '@/app/actions'
 import type { Project } from '@/types'
-import { deleteFiles } from '@/app/actions'
 
 export async function deleteProjectAction({ projectId }: { projectId: Project['id'] }) {
   try {
@@ -19,7 +19,7 @@ export async function deleteProjectAction({ projectId }: { projectId: Project['i
     }
 
     // Delete files from S3
-    const s3DeleteResult = await deleteFiles({ projectId })
+    const s3DeleteResult = await deleteMultipleObjects({ projectId })
     if (!s3DeleteResult.success) {
       return { success: false, message: 'Failed to delete project files from S3' }
     }

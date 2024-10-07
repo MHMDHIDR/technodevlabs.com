@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { DeleteButton } from '@/components/custom/delete-button'
 import { Modal } from '@/components/custom/modal'
 import { formatDate } from '@/lib/format-date'
-import { Post, Project } from '@/types'
 import { IconTrash } from '@tabler/icons-react'
+import type { Post, Project } from '@/types'
 
 interface DashboardListItemProps {
   item: Post | Project

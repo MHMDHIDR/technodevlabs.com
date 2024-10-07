@@ -127,6 +127,7 @@ export const ModalFooter = ({
     <div className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}>
       <>
         <button
+          type='button'
           onClick={() => setOpen(false)}
           className='px-2 py-1 text-sm text-black bg-gray-200 border border-gray-300 dark:bg-black dark:border-black dark:text-white rounded-md w-28'
         >
