@@ -113,7 +113,7 @@ export default async function BlogPostContentPage({
             {user ? (
               <>
                 <Link href={`/dashboard/posts/${post.id}`} className='self-start md:self-center'>
-                  <Button className='flex items-center px-2 -ml-1 gap-x-2'>
+                  <Button className='flex items-center px-2 -ml-1 gap-x-2' title='Edit Post'>
                     <IconEdit className='w-4 h-4' />
                     <span>Edit Post</span>
                   </Button>
