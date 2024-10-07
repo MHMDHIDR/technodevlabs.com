@@ -86,7 +86,8 @@ export default function DashboardProjectAdd() {
         title,
         description,
         url,
-        images: uploadedUrls
+        images: uploadedUrls,
+        updatedAt: new Date()
       })
 
       if (!success) {

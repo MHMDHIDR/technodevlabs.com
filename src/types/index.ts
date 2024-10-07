@@ -18,6 +18,14 @@ export type Post = typeof posts.$inferSelect
 export type Project = typeof projects.$inferSelect
 export type Setting = typeof settings.$inferSelect
 
+export type updateProjectData = {
+  projectId: Project['id']
+  title?: Project['title']
+  description?: Project['description']
+  url?: Project['url']
+  images?: Project['images'] | { removeImage: string }
+}
+
 export type emailMethodProps = {
   name?: string
   subject: string

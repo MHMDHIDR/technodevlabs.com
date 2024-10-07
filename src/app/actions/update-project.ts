@@ -4,21 +4,23 @@ import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { projects } from '@/db/schema'
-import type { Project } from '@/types'
+import type { Project, updateProjectData } from '@/types'
 
+/**
+ * A server action to update a project
+ * @param projectId - The ID of the project to update
+ * @param title     - The new title of the project
+ * @param description - The new description of the project
+ * @param url       - The new URL of the project
+ * @returns        - A success message if the project was updated successfully
+ */
 export async function updateProjectAction({
   projectId,
   title,
   description,
   url,
   images
-}: {
-  projectId: Project['id']
-  title?: Project['title']
-  description?: Project['description']
-  url?: Project['url']
-  images?: Project['images'] | { removeImage: string }
-}) {
+}: updateProjectData) {
   try {
     const session = await auth()
     if (!session || !session.user || !session.user.id) {

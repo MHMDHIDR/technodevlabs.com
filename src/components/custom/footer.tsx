@@ -23,13 +23,19 @@ export default function Footer() {
         <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5'>
           <div className='col-span-full sm:col-span-1 flex sm:flex-col gap-x-48 mx-auto md:mx-0'>
             <Link href='/' className='text-white flex-1' aria-label='Brand'>
-              <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
+              <Image
+                src={APP_LOGO}
+                alt={APP_TITLE}
+                width={40}
+                height={40}
+                className='min-w-7 min-h-7'
+              />
             </Link>
 
             <ThemeToggler />
           </div>
 
-          <div className='col-span-1 mx-auto md:mx-0'>
+          <div className='col-span-1 mx-auto md:mx-0 mr-20 md:mr-0'>
             <h4 className='font-semibold text-gray-100'>Company</h4>
 
             <div className='mt-3 grid space-y-3'>

@@ -90,7 +90,7 @@ export default async function BlogPostContentPage({
           <Cover>{post.title}</Cover>
         </h1>
 
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between md:container max-w-7xl'>
           <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
             <figure className='flex items-center gap-x-2'>
               <Image
