@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 import { IconTrash } from '@tabler/icons-react'
 import { Modal } from './modal'
