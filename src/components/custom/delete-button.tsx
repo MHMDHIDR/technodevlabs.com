@@ -6,7 +6,7 @@ import { Error, Success } from '@/components/custom/icons'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
-import { deleteEntryAndRevalidateAction } from '@/app/actions'
+import { deleteEntryAndRevalidateAction } from '@/actions'
 import type { DeleteTypes } from '@/types'
 
 export function DeleteButton({

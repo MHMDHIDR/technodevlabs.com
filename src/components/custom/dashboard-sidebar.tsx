@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteCookieAction } from '@/app/actions'
+import { deleteCookieAction } from '@/actions'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
 import { IconBook, IconBrandTabler, IconCode, IconLogout2, IconSettings } from '@tabler/icons-react'

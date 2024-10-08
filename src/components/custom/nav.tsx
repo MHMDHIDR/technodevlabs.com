@@ -7,8 +7,9 @@ import { usePathname } from 'next/navigation'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
 import { signOut, getSession } from 'next-auth/react'
 import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
-import { deleteCookieAction } from '@/app/actions'
+import { deleteCookieAction } from '@/actions'
 import type { User } from 'next-auth'
+import LanguageSwitcher from './language-switcher'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -168,6 +169,9 @@ export default function Nav() {
             >
               Contact
             </Link>
+
+            <LanguageSwitcher />
+
             {user ? (
               <>
                 <Link
