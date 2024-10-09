@@ -49,17 +49,19 @@ export default async function LocaleLayout({
 }) {
   unstable_setRequestLocale(params.locale)
 
-  const locale = await getLocale()
-
   const messages = await getMessages()
 
   // Show a 404 error if the user requests an unknown locale
-  if (params.locale !== locale) {
+  if (params.locale !== params.locale) {
     notFound()
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html
+      lang={params.locale}
+      suppressHydrationWarning
+      dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
+    >
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1 maximum-scale=1' />
         <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
