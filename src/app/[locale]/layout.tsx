@@ -5,6 +5,7 @@ import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants
 import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import '../globals.css'
 import type { Metadata } from 'next'
 
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
   params: { locale: string }
 }) {
   const messages = await getMessages()
+  unstable_setRequestLocale(locale)
 
   return (
     <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
