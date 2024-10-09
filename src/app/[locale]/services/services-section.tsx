@@ -1,8 +1,7 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import {
   IconCode,
   IconCloudUpload,
@@ -15,49 +14,49 @@ import {
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
 export function ServicesSection() {
-  const t = useTranslations('services')
+  const services = useTranslations('services')
   const pathname = usePathname()
 
   const servicesItems = [
     {
-      title: t('customSoftwareDevelopment.title'),
-      description: t('customSoftwareDevelopment.description'),
+      title: services('customSoftwareDevelopment.title'),
+      description: services('customSoftwareDevelopment.description'),
       src: '/custom-software-development.webp',
       icon: <IconCode className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('cloudSolutions.title'),
-      description: t('cloudSolutions.description'),
+      title: services('cloudSolutions.title'),
+      description: services('cloudSolutions.description'),
       src: '/cloud-solutions.webp',
       icon: <IconCloudUpload className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('mobileAppDevelopment.title'),
-      description: t('mobileAppDevelopment.description'),
+      title: services('mobileAppDevelopment.title'),
+      description: services('mobileAppDevelopment.description'),
       src: '/mobile-app-development.webp',
       icon: <IconDeviceMobile className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('dataAnalyticsBI.title'),
-      description: t('dataAnalyticsBI.description'),
+      title: services('dataAnalyticsBI.title'),
+      description: services('dataAnalyticsBI.description'),
       src: '/data-analytics.webp',
       icon: <IconChartBar className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('databaseManagement.title'),
-      description: t('databaseManagement.description'),
+      title: services('databaseManagement.title'),
+      description: services('databaseManagement.description'),
       src: '/database-management.webp',
       icon: <IconDatabase className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('cybersecurityServices.title'),
-      description: t('cybersecurityServices.description'),
+      title: services('cybersecurityServices.title'),
+      description: services('cybersecurityServices.description'),
       src: '/cybersecurity.webp',
       icon: <IconShieldLock className='w-4 h-4 text-neutral-100' />
     },
     {
-      title: t('apiIntegrationServices.title'),
-      description: t('apiIntegrationServices.description'),
+      title: services('apiIntegrationServices.title'),
+      description: services('apiIntegrationServices.description'),
       src: '/api-integration.webp',
       icon: <IconLayersLinked className='w-4 h-4 text-neutral-100' />
     }

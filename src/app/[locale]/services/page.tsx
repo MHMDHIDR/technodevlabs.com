@@ -8,9 +8,9 @@ import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('services')
+  const services = await getTranslations('services')
 
-  const title = `${t('pageTitle')} | ${APP_TITLE}`
+  const title = `${services('pageTitle')} | ${APP_TITLE}`
   const image = APP_LOGO_opengraph
   const description = APP_DESCRIPTION
 
@@ -33,8 +33,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ServicesPage() {
   const settings = await getSettings()
-  const t = await getTranslations('services')
-  const pageTitle = t('pageTitle')
+  const services = await getTranslations('services')
+  const pageTitle = services('pageTitle')
 
   return (
     <Layout>
