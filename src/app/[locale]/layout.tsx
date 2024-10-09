@@ -4,6 +4,7 @@ import { Cairo as FontSans } from 'next/font/google'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
+import { routing } from '@/i18n/routing'
 import '../globals.css'
 import type { Metadata } from 'next'
 
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
 }
 
 export function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'ar' }]
+  return routing.locales.map(locale => ({ locale }))
 }
 
 export default async function LocaleLayout({
