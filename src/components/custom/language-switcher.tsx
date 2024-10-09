@@ -1,11 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function LanguageSwitcher() {
-  const t = useTranslations('Nav.LanguageSwitcher')
+  const nav = useTranslations('Nav.LanguageSwitcher')
   const locale = useLocale()
   const pathname = usePathname()
 
@@ -21,8 +19,8 @@ export default function LanguageSwitcher() {
     <Link
       href={newPathname}
       locale={otherLocale}
-      aria-label={t('ariaLabel')}
-      title={t('title')}
+      aria-label={nav('ariaLabel')}
+      title={nav('title')}
       className='bg-transparent text-accent-foreground font-semibold'
     >
       {otherLocaleLabel}
