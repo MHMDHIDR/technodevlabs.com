@@ -3,9 +3,10 @@ import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { routing } from '@/i18n/routing'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { getLocale, getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
+import { notFound } from 'next/navigation'
 import '../globals.css'
-import type { localeTypes } from '@/i18n/request'
 import type { Metadata } from 'next'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
@@ -41,12 +42,20 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode
-  params: { locale: localeTypes }
+  params: { locale: string }
 }) {
+  const locale = await getLocale()
   unstable_setRequestLocale(locale)
+
+  const messages = await getMessages()
+
+  // Show a 404 error if the user requests an unknown locale
+  if (params.locale !== locale) {
+    notFound()
+  }
 
   return (
     <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
@@ -60,7 +69,9 @@ export default async function LocaleLayout({
           fontSans.variable
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   )

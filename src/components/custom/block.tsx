@@ -37,7 +37,7 @@ export const Block = ({
           viewBox='0 0 24 24'
           strokeWidth='1.5'
           stroke='currentColor'
-          className='w-5 h-5 rtl:rotate-180 group-hover:translate-x-2 transition'
+          className='w-5 h-5 rtl:rotate-180 group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition'
         >
           <path
             strokeLinecap='round'

@@ -1,9 +1,8 @@
 import createNextIntlPlugin from 'next-intl/plugin'
 
-const withNextIntl = createNextIntlPlugin()
-
 /** @type {import('next').NextConfig} */
-const nextConfig = withNextIntl({
+
+const nextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'lh3.googleusercontent.com', protocol: 'https', port: '' },
@@ -15,6 +14,8 @@ const nextConfig = withNextIntl({
       bodySizeLimit: '5mb'
     }
   }
-})
+}
 
-export default nextConfig
+const withNextIntl = createNextIntlPlugin()
+
+export default withNextIntl(nextConfig)
