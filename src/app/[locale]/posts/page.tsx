@@ -8,7 +8,7 @@ import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants
 import { getPosts } from '@/data/posts'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { User } from 'next-auth'
 
@@ -35,8 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function PostsPage({ params }: { params: { locale: string } }) {
-  unstable_setRequestLocale(params.locale)
+export default async function PostsPage() {
   const settings = await getSettings()
   const t = await getTranslations('posts')
   const { postsCount } = await getPosts()

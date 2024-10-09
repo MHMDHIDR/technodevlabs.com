@@ -13,7 +13,7 @@ import { Modal } from '@/components/custom/modal'
 import { IconTrash } from '@tabler/icons-react'
 import { notFound } from 'next/navigation'
 import { getSettings } from '@/data/settings'
-import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 export async function generateMetadata({
@@ -57,12 +57,10 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostContentPage({
-  params: { locale, slug }
+  params: { slug }
 }: {
-  params: { slug: string; locale: string }
+  params: { slug: string }
 }) {
-  unstable_setRequestLocale(locale)
-
   const t = await getTranslations('posts')
   const currentLocale = await getLocale()
 

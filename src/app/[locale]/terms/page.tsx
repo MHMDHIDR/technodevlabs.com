@@ -3,7 +3,7 @@ import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,8 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function TermsAndConditionsPage({ params }: { params: { locale: string } }) {
-  unstable_setRequestLocale(params.locale)
+export default async function TermsAndConditionsPage() {
   const t = await getTranslations('terms')
 
   return (

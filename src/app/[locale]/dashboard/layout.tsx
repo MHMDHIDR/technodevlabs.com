@@ -3,17 +3,8 @@ import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
 import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
-import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default async function RootLayout({
-  params,
-  children
-}: {
-  params: { locale: string }
-  children: React.ReactNode
-}) {
-  unstable_setRequestLocale(params.locale)
-
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
 
   if (!session || !session.user) {

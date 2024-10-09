@@ -5,7 +5,7 @@ import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants
 import type { Metadata } from 'next'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -30,8 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ContactPage({ params }: { params: { locale: string } }) {
-  unstable_setRequestLocale(params.locale)
+export default async function ContactPage() {
   const settings = await getSettings()
   const t = await getTranslations('contact')
 

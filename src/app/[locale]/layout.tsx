@@ -3,9 +3,8 @@ import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { routing } from '@/i18n/routing'
-import { getLocale, getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { getMessages } from 'next-intl/server'
 import { NextIntlClientProvider } from 'next-intl'
-import { notFound } from 'next/navigation'
 import '../globals.css'
 import type { Metadata } from 'next'
 
@@ -40,28 +39,18 @@ export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
 }
 
-export default async function LocaleLayout({
-  children,
-  params
-}: {
+type Props = {
   children: React.ReactNode
   params: { locale: string }
-}) {
-  unstable_setRequestLocale(params.locale)
+}
+
+export default async function LocaleLayout({ children, params: { locale } }: Props) {
+  // unstable_setRequestLocale(locale)
 
   const messages = await getMessages()
 
-  // Show a 404 error if the user requests an unknown locale
-  if (params.locale !== params.locale) {
-    notFound()
-  }
-
   return (
-    <html
-      lang={params.locale}
-      suppressHydrationWarning
-      dir={params.locale === 'ar' ? 'rtl' : 'ltr'}
-    >
+    <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1 maximum-scale=1' />
         <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
