@@ -4,8 +4,10 @@ import Layout from '@/components/custom/layout'
 import { NotFoundIcon } from '@/components/custom/icons'
 import { Button } from '@/components/custom/button'
 import { Block } from '@/components/custom/block'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default function NotFound() {
+export default function NotFound({ params }: { params: { locale: string } }) {
+  unstable_setRequestLocale(params.locale)
   return (
     <Layout className={`p-4 py-20`}>
       <div className='container flex items-center justify-center min-h-screen px-6 py-12 mx-auto'>
