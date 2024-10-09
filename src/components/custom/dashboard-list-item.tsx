@@ -4,14 +4,13 @@ import { DeleteButton } from '@/components/custom/delete-button'
 import { Modal } from '@/components/custom/modal'
 import { formatDate } from '@/lib/format-date'
 import { IconTrash } from '@tabler/icons-react'
-import type { Post, Project } from '@/types'
+import { getLocale, getTranslations } from 'next-intl/server'
+import type { DashboardListItemProps, Post, Project } from '@/types'
 
-interface DashboardListItemProps {
-  item: Post | Project
-  type: 'post' | 'project'
-}
+export default async function DashboardListItem({ item, type }: DashboardListItemProps) {
+  const actions = await getTranslations('actions')
+  const currentLocale = await getLocale()
 
-export default function DashboardListItem({ item, type }: DashboardListItemProps) {
   const isPost = type === 'post'
   const abstract = isPost
     ? (item as Post).content.replace(/<[^>]*>/g, ' ').slice(0, 150)
@@ -28,7 +27,7 @@ export default function DashboardListItem({ item, type }: DashboardListItemProps
               {item.title}
             </h4>
             <span className='text-xs md:text-sm text-gray-500'>
-              {formatDate(new Date(item.updatedAt).toDateString(), true)}
+              {formatDate(new Date(item.updatedAt).toDateString(), currentLocale, true)}
             </span>
           </div>
           <div className='mt-2 text-sm text-gray-700 dark:text-gray-300 truncate'>
@@ -37,9 +36,9 @@ export default function DashboardListItem({ item, type }: DashboardListItemProps
         </div>
       </Link>
       <Modal
-        title={`Delete ${type}`}
-        description={`Are you sure you want to delete this ${type}?`}
-        className='absolute bottom-0.5 right-0.5'
+        title={actions('deleteButton', { type })}
+        description={actions('deleteConfirmation', { type })}
+        className={`absolute bottom-0.5 ${currentLocale === 'en' ? 'right-0.5' : 'left-0.5'}`}
         trigger={<IconTrash className='w-10 h-4 text-red-500' />}
       >
         <DeleteButton entryId={item.id} redirectTo={`/dashboard/${type}s`} type={type} />

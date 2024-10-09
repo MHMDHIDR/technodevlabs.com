@@ -2,34 +2,39 @@
 
 import { deleteCookieAction } from '@/actions'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
+import Tooltip from '@/components/custom/tooltip'
 import { APP_TITLE } from '@/data/constants'
 import { IconBook, IconBrandTabler, IconCode, IconLogout2, IconSettings } from '@tabler/icons-react'
-import type { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import { useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
+import type { User } from 'next-auth'
 
 export function DashboardSidebar({ user }: { user: User }) {
+  const t = useTranslations('dashboard.sidebar')
+  const currentLocale = useLocale()
+
   const links = [
     {
-      label: 'Dashboard',
+      label: t('dashboard'),
       href: '/dashboard',
       icon: (
         <IconBrandTabler className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     },
     {
-      label: 'Projects',
+      label: t('projects'),
       href: '/dashboard/projects',
       icon: <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
-      label: 'Posts',
+      label: t('posts'),
       href: '/dashboard/posts',
       icon: <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
-      label: 'Settings',
+      label: t('settings'),
       href: '/dashboard/settings',
       icon: (
         <IconSettings className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
@@ -43,30 +48,35 @@ export function DashboardSidebar({ user }: { user: User }) {
       <SidebarBody className='justify-between gap-10'>
         <div className='flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
           <div className='flex flex-col gap-2'>
-            {links.map((link, idx) => (
-              <SidebarLink key={idx} link={link} onClick={() => setOpen(!open)} />
+            {links.map(link => (
+              <SidebarLink
+                key={link.href}
+                link={link}
+                onClick={() => (open ? setOpen(false) : null)}
+              />
             ))}
           </div>
         </div>
 
         <div className='flex flex-col mt-8 gap-2'>
-          <button
-            className='flex items-center justify-start py-2 gap-2 group/sidebar'
-            onClick={async () => {
-              await deleteCookieAction({ name: 'can-authenticate' })
-              await signOut()
-            }}
-          >
-            <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
-            <span
-              className={`text-neutral-700 dark:text-neutral-200 text-sm transition-opacity duration-500 ${
-                open ? 'opacity-100 left-0' : 'opacity-0 absolute -left-40'
-              }`}
+          <Tooltip description={currentLocale === 'en' ? 'Sign Out' : 'تسجيل الخروج'}>
+            <button
+              className='flex items-center justify-start py-2 gap-2 group/sidebar px-4'
+              onClick={async () => {
+                await deleteCookieAction({ name: 'can-authenticate' })
+                await signOut()
+              }}
             >
-              Sign Out
-            </span>
-          </button>
-
+              <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
+              <span
+                className={`text-neutral-700 dark:text-neutral-200 text-sm transition-opacity duration-500 ${
+                  open ? 'opacity-100 left-0' : 'opacity-0 absolute -left-40'
+                }`}
+              >
+                Sign Out
+              </span>
+            </button>
+          </Tooltip>
           <SidebarLink
             link={{
               label: user.name ?? APP_TITLE,

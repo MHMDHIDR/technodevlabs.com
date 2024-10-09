@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { updateProjectAction, getProjectByIdAction, uploadFiles } from '@/actions'
-import { SubmitButton } from '@/app/contact/submit-button'
+import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import EmptyState from '@/components/custom/empty-state'
 import { Error as ErrorIcon, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
@@ -16,6 +16,7 @@ import { UploadedFiles } from '@/components/custom/uploaded-files'
 import { LoadingCard } from '@/components/custom/loading'
 import { AddButton } from '@/components/custom/add-button'
 import { optimizeImage, isImageFile } from '@/actions'
+import { useTranslations } from 'next-intl'
 import type { Project } from '@/types'
 
 export default function DashboardProjectUpdate({
@@ -23,6 +24,8 @@ export default function DashboardProjectUpdate({
 }: {
   params: { projectId: string }
 }) {
+  const t = useTranslations('dashboard.project')
+
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
   const [files, setFiles] = useState<File[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -158,7 +161,7 @@ export default function DashboardProjectUpdate({
 
           <form onSubmit={editProject} className='space-y-6'>
             <LabelInputContainer>
-              <Label htmlFor='title'>Project Title</Label>
+              <Label htmlFor='title'>{t('projectTitle')}</Label>
               <Input
                 type='text'
                 id='title'
@@ -170,7 +173,7 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='url'>Project View URL</Label>
+              <Label htmlFor='url'>{t('projectURL')}</Label>
               <Input
                 type='text'
                 id='url'
@@ -182,7 +185,7 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='description'>Project Description</Label>
+              <Label htmlFor='description'>{t('projectDescription')}</Label>
               <Textarea
                 id='description'
                 value={project.description}
@@ -193,7 +196,7 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='images'>Add New Project Images (Max 5MB)</Label>
+              <Label htmlFor='images'>{t('projectAddImages')}</Label>
               <FileUpload onFilesSelected={handleFilesSelected} />
             </LabelInputContainer>
 
@@ -201,10 +204,11 @@ export default function DashboardProjectUpdate({
               projectId={project.id}
               projectImages={project.images}
               onImageDelete={handleImageDelete}
+              type='projectImg'
             />
 
             <SubmitButton disabled={isSubmitting}>
-              {isSubmitting ? 'Updating Project...' : 'Update Project'}
+              {isSubmitting ? t('isUpdating') : t('updateProject')}
             </SubmitButton>
           </form>
         </>

@@ -3,6 +3,9 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
+// Helper function to detect if a word contains Arabic characters
+const isArabic = (text: string) => /[\u0600-\u06FF]/.test(text)
+
 export const FlipWords = ({
   words,
   duration = 3000,
@@ -15,7 +18,6 @@ export const FlipWords = ({
   const [currentWord, setCurrentWord] = useState(words[0])
   const [isAnimating, setIsAnimating] = useState<boolean>(false)
 
-  // thanks for the fix Julian - https://github.com/Julian-AT
   const startAnimation = useCallback(() => {
     const word = words[words.indexOf(currentWord) + 1] || words[0]
     setCurrentWord(word)
@@ -59,11 +61,11 @@ export const FlipWords = ({
         }}
         className={cn(
           'z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2',
-          className
+          className,
+          isArabic(currentWord) ? 'rtl' : '' // Add a class for RTL if Arabic
         )}
         key={currentWord}
       >
-        {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
         {currentWord.split(' ').map((word, wordIndex) => (
           <motion.span
             key={word + wordIndex}
@@ -73,22 +75,38 @@ export const FlipWords = ({
               delay: wordIndex * 0.3,
               duration: 0.3
             }}
-            className='inline-block whitespace-nowrap'
+            className={cn('inline-block whitespace-nowrap', isArabic(word) ? 'rtl' : '')}
           >
-            {word.split('').map((letter, letterIndex) => (
+            {!isArabic(word) ? (
+              // English word: animate each letter
+              word.split('').map((letter, letterIndex) => (
+                <motion.span
+                  key={word + letterIndex}
+                  initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
+                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{
+                    delay: wordIndex * 0.3 + letterIndex * 0.05,
+                    duration: 0.2
+                  }}
+                  className='inline-block text-transparent bg-gradient-to-br from-purple-900 to-purple-400 bg-clip-text'
+                >
+                  {letter}
+                </motion.span>
+              ))
+            ) : (
+              // Arabic word: animate the whole word without splitting
               <motion.span
-                key={word + letterIndex}
                 initial={{ opacity: 0, y: 10, filter: 'blur(8px)' }}
                 animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 transition={{
-                  delay: wordIndex * 0.3 + letterIndex * 0.05,
-                  duration: 0.2
+                  delay: wordIndex * 0.3,
+                  duration: 0.5
                 }}
                 className='inline-block text-transparent bg-gradient-to-br from-purple-900 to-purple-400 bg-clip-text'
               >
-                {letter}
+                {word}
               </motion.span>
-            ))}
+            )}
             <span className='inline-block'>&nbsp;</span>
           </motion.span>
         ))}

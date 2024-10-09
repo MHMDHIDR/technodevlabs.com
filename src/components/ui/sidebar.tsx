@@ -1,10 +1,12 @@
 'use client'
 
-import React, { useState, createContext, useContext } from 'react'
-import { cn } from '@/lib/utils'
+import { useState, createContext, useContext } from 'react'
+import { clsx, cn } from '@/lib/utils'
+import Tooltip from '@/components/custom/tooltip'
 import Link, { LinkProps } from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
-import { IconMenu2, IconX } from '@tabler/icons-react'
+import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
+import { useLocale } from 'next-intl'
 
 interface Links {
   label: string
@@ -85,20 +87,55 @@ export const DesktopSidebar = ({
   ...props
 }: React.ComponentProps<typeof motion.div>) => {
   const { open, setOpen, animate } = useSidebar()
+  const currentLocale = useLocale()
+
+  const TOGGLER_CLASSES = `cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 bg-neutral-100 dark:bg-neutral-800 p-1.5 rounded-full w-8 h-8`
+
   return (
     <motion.div
       className={cn(
-        'px-4 py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0',
+        'py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0 relative',
         className
       )}
       animate={{
         width: animate ? (open ? '270px' : '60px') : '270px'
       }}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
       {...props}
     >
-      {children}
+      <>
+        {children}
+        <Tooltip
+          description={
+            open && currentLocale === 'en'
+              ? 'Close Sidebar'
+              : open && currentLocale === 'ar'
+                ? 'اغلق القائمة'
+                : !open && currentLocale === 'en'
+                  ? 'Open Sidebar'
+                  : !open && currentLocale === 'ar'
+                    ? 'افتح القائمة'
+                    : 'Toggle Sidebar'
+          }
+        >
+          <button
+            className={clsx('absolute flex bottom-48', {
+              '-right-2': currentLocale === 'en',
+              '-left-2': currentLocale === 'ar'
+            })}
+            onClick={() => setOpen(!open)}
+          >
+            {open && currentLocale === 'en' ? (
+              <IconArrowLeft className={TOGGLER_CLASSES} />
+            ) : open && currentLocale === 'ar' ? (
+              <IconArrowRight className={TOGGLER_CLASSES} />
+            ) : !open && currentLocale === 'en' ? (
+              <IconArrowRight className={TOGGLER_CLASSES} />
+            ) : !open && currentLocale === 'ar' ? (
+              <IconArrowLeft className={TOGGLER_CLASSES} />
+            ) : null}
+          </button>
+        </Tooltip>
+      </>
     </motion.div>
   )
 }
@@ -161,23 +198,25 @@ export const SidebarLink = ({
   const { open, animate } = useSidebar()
 
   return (
-    <Link
-      href={link.href}
-      className={cn('flex items-center justify-start gap-2 group/sidebar py-2', className)}
-      onClick={onClick}
-      {...props}
-    >
-      {link.icon}
-
-      <motion.span
-        animate={{
-          display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
-          opacity: animate ? (open ? 1 : 0) : 1
-        }}
-        className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0'
+    <Tooltip description={link.label}>
+      <Link
+        href={link.href}
+        className={cn('flex items-center justify-start gap-2 group/sidebar py-2 px-4', className)}
+        onClick={onClick}
+        {...props}
       >
-        {link.label}
-      </motion.span>
-    </Link>
+        {link.icon}
+
+        <motion.span
+          animate={{
+            display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
+            opacity: animate ? (open ? 1 : 0) : 1
+          }}
+          className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0'
+        >
+          {link.label}
+        </motion.span>
+      </Link>
+    </Tooltip>
   )
 }

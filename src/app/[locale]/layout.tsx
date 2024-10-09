@@ -1,12 +1,11 @@
-import { ReactNode } from 'react'
-import { Cairo as FontSans } from 'next/font/google'
 import { Providers } from '@/providers'
 import { cn } from '@/lib/utils'
-import './globals.css'
+import { Cairo as FontSans } from 'next/font/google'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
-
+import { getMessages } from 'next-intl/server'
+import { NextIntlClientProvider } from 'next-intl'
+import '../globals.css'
 import type { Metadata } from 'next'
-import { getCurrentLocale } from 'locales/server'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
 
@@ -35,16 +34,21 @@ export const metadata: Metadata = {
   }
 }
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: ReactNode
-}>) {
-  const locale = getCurrentLocale()
-  const dir = new Intl.Locale(locale).language === 'ar' ? 'rtl' : 'ltr'
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ar' }]
+}
+
+export default async function LocaleLayout({
+  children,
+  params: { locale }
+}: {
+  children: React.ReactNode
+  params: { locale: string }
+}) {
+  const messages = await getMessages()
 
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1 maximum-scale=1' />
         <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
@@ -55,7 +59,11 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Providers locale={locale}>{children}</Providers>
+        <Providers>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   )

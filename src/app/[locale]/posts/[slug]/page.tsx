@@ -6,7 +6,6 @@ import { Cover } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
 import { IconEdit } from '@tabler/icons-react'
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { DeleteButton } from '@/components/custom/delete-button'
@@ -14,6 +13,8 @@ import { Modal } from '@/components/custom/modal'
 import { IconTrash } from '@tabler/icons-react'
 import { notFound } from 'next/navigation'
 import { getSettings } from '@/data/settings'
+import { getLocale, getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
 
 export async function generateMetadata({
   params
@@ -60,6 +61,9 @@ export default async function BlogPostContentPage({
 }: {
   params: { slug: string }
 }) {
+  const t = await getTranslations('posts')
+  const currentLocale = await getLocale()
+
   const settings = await getSettings()
   const post = await getPostBySlugAction({ slug })
   if (!post) return notFound()
@@ -106,21 +110,21 @@ export default async function BlogPostContentPage({
             </figure>
             <span
               className='self-start text-sm text-neutral-500 dark:text-neutral-400 md:self-center'
-              title={`Published On: ${new Date(post.createdAt).toDateString()}`}
+              title={`${t('publishedOn')}: ${new Date(post.createdAt).toDateString()}`}
             >
-              {formatDate(new Date(post.updatedAt).toDateString(), true)}
+              {formatDate(new Date(post.updatedAt).toDateString(), currentLocale, true)}
             </span>
             {user ? (
               <>
                 <Link href={`/dashboard/posts/${post.id}`} className='self-start md:self-center'>
-                  <Button className='flex items-center px-2 -ml-1 gap-x-2' title='Edit Post'>
+                  <Button className='flex items-center px-2 -ml-1 gap-x-2' title={t('editPost')}>
                     <IconEdit className='w-4 h-4' />
-                    <span>Edit Post</span>
+                    <span>{t('editPost')}</span>
                   </Button>
                 </Link>
                 <Modal
-                  title='Delete Post'
-                  description='Are you sure you want to delete this post?'
+                  title={t('deletePost')}
+                  description={t('deletePostConfirmation')}
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
                   <DeleteButton entryId={post.id ?? ''} redirectTo='/posts' type='post' />
@@ -131,8 +135,8 @@ export default async function BlogPostContentPage({
 
           <span
             className='text-sm select-none text-neutral-500 dark:text-neutral-400'
-            aria-label='Read Time'
-            title={`Read Time: ${calculateReadTime(post.content)}`}
+            aria-label={t('readTime')}
+            title={`${t('readTime')}: ${calculateReadTime(post.content)}`}
           >
             {calculateReadTime(post.content)}
           </span>

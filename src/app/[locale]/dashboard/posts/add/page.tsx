@@ -13,8 +13,11 @@ import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { addNewPostAction } from '@/actions'
+import { useTranslations } from 'next-intl'
 
 const MenuBar = ({ editor }: { editor: any }) => {
+  const t = useTranslations('dashboard.post')
+
   if (!editor) {
     return null
   }
@@ -32,28 +35,34 @@ const MenuBar = ({ editor }: { editor: any }) => {
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading', { level: 1 })
+            ? 'bg-gray-300 dark:bg-gray-900'
+            : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H1
+        {t('editor.h1')}
       </Button>
       <Button
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading', { level: 2 })
+            ? 'bg-gray-300 dark:bg-gray-900'
+            : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H2
+        {t('editor.h2')}
       </Button>
       <Button
         type='button'
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={`px-2 py-1 text-sm ${
-          editor.isActive('heading') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
+          editor.isActive('heading', { level: 3 })
+            ? 'bg-gray-300 dark:bg-gray-900'
+            : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H3
+        {t('editor.h3')}
       </Button>
       <Button
         type='button'
@@ -62,7 +71,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('code') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Code
+        {t('editor.code')}
       </Button>
       <Button
         type='button'
@@ -73,7 +82,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Code Block
+        {t('editor.codeBlock')}
       </Button>
       <Button
         type='button'
@@ -84,7 +93,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Blockquote
+        {t('editor.blockquote')}
       </Button>
       <Button
         type='button'
@@ -93,7 +102,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('bold') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Bold
+        {t('editor.bold')}
       </Button>
       <Button
         type='button'
@@ -102,7 +111,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('italic') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Italic
+        {t('editor.italic')}
       </Button>
       <Button
         type='button'
@@ -113,14 +122,14 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Bullet List
+        {t('editor.bulletList')}
       </Button>
       <Button
         type='button'
         onClick={addImage}
         className='px-2 py-1 text-sm bg-white dark:bg-gray-700'
       >
-        Add Image
+        {t('editor.addImage')}
       </Button>
     </div>
   )
@@ -129,6 +138,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
 export default function DashboardPostAdd() {
   const [title, setTitle] = useState('')
   const { replace } = useRouter()
+  const t = useTranslations('dashboard.post')
 
   /**
    * Using the fantastic tiptap editor
@@ -190,11 +200,11 @@ export default function DashboardPostAdd() {
 
   return (
     <section className='max-w-4xl p-6 mx-auto'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>Add New Post</h3>
+      <h3 className='mb-6 text-2xl font-bold text-center'>{t('addPost')}</h3>
 
       <form onSubmit={addPost} className='space-y-6'>
         <LabelInputContainer>
-          <Label htmlFor='title'>Post Title</Label>
+          <Label htmlFor='title'>{t('postTitle')}</Label>
           <Input
             type='text'
             id='title'
@@ -206,7 +216,7 @@ export default function DashboardPostAdd() {
         </LabelInputContainer>
 
         <LabelInputContainer>
-          <Label htmlFor='content'>Post Content</Label>
+          <Label htmlFor='content'>{t('postContent')}</Label>
           <MenuBar editor={editor} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
@@ -216,7 +226,7 @@ export default function DashboardPostAdd() {
           </div>
         </LabelInputContainer>
 
-        <SubmitButton>Add Post</SubmitButton>
+        <SubmitButton>{t('addPost')}</SubmitButton>
       </form>
     </section>
   )

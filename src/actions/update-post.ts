@@ -6,6 +6,7 @@ import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
+import { getTranslations } from 'next-intl/server'
 
 export async function updatePostAction({
   postId,
@@ -16,6 +17,9 @@ export async function updatePostAction({
   title: string
   content: string
 }) {
+  const t = await getTranslations('dashboard.post')
+  const actions = await getTranslations('actions')
+
   try {
     const session = await auth()
     if (!session || !session.user || !session.user.id) {
@@ -32,11 +36,11 @@ export async function updatePostAction({
       .where(eq(posts.id, postId))
 
     if (updatedPost.length !== 0) {
-      return { success: false, message: 'Failed to update post or post not found' }
+      return { success: false, message: t('updateErrorMessage') }
     }
 
     revalidatePath('/dashboard/posts')
-    return { success: true, message: 'Post updated successfully' }
+    return { success: true, message: t('updateSuccessMessage') }
   } catch (error) {
     console.error('Error updating post:', error)
 
@@ -49,11 +53,11 @@ export async function updatePostAction({
         ) {
           return {
             success: false,
-            message: 'A post with this title already exists. Please choose a different title.'
+            message: t('postExits')
           }
         }
       }
     }
-    return { success: false, message: 'An unexpected error occurred' }
+    return { success: false, message: actions('500error') }
   }
 }

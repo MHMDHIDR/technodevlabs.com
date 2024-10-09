@@ -8,8 +8,9 @@ import { APP_LOGO, APP_TITLE } from '@/data/constants'
 import { signOut, getSession } from 'next-auth/react'
 import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import { deleteCookieAction } from '@/actions'
+import LanguageSwitcher from '@/components/custom/language-switcher'
+import { useTranslations } from 'next-intl'
 import type { User } from 'next-auth'
-import LanguageSwitcher from './language-switcher'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -56,6 +57,8 @@ export default function Nav() {
       ? 'text-blue-500'
       : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
   }
+
+  const t = useTranslations('Nav')
 
   return (
     <header
@@ -131,43 +134,43 @@ export default function Nav() {
           <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/#projects')}`}
-              href={pathname === '/' ? '/#projects' : '/projects'}
+              href={pathname === '/' || pathname === '/ar' ? '/#projects' : '/projects'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              Projects
+              {t('projects')}
             </Link>
             <Link
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/about')}`}
-              href={pathname === '/' ? '/#about' : '/about'}
+              href={pathname === '/' || pathname === '/ar' ? '/#about' : '/about'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              About
+              {t('about')}
             </Link>
             <Link
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/services')}`}
-              href={pathname === '/' ? '/#services' : '/services'}
+              href={pathname === '/' || pathname === '/ar' ? '/#services' : '/services'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              Services
+              {t('services')}
             </Link>
             <Link
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/posts')}`}
-              href={pathname === '/' ? '/#posts' : '/posts'}
+              href={pathname === '/' || pathname === '/ar' ? '/#posts' : '/posts'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              Blog
+              {t('blog')}
             </Link>
             <Link
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/contact')}`}
-              href={pathname === '/' ? '/#contact' : '/contact'}
+              href={pathname === '/' || pathname === '/ar' ? '/#contact' : '/contact'}
               aria-current='page'
               onClick={toggleMobileMenu}
             >
-              Contact
+              {t('contact')}
             </Link>
 
             <LanguageSwitcher />
@@ -183,14 +186,14 @@ export default function Nav() {
                   onClick={toggleMobileMenu}
                 >
                   <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
-                  <span className='text-sm sm:hidden lg:inline-block'>Dashboard</span>
+                  <span className='text-sm sm:hidden lg:inline-block'>{t('dashboard')}</span>
                 </Link>
 
                 <button
                   className='flex items-center justify-start py-2 gap-2'
                   onClick={async () => {
                     await deleteCookieAction({ name: 'can-authenticate' })
-                    await signOut()
+                    await signOut({ redirectTo: '/auth' })
                   }}
                   title='Sign Out'
                   aria-label='Sign Out'
@@ -199,7 +202,7 @@ export default function Nav() {
                   <span
                     className={`text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500`}
                   >
-                    Sign Out
+                    {t('signOut')}
                   </span>
                 </button>
               </>

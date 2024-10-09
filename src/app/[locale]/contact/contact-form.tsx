@@ -13,10 +13,13 @@ import LabelInputContainer from '@/components/custom/label-input-container'
 import { SubmitButton } from './submit-button'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { emailAction } from '@/actions'
+import { useTranslations, useLocale } from 'next-intl'
 
 export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const { replace } = useRouter()
+  const t = useTranslations('contact')
+  const currentLocale = useLocale()
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -48,33 +51,43 @@ export function ContactForm() {
       // Reset the form inputs
       form.reset()
 
-      toast('Email sent successfully! 🎉', {
-        icon: <Success className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#F0FAF0',
-          color: '#367E18',
-          border: '1px solid #367E18',
-          gap: '1.5rem',
-          textAlign: 'justify'
+      toast(
+        currentLocale === 'en'
+          ? 'Email sent successfully! 🎉'
+          : 'تم إرسال البريد الإلكتروني بنجاح! 🎉، وسيتم التواصل معك عما قريبب',
+        {
+          icon: <Success className='inline-block' />,
+          position: 'bottom-center',
+          className: 'text-center rtl select-none',
+          style: {
+            backgroundColor: '#F0FAF0',
+            color: '#367E18',
+            border: '1px solid #367E18',
+            gap: '1.5rem',
+            textAlign: 'justify'
+          }
         }
-      })
+      )
     } catch (error) {
       setStatus('error')
 
-      toast('Failed to send email. Please try again later! 😢', {
-        icon: <Error className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
+      toast(
+        currentLocale === 'en'
+          ? 'Failed to send email. Please try again later! 😢'
+          : 'فشل إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى في وقت لاحق! 😢',
+        {
+          icon: <Error className='inline-block' />,
+          position: 'bottom-center',
+          className: 'text-center rtl select-none',
+          style: {
+            backgroundColor: '#FDE7E7',
+            color: '#C53030',
+            border: '1px solid #C53030',
+            gap: '1.5rem',
+            textAlign: 'justify'
+          }
         }
-      })
+      )
     } finally {
       setTimeout(() => replace(`/`), DEFAULT_DURATION)
     }
@@ -83,75 +96,79 @@ export function ContactForm() {
   return (
     <div className='w-full max-w-4xl p-4 mx-auto bg-white rounded-none md:rounded-2xl md:p-8 shadow-input dark:bg-black'>
       <h2 className='text-xl font-bold text-center text-neutral-800 dark:text-neutral-200'>
-        Your message is important to us
+        {t('title')}
       </h2>
       <p className='mt-2 text-sm text-center text-neutral-600 dark:text-neutral-300'>
-        We will get back to you as soon as possible.
+        {t('description')}
       </p>
 
       <form className='my-8' onSubmit={handleSubmit}>
         <div className='grid grid-cols-1 gap-8 gap-y-4 md:grid-cols-2'>
           <div>
-            <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
+            <div className='flex flex-col mb-4 gap-x-2 space-y-2 md:flex-row md:space-y-0'>
               <LabelInputContainer>
-                <Label htmlFor='firstname'>First name</Label>
+                <Label htmlFor='firstname'>{t('firstName')}</Label>
                 <Input
                   id='firstname'
-                  placeholder='Mohammed'
+                  placeholder={t('placeholderFirstName')}
                   type='text'
                   name='firstname'
                   dir='auto'
                   min={5}
+                  className='rtl:text-right w-full'
                   required
                 />
               </LabelInputContainer>
               <LabelInputContainer>
-                <Label htmlFor='lastname'>Last name</Label>
+                <Label htmlFor='lastname'>{t('lastName')}</Label>
                 <Input
                   id='lastname'
-                  placeholder='Ahmed'
+                  placeholder={t('placeholderLastName')}
                   type='text'
                   name='lastname'
                   dir='auto'
                   min={5}
+                  className='rtl:text-right w-full'
                   required
                 />
               </LabelInputContainer>
             </div>
             <LabelInputContainer className='mb-4'>
-              <Label htmlFor='email'>Email Address</Label>
+              <Label htmlFor='email'>{t('email')}</Label>
               <Input
                 id='email'
-                placeholder='example@example.com'
+                placeholder={t('placeholderEmail')}
                 type='email'
                 name='email'
                 dir='auto'
                 min={10}
+                className='rtl:text-right'
                 required
               />
             </LabelInputContainer>
             <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
               <LabelInputContainer>
-                <Label htmlFor='subject'>Subject</Label>
+                <Label htmlFor='subject'>{t('subject')}</Label>
                 <Input
                   id='subject'
-                  placeholder='I have a question'
+                  placeholder={t('placeholderSubject')}
                   type='text'
                   name='subject'
                   dir='auto'
                   min={5}
+                  className='rtl:text-right'
                   required
                 />
               </LabelInputContainer>
             </div>
           </div>
           <LabelInputContainer className='mb-4'>
-            <Label htmlFor='message'>Message</Label>
+            <Label htmlFor='message'>{t('message')}</Label>
             <Textarea
               id='message'
               name='message'
-              placeholder='Hi, I would like to know more about your services.'
-              className='p-2 border resize-y rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96'
+              placeholder={t('placeholderMessage')}
+              className='p-2 rtl:text-right border resize-y rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96'
               dir='auto'
               minLength={20}
               required
@@ -160,13 +177,13 @@ export function ContactForm() {
         </div>
 
         <SubmitButton disabled={status === 'loading' || status === 'success'}>
-          {status === 'loading' ? 'Sending...' : 'Send'}
+          {status === 'loading' ? t('sendingButton') : t('sendButton')}
         </SubmitButton>
 
         <Divider className='my-10 mb-20' />
 
         <div className='flex flex-col space-y-4'>
-          Email us at{' '}
+          {t('contactEmail')}{' '}
           <Link
             href='mailto:support@technodevlabs.com'
             className='underline text-neutral-800 dark:text-neutral-200'

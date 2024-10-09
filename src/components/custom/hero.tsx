@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { FlipWords } from '@/components/ui/flip-words'
 import { LampContainer } from '@/components/ui/lamp'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 export function Hero() {
   // detect if the user is using a mobile device
@@ -14,7 +15,8 @@ export function Hero() {
     setIsMobile(window.matchMedia('(max-width: 768px)').matches)
   }, [])
 
-  const words = ['WebApp', 'MobileApp', 'Desktop Apps', 'Landing Pages']
+  const t = useTranslations('Hero')
+  const words = t('flipWords').split(',')
 
   return (
     <LampContainer className='pt-40'>
@@ -29,9 +31,9 @@ export function Hero() {
         className='flex flex-col items-center py-4 mt-10 tracking-tight select-none gap-y-10'
       >
         <h1 className='font-bold text-center text-transparent bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-4xl md:text-7xl leading-[3rem] md:leading-[6rem]'>
-          Build
+          {t('build')}
           <FlipWords words={words} />
-          <br /> With TechnoDevLabs.
+          <br /> {t('with')}
         </h1>
 
         <button className='relative p-1 w-fit'>
@@ -40,7 +42,7 @@ export function Hero() {
             href={'/#contact'}
             className='relative inline-block px-8 py-2 text-white bg-black transition duration-200 rounded-md hover:bg-transparent'
           >
-            Get Started
+            {t('getStarted')}
           </Link>
         </button>
       </motion.div>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 export function AddButton({ children, href }: { children: string; href: string }) {
   return (
     <Link href={href} aria-label={children} title={children}>
-      <Button className='flex items-center gap-x-2 px-3'>
+      <Button className='inline-flex items-center gap-x-2'>
         <IconPlus className='w-4 h-4' />
         <span>{children}</span>
       </Button>

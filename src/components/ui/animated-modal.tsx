@@ -1,6 +1,7 @@
 'use client'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useLocale } from 'next-intl'
 import React, { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react'
 
 interface ModalContextType {
@@ -123,6 +124,8 @@ export const ModalFooter = ({
   className?: string
 }) => {
   const { setOpen } = useModal()
+  const currentLocale = useLocale()
+
   return (
     <div className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}>
       <>
@@ -131,7 +134,7 @@ export const ModalFooter = ({
           onClick={() => setOpen(false)}
           className='px-2 py-1 text-sm text-black bg-gray-200 border border-gray-300 dark:bg-black dark:border-black dark:text-white rounded-md w-28'
         >
-          Cancel
+          {currentLocale === 'en' ? 'Cancel' : 'إلغاء'}
         </button>
         {children}
       </>

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { SubmitButton } from '@/app/contact/submit-button'
+import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 import { Error as ErrorIcon } from '@/components/custom/icons'

@@ -1,10 +1,12 @@
 import { Button } from '@/components/custom/button'
 import { PostCard } from '@/components/custom/post-card'
 import { getPosts } from '@/data/posts'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next/link'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
   let { posts, postsCount } = await getPosts()
+  const t = await getTranslations('posts')
   // Only get the first 3 posts for the '/' homepage, so it can be displayed in a grid
   posts = pathname === '/' && postsCount > 3 ? posts.slice(0, 3) : posts
 
@@ -23,7 +25,7 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
       {pathname === '/' ? (
         <Link href={`/posts`} className='flex justify-center mt-10'>
           <Button className='rounded-full' withArrow>
-            You Can Read More Here
+            {t('readMoreCTA')}
           </Button>
         </Link>
       ) : null}

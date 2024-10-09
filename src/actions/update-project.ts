@@ -4,6 +4,7 @@ import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { projects } from '@/db/schema'
+import { getTranslations } from 'next-intl/server'
 import type { Project, updateProjectData } from '@/types'
 
 /**
@@ -21,14 +22,17 @@ export async function updateProjectAction({
   url,
   images
 }: updateProjectData) {
+  const t = await getTranslations('dashboard.project')
+  const actions = await getTranslations('actions')
+
   try {
     const session = await auth()
     if (!session || !session.user || !session.user.id) {
-      throw new Error('Unauthorized')
+      return { success: false, message: actions('Unauthorized') }
     }
 
     if (!projectId) {
-      throw new Error('Project ID is required')
+      return { success: false, message: t('idRequired') }
     }
 
     // Fetch current project data
@@ -38,7 +42,7 @@ export async function updateProjectAction({
       .where(eq(projects.id, projectId))
 
     if (!currentProject) {
-      return { success: false, message: 'Project not found' }
+      return { success: false, message: t('updateErrorMessage') }
     }
 
     // Prepare update object
@@ -65,12 +69,12 @@ export async function updateProjectAction({
       .where(eq(projects.id, projectId))
 
     if (updatedProject.length !== 0) {
-      return { success: false, message: 'Failed to update project or project not found' }
+      return { success: false, message: t('updateErrorMessage') }
     }
 
-    return { success: true, message: 'Project updated successfully' }
+    return { success: true, message: t('updateSuccessMessage') }
   } catch (error) {
     console.error('Error updating project:', error)
-    return { success: false, message: 'An unexpected error occurred' }
+    return { success: false, message: actions('500error') }
   }
 }

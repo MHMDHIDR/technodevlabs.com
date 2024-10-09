@@ -16,9 +16,12 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Error, Success } from '@/components/custom/icons'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 import type { Post } from '@/types'
 
 const MenuBar = ({ editor }: { editor: any }) => {
+  const t = useTranslations('dashboard.post')
+
   if (!editor) {
     return null
   }
@@ -41,7 +44,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H1
+        {t('editor.h1')}
       </Button>
       <Button
         type='button'
@@ -52,7 +55,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H2
+        {t('editor.h2')}
       </Button>
       <Button
         type='button'
@@ -63,7 +66,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        H3
+        {t('editor.h3')}
       </Button>
       <Button
         type='button'
@@ -72,7 +75,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('code') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Code
+        {t('editor.code')}
       </Button>
       <Button
         type='button'
@@ -83,7 +86,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Code Block
+        {t('editor.codeBlock')}
       </Button>
       <Button
         type='button'
@@ -94,7 +97,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Blockquote
+        {t('editor.blockquote')}
       </Button>
       <Button
         type='button'
@@ -103,7 +106,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('bold') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Bold
+        {t('editor.bold')}
       </Button>
       <Button
         type='button'
@@ -112,7 +115,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
           editor.isActive('italic') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Italic
+        {t('editor.italic')}
       </Button>
       <Button
         type='button'
@@ -123,14 +126,14 @@ const MenuBar = ({ editor }: { editor: any }) => {
             : 'bg-white dark:bg-gray-700'
         }`}
       >
-        Bullet List
+        {t('editor.bulletList')}
       </Button>
       <Button
         type='button'
         onClick={addImage}
         className='px-2 py-1 text-sm bg-white dark:bg-gray-700'
       >
-        Add Image
+        {t('editor.addImage')}
       </Button>
     </div>
   )
@@ -149,6 +152,7 @@ export default function DashboardPostUpdate({
     content: ''
   })
   const { replace } = useRouter()
+  const t = useTranslations('dashboard.post')
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -226,10 +230,8 @@ export default function DashboardPostUpdate({
     <section className='max-w-4xl p-6 mx-auto'>
       {post === null ? (
         <EmptyState>
-          <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
-            Sorry the post you are looking for does not exist.
-          </p>
-          <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
+          <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>{t('noPosts')}</p>
+          <AddButton href='/dashboard/posts/add'>{t('addPost')}</AddButton>
         </EmptyState>
       ) : (
         <>
@@ -237,7 +239,7 @@ export default function DashboardPostUpdate({
 
           <form onSubmit={editPost} className='space-y-6'>
             <LabelInputContainer>
-              <Label htmlFor='title'>Post Title</Label>
+              <Label htmlFor='title'>{t('postTitle')}</Label>
               <Input
                 type='text'
                 id='title'
@@ -249,17 +251,17 @@ export default function DashboardPostUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='content'>Post Content</Label>
+              <Label htmlFor='content'>{t('postContent')}</Label>
               <MenuBar editor={editor} />
               <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
                 <EditorContent
                   editor={editor}
-                  className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
+                  className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52 border border-gray-300 rounded-md'
                 />
               </div>
             </LabelInputContainer>
 
-            <SubmitButton>Edit Post</SubmitButton>
+            <SubmitButton>{t('updatePost')}</SubmitButton>
           </form>
         </>
       )}

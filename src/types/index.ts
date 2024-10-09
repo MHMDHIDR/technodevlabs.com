@@ -87,4 +87,16 @@ export type ModalProps = {
   children: React.ReactNode
 }
 
-export type DeleteTypes = 'post' | 'project' | 'projectImg'
+export type itemsTypes = 'post' | 'project' | 'projectImg'
+
+export type DashboardListItemProps = {
+  item: Post | Project
+  type: itemsTypes
+}
+
+export type ProjectImagesGridProps = {
+  projectId: Project['id']
+  projectImages: Project['images']
+  onImageDelete: (imageUrl: string) => void
+  type: itemsTypes
+}

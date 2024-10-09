@@ -5,13 +5,16 @@
  * @param date the date string to be formatted
  * @returns the formatted date
  */
-export const formatDate = (date: string, isNormalDate?: boolean): string => {
+export function formatDate(date: string, locale: string, isNormalDate?: boolean): string {
   if (isNormalDate) {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    const dateOptions = {
+      year: 'numeric' as 'numeric',
+      month: 'long' as 'long',
+      day: 'numeric' as 'numeric'
+    }
+    return locale === 'en'
+      ? new Date(date).toLocaleDateString('en-US', dateOptions)
+      : new Date(date).toLocaleDateString('ar-EG', dateOptions)
   }
 
   const now = new Date().getTime()
@@ -25,39 +28,36 @@ export const formatDate = (date: string, isNormalDate?: boolean): string => {
 
   switch (true) {
     case days === 0:
-      return 'Today'
+      return locale === 'en' ? 'Today' : 'اليوم'
 
     case days === 1:
-      return 'Yesterday'
+      return locale === 'en' ? 'Yesterday' : 'أمس'
 
     case days >= 2 && days <= 5:
-      return `${days} days ago`
+      return `${days} ${locale === 'en' ? 'days ago' : 'أيام قبل'}`
 
-    case days >= 6 && days <= 8:
-      return '1 week ago'
-
-    case days >= 9 && days <= 12:
-      return '1 week ago'
+    case days >= 6 && days <= 12:
+      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسابيع قبل'}`
 
     case days >= 13 && days <= 17:
-      return '2 weeks ago'
+      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسبوعين قبل'}`
 
     case weeks > 2 && weeks < 4:
-      return `${weeks} weeks ago`
+      return locale === 'en' ? '3 weeks ago' : '3 قبل أسابيع'
 
     case days >= 25 && days <= 35:
-      return '1 month ago'
+      return locale === 'en' ? '1 month ago' : 'قبل شهر'
 
     case months >= 2 && months <= 11:
-      return `${months} months ago`
+      return locale === 'en' ? `${months} months ago` : `${months} قبل أشهر`
 
     case years === 1:
-      return '1 year ago'
+      return locale === 'en' ? '1 year ago' : 'قبل سنة'
 
     case years > 1:
-      return `${years} years ago`
+      return locale === 'en' ? `${years} years ago` : `${years} قبل سنوات`
 
     default:
-      return `${days} days ago`
+      return locale === 'en' ? `${days} days ago` : `${days} قبل أيام`
   }
 }

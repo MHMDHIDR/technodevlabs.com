@@ -8,7 +8,7 @@ import {
 } from '@aws-sdk/client-s3'
 import { updateProjectAction } from '@/actions'
 import { env } from '@/env'
-import { auth } from '@/auth'
+import { getTranslations } from 'next-intl/server'
 
 const s3Client = new S3Client({
   region: env.AWS_REGION,
@@ -16,6 +16,8 @@ const s3Client = new S3Client({
 })
 
 export async function deleteMultipleObjects({ projectId }: { projectId: string }) {
+  const t = await getTranslations('dashboard.project.images')
+
   try {
     // List all objects in the "folder" (objects with the projectId prefix)
     const listCommand = new ListObjectsV2Command({
@@ -41,28 +43,24 @@ export async function deleteMultipleObjects({ projectId }: { projectId: string }
       }
     }
 
-    return { success: true, message: 'All project files deleted successfully from S3' }
+    return { success: true, message: t('imgsFailedDelete') }
   } catch (error) {
     console.error('Error deleting files from S3:', error)
-    return { success: false, message: 'Failed to delete project files from S3' }
+    return { success: false, message: t('imgsFailedDelete') }
   }
 }
 
 export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
-  try {
-    // Authentication check
-    const session = await auth()
-    if (!session || !session.user || !session.user.id) {
-      return { success: false, message: 'Unauthorized' }
-    }
+  const t = await getTranslations('dashboard.project.images')
 
+  try {
     // Extract the key and projectId from the imageUrl
     const urlParts = imageUrl.split('/')
     const projectId = urlParts[3] // The part after 'com/'
     const key = urlParts.slice(3).join('/')
 
     if (!key || !projectId) {
-      return { success: false, message: 'Invalid image URL' }
+      return { success: false, message: t('invalidURL') }
     }
 
     const deleteParams = {
@@ -83,12 +81,12 @@ export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
     })
 
     if (!updateResult.success) {
-      return { success: false, message: 'File deleted from S3, but failed to update project' }
+      return { success: false, message: t('projectFailedUpdate') }
     }
 
-    return { success: true, message: 'File deleted from S3 and project updated successfully' }
+    return { success: true, message: t('imgDeleted') }
   } catch (error) {
     console.error('Error deleting file from S3 or updating project:', error)
-    return { success: false, message: 'Failed to delete file from S3 or update project' }
+    return { success: false, message: t('imgFailedDelete') }
   }
 }

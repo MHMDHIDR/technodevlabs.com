@@ -14,13 +14,17 @@ export function Button({ className, withArrow, children, ...props }: ButtonProps
     >
       <span
         className={cn(
-          `px-10 py-1.5 h-full text-gray-800 dark:text-gray-100 relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-block`,
+          `px-4 py-1.5 h-full text-gray-800 dark:text-gray-100 relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-flex`,
           className
         )}
       >
         {children}
         {withArrow ? (
-          <span className='inline-flex duration-300 translate-x-1 group-hover:translate-x-2'>
+          <span
+            className={cn(
+              'duration-300 ltr:translate-x-1 ltr:group-hover:translate-x-2 rtl:-translate-x-1 rtl:group-hover:-translate-x-2 rtl:rotate-180'
+            )}
+          >
             &rarr;
           </span>
         ) : null}

@@ -8,6 +8,7 @@ import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants
 import { getPosts } from '@/data/posts'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
+import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import type { User } from 'next-auth'
 
@@ -36,6 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PostsPage() {
   const settings = await getSettings()
+  const t = await getTranslations('posts')
   const { postsCount } = await getPosts()
   const session = await auth()
   let user: User | null = null
@@ -55,21 +57,19 @@ export default async function PostsPage() {
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
 
         <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-semibold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-          <Cover>Posts</Cover>
+          <Cover>{t('pageTitle')}</Cover>
         </h1>
 
         {user ? (
-          <div className='w-fit mb-6 ml-auto'>
-            <AddButton href='/dashboard/posts/add'>Add Post</AddButton>
+          <div className='w-fit mb-6 ml-auto rtl:ml-0'>
+            <AddButton href='/dashboard/posts/add'>{t('addPost')}</AddButton>
           </div>
         ) : null}
 
         {postsCount === 0 ? (
           <EmptyState>
-            {user ? <AddButton href='/dashboard/posts/add'>Add Post</AddButton> : null}
-            <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
-              There are no posts available.
-            </p>
+            {user ? <AddButton href='/dashboard/posts/add'>{t('addPost')}</AddButton> : null}
+            <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>{t('noPosts')}</p>
           </EmptyState>
         ) : (
           <PostsSection />

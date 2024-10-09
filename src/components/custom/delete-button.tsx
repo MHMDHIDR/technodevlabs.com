@@ -7,7 +7,8 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useModal } from '../ui/animated-modal'
 import { deleteEntryAndRevalidateAction } from '@/actions'
-import type { DeleteTypes } from '@/types'
+import { useLocale } from 'next-intl'
+import type { itemsTypes } from '@/types'
 
 export function DeleteButton({
   entryId,
@@ -17,7 +18,7 @@ export function DeleteButton({
   onSuccess
 }: {
   entryId: string
-  type: DeleteTypes
+  type: itemsTypes
   redirectTo?: string
   projectId?: string
   onSuccess?: () => void
@@ -25,6 +26,7 @@ export function DeleteButton({
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
   const { open, setOpen } = useModal()
+  const currentLocale = useLocale()
 
   const handleDelete = () => {
     startTransition(async () => {
@@ -84,10 +86,12 @@ export function DeleteButton({
       {isPending ? (
         <span className='flex items-center'>
           <IconLoader3 className='animate-spin mr-2' />
-          Deleting...
+          {currentLocale ? 'Deleting...' : 'جار الحذف...'}
         </span>
-      ) : (
+      ) : currentLocale === 'en' ? (
         'Delete'
+      ) : (
+        'حذف'
       )}
     </button>
   )

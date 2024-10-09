@@ -4,8 +4,12 @@ import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
+import { getTranslations } from 'next-intl/server'
 
 export async function addNewPostAction({ title, content }: { title: string; content: string }) {
+  const t = await getTranslations('dashboard.post')
+  const actions = await getTranslations('actions')
+
   try {
     const session = await auth()
     if (!session) {
@@ -18,7 +22,7 @@ export async function addNewPostAction({ title, content }: { title: string; cont
     }
 
     // Insert post with userId
-    await database.insert(posts).values({
+    const addedPost = await database.insert(posts).values({
       userId: user.id,
       title,
       slug: createSlug(title),
@@ -27,7 +31,11 @@ export async function addNewPostAction({ title, content }: { title: string; cont
       updatedAt: new Date()
     })
 
-    return { success: true, message: 'Post added successfully' }
+    if (addedPost.length !== 0) {
+      return { success: false, message: t('addErrorMessage') }
+    }
+
+    return { success: true, message: t('addSuccessMessage') }
   } catch (error: unknown) {
     console.error('Error adding new post:', error)
 
@@ -40,12 +48,12 @@ export async function addNewPostAction({ title, content }: { title: string; cont
         ) {
           return {
             success: false,
-            message: 'A post with this title already exists. Please choose a different title.'
+            message: t('postExits')
           }
         }
       }
     }
 
-    return { success: false, message: 'An unexpected error occurred' }
+    return { success: false, message: actions('500error') }
   }
 }

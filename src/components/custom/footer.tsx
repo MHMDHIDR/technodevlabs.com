@@ -15,8 +15,11 @@ import {
   APP_TWITTER_URL
 } from '@/data/constants'
 import ThemeToggler from '@/components/custom/theme-toggler'
+import { getTranslations } from 'next-intl/server'
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations('footer')
+
   return (
     <footer className='w-full mt-auto bg-gray-900 dark:bg-neutral-950'>
       <div className='mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto'>
@@ -36,64 +39,58 @@ export default function Footer() {
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0 mr-20 md:mr-0'>
-            <h4 className='font-semibold text-gray-100'>Company</h4>
+            <h4 className='font-semibold text-gray-100'>{t('company')}</h4>
 
             <div className='mt-3 grid space-y-3'>
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/about'
               >
-                About us
+                {t('aboutUs')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/posts'
               >
-                Blog
+                {t('blog')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/contact'
               >
-                Contact
+                {t('contact')}
               </Link>
             </div>
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0'>
-            <h4 className='font-semibold text-gray-100'>Legal</h4>
+            <h4 className='font-semibold text-gray-100'>{t('legal')}</h4>
 
             <div className='mt-3 grid space-y-3'>
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/terms'
               >
-                Terms of Service
+                {t('termsOfService')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/privacy'
               >
-                Privacy Policy
+                {t('privacyPolicy')}
               </Link>
             </div>
           </div>
 
           <div className='col-span-2'>
-            <h4 className='font-semibold text-gray-100'>Our Vision</h4>
+            <h4 className='font-semibold text-gray-100'>{t('ourVision')}</h4>
 
             <form>
               <div className='flex flex-col items-center py-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3'>
-                <p className='text-justify'>
-                  At TechnoDevLabs, we strive to be a trusted partner for businesses in the Middle
-                  East, delivering innovative and tailored software solutions that meet the unique
-                  needs of our clients. Our goal is to empower organizations by providing
-                  high-quality, reliable, and scalable technology that drives growth and fosters
-                  success in a rapidly evolving digital landscape.
-                </p>
+                <p className='text-justify'>{t('visionText')}</p>
               </div>
             </form>
           </div>
@@ -102,7 +99,7 @@ export default function Footer() {
         <div className='mt-5 grid sm:mt-12 gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center'>
           <div className='flex items-center justify-between'>
             <p className='text-sm text-gray-400 dark:text-neutral-400'>
-              &copy; {new Date().getFullYear()} TechnoDevLabs. All rights reserved.
+              {t('allRightsReserved', { year: new Date().getFullYear() })}
             </p>
           </div>
 

@@ -4,9 +4,13 @@ import { Meteors } from '@/components/ui/meteors'
 import { IconArticle } from '@tabler/icons-react'
 import { POST_CONTENT_LENGTH, POST_TITLE_LENGTH } from '@/data/constants'
 import { formatDate } from '@/lib/utils'
+import { getTranslations, getLocale } from 'next-intl/server'
 import type { Post } from '@/types'
 
-export function PostCard({ post }: { post: Post }) {
+export async function PostCard({ post }: { post: Post }) {
+  const t = await getTranslations('posts')
+  const currentLocale = await getLocale()
+
   const modifiedContent = post.content.replace(
     /<img/g,
     '<img class="rounded-lg max-w-72 max-h-56 m-2"'
@@ -38,14 +42,14 @@ export function PostCard({ post }: { post: Post }) {
 
         <div className='flex flex-row items-center justify-between w-full mt-10'>
           <span className='text-sm text-gray-500'>
-            {formatDate(new Date(post.updatedAt).toDateString())}
+            {formatDate(new Date(post.updatedAt).toDateString(), currentLocale)}
           </span>
 
           <Button
             className='flex items-center px-3 text-xs text-gray-100 sm:text-sm md:text-xs lg:text-base'
             withArrow
           >
-            Read More
+            {t('readMoreLink')}
           </Button>
         </div>
 

@@ -1,18 +1,20 @@
-'use client'
-
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/custom/button'
+import { useTranslations } from 'next-intl'
+import { APP_TITLE } from '@/data/constants'
 
-export const BentoGrid = ({
+export function BentoGrid({
   className,
   children
 }: {
   className?: string
   children?: React.ReactNode
-}) => {
+}) {
   const pathname = usePathname()
+  const t = useTranslations('services')
 
   return (
     <div className='flex flex-col gap-y-10'>
@@ -25,18 +27,16 @@ export const BentoGrid = ({
         {children}
       </div>
 
-      {pathname === '/' ? (
-        <Link
-          href={`/services`}
-          className='relative px-4 py-2 mx-auto text-center border rounded-full backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20'
-        >
-          <span>Explore More Services →</span>
-          <div className='absolute inset-x-0 w-3/4 h-px mx-auto -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent' />
+      {pathname === '/' || pathname === '/ar' ? (
+        <Link href={`/services`} className='mx-auto'>
+          <Button className='rounded-full' withArrow>
+            {t('exploreButton')}
+          </Button>
         </Link>
-      ) : pathname === '/services' ? (
+      ) : pathname === '/services' || pathname === '/ar/services' ? (
         <Link href={`/contact`} className='mx-auto'>
           <Button className='rounded-full' withArrow>
-            Let&apos; Bring Your Project to Life
+            {t('ctaButton')}
           </Button>
         </Link>
       ) : null}
@@ -48,13 +48,13 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
+  src,
   icon
 }: {
   className?: string
-  title?: string | React.ReactNode
+  title?: string
   description?: string | React.ReactNode
-  header?: React.ReactNode
+  src?: string
   icon?: React.ReactNode
 }) => {
   return (
@@ -64,9 +64,15 @@ export const BentoGridItem = ({
         className
       )}
     >
-      {header}
+      <Image
+        src={`/images/services${src}`}
+        alt={title ?? APP_TITLE}
+        className='object-cover w-full h-full rounded-xl group-hover/bento:scale-150 group-hover/bento:rotate-12 transition duration-500'
+        height={150}
+        width={255}
+      />
       <div className='absolute bottom-0 w-full p-4 bg-gradient-to-t from-black via-black/80 to-transparent'>
-        <div className='transition duration-200 group-hover/bento:translate-x-2'>
+        <div className='transition duration-200 group-hover/bento:-translate-y-1.5'>
           {icon}
           <h3 className='my-2 font-bold text-neutral-100'>{title}</h3>
           <p className='text-xs text-neutral-100'>{description}</p>

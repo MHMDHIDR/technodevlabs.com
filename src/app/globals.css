@@ -66,6 +66,10 @@
     @apply scroll-smooth;
   }
 
+  .rtl {
+    direction: rtl;
+  }
+
   ::-webkit-scrollbar {
     @apply w-2;
   }
@@ -85,6 +89,15 @@
 }
 
 @layer components {
+  [data-arrow]::after {
+    content: '→';
+    @apply text-gray-100 font-bold duration-300 absolute right-5 rtl:-left-52 rtl:-translate-x-1 rtl:rotate-180;
+  }
+
+  .group:hover [data-arrow]::after {
+    @apply translate-x-2 rtl:-translate-x-2;
+  }
+
   /* ===================== Status ICONS STARTS Here ===================== */
   /* Status Icon with Anitmation */
   .status__icon--success-circle {
