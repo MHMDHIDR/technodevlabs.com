@@ -2,11 +2,10 @@ import { Providers } from '@/providers'
 import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
-import { getMessages } from 'next-intl/server'
-import { NextIntlClientProvider } from 'next-intl'
 import { routing } from '@/i18n/routing'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import '../globals.css'
+import type { localeTypes } from '@/i18n/request'
 import type { Metadata } from 'next'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
@@ -45,9 +44,8 @@ export default async function LocaleLayout({
   params: { locale }
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: { locale: localeTypes }
 }) {
-  const messages = await getMessages()
   unstable_setRequestLocale(locale)
 
   return (
@@ -62,11 +60,7 @@ export default async function LocaleLayout({
           fontSans.variable
         )}
       >
-        <Providers>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
