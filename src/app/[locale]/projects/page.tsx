@@ -1,6 +1,7 @@
 import Layout from '@/components/custom/layout'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import type { Metadata } from 'next'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -25,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function Projects() {
+export default function Projects({ params }: { params: { locale: string } }) {
+  unstable_setRequestLocale(params.locale)
   return <Layout>Projects Page</Layout>
 }
