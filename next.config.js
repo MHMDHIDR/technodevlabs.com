@@ -12,10 +12,10 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '5mb'
     }
-  },
-  eslint: {
-    ignoreDuringBuilds: true
   }
+  // ,eslint: {
+  //   ignoreDuringBuilds: true
+  // }
 }
 
 module.exports = withNextIntl(nextConfig)
