@@ -1,11 +1,10 @@
 import { Providers } from '@/providers'
+import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { ReactNode } from 'react'
+import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import '../globals.css'
 import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
-import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
-import { routing } from '@/i18n/routing'
-import { getMessages } from 'next-intl/server'
-import { NextIntlClientProvider } from 'next-intl'
-import '../globals.css'
 import type { Metadata } from 'next'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
@@ -35,22 +34,16 @@ export const metadata: Metadata = {
   }
 }
 
-export function generateStaticParams() {
-  return routing.locales.map(locale => ({ locale }))
-}
-
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
   params: { locale: string }
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
-  // unstable_setRequestLocale(locale)
-
-  const messages = await getMessages()
+export default function LocaleLayout({ children, params: { locale } }: Props) {
+  const messages = useMessages()
 
   return (
-    <html lang={locale} suppressHydrationWarning dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1 maximum-scale=1' />
         <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
@@ -62,7 +55,9 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
         )}
       >
         <Providers>
-          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>

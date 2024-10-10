@@ -8,9 +8,9 @@
 export function formatDate(date: string, locale: string, isNormalDate?: boolean): string {
   if (isNormalDate) {
     const dateOptions = {
-      year: 'numeric' as 'numeric',
-      month: 'long' as 'long',
-      day: 'numeric' as 'numeric'
+      year: 'numeric' as const,
+      month: 'long' as const,
+      day: 'numeric' as const
     }
     return locale === 'en'
       ? new Date(date).toLocaleDateString('en-US', dateOptions)

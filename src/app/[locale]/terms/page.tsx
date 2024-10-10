@@ -49,9 +49,12 @@ export default async function TermsAndConditionsPage() {
         <h2 className='text-2xl font-semibold mt-8 mb-4'>2. {t('useOfService.header')}</h2>
         <p>{t('useOfService.content')}</p>
         <ul className='list-disc pl-8 mt-2'>
-          {[...Array(6)].map((_, i) => (
-            <li key={i}>{t(`useOfService.prohibitedUses${i + 1}`)}</li>
-          ))}
+          <li>{t('useOfService.prohibitedUses1')}</li>
+          <li>{t('useOfService.prohibitedUses2')}</li>
+          <li>{t('useOfService.prohibitedUses3')}</li>
+          <li>{t('useOfService.prohibitedUses4')}</li>
+          <li>{t('useOfService.prohibitedUses5')}</li>
+          <li>{t('useOfService.prohibitedUses6')}</li>
         </ul>
 
         <h2 className='text-2xl font-semibold mt-8 mb-4'>3. {t('intellectualProperty.header')}</h2>

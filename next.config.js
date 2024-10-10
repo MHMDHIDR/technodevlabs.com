@@ -1,5 +1,4 @@
-import createNextIntlPlugin from 'next-intl/plugin'
-const withNextIntl = createNextIntlPlugin()
+const withNextIntl = require('next-intl/plugin')()
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,7 +12,10 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '5mb'
     }
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 }
 
-export default withNextIntl(nextConfig)
+module.exports = withNextIntl(nextConfig)

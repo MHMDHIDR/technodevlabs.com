@@ -37,7 +37,7 @@
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.13",
     "next-auth": "^5.0.0-beta.22",
-    "next-intl": "^3.20.0",
+    "next-intl": "^3.21.1",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^3.7.15",
     "postgres": "github:porsager/postgres",
@@ -56,10 +56,11 @@
     "@types/react-dom": "^18.3.0",
     "drizzle-kit": "^0.21.1",
     "eslint": "^8.57.0",
+    "eslint-config-molindo": "^7.0.0",
     "eslint-config-next": "14.2.4",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   }
 }

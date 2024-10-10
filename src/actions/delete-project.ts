@@ -28,10 +28,10 @@ export async function deleteProjectAction({ projectId }: { projectId: Project['i
 
     // First we return if Failed to delete project, then we return the success status
     if (deletedProject.length !== 0) {
-      return { success: false, message: projectImgs('FailedProjectDeleted') }
+      return { success: false, message: project('FailedProjectDeleted') }
     }
 
-    return { success: true, message: projectImgs('successProjectDeleted') }
+    return { success: true, message: project('successProjectDeleted') }
   } catch (error) {
     console.error('Error deleting project:', error)
     return { success: false, message: actions('500error') }
