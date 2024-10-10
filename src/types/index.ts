@@ -8,6 +8,7 @@ import {
   projects,
   settings
 } from '@/db/schema'
+import type { Formats, TranslationValues } from 'next-intl'
 
 // Inferred types from Drizzle ORM
 export type User = typeof users.$inferSelect
@@ -100,3 +101,9 @@ export type ProjectImagesGridProps = {
   onImageDelete(_imageUrl: string): void
   type: itemsTypes
 }
+
+// export type useTranslationsProps = (
+//   key: string,
+//   values?: TranslationValues,
+//   formats?: Formats
+// ) => string
