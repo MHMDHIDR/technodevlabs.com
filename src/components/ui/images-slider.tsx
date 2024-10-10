@@ -21,7 +21,7 @@ export function ImagesSlider({
   direction?: 'up' | 'down'
 }) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [_loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [loadedImages, setLoadedImages] = useState<Array<string>>([])
 
   const handleNext = useCallback(() => {
@@ -33,7 +33,7 @@ export function ImagesSlider({
   }, [images.length])
 
   const loadImages = useCallback(() => {
-    setLoading(true)
+    // setLoading(true)
     const loadPromises = images.map(
       image =>
         new Promise((resolve, reject) => {
@@ -47,7 +47,7 @@ export function ImagesSlider({
     Promise.all(loadPromises)
       .then(loadedImages => {
         setLoadedImages(loadedImages as Array<string>)
-        setLoading(false)
+        // setLoading(false)
       })
       .catch(error => console.error('Failed to load images', error))
   }, [images])

@@ -97,6 +97,6 @@ export type DashboardListItemProps = {
 export type ProjectImagesGridProps = {
   projectId: Project['id']
   projectImages: Project['images']
-  onImageDelete(imageUrl: string): void
+  onImageDelete(_imageUrl: string): void
   type: itemsTypes
 }

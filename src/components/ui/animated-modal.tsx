@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface ModalContextType {
   open: boolean
-  setOpen(open: boolean): void
+  setOpen(_open: boolean): void
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined)
