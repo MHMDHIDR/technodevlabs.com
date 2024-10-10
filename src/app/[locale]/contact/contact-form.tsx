@@ -38,7 +38,7 @@ export function ContactForm() {
           'lastname'
         )}`,
         msg: formData.get('message')?.toString() || '',
-        buttonLink: 'mailto:' + formData.get('email')?.toString() || ADMIN_EMAIL,
+        buttonLink: `mailto:${formData.get('email')?.toString()}` || ADMIN_EMAIL,
         buttonLabel: `Reply to ${formData.get('firstname')} ${formData.get('lastname')}`
       }
     }

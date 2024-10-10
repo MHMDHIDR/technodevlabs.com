@@ -26,7 +26,7 @@ export async function PostCard({ post }: { post: Post }) {
         <h1 className='relative z-50 flex items-center mb-1 text-lg text-white uppercase truncate gap-x-2'>
           <IconArticle className='stroke-1' />
           {post.title.length > POST_TITLE_LENGTH
-            ? post.title.slice(0, POST_TITLE_LENGTH) + '...'
+            ? `${post.title.slice(0, POST_TITLE_LENGTH)}...`
             : post.title}
         </h1>
 

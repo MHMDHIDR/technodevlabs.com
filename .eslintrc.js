@@ -1,10 +1,7 @@
 module.exports = {
   extends: ['next/core-web-vitals', 'prettier'],
   rules: {
-    'prefer-nullish-coalescing': 'warn',
-    'prefer-optional-chaining': 'warn',
     'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    'func-style': ['warn', 'expression'],
     'arrow-body-style': ['warn', 'as-needed'],
     'func-names': ['warn', 'as-needed'],
     'max-depth': ['warn', 4],
@@ -13,7 +10,6 @@ module.exports = {
     'prefer-const': 'warn',
     'prefer-template': 'warn',
     'no-alert': 'warn',
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'object-curly-spacing': ['warn', 'always'],
     'keyword-spacing': 'warn',
     'react/prop-types': 'off',
