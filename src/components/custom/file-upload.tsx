@@ -5,7 +5,7 @@ import EmptyState from './empty-state'
 import { IconX } from '@tabler/icons-react'
 
 type FileUploadProps = {
-  onFilesSelected(files: Array<File>): void
+  onFilesSelected(_files: Array<File>): void
   ignoreRequired?: boolean
 }
 
