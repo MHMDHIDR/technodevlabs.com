@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
+import { Image } from '@tiptap/extension-image'
+import { StarterKit } from '@tiptap/starter-kit'
 import { Button } from '@/components/custom/button'
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'

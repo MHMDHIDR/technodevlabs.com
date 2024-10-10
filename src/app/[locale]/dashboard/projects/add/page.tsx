@@ -7,12 +7,10 @@ import { toast } from 'sonner'
 import { Label } from '@/components/ui/label'
 import { Error as ErrorIcon } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
-import { addNewProjectAction } from '@/actions'
+import { addNewProjectAction, uploadFiles, optimizeImage, isImageFile } from '@/actions'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { FileUpload } from '@/components/custom/file-upload'
-import { uploadFiles } from '@/actions'
-import { optimizeImage, isImageFile } from '@/actions'
 
 export default function DashboardProjectAdd() {
   const [title, setTitle] = useState('')

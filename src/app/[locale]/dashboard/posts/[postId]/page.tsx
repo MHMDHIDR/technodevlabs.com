@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { EditorContent, useEditor } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import Image from '@tiptap/extension-image'
+import { StarterKit } from '@tiptap/starter-kit'
+import { Image } from '@tiptap/extension-image'
 import { updatePostAction } from '@/actions'
 import { useRouter } from 'next/navigation'
 import { getPostByIdAction } from '@/actions/get-post'

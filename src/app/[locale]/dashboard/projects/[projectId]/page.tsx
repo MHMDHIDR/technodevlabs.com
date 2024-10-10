@@ -1,7 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { updateProjectAction, getProjectByIdAction, uploadFiles } from '@/actions'
+import {
+  updateProjectAction,
+  getProjectByIdAction,
+  uploadFiles,
+  optimizeImage,
+  isImageFile
+} from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import EmptyState from '@/components/custom/empty-state'
 import { Error as ErrorIcon, Success } from '@/components/custom/icons'
@@ -15,7 +21,6 @@ import { FileUpload } from '@/components/custom/file-upload'
 import { UploadedFiles } from '@/components/custom/uploaded-files'
 import { LoadingCard } from '@/components/custom/loading'
 import { AddButton } from '@/components/custom/add-button'
-import { optimizeImage, isImageFile } from '@/actions'
 import { useTranslations } from 'next-intl'
 import type { Project } from '@/types'
 
