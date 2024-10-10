@@ -1,9 +1,9 @@
 declare module 'tailwindcss/lib/util/flattenColorPalette' {
-  function flattenColorPalette(colors: object): { [key: string]: string }
+  function flattenColorPalette(_colors: object): { [key: string]: string }
   export = flattenColorPalette
 }
 
 declare module 'mini-svg-data-uri' {
-  function svgToDataUri(svg: string): string
+  function svgToDataUri(_svg: string): string
   export = svgToDataUri
 }

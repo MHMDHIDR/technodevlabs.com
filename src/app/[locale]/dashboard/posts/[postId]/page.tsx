@@ -27,6 +27,7 @@ function MenuBar({ editor }: { editor: any }) {
   }
 
   function addImage() {
+    // @ts-ignore
     const url = window.prompt('Enter the URL of the image:')
     if (url) {
       editor.chain().focus().setImage({ src: url }).run()

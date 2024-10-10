@@ -5,6 +5,7 @@ import { env } from '@/env'
 
 declare global {
   // eslint-disable-next-line no-var -- only var works here
+  // @ts-ignore
   var database: PostgresJsDatabase<typeof schema> | undefined
 }
 
