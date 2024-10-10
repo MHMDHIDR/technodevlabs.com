@@ -2,8 +2,11 @@ import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
 import { cookies } from 'next/headers'
 import { signIn, signOut } from '@/auth'
 import { Button } from '@/components/custom/button'
+import { useTranslations } from 'next-intl'
 
 export function SignOut() {
+  const authTranslations = useTranslations('auth')
+
   return (
     <form
       action={async () => {
@@ -14,17 +17,19 @@ export function SignOut() {
     >
       <Button
         className='flex items-center rounded-md mx-auto text-gray-800 dark:text-gray-100'
-        title='Sign Out'
+        title={authTranslations('signOut')}
         type='submit'
       >
         <IconLogout2 className='w-6 h-6 mr-2 stroke-blue-600' />
-        <span>Sign Out</span>
+        <span>{authTranslations('signOut')}</span>
       </Button>
     </form>
   )
 }
 
 export function SignIn() {
+  const authTranslations = useTranslations('auth')
+
   return (
     <form
       action={async () => {
@@ -39,7 +44,7 @@ export function SignIn() {
         type='submit'
       >
         <IconBrandGoogle className='w-6 h-6 mr-2' />
-        <span>Continue with Google</span>
+        <span>{authTranslations('signInWithGoogle')}</span>
       </Button>
     </form>
   )

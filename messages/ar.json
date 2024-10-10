@@ -192,6 +192,7 @@
     "allRightsReserved": "TechnoDevLabs © {year} جميع الحقوق محفوظة."
   },
   "dashboard": {
+    "pageTitle": "لوحة التحكم",
     "post": {
       "noPosts": "لا توجد منشورات متاحة",
       "addPost": "إضافة منشور",
@@ -249,11 +250,26 @@
       "posts": "المشاركات",
       "settings": "الإعدادات",
       "signOut": "تسجيل الخروج"
+    },
+    "settings": {
+      "layout": "تخطيط الصفحة",
+      "gridLayout": "تخطيط شبكي",
+      "dottedLayout": "تخطيط منقط",
+      "noSettingsFound": "لم يتم العثور على إعدادات"
     }
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signOut": "تسجيل الخروج",
+    "signInWithGoogle": "تسجيل الدخول بالغوغل",
+    "password": "كلمة المرور",
+    "enterPassword": "ادخل كلمة المرور"
   },
   "actions": {
     "deleteButton": "حذف {type}",
     "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا {type}؟",
+    "updatedSuccessfully": "تم التحديث  بنجاح",
+    "updatedFailed": "فشل التحديث أو لم تتغير أي شيء",
     "Unauthorized": "غير مصرح لك بالقيام بهذا الإجراء",
     "500error": "حدث خطأ غير متوقع"
   }

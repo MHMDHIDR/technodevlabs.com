@@ -3,8 +3,10 @@ import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
 import Layout from '@/components/custom/layout'
 import { Cover } from '@/components/ui/cover'
+import { getTranslations } from 'next-intl/server'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const dashboard = await getTranslations('dashboard')
   const session = await auth()
 
   if (!session || !session.user) {
@@ -17,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
       <main className='flex-1 px-3 pt-3'>
         <h1 className='relative z-20 py-2 mx-auto mt-6 text-3xl font-semibold text-center bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-          <Cover>Dashboard</Cover>
+          <Cover>{dashboard('pageTitle')}</Cover>
         </h1>
 
         {children}

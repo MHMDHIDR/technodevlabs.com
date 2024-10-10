@@ -198,7 +198,7 @@ export function SidebarLink({
   return (
     <Tooltip description={link.label}>
       <Link
-        className={cn('flex items-center justify-start gap-2 group/sidebar py-2 px-4', className)}
+        className={cn('flex items-center justify-center gap-2 group/sidebar py-2 px-4', className)}
         href={link.href}
         onClick={onClick}
         {...props}

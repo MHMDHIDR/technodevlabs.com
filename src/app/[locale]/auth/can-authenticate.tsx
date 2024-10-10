@@ -3,6 +3,7 @@ import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useTranslations } from 'next-intl'
 
 async function authenticate(formData: FormData) {
   'use server'
@@ -13,6 +14,7 @@ async function authenticate(formData: FormData) {
 }
 
 export default function CanAuthenticate({ children }: { children: React.ReactNode }) {
+  const authTranslations = useTranslations('auth')
   const canAuthenticate = cookies().get('can-authenticate')?.value === 'true'
 
   if (canAuthenticate) {
@@ -23,18 +25,18 @@ export default function CanAuthenticate({ children }: { children: React.ReactNod
     <form action={authenticate}>
       <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
         <LabelInputContainer>
-          <Label htmlFor='password'>Password</Label>
+          <Label htmlFor='password'>{authTranslations('password')}</Label>
           <Input
             autoFocus
             min={5}
             name='password'
-            placeholder='Enter the password'
+            placeholder={authTranslations('enterPassword')}
             required
             type='password'
           />
         </LabelInputContainer>
       </div>
-      <SubmitButton>Submit</SubmitButton>
+      <SubmitButton>{authTranslations('signIn')}</SubmitButton>
     </form>
   )
 }

@@ -4,7 +4,7 @@ import { IconBook, IconBrandTabler, IconCode, IconLogout2, IconSettings } from '
 import Image from 'next/image'
 import type { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { deleteCookieAction } from '@/actions'
 import Tooltip from '@/components/custom/tooltip'
@@ -12,29 +12,28 @@ import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
 import { APP_TITLE } from '@/data/constants'
 
 export function DashboardSidebar({ user }: { user: User }) {
-  const t = useTranslations('dashboard.sidebar')
-  const currentLocale = useLocale()
+  const dashboardSidebar = useTranslations('dashboard.sidebar')
 
   const links = [
     {
-      label: t('dashboard'),
+      label: dashboardSidebar('dashboard'),
       href: '/dashboard',
       icon: (
         <IconBrandTabler className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
     },
     {
-      label: t('projects'),
+      label: dashboardSidebar('projects'),
       href: '/dashboard/projects',
       icon: <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
-      label: t('posts'),
+      label: dashboardSidebar('posts'),
       href: '/dashboard/posts',
       icon: <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
-      label: t('settings'),
+      label: dashboardSidebar('settings'),
       href: '/dashboard/settings',
       icon: (
         <IconSettings className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
@@ -59,7 +58,7 @@ export function DashboardSidebar({ user }: { user: User }) {
         </div>
 
         <div className='flex flex-col mt-8 gap-2'>
-          <Tooltip description={currentLocale === 'en' ? 'Sign Out' : 'تسجيل الخروج'}>
+          <Tooltip description={dashboardSidebar('signOut')}>
             <button
               className='flex items-center justify-start py-2 gap-2 group/sidebar px-4'
               onClick={async () => {
@@ -73,7 +72,7 @@ export function DashboardSidebar({ user }: { user: User }) {
                   open ? 'opacity-100 left-0' : 'opacity-0 absolute -left-40'
                 }`}
               >
-                Sign Out
+                {dashboardSidebar('signOut')}
               </span>
             </button>
           </Tooltip>

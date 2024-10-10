@@ -5,13 +5,16 @@ import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { settings } from '@/db/schema'
+import { getTranslations } from 'next-intl/server'
 import type { Setting } from '@/types'
 
 export async function updateLayoutAction({ layout }: Setting) {
+  const actions = await getTranslations('actions')
+
   try {
     const session = await auth()
     if (!session || !session.user || !session.user.id) {
-      throw new Error('Unauthorized')
+      return { success: false, message: actions('Unauthorized') }
     }
 
     if (!layout) {
@@ -26,14 +29,14 @@ export async function updateLayoutAction({ layout }: Setting) {
     if (updatedSettings.length > 0) {
       return {
         success: false,
-        message: 'Failed to update layout or no changes were made'
+        message: actions('updatedFailed')
       }
     }
 
     revalidatePath('/dashboard/settings')
-    return { success: true, message: 'Layout updated successfully' }
+    return { success: true, message: actions('updatedSuccessfully') }
   } catch (error) {
     console.error('Error updating layout:', error)
-    return { success: false, message: 'An unexpected error occurred' }
+    return { success: false, message: actions('500error') }
   }
 }

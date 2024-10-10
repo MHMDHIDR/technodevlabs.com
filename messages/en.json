@@ -192,6 +192,7 @@
     "allRightsReserved": "© {year} TechnoDevLabs. All rights reserved."
   },
   "dashboard": {
+    "pageTitle": "Dashboard",
     "post": {
       "noPosts": "No posts available",
       "addPost": "Add Post",
@@ -249,11 +250,26 @@
       "posts": "Posts",
       "settings": "Settings",
       "signOut": "Sign Out"
+    },
+    "settings": {
+      "layout": "Layout Settings",
+      "gridLayout": "Grid Layout",
+      "dottedLayout": "Dotted Layout",
+      "noSettingsFound": "No settings found"
     }
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signInWithGoogle": "Sign In with Google",
+    "password": "Password",
+    "enterPassword": "Enter the password"
   },
   "actions": {
     "deleteButton": "Delete {type}",
     "deleteConfirmation": "Are you sure you want to delete this {type}?",
+    "updatedSuccessfully": "Done Updating successfully",
+    "updatedFailed": "Failed to update or no changes were made",
     "Unauthorized": "Unauthorized to do this action",
     "500error": "An unexpected error occurred"
   }

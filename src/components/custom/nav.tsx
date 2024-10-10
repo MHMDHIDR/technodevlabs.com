@@ -4,19 +4,21 @@ import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import type { User } from 'next-auth'
 import { signOut, getSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { deleteCookieAction } from '@/actions'
 import LanguageSwitcher from '@/components/custom/language-switcher'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import type { User } from 'next-auth'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
   const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
+  const navTranslations = useTranslations('Nav')
+  const authTranslations = useTranslations('auth')
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -34,7 +36,7 @@ export default function Nav() {
     const getUser = async () => {
       const session = await getSession()
       if (session) {
-        setUser(session.user)
+        setUser(session.user as User)
       }
     }
     getUser()
@@ -56,8 +58,6 @@ export default function Nav() {
     pathname === href
       ? 'text-blue-500'
       : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
-
-  const t = useTranslations('Nav')
 
   return (
     <header
@@ -135,7 +135,7 @@ export default function Nav() {
               href={pathname === '/' || pathname === '/ar' ? '/#projects' : '/projects'}
               onClick={toggleMobileMenu}
             >
-              {t('projects')}
+              {navTranslations('projects')}
             </Link>
             <Link
               aria-current='page'
@@ -143,7 +143,7 @@ export default function Nav() {
               href={pathname === '/' || pathname === '/ar' ? '/#about' : '/about'}
               onClick={toggleMobileMenu}
             >
-              {t('about')}
+              {navTranslations('about')}
             </Link>
             <Link
               aria-current='page'
@@ -151,7 +151,7 @@ export default function Nav() {
               href={pathname === '/' || pathname === '/ar' ? '/#services' : '/services'}
               onClick={toggleMobileMenu}
             >
-              {t('services')}
+              {navTranslations('services')}
             </Link>
             <Link
               aria-current='page'
@@ -159,7 +159,7 @@ export default function Nav() {
               href={pathname === '/' || pathname === '/ar' ? '/#posts' : '/posts'}
               onClick={toggleMobileMenu}
             >
-              {t('blog')}
+              {navTranslations('blog')}
             </Link>
             <Link
               aria-current='page'
@@ -167,7 +167,7 @@ export default function Nav() {
               href={pathname === '/' || pathname === '/ar' ? '/#contact' : '/contact'}
               onClick={toggleMobileMenu}
             >
-              {t('contact')}
+              {navTranslations('contact')}
             </Link>
 
             <LanguageSwitcher />
@@ -177,27 +177,29 @@ export default function Nav() {
                 <Link
                   aria-current='page'
                   aria-label='Dashboard'
-                  className='focus:outline-purple-900 flex'
+                  className='focus:outline-purple-900 flex gap-x-1'
                   href='/dashboard'
                   onClick={toggleMobileMenu}
                   title='Dashboard'
                 >
                   <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
-                  <span className='text-sm sm:hidden lg:inline-block'>{t('dashboard')}</span>
+                  <span className='text-sm sm:hidden lg:inline-block'>
+                    {navTranslations('dashboard')}
+                  </span>
                 </Link>
 
                 <button
-                  aria-label='Sign Out'
-                  className='flex items-center justify-start py-2 gap-2'
+                  aria-label={authTranslations('signOut')}
+                  className='flex items-center justify-start py-2 gap-x-1'
                   onClick={async () => {
                     await deleteCookieAction({ name: 'can-authenticate' })
                     await signOut({ redirectTo: '/auth' })
                   }}
-                  title='Sign Out'
+                  title={authTranslations('signOut')}
                 >
                   <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
-                  <span className='text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500'>
-                    {t('signOut')}
+                  <span className='text-neutral-700 dark:text-neutral-200 hover:underline hover:text-red-500 underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500'>
+                    {authTranslations('signOut')}
                   </span>
                 </button>
               </>
