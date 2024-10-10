@@ -59,12 +59,11 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-border [font-family:'Cairo',sans-serif];
   }
 
   html {
     @apply scroll-smooth;
-    font-family: 'Cairo', sans-serif;
   }
 
   .rtl {

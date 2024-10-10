@@ -176,11 +176,11 @@ export default function Nav() {
               <>
                 <Link
                   aria-current='page'
-                  aria-label='Dashboard'
+                  aria-label={navTranslations('dashboard')}
                   className='focus:outline-purple-900 flex gap-x-1'
                   href='/dashboard'
                   onClick={toggleMobileMenu}
-                  title='Dashboard'
+                  title={navTranslations('dashboard')}
                 >
                   <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
                   <span className='text-sm sm:hidden lg:inline-block'>
