@@ -29,9 +29,9 @@ export async function generateMetadata({
   const postTitle = post.title
   const postContent = post.content
 
-  const title = (postTitle ? postTitle : removeSlug(decodeURI(params.slug))) + ' | ' + APP_TITLE
+  const title = `${postTitle ? postTitle : removeSlug(decodeURI(params.slug))} | ` + APP_TITLE
   const description = postContent
-    ? postContent.slice(0, 200).replace(/<[^>]*>/g, '') + '...'
+    ? `${postContent.slice(0, 200).replace(/<[^>]*>/g, '')}...`
     : APP_DESCRIPTION
 
   return {

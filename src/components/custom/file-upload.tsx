@@ -3,7 +3,7 @@ import EmptyState from './empty-state'
 import { Label } from '@/components/ui/label'
 
 type FileUploadProps = {
-  onFilesSelected(files: Array<File>): void
+  onFilesSelected(_files: Array<File>): void
   ignoreRequired?: boolean
 }
 

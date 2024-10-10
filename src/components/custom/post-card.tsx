@@ -35,7 +35,7 @@ export async function PostCard({ post }: { post: Post }) {
           dangerouslySetInnerHTML={{
             __html:
               modifiedContent.length > POST_CONTENT_LENGTH
-                ? modifiedContent.slice(0, POST_CONTENT_LENGTH) + '...'
+                ? `${modifiedContent.slice(0, POST_CONTENT_LENGTH)}...`
                 : modifiedContent
           }}
         />

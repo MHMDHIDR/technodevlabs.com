@@ -5,7 +5,10 @@ import { PostCard } from '@/components/custom/post-card'
 import { getPosts } from '@/data/posts'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
-  let { posts, postsCount } = await getPosts()
+  const postsData = await getPosts()
+  let posts = postsData.posts
+  const postsCount = postsData.postsCount
+
   const t = await getTranslations('posts')
   // Only get the first 3 posts for the '/' homepage, so it can be displayed in a grid
   posts = pathname === '/' && postsCount > 3 ? posts.slice(0, 3) : posts
