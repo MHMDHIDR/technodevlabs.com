@@ -34,16 +34,14 @@ export function SignIn() {
     <form
       action={async () => {
         'use server'
-        await signIn('google', {
-          redirectTo: '/dashboard'
-        })
+        await signIn('google', { redirectTo: '/dashboard' })
       }}
     >
       <Button
-        className='flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md'
+        className='flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md select-none'
         type='submit'
       >
-        <IconBrandGoogle className='w-6 h-6 mr-2' />
+        <IconBrandGoogle className='w-6 h-6 mx-2' />
         <span>{authTranslations('signInWithGoogle')}</span>
       </Button>
     </form>

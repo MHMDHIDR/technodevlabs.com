@@ -1,59 +1,78 @@
 import React, { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import Image from 'next/image'
 import EmptyState from './empty-state'
-import { Label } from '@/components/ui/label'
+import { IconX } from '@tabler/icons-react'
 
 type FileUploadProps = {
-  onFilesSelected(_files: Array<File>): void
+  onFilesSelected(files: Array<File>): void
   ignoreRequired?: boolean
 }
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onFilesSelected }) => {
+export function FileUpload({ onFilesSelected }: FileUploadProps) {
   const [files, setFiles] = useState<Array<File>>([])
 
-  const onFileAdd = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        const newFiles = Array.from(e.target.files)
-        setFiles(prevFiles => [...prevFiles, ...newFiles])
-        onFilesSelected([...files, ...newFiles])
-      }
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const newFiles = [...files, ...acceptedFiles]
+      setFiles(newFiles)
+      onFilesSelected(newFiles)
     },
     [files, onFilesSelected]
   )
 
-  return (
-    <>
-      <Label
-        className='grid col-span-full h-fit place-items-center justify-center gap-5 p-3 overflow-y-auto border border-gray-200 hover:bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-700 hover:dark:bg-gray-600 transition-colors duration-300'
-        htmlFor='projectImg'
-      >
-        {files.length > 0 ? (
-          <div>{`${files.length} ${files.length > 1 ? 'files' : 'file'} selected`}</div>
-        ) : (
-          <EmptyState isSmall>Please select files to upload</EmptyState>
-        )}
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
-        <input
-          accept='image/*'
-          className='hidden'
-          id='projectImg'
-          multiple
-          name='projectImg'
-          onChange={onFileAdd}
-          type='file'
-        />
-      </Label>
+  const removeFile = (fileToRemove: File) => {
+    const updatedFiles = files.filter(file => file !== fileToRemove)
+    setFiles(updatedFiles)
+    onFilesSelected(updatedFiles)
+  }
+
+  return (
+    <div className='w-full'>
+      <div
+        {...getRootProps()}
+        className={`border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer transition-colors duration-300 ${
+          isDragActive ? 'bg-blue-50 border-blue-300' : 'hover:bg-gray-50'
+        }`}
+      >
+        <input {...getInputProps()} />
+        {files.length > 0 ? (
+          <p>{`${files.length} ${files.length > 1 ? 'files' : 'file'} selected`}</p>
+        ) : (
+          <EmptyState isSmall>
+            {isDragActive
+              ? 'Drop files here'
+              : 'Drag and drop files here, or click to select files'}
+          </EmptyState>
+        )}
+      </div>
 
       {files.length > 0 && (
-        <div>
-          <h3>Selected Files:</h3>
-          <ul>
-            {files.map((file, index) => (
-              <li key={index}>{file.name}</li>
-            ))}
-          </ul>
+        <div className='mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4'>
+          {files.map((file, index) => (
+            <div key={index} className='relative group'>
+              <div className='aspect-square relative overflow-hidden rounded-lg'>
+                <Image
+                  src={URL.createObjectURL(file)}
+                  alt={file.name}
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </div>
+              <button
+                onClick={() => removeFile(file)}
+                type='button'
+                className='absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200'
+              >
+                <IconX size={16} />
+              </button>
+              <p className='text-xs mt-1 truncate'>{file.name}</p>
+            </div>
+          ))}
         </div>
       )}
-    </>
+    </div>
   )
 }

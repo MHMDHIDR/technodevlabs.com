@@ -261,7 +261,7 @@
   "auth": {
     "signIn": "تسجيل الدخول",
     "signOut": "تسجيل الخروج",
-    "signInWithGoogle": "تسجيل الدخول بالغوغل",
+    "signInWithGoogle": "تسجيل الدخول بحساب جوجل",
     "password": "كلمة المرور",
     "enterPassword": "ادخل كلمة المرور"
   },

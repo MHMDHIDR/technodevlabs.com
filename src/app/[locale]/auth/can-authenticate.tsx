@@ -23,7 +23,7 @@ export default function CanAuthenticate({ children }: { children: React.ReactNod
 
   return (
     <form action={authenticate}>
-      <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
+      <div className='flex flex-col mb-4 gap-y-2 md:flex-row md:gap-y-0 md:gap-x-2'>
         <LabelInputContainer>
           <Label htmlFor='password'>{authTranslations('password')}</Label>
           <Input
