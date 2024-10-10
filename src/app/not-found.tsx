@@ -1,5 +1,5 @@
 import NotFound from '@/components/custom/not-found'
 
-export default function LocaleNotFoundPage() {
+export default function NotFoundPage() {
   return <NotFound />
 }
