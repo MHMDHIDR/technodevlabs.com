@@ -9,7 +9,6 @@ module.exports = {
     'prefer-arrow-callback': 'warn',
     'prefer-const': 'warn',
     'prefer-template': 'warn',
-    'no-alert': 'warn',
     'object-curly-spacing': ['warn', 'always'],
     'keyword-spacing': 'warn',
     'react/prop-types': 'off',
