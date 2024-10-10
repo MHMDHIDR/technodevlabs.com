@@ -265,6 +265,20 @@
     "password": "Password",
     "enterPassword": "Enter the password"
   },
+  "notFound": {
+    "title": "We lost this page",
+    "description": "We searched high and low, but couldn&apos;t find what you&apos;re looking for. Let&apos;s find a better place for you to go.",
+    "home": "Home",
+    "projectsLabel": "Projects",
+    "exploreProjects": "Start Exploring Projects",
+    "exploreProjectsDescription": "Dive into our projects to see our latest projects, and get inspired.",
+    "blogLabel": "Our Blog",
+    "readPosts": "Read the latest posts",
+    "readPostsDescription": "Read the latest posts on our blog.",
+    "contactLabel": "Chat with Us",
+    "chatWithUs": "Chat with our team",
+    "chatWithUsDescription": "Can&apos;t find what you&apos;re looking for? Chat to our team."
+  },
   "actions": {
     "deleteButton": "Delete {type}",
     "deleteConfirmation": "Are you sure you want to delete this {type}?",

@@ -265,6 +265,20 @@
     "password": "كلمة المرور",
     "enterPassword": "ادخل كلمة المرور"
   },
+  "notFound": {
+    "title": "لم نجد هذه الصفحة",
+    "description": "لم نجد ما تبحث عنه. هيا بنا نذهب إلى مكان أفضل.",
+    "home": "تصفح الموقع",
+    "projectsLabel": "المشاريع",
+    "exploreProjects": "اكتشف المشاريع",
+    "exploreProjectsDescription": "اكتشف مشاريعنا لنرى أحدث المشاريع واحصل على الإلهام.",
+    "blogLabel": "مدونتنا",
+    "readPosts": "قراءة المشاركات الأخيرة",
+    "readPostsDescription": "قراءة المشاركات الأخيرة على مدونتنا.",
+    "contactLabel": "تواصل معنا",
+    "chatWithUs": "تواصل مع فريقنا",
+    "chatWithUsDescription": "لا تستطيع العثور على ما تبحث عنه؟ تواصل مع فريقنا."
+  },
   "actions": {
     "deleteButton": "حذف {type}",
     "deleteConfirmation": "هل أنت متأكد أنك تريد حذف هذا {type}؟",
