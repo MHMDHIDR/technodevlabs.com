@@ -1,11 +1,11 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { getTranslations } from 'next-intl/server'
+import { deleteMultipleObjects } from '@/actions'
 import { database } from '@/db/database'
 import { projects } from '@/db/schema'
-import { deleteMultipleObjects } from '@/actions'
 import type { Project } from '@/types'
-import { getTranslations } from 'next-intl/server'
 
 export async function deleteProjectAction({ projectId }: { projectId: Project['id'] }) {
   const project = await getTranslations('dashboard.project')
@@ -27,7 +27,7 @@ export async function deleteProjectAction({ projectId }: { projectId: Project['i
     const deletedProject = await database.delete(projects).where(eq(projects.id, projectId))
 
     // First we return if Failed to delete project, then we return the success status
-    if (deletedProject.length !== 0) {
+    if (deletedProject.length > 0) {
       return { success: false, message: project('FailedProjectDeleted') }
     }
 

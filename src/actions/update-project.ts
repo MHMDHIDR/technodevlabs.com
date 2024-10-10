@@ -1,10 +1,10 @@
 'use server'
 
-import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
-import { auth } from '@/auth'
-import { projects } from '@/db/schema'
 import { getTranslations } from 'next-intl/server'
+import { auth } from '@/auth'
+import { database } from '@/db/database'
+import { projects } from '@/db/schema'
 import type { Project, updateProjectData } from '@/types'
 
 /**
@@ -16,11 +16,11 @@ import type { Project, updateProjectData } from '@/types'
  * @returns        - A success message if the project was updated successfully
  */
 export async function updateProjectAction({
+  description,
+  images,
   projectId,
   title,
-  description,
-  url,
-  images
+  url
 }: updateProjectData) {
   const t = await getTranslations('dashboard.project')
   const actions = await getTranslations('actions')
@@ -68,7 +68,7 @@ export async function updateProjectAction({
       .set(updateData)
       .where(eq(projects.id, projectId))
 
-    if (updatedProject.length !== 0) {
+    if (updatedProject.length > 0) {
       return { success: false, message: t('updateErrorMessage') }
     }
 

@@ -1,8 +1,8 @@
 // Input component extends from shadcnui - https://ui.shadcn.com/docs/components/input
 'use client'
+import { useMotionTemplate, useMotionValue, motion } from 'framer-motion'
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { useMotionTemplate, useMotionValue, motion } from 'framer-motion'
 
 const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, type, ...props }, ref) => {
@@ -13,9 +13,9 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
     const mouseY = useMotionValue(0)
 
     function handleMouseMove({
-      currentTarget,
       clientX,
-      clientY
+      clientY,
+      currentTarget
     }: {
       currentTarget: HTMLElement
       clientX: number
@@ -28,6 +28,10 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
     }
     return (
       <motion.div
+        className='p-[2px] rounded-lg transition duration-300 group/input'
+        onMouseEnter={() => setVisible(true)}
+        onMouseLeave={() => setVisible(false)}
+        onMouseMove={handleMouseMove}
         style={{
           background: useMotionTemplate`
         radial-gradient(
@@ -37,13 +41,9 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
         )
       `
         }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setVisible(true)}
-        onMouseLeave={() => setVisible(false)}
-        className='p-[2px] rounded-lg transition duration-300 group/input'
       >
         <input
-          type={type}
+          ref={ref}
           className={cn(
             `flex h-10 w-full border-none bg-gray-50 dark:bg-zinc-800 text-black dark:text-white shadow-input rounded-md px-3 py-2 text-sm  file:border-0 file:bg-transparent
           file:text-sm file:font-medium placeholder:text-neutral-400 dark:placeholder-text-neutral-600
@@ -54,7 +54,7 @@ const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLI
            `,
             className
           )}
-          ref={ref}
+          type={type}
           {...props}
         />
       </motion.div>

@@ -9,12 +9,12 @@ import { cn } from '@/lib/utils'
 import type { ModalProps } from '@/types'
 
 export function Modal({
-  title,
-  description,
+  children,
   className,
+  description,
   isSmallButton,
-  trigger,
-  children
+  title,
+  trigger
 }: ModalProps) {
   return (
     <div

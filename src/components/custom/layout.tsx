@@ -1,7 +1,7 @@
-import Nav from '@/components/custom/nav'
 import Footer from '@/components/custom/footer'
+import Nav from '@/components/custom/nav'
 
-function Layout({ className, children }: { className?: string; children: React.ReactNode }) {
+function Layout({ children, className }: { className?: string; children: React.ReactNode }) {
   return (
     <>
       <Nav />

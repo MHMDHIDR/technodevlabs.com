@@ -6,7 +6,7 @@ type ButtonProps = {
   children: React.ReactNode
 } & React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export function Button({ className, withArrow, children, ...props }: ButtonProps) {
+export function Button({ children, className, withArrow, ...props }: ButtonProps) {
   return (
     <button
       className={cn(`group bg-gradient-to-br relative h-10 font-medium`, className)}
@@ -34,7 +34,7 @@ export function Button({ className, withArrow, children, ...props }: ButtonProps
   )
 }
 
-const BottomGradient = () => {
+function BottomGradient() {
   return (
     <>
       <span className='absolute inset-x-0 block w-full h-px opacity-0 transition duration-500 group-hover:opacity-100 -bottom-px bg-gradient-to-r from-transparent via-cyan-500 to-transparent' />

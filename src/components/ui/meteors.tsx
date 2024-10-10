@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils'
 
 export function Meteors({
-  number,
-  className
+  className,
+  number
 }: {
   /**
    * Number of meteors to display
@@ -27,7 +27,7 @@ export function Meteors({
             animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + 's',
             animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + 's'
           }}
-        ></span>
+        />
       ))}
     </>
   )

@@ -1,10 +1,10 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { getTranslations } from 'next-intl/server'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import type { Post } from '@/types'
-import { getTranslations } from 'next-intl/server'
 
 export async function deletePostAction({ postId }: { postId: Post['id'] }) {
   const actions = await getTranslations('actions')
@@ -17,7 +17,7 @@ export async function deletePostAction({ postId }: { postId: Post['id'] }) {
 
     const deletedPost = await database.delete(posts).where(eq(posts.id, postId))
 
-    if (deletedPost.length !== 0) {
+    if (deletedPost.length > 0) {
       return { success: false, message: post('updateErrorMessage') }
     }
 

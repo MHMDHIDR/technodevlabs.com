@@ -1,14 +1,14 @@
 'use client'
 
+import { useState } from 'react'
+import { toast } from 'sonner'
 import { updateLayoutAction } from '@/actions'
+import { Error } from '@/components/custom/icons'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { useState } from 'react'
-import { Error } from '@/components/custom/icons'
-import { toast } from 'sonner'
 import type { Setting } from '@/types'
 
-const LayoutSwitch = ({ initialLayout }: { initialLayout: Setting['layout'] }) => {
+function LayoutSwitch({ initialLayout }: { initialLayout: Setting['layout'] }) {
   const [layout, setLayout] = useState(initialLayout)
   const [isUpdating, setIsUpdating] = useState(false)
 
@@ -17,7 +17,7 @@ const LayoutSwitch = ({ initialLayout }: { initialLayout: Setting['layout'] }) =
     setIsUpdating(true)
     setLayout(newLayout)
 
-    const { success, message } = await updateLayoutAction({ layout: newLayout })
+    const { message, success } = await updateLayoutAction({ layout: newLayout })
 
     if (!success) {
       console.error(message)
@@ -54,10 +54,10 @@ const LayoutSwitch = ({ initialLayout }: { initialLayout: Setting['layout'] }) =
   return (
     <div className='flex items-center space-x-2'>
       <Switch
-        id='layout-switch'
         checked={layout === 'grid'}
-        onCheckedChange={handleLayoutChange}
         disabled={isUpdating}
+        id='layout-switch'
+        onCheckedChange={handleLayoutChange}
       />
       <Label htmlFor='layout-switch'>{layout === 'grid' ? 'Grid Layout' : 'Dotted Layout'}</Label>
     </div>

@@ -1,8 +1,8 @@
+import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { PostCard } from '@/components/custom/post-card'
 import { getPosts } from '@/data/posts'
-import { getTranslations } from 'next-intl/server'
-import Link from 'next/link'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
   let { posts, postsCount } = await getPosts()
@@ -18,12 +18,12 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
         }`}
       >
         {posts.map(post => (
-          <PostCard post={post} key={post.id} />
+          <PostCard key={post.id} post={post} />
         ))}
       </div>
 
       {pathname === '/' ? (
-        <Link href={`/posts`} className='flex justify-center mt-10'>
+        <Link className='flex justify-center mt-10' href='/posts'>
           <Button className='rounded-full' withArrow>
             {t('readMoreCTA')}
           </Button>

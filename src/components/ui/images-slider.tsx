@@ -1,28 +1,28 @@
 'use client'
-import { cn } from '@/lib/utils'
 import { motion, AnimatePresence } from 'framer-motion'
 import React, { useCallback, useEffect, useState } from 'react'
+import { cn } from '@/lib/utils'
 
-export const ImagesSlider = ({
-  images,
-  children,
-  overlay = true,
-  overlayClassName,
-  className,
+export function ImagesSlider({
   autoplay = true,
-  direction = 'up'
+  children,
+  className,
+  direction = 'up',
+  images,
+  overlay = true,
+  overlayClassName
 }: {
-  images: string[]
+  images: Array<string>
   children: React.ReactNode
   overlay?: React.ReactNode
   overlayClassName?: string
   className?: string
   autoplay?: boolean
   direction?: 'up' | 'down'
-}) => {
+}) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [loadedImages, setLoadedImages] = useState<string[]>([])
+  const [loadedImages, setLoadedImages] = useState<Array<string>>([])
 
   const handleNext = useCallback(() => {
     setCurrentIndex(prevIndex => (prevIndex + 1 === images.length ? 0 : prevIndex + 1))
@@ -34,18 +34,19 @@ export const ImagesSlider = ({
 
   const loadImages = useCallback(() => {
     setLoading(true)
-    const loadPromises = images.map(image => {
-      return new Promise((resolve, reject) => {
-        const img = new Image()
-        img.src = image
-        img.onload = () => resolve(image)
-        img.onerror = reject
-      })
-    })
+    const loadPromises = images.map(
+      image =>
+        new Promise((resolve, reject) => {
+          const img = new Image()
+          img.src = image
+          img.onload = () => resolve(image)
+          img.onerror = reject
+        })
+    )
 
     Promise.all(loadPromises)
       .then(loadedImages => {
-        setLoadedImages(loadedImages as string[])
+        setLoadedImages(loadedImages as Array<string>)
         setLoading(false)
       })
       .catch(error => console.error('Failed to load images', error))
@@ -132,12 +133,12 @@ export const ImagesSlider = ({
         <AnimatePresence>
           <motion.img
             key={currentIndex}
-            src={loadedImages[currentIndex]}
-            initial='initial'
             animate='visible'
-            exit={direction === 'up' ? 'upExit' : 'downExit'}
-            variants={slideVariants}
             className='absolute inset-0 object-cover object-center w-full h-full image'
+            exit={direction === 'up' ? 'upExit' : 'downExit'}
+            initial='initial'
+            src={loadedImages[currentIndex]}
+            variants={slideVariants}
           />
         </AnimatePresence>
       )}

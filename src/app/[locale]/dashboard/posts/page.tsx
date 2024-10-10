@@ -1,8 +1,8 @@
+import { getTranslations } from 'next-intl/server'
 import { AddButton } from '@/components/custom/add-button'
 import DashboardListItem from '@/components/custom/dashboard-list-item'
 import EmptyState from '@/components/custom/empty-state'
 import { getPosts } from '@/data/posts'
-import { getTranslations } from 'next-intl/server'
 
 export default async function DashboardPosts() {
   const { posts, postsCount } = await getPosts()

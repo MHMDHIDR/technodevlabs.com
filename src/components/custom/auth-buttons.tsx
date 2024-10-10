@@ -1,7 +1,7 @@
-import { cookies } from 'next/headers'
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
-import { Button } from '@/components/custom/button'
+import { cookies } from 'next/headers'
 import { signIn, signOut } from '@/auth'
+import { Button } from '@/components/custom/button'
 
 export function SignOut() {
   return (
@@ -13,9 +13,9 @@ export function SignOut() {
       }}
     >
       <Button
-        className={'flex items-center rounded-md mx-auto text-gray-800 dark:text-gray-100'}
-        type='submit'
+        className='flex items-center rounded-md mx-auto text-gray-800 dark:text-gray-100'
         title='Sign Out'
+        type='submit'
       >
         <IconLogout2 className='w-6 h-6 mr-2 stroke-blue-600' />
         <span>Sign Out</span>
@@ -35,8 +35,8 @@ export function SignIn() {
       }}
     >
       <Button
+        className='flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md'
         type='submit'
-        className={`flex items-center mx-auto font-bold my-20 text-white bg-purple-400 hover:bg-purple-500 rounded-md`}
       >
         <IconBrandGoogle className='w-6 h-6 mr-2' />
         <span>Continue with Google</span>

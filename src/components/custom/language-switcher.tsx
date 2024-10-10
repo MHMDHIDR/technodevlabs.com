@@ -8,7 +8,7 @@ export default function LanguageSwitcher() {
   const pathname = usePathname()
 
   return (
-    <Link href={pathname} locale={otherLocale} aria-label={nav('ariaLabel')} title={nav('title')}>
+    <Link aria-label={nav('ariaLabel')} href={pathname} locale={otherLocale} title={nav('title')}>
       {locale === 'en' ? '🇸🇦 العربية' : '🇬🇧 English'}
     </Link>
   )

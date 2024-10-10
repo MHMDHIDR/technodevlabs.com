@@ -1,7 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import { useTranslations } from 'next-intl'
 import {
   IconCode,
   IconCloudUpload,
@@ -11,6 +9,8 @@ import {
   IconShieldLock,
   IconLayersLinked
 } from '@tabler/icons-react'
+import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
 export function ServicesSection() {
@@ -74,10 +74,10 @@ export function ServicesSection() {
         <BentoGridItem
           key={index}
           className={index === 3 || index === 6 ? 'md:col-span-2' : ''}
-          title={item.title}
           description={item.description}
-          src={item.src}
           icon={item.icon}
+          src={item.src}
+          title={item.title}
         />
       ))}
     </BentoGrid>

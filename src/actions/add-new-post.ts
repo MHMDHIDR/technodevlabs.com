@@ -1,12 +1,12 @@
 'use server'
 
+import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
-import { getTranslations } from 'next-intl/server'
 
-export async function addNewPostAction({ title, content }: { title: string; content: string }) {
+export async function addNewPostAction({ content, title }: { title: string; content: string }) {
   const t = await getTranslations('dashboard.post')
   const actions = await getTranslations('actions')
 
@@ -31,7 +31,7 @@ export async function addNewPostAction({ title, content }: { title: string; cont
       updatedAt: new Date()
     })
 
-    if (addedPost.length !== 0) {
+    if (addedPost.length > 0) {
       return { success: false, message: t('addErrorMessage') }
     }
 

@@ -1,10 +1,10 @@
+import { IconArticle } from '@tabler/icons-react'
 import Link from 'next/link'
+import { getTranslations, getLocale } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { Meteors } from '@/components/ui/meteors'
-import { IconArticle } from '@tabler/icons-react'
 import { POST_CONTENT_LENGTH, POST_TITLE_LENGTH } from '@/data/constants'
 import { formatDate } from '@/lib/utils'
-import { getTranslations, getLocale } from 'next-intl/server'
 import type { Post } from '@/types'
 
 export async function PostCard({ post }: { post: Post }) {
@@ -18,8 +18,8 @@ export async function PostCard({ post }: { post: Post }) {
 
   return (
     <Link
-      href={`/posts/${post.slug}`}
       className='relative max-w-xs group-[-one-col]:col-span-3 min-h-[26rem] min-w-80'
+      href={`/posts/${post.slug}`}
     >
       <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl' />
       <div className='relative flex flex-col items-start justify-end h-full px-4 py-8 overflow-hidden bg-gray-900 border border-gray-800 shadow-xl rounded-2xl'>

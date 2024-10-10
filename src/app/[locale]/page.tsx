@@ -1,9 +1,9 @@
-import Layout from '@/components/custom/layout'
-import { Hero } from '@/components/custom/hero'
 import { AboutSection } from '@/app/[locale]/about/about-section'
-import { ServicesSection } from '@/app/[locale]/services/services-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
 import { PostsSection } from '@/app/[locale]/posts/posts-section'
+import { ServicesSection } from '@/app/[locale]/services/services-section'
+import { Hero } from '@/components/custom/hero'
+import Layout from '@/components/custom/layout'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 
@@ -24,17 +24,17 @@ export default async function Home() {
           'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
         })}`}
       >
-        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
+        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <section id='services' className='py-20'>
+        <section className='py-20' id='services'>
           <ServicesSection />
         </section>
 
-        <section id='posts' className='py-20'>
+        <section className='py-20' id='posts'>
           <PostsSection pathname='/' />
         </section>
 
-        <section id='contact' className='py-20'>
+        <section className='py-20' id='contact'>
           <ContactForm />
         </section>
       </div>

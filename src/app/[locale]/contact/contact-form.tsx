@@ -2,18 +2,18 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useTranslations, useLocale } from 'next-intl'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
+import { SubmitButton } from './submit-button'
+import { emailAction } from '@/actions'
 import Divider from '@/components/custom/divider'
 import { Error, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
-import { SubmitButton } from './submit-button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
-import { emailAction } from '@/actions'
-import { useTranslations, useLocale } from 'next-intl'
 
 export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -109,55 +109,55 @@ export function ContactForm() {
               <LabelInputContainer>
                 <Label htmlFor='firstname'>{t('firstName')}</Label>
                 <Input
-                  id='firstname'
-                  placeholder={t('placeholderFirstName')}
-                  type='text'
-                  name='firstname'
-                  dir='auto'
-                  min={5}
                   className='rtl:text-right w-full'
+                  dir='auto'
+                  id='firstname'
+                  min={5}
+                  name='firstname'
+                  placeholder={t('placeholderFirstName')}
                   required
+                  type='text'
                 />
               </LabelInputContainer>
               <LabelInputContainer>
                 <Label htmlFor='lastname'>{t('lastName')}</Label>
                 <Input
-                  id='lastname'
-                  placeholder={t('placeholderLastName')}
-                  type='text'
-                  name='lastname'
-                  dir='auto'
-                  min={5}
                   className='rtl:text-right w-full'
+                  dir='auto'
+                  id='lastname'
+                  min={5}
+                  name='lastname'
+                  placeholder={t('placeholderLastName')}
                   required
+                  type='text'
                 />
               </LabelInputContainer>
             </div>
             <LabelInputContainer className='mb-4'>
               <Label htmlFor='email'>{t('email')}</Label>
               <Input
-                id='email'
-                placeholder={t('placeholderEmail')}
-                type='email'
-                name='email'
-                dir='auto'
-                min={10}
                 className='rtl:text-right'
+                dir='auto'
+                id='email'
+                min={10}
+                name='email'
+                placeholder={t('placeholderEmail')}
                 required
+                type='email'
               />
             </LabelInputContainer>
             <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
               <LabelInputContainer>
                 <Label htmlFor='subject'>{t('subject')}</Label>
                 <Input
-                  id='subject'
-                  placeholder={t('placeholderSubject')}
-                  type='text'
-                  name='subject'
-                  dir='auto'
-                  min={5}
                   className='rtl:text-right'
+                  dir='auto'
+                  id='subject'
+                  min={5}
+                  name='subject'
+                  placeholder={t('placeholderSubject')}
                   required
+                  type='text'
                 />
               </LabelInputContainer>
             </div>
@@ -165,12 +165,12 @@ export function ContactForm() {
           <LabelInputContainer className='mb-4'>
             <Label htmlFor='message'>{t('message')}</Label>
             <Textarea
-              id='message'
-              name='message'
-              placeholder={t('placeholderMessage')}
               className='p-2 rtl:text-right border resize-y rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96'
               dir='auto'
+              id='message'
               minLength={20}
+              name='message'
+              placeholder={t('placeholderMessage')}
               required
             />
           </LabelInputContainer>
@@ -185,8 +185,8 @@ export function ContactForm() {
         <div className='flex flex-col space-y-4'>
           {t('contactEmail')}{' '}
           <Link
-            href='mailto:support@technodevlabs.com'
             className='underline text-neutral-800 dark:text-neutral-200'
+            href='mailto:support@technodevlabs.com'
           >
             Support@TechnoDevLabs.com
           </Link>

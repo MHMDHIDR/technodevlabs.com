@@ -1,17 +1,17 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
+import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
+import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
-import { getTranslations } from 'next-intl/server'
 
 export async function updatePostAction({
+  content,
   postId,
-  title,
-  content
+  title
 }: {
   postId: string
   title: string
@@ -35,7 +35,7 @@ export async function updatePostAction({
       .set({ title, slug: createSlug(title), content, updatedAt: new Date() })
       .where(eq(posts.id, postId))
 
-    if (updatedPost.length !== 0) {
+    if (updatedPost.length > 0) {
       return { success: false, message: t('updateErrorMessage') }
     }
 

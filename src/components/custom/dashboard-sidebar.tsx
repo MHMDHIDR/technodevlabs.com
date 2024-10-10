@@ -1,15 +1,15 @@
 'use client'
 
-import { deleteCookieAction } from '@/actions'
-import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
-import Tooltip from '@/components/custom/tooltip'
-import { APP_TITLE } from '@/data/constants'
 import { IconBook, IconBrandTabler, IconCode, IconLogout2, IconSettings } from '@tabler/icons-react'
-import { signOut } from 'next-auth/react'
 import Image from 'next/image'
-import { useState } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
 import type { User } from 'next-auth'
+import { signOut } from 'next-auth/react'
+import { useLocale, useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { deleteCookieAction } from '@/actions'
+import Tooltip from '@/components/custom/tooltip'
+import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
+import { APP_TITLE } from '@/data/constants'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const t = useTranslations('dashboard.sidebar')
@@ -83,11 +83,11 @@ export function DashboardSidebar({ user }: { user: User }) {
               href: '/dashboard',
               icon: (
                 <Image
-                  src={user.image ?? '/images/logo.png'}
-                  className='flex-shrink-0 rounded-full h-7 w-7'
-                  width={50}
-                  height={50}
                   alt={user.name ?? APP_TITLE}
+                  className='flex-shrink-0 rounded-full h-7 w-7'
+                  height={50}
+                  src={user.image ?? '/images/logo.png'}
+                  width={50}
                 />
               )
             }}

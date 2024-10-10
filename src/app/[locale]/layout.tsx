@@ -1,7 +1,7 @@
-import { Providers } from '@/providers'
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 import { ReactNode } from 'react'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import { Providers } from '@/providers'
 import '../globals.css'
 import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
@@ -43,10 +43,10 @@ export default function LocaleLayout({ children, params: { locale } }: Props) {
   const messages = useMessages()
 
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html dir={locale === 'ar' ? 'rtl' : 'ltr'} lang={locale}>
       <head>
-        <meta name='viewport' content='width=device-width, initial-scale=1 maximum-scale=1' />
-        <link rel='icon' href='/images/logo.svg' type='image/svg+xml' />
+        <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
+        <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
       <body
         className={cn(

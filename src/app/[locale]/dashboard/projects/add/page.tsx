@@ -1,27 +1,27 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { SubmitButton } from '@/app/[locale]/contact/submit-button'
+import { useState } from 'react'
 import { toast } from 'sonner'
-import { Label } from '@/components/ui/label'
+import { addNewProjectAction, uploadFiles, optimizeImage, isImageFile } from '@/actions'
+import { SubmitButton } from '@/app/[locale]/contact/submit-button'
+import { FileUpload } from '@/components/custom/file-upload'
 import { Error as ErrorIcon } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
-import { addNewProjectAction, uploadFiles, optimizeImage, isImageFile } from '@/actions'
-import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
-import { FileUpload } from '@/components/custom/file-upload'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
 
 export default function DashboardProjectAdd() {
   const [title, setTitle] = useState('')
   const [url, setUrl] = useState('')
   const [description, setDescription] = useState('')
-  const [files, setFiles] = useState<File[]>([])
+  const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { replace } = useRouter()
 
-  const handleFilesSelected = (selectedFiles: File[]) => {
+  const handleFilesSelected = (selectedFiles: Array<File>) => {
     setFiles(selectedFiles)
   }
 
@@ -79,7 +79,7 @@ export default function DashboardProjectAdd() {
       const uploadedUrls = await uploadFiles(fileData, projectId)
 
       // Add project with uploaded image URLs
-      const { success, message } = await addNewProjectAction({
+      const { message, success } = await addNewProjectAction({
         id: projectId,
         title,
         description,
@@ -129,37 +129,37 @@ export default function DashboardProjectAdd() {
   return (
     <section className='container mx-auto p-6'>
       <h1 className='text-3xl font-bold mb-6'>Add New Project</h1>
-      <form onSubmit={addProject} className='space-y-6'>
+      <form className='space-y-6' onSubmit={addProject}>
         <LabelInputContainer>
           <Label htmlFor='title'>Project Title</Label>
           <Input
-            id='title'
-            value={title}
-            onChange={e => setTitle(e.target.value)}
             className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            id='title'
+            onChange={e => setTitle(e.target.value)}
             required
+            value={title}
           />
         </LabelInputContainer>
 
         <LabelInputContainer>
           <Label htmlFor='url'>Project View URL</Label>
           <Input
-            id='url'
-            value={url}
-            onChange={e => setUrl(e.target.value)}
             className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            id='url'
+            onChange={e => setUrl(e.target.value)}
             required
+            value={url}
           />
         </LabelInputContainer>
 
         <LabelInputContainer>
           <Label htmlFor='description'>Project Description</Label>
           <Textarea
-            id='description'
-            value={description}
-            onChange={e => setDescription(e.target.value)}
             className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            id='description'
+            onChange={e => setDescription(e.target.value)}
             required
+            value={description}
           />
         </LabelInputContainer>
 
@@ -168,7 +168,7 @@ export default function DashboardProjectAdd() {
           <FileUpload onFilesSelected={handleFilesSelected} />
         </LabelInputContainer>
 
-        <SubmitButton pending={isSubmitting} disabled={files.length === 0}>
+        <SubmitButton disabled={files.length === 0} pending={isSubmitting}>
           {isSubmitting ? 'Adding Project...' : 'Add Project'}
         </SubmitButton>
       </form>

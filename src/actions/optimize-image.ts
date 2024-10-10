@@ -2,7 +2,7 @@
 
 import sharp from 'sharp'
 
-export async function optimizeImage(base64: string, quality: number = 80): Promise<string> {
+export async function optimizeImage(base64: string, quality = 80): Promise<string> {
   try {
     // Remove the data URI prefix if present
     const base64Data = base64.replace(/^data:image\/\w+;base64,/, '')

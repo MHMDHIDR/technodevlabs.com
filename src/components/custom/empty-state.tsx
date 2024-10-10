@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 export default function EmptyState({
-  isSmall,
-  children
+  children,
+  isSmall
 }: {
   isSmall?: boolean
   children: React.ReactNode
@@ -14,10 +14,10 @@ export default function EmptyState({
       }`}
     >
       <Image
-        src='/images/empty-state.svg'
         alt='Empty State'
-        width={isSmall ? 100 : 300}
         height={isSmall ? 100 : 300}
+        src='/images/empty-state.svg'
+        width={isSmall ? 100 : 300}
       />
 
       {children ? children : <h3 className='text-lg font-semibold'>No data available</h3>}

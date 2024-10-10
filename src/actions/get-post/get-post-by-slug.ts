@@ -1,8 +1,8 @@
 'use server'
 
+import { eq } from 'drizzle-orm'
 import { database } from '@/db/database'
 import { posts as post } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import type { PostWithAuthor } from '@/types'
 
 /**

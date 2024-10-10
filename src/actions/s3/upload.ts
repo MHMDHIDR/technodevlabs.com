@@ -1,8 +1,8 @@
 'use server'
 
+import crypto from 'crypto'
 import { S3Client, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
-import crypto from 'crypto'
 import { env } from '@/env'
 
 const s3Client = new S3Client({
@@ -10,7 +10,7 @@ const s3Client = new S3Client({
   credentials: { accessKeyId: env.AWS_ACCESS_ID, secretAccessKey: env.AWS_SECRET }
 })
 
-const generateUniqueFileName = (projectId: string, fileName: string) => {
+function generateUniqueFileName(projectId: string, fileName: string): string {
   const uniqueSuffix = crypto.randomBytes(8).toString('hex')
   return `${projectId}/${uniqueSuffix}-${fileName}`
 }
@@ -28,7 +28,7 @@ type FileData = {
  * @param fileData  An array of file data (with base64 encoded files)
  * @returns       An array of URLs for the uploaded files
  */
-export async function uploadFiles(fileData: FileData[], projectId: string) {
+export async function uploadFiles(fileData: Array<FileData>, projectId: string) {
   const presignedUrls = await Promise.all(
     fileData.map(async file => {
       const uniqueFileName = generateUniqueFileName(projectId, file.name)
@@ -45,7 +45,7 @@ export async function uploadFiles(fileData: FileData[], projectId: string) {
     })
   )
 
-  const uploadPromises = presignedUrls.map(async ({ presignedUrl, fileName }, index) => {
+  const uploadPromises = presignedUrls.map(async ({ fileName, presignedUrl }, index) => {
     // Decode the base64 string to binary data
     const base64Data = fileData[index].base64.split(',')[1] // Remove the data URI part
     const binaryData = Buffer.from(base64Data, 'base64')

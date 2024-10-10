@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { database } from '@/db/database'
 import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
+import { database } from '@/db/database'
 import { settings } from '@/db/schema'
 import type { Setting } from '@/types'
 
@@ -23,7 +23,7 @@ export async function updateLayoutAction({ layout }: Setting) {
       .set({ layout })
       .where(eq(settings.layout, layout === 'grid' ? 'dotted' : 'grid'))
 
-    if (updatedSettings.length !== 0) {
+    if (updatedSettings.length > 0) {
       return {
         success: false,
         message: 'Failed to update layout or no changes were made'

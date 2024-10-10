@@ -6,7 +6,7 @@ import type { Project } from '@/types'
  * @returns {Promise<Project>} A promise that contains an array of projects
  */
 export async function getProjects(): Promise<{
-  projects: Project[]
+  projects: Array<Project>
   projectsCount: number
 }> {
   const projects = await database.query.projects.findMany()

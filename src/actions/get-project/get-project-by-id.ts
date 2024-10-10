@@ -1,9 +1,9 @@
 'use server'
 
+import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { projects as project } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import type { Project } from '@/types'
 
 export async function getProjectByIdAction({

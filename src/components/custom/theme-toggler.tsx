@@ -9,27 +9,27 @@ export default function ThemeToggle() {
   return (
     <div className='flex items-center p-1 border rounded-full space-x-2 max-w-fit rtl:[direction:ltr]'>
       <button
-        onClick={() => setTheme('light')}
         className={`${
           theme === 'light' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
+        onClick={() => setTheme('light')}
       >
         <Sun />
       </button>
       <button
-        onClick={() => setTheme('system')}
         className={`${
           theme === 'system' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
+        onClick={() => setTheme('system')}
       >
         <Monitor />
       </button>
 
       <button
-        onClick={() => setTheme('dark')}
         className={`${
           theme === 'dark' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
+        onClick={() => setTheme('dark')}
       >
         <Moon />
       </button>

@@ -1,6 +1,8 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
+import { toast } from 'sonner'
 import {
   updateProjectAction,
   getProjectByIdAction,
@@ -9,19 +11,17 @@ import {
   isImageFile
 } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
+import { AddButton } from '@/components/custom/add-button'
 import EmptyState from '@/components/custom/empty-state'
+import { FileUpload } from '@/components/custom/file-upload'
 import { Error as ErrorIcon, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
+import { LoadingCard } from '@/components/custom/loading'
+import { UploadedFiles } from '@/components/custom/uploaded-files'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { toast } from 'sonner'
-import { DEFAULT_PROJECT } from '@/data/constants'
 import { Textarea } from '@/components/ui/textarea'
-import { FileUpload } from '@/components/custom/file-upload'
-import { UploadedFiles } from '@/components/custom/uploaded-files'
-import { LoadingCard } from '@/components/custom/loading'
-import { AddButton } from '@/components/custom/add-button'
-import { useTranslations } from 'next-intl'
+import { DEFAULT_PROJECT } from '@/data/constants'
 import type { Project } from '@/types'
 
 export default function DashboardProjectUpdate({
@@ -32,10 +32,10 @@ export default function DashboardProjectUpdate({
   const t = useTranslations('dashboard.project')
 
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
-  const [files, setFiles] = useState<File[]>([])
+  const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleFilesSelected = (selectedFiles: File[]) => {
+  const handleFilesSelected = (selectedFiles: Array<File>) => {
     setFiles(selectedFiles)
   }
 
@@ -59,7 +59,7 @@ export default function DashboardProjectUpdate({
     try {
       if (!project) return
 
-      let uploadedUrls: string[] = []
+      let uploadedUrls: Array<string> = []
 
       if (files.length > 0) {
         const fileDataPromises = files.map(async file => {
@@ -93,7 +93,7 @@ export default function DashboardProjectUpdate({
 
       const updatedImages = [...project.images, ...uploadedUrls]
 
-      const { success, message } = await updateProjectAction({
+      const { message, success } = await updateProjectAction({
         projectId,
         title: project.title,
         description: project.description,
@@ -164,39 +164,39 @@ export default function DashboardProjectUpdate({
         <>
           <h3 className='mb-6 text-2xl font-bold text-center select-none'>{project.title}</h3>
 
-          <form onSubmit={editProject} className='space-y-6'>
+          <form className='space-y-6' onSubmit={editProject}>
             <LabelInputContainer>
               <Label htmlFor='title'>{t('projectTitle')}</Label>
               <Input
-                type='text'
-                id='title'
-                value={project.title}
-                onChange={e => setProject({ ...project, title: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                id='title'
+                onChange={e => setProject({ ...project, title: e.target.value })}
                 required
+                type='text'
+                value={project.title}
               />
             </LabelInputContainer>
 
             <LabelInputContainer>
               <Label htmlFor='url'>{t('projectURL')}</Label>
               <Input
-                type='text'
-                id='url'
-                value={project.url}
-                onChange={e => setProject({ ...project, url: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                id='url'
+                onChange={e => setProject({ ...project, url: e.target.value })}
                 required
+                type='text'
+                value={project.url}
               />
             </LabelInputContainer>
 
             <LabelInputContainer>
               <Label htmlFor='description'>{t('projectDescription')}</Label>
               <Textarea
-                id='description'
-                value={project.description}
-                onChange={e => setProject({ ...project, description: e.target.value })}
                 className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                id='description'
+                onChange={e => setProject({ ...project, description: e.target.value })}
                 required
+                value={project.description}
               />
             </LabelInputContainer>
 
@@ -206,9 +206,9 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <UploadedFiles
+              onImageDelete={handleImageDelete}
               projectId={project.id}
               projectImages={project.images}
-              onImageDelete={handleImageDelete}
               type='projectImg'
             />
 

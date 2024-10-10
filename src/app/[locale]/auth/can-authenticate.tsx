@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers'
+import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 
 async function authenticate(formData: FormData) {
   'use server'
@@ -25,12 +25,12 @@ export default function CanAuthenticate({ children }: { children: React.ReactNod
         <LabelInputContainer>
           <Label htmlFor='password'>Password</Label>
           <Input
-            type='password'
+            autoFocus
+            min={5}
             name='password'
             placeholder='Enter the password'
-            min={5}
-            autoFocus
             required
+            type='password'
           />
         </LabelInputContainer>
       </div>

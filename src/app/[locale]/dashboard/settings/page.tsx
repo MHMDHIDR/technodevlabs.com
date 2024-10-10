@@ -1,5 +1,5 @@
-import { getSettings } from '@/data/settings'
 import LayoutSwitch from './layout-switch'
+import { getSettings } from '@/data/settings'
 
 export default async function DashboardSettingsPage() {
   const settings = await getSettings()

@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   users,
   accounts,
@@ -7,7 +8,6 @@ import {
   projects,
   settings
 } from '@/db/schema'
-import React from 'react'
 
 // Inferred types from Drizzle ORM
 export type User = typeof users.$inferSelect
@@ -97,6 +97,6 @@ export type DashboardListItemProps = {
 export type ProjectImagesGridProps = {
   projectId: Project['id']
   projectImages: Project['images']
-  onImageDelete: (imageUrl: string) => void
+  onImageDelete(imageUrl: string): void
   type: itemsTypes
 }

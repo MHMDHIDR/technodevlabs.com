@@ -1,9 +1,9 @@
 'use server'
 
+import { eq } from 'drizzle-orm'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts as post } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import type { Post } from '@/types'
 
 export async function getPostByIdAction({ postId }: { postId: string }): Promise<Post | undefined> {

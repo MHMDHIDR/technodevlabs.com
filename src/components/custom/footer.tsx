@@ -1,11 +1,13 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import {
   IconBrandFacebook,
   IconBrandX,
   IconBrandTiktok,
   IconBrandInstagram
 } from '@tabler/icons-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
+import ThemeToggler from '@/components/custom/theme-toggler'
 import {
   APP_FB_URL,
   APP_INSTAGRAM_URL,
@@ -14,8 +16,6 @@ import {
   APP_TITLE,
   APP_TWITTER_URL
 } from '@/data/constants'
-import ThemeToggler from '@/components/custom/theme-toggler'
-import { getTranslations } from 'next-intl/server'
 
 export default async function Footer() {
   const t = await getTranslations('footer')
@@ -25,13 +25,13 @@ export default async function Footer() {
       <div className='mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto'>
         <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5'>
           <div className='col-span-full sm:col-span-1 flex sm:flex-col gap-x-48 mx-auto md:mx-0'>
-            <Link href='/' className='text-white flex-1' aria-label='Brand'>
+            <Link aria-label='Brand' className='text-white flex-1' href='/'>
               <Image
-                src={APP_LOGO}
                 alt={APP_TITLE}
-                width={40}
-                height={40}
                 className='min-w-7 min-h-7'
+                height={40}
+                src={APP_LOGO}
+                width={40}
               />
             </Link>
 

@@ -1,21 +1,21 @@
 'use client'
 
-import { useState } from 'react'
-import { useEditor, EditorContent } from '@tiptap/react'
 import { Image } from '@tiptap/extension-image'
+import { useEditor, EditorContent } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
-import { Button } from '@/components/custom/button'
-import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
-import { SubmitButton } from '@/app/[locale]/contact/submit-button'
-import { Error, Success } from '@/components/custom/icons'
-import { toast } from 'sonner'
-import { Label } from '@/components/ui/label'
-import LabelInputContainer from '@/components/custom/label-input-container'
-import { addNewPostAction } from '@/actions'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { addNewPostAction } from '@/actions'
+import { SubmitButton } from '@/app/[locale]/contact/submit-button'
+import { Button } from '@/components/custom/button'
+import { Error, Success } from '@/components/custom/icons'
+import LabelInputContainer from '@/components/custom/label-input-container'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
-const MenuBar = ({ editor }: { editor: any }) => {
+function MenuBar({ editor }: { editor: any }) {
   const t = useTranslations('dashboard.post')
 
   if (!editor) {
@@ -32,102 +32,102 @@ const MenuBar = ({ editor }: { editor: any }) => {
   return (
     <div className='flex flex-wrap p-2 bg-gray-100 gap-2 dark:bg-gray-700 rounded-t-md'>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('heading', { level: 1 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+        type='button'
       >
         {t('editor.h1')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('heading', { level: 2 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+        type='button'
       >
         {t('editor.h2')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('heading', { level: 3 })
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+        type='button'
       >
         {t('editor.h3')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleCode().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('code') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleCode().run()}
+        type='button'
       >
         {t('editor.code')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('codeBlock')
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+        type='button'
       >
         {t('editor.codeBlock')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('blockquote')
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+        type='button'
       >
         {t('editor.blockquote')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleBold().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('bold') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleBold().run()}
+        type='button'
       >
         {t('editor.bold')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleItalic().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('italic') ? 'bg-gray-300 dark:bg-gray-900' : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleItalic().run()}
+        type='button'
       >
         {t('editor.italic')}
       </Button>
       <Button
-        type='button'
-        onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={`px-2 py-1 text-sm ${
           editor.isActive('bulletList')
             ? 'bg-gray-300 dark:bg-gray-900'
             : 'bg-white dark:bg-gray-700'
         }`}
+        onClick={() => editor.chain().focus().toggleBulletList().run()}
+        type='button'
       >
         {t('editor.bulletList')}
       </Button>
       <Button
-        type='button'
-        onClick={addImage}
         className='px-2 py-1 text-sm bg-white dark:bg-gray-700'
+        onClick={addImage}
+        type='button'
       >
         {t('editor.addImage')}
       </Button>
@@ -161,7 +161,7 @@ export default function DashboardPostAdd() {
     if (!editor) return
     const content = editor.getHTML() ?? ''
 
-    const { success, message } = await addNewPostAction({ title, content })
+    const { message, success } = await addNewPostAction({ title, content })
 
     if (!success) {
       toast(message, {
@@ -202,16 +202,16 @@ export default function DashboardPostAdd() {
     <section className='max-w-4xl p-6 mx-auto'>
       <h3 className='mb-6 text-2xl font-bold text-center'>{t('addPost')}</h3>
 
-      <form onSubmit={addPost} className='space-y-6'>
+      <form className='space-y-6' onSubmit={addPost}>
         <LabelInputContainer>
           <Label htmlFor='title'>{t('postTitle')}</Label>
           <Input
-            type='text'
-            id='title'
-            value={title}
-            onChange={e => setTitle(e.target.value)}
             className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            id='title'
+            onChange={e => setTitle(e.target.value)}
             required
+            type='text'
+            value={title}
           />
         </LabelInputContainer>
 
@@ -220,8 +220,8 @@ export default function DashboardPostAdd() {
           <MenuBar editor={editor} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
-              editor={editor}
               className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
+              editor={editor}
             />
           </div>
         </LabelInputContainer>

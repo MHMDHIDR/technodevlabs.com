@@ -1,11 +1,11 @@
+import clsx from 'clsx'
+import { useLocale } from 'next-intl'
 import {
   Tooltip as TooltipParent,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip-provider'
-import clsx from 'clsx'
-import { useLocale } from 'next-intl'
 
 export default function Tooltip({
   children,

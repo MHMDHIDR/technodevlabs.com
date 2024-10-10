@@ -1,27 +1,27 @@
 'use client'
 
 import { IconLoader3 } from '@tabler/icons-react'
-import { useTransition } from 'react'
-import { Error, Success } from '@/components/custom/icons'
-import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { useLocale } from 'next-intl'
+import { useTransition } from 'react'
+import { toast } from 'sonner'
 import { useModal } from '../ui/animated-modal'
 import { deleteEntryAndRevalidateAction } from '@/actions'
-import { useLocale } from 'next-intl'
+import { Error, Success } from '@/components/custom/icons'
 import type { itemsTypes } from '@/types'
 
 export function DeleteButton({
   entryId,
-  type,
-  redirectTo,
+  onSuccess,
   projectId,
-  onSuccess
+  redirectTo,
+  type
 }: {
   entryId: string
   type: itemsTypes
   redirectTo?: string
   projectId?: string
-  onSuccess?: () => void
+  onSuccess?(): void
 }) {
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
@@ -30,7 +30,7 @@ export function DeleteButton({
 
   const handleDelete = () => {
     startTransition(async () => {
-      const { success, message } = await deleteEntryAndRevalidateAction({
+      const { message, success } = await deleteEntryAndRevalidateAction({
         entryId,
         type,
         projectId
@@ -79,9 +79,9 @@ export function DeleteButton({
 
   return (
     <button
-      onClick={handleDelete}
-      disabled={isPending}
       className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 disabled:opacity-50'
+      disabled={isPending}
+      onClick={handleDelete}
     >
       {isPending ? (
         <span className='flex items-center'>

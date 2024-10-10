@@ -1,3 +1,9 @@
+import { IconEdit, IconTrash } from '@tabler/icons-react'
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { notFound } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { getPostBySlugAction } from '@/actions/get-post'
 import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
@@ -8,12 +14,6 @@ import { Cover } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
-import type { Metadata } from 'next'
-import { getLocale, getTranslations } from 'next-intl/server'
-import Image from 'next/image'
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
 
 export async function generateMetadata({
   params
@@ -87,7 +87,7 @@ export default async function BlogPostContentPage({
           'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
         })}`}
       >
-        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
+        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
         <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-bold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
           <Cover>{post.title}</Cover>
@@ -97,11 +97,11 @@ export default async function BlogPostContentPage({
           <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
             <figure className='flex items-center gap-x-2'>
               <Image
-                src={post.author.image ?? '/images/logo.svg'}
                 alt={post.author.name ?? APP_TITLE}
                 className='rounded-full w-7 md:w-10 h-7 md:h-10'
-                width={48}
                 height={48}
+                src={post.author.image ?? '/images/logo.svg'}
+                width={48}
               />
               <figcaption className='flex items-center gap-x-2'>
                 <span className='text-sm font-semibold md:text-lg'>{post.author.name}</span>
@@ -115,15 +115,15 @@ export default async function BlogPostContentPage({
             </span>
             {user ? (
               <>
-                <Link href={`/dashboard/posts/${post.id}`} className='self-start md:self-center'>
+                <Link className='self-start md:self-center' href={`/dashboard/posts/${post.id}`}>
                   <Button className='flex items-center px-2 -ml-1 gap-x-2' title={t('editPost')}>
                     <IconEdit className='w-4 h-4' />
                     <span>{t('editPost')}</span>
                   </Button>
                 </Link>
                 <Modal
-                  title={t('deletePost')}
                   description={t('deletePostConfirmation')}
+                  title={t('deletePost')}
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
                   <DeleteButton entryId={post.id ?? ''} redirectTo='/posts' type='post' />
@@ -133,8 +133,8 @@ export default async function BlogPostContentPage({
           </div>
 
           <span
-            className='text-sm select-none text-neutral-500 dark:text-neutral-400'
             aria-label={t('readTime')}
+            className='text-sm select-none text-neutral-500 dark:text-neutral-400'
             title={`${t('readTime')}: ${calculateReadTime(post.content)}`}
           >
             {calculateReadTime(post.content)}

@@ -1,12 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { ImagesSlider } from '@/components/ui/images-slider'
-import Divider from '@/components/custom/divider'
-import { Button } from '@/components/custom/button'
+import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/custom/button'
+import Divider from '@/components/custom/divider'
+import { ImagesSlider } from '@/components/ui/images-slider'
 
 export function AboutSection() {
   const pathname = usePathname()
@@ -21,18 +21,18 @@ export function AboutSection() {
   return (
     <ImagesSlider className='h-[40rem]' images={images}>
       <motion.div
-        initial={{
-          opacity: 0,
-          y: -80
-        }}
         animate={{
           opacity: 1,
           y: 0
         }}
+        className='z-50 flex flex-col items-center justify-center'
+        initial={{
+          opacity: 0,
+          y: -80
+        }}
         transition={{
           duration: 0.6
         }}
-        className='z-50 flex flex-col items-center justify-center'
       >
         {pathname === '/' || pathname === '/ar' ? (
           <motion.p className='py-3 text-xl font-bold text-center text-transparent md:text-6xl bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
@@ -51,16 +51,16 @@ export function AboutSection() {
         {/* Call To Action Button */}
         {pathname === '/' || pathname === '/ar' ? (
           <div className='my-10'>
-            <Link href={`/about`}>
-              <Button className={`text-gray-100 rounded-full`} withArrow>
+            <Link href='/about'>
+              <Button className='text-gray-100 rounded-full' withArrow>
                 {t('knowMore')}
               </Button>
             </Link>
           </div>
         ) : (
           <div className='my-10'>
-            <Link href={`/contact`}>
-              <Button className={`text-gray-100 rounded-full`} withArrow>
+            <Link href='/contact'>
+              <Button className='text-gray-100 rounded-full' withArrow>
                 {t('ctaButton')}
               </Button>
             </Link>

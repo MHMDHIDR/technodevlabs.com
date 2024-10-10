@@ -1,14 +1,14 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/custom/button'
 import { useTranslations } from 'next-intl'
+import { Button } from '@/components/custom/button'
 import { APP_TITLE } from '@/data/constants'
+import { cn } from '@/lib/utils'
 
 export function BentoGrid({
-  className,
-  children
+  children,
+  className
 }: {
   className?: string
   children?: React.ReactNode
@@ -28,13 +28,13 @@ export function BentoGrid({
       </div>
 
       {pathname === '/' || pathname === '/ar' ? (
-        <Link href={`/services`} className='mx-auto'>
+        <Link className='mx-auto' href='/services'>
           <Button className='rounded-full' withArrow>
             {t('exploreButton')}
           </Button>
         </Link>
       ) : pathname === '/services' || pathname === '/ar/services' ? (
-        <Link href={`/contact`} className='mx-auto'>
+        <Link className='mx-auto' href='/contact'>
           <Button className='rounded-full' withArrow>
             {t('ctaButton')}
           </Button>
@@ -44,19 +44,19 @@ export function BentoGrid({
   )
 }
 
-export const BentoGridItem = ({
+export function BentoGridItem({
   className,
-  title,
   description,
+  icon,
   src,
-  icon
+  title
 }: {
   className?: string
   title?: string
   description?: string | React.ReactNode
   src?: string
   icon?: React.ReactNode
-}) => {
+}) {
   return (
     <div
       className={cn(
@@ -65,10 +65,10 @@ export const BentoGridItem = ({
       )}
     >
       <Image
-        src={`/images/services${src}`}
         alt={title ?? APP_TITLE}
         className='object-cover w-full h-full rounded-xl group-hover/bento:scale-150 group-hover/bento:rotate-12 transition duration-500'
         height={150}
+        src={`/images/services${src}`}
         width={255}
       />
       <div className='absolute bottom-0 w-full p-4 bg-gradient-to-t from-black via-black/80 to-transparent'>

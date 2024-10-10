@@ -1,15 +1,15 @@
 'use server'
 
-import { auth } from '@/auth'
 import { revalidatePath, revalidateTag } from 'next/cache'
-import { deletePostAction, deleteProjectAction, deleteSingleObject } from '@/actions'
-import type { itemsTypes } from '@/types'
 import { getTranslations } from 'next-intl/server'
+import { deletePostAction, deleteProjectAction, deleteSingleObject } from '@/actions'
+import { auth } from '@/auth'
+import type { itemsTypes } from '@/types'
 
 export async function deleteEntryAndRevalidateAction({
   entryId,
-  type,
-  projectId
+  projectId,
+  type
 }: {
   entryId: string
   type: itemsTypes

@@ -1,12 +1,4 @@
 import {
-  APP_FB_URL,
-  APP_INSTAGRAM_URL,
-  APP_LOGO,
-  APP_TIKTOK_URL,
-  APP_TITLE,
-  APP_TWITTER_URL
-} from '@/data/constants'
-import {
   Body,
   Container,
   Head,
@@ -18,9 +10,17 @@ import {
   Link
 } from '@react-email/components'
 import { Facebook, Instagram, TikTok, Twitter } from '@/components/custom/icons'
+import {
+  APP_FB_URL,
+  APP_INSTAGRAM_URL,
+  APP_LOGO,
+  APP_TIKTOK_URL,
+  APP_TITLE,
+  APP_TWITTER_URL
+} from '@/data/constants'
 import type { customEmailProps } from '@/types'
 
-export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEmailProps) => {
+export function EmailTemplate({ buttonLabel, buttonLink, msg, title }: customEmailProps) {
   const formattedMsg = msg ? (typeof msg === 'string' ? msg.replace(/\n/g, '<br>') : msg) : ''
 
   return (
@@ -42,13 +42,13 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
           <Section key='section1' style={{ textAlign: 'center' }}>
             <Img
               src={`https://www.technodevlabs.com${APP_LOGO}`}
-              width={150}
               style={{
                 width: 'auto',
                 height: '5rem',
                 margin: '0 auto',
                 marginTop: '1rem'
               }}
+              width={150}
             />
           </Section>
 
@@ -62,7 +62,7 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
                 direction: 'rtl'
               }}
             >
-              <Heading as='h2' style={{ textAlign: 'center', userSelect: 'none' }} key='h2'>
+              <Heading key='h2' as='h2' style={{ textAlign: 'center', userSelect: 'none' }}>
                 {title ?? 'طلب استعادة كلمة المرور'}
               </Heading>
 
@@ -90,8 +90,9 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
               </Text>
 
               {buttonLink && (
-                <div style={{ textAlign: 'center', marginTop: '1.75rem' }} key='buttonDiv'>
+                <div key='buttonDiv' style={{ textAlign: 'center', marginTop: '1.75rem' }}>
                   <Link
+                    href={buttonLink}
                     style={{
                       padding: '0.5rem 1.5rem',
                       borderRadius: '0.375rem',
@@ -106,7 +107,6 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
                       border: 'none',
                       cursor: 'pointer'
                     }}
-                    href={buttonLink}
                     target='_blank'
                   >
                     {buttonLabel ?? 'إعادة تعيين كلمة المرور'}
@@ -151,34 +151,34 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
 
             <section className='flex items-center justify-center w-full h-12 rtl gap-x-20'>
               <Link
+                aria-label='صفحتنا على الفيسبوك'
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
                 href={APP_FB_URL}
                 target='_blank'
-                aria-label='صفحتنا على الفيسبوك'
               >
                 <Facebook />
               </Link>
               <Link
+                aria-label='حسابنا على التكتوك'
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
                 href={APP_TIKTOK_URL}
                 target='_blank'
-                aria-label='حسابنا على التكتوك'
               >
                 <TikTok />
               </Link>
               <Link
+                aria-label='صفحتنا على الانستغرام'
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
                 href={APP_INSTAGRAM_URL}
                 target='_blank'
-                aria-label='صفحتنا على الانستغرام'
               >
                 <Instagram />
               </Link>
               <Link
+                aria-label='حسابنا على تويتر'
                 className='transition opacity-60 hover:opacity-90 hover:-translate-y-1'
                 href={APP_TWITTER_URL}
                 target='_blank'
-                aria-label='حسابنا على تويتر'
               >
                 <Twitter />
               </Link>
@@ -187,13 +187,13 @@ export const EmailTemplate = ({ title, msg, buttonLink, buttonLabel }: customEma
             {buttonLink &&
               (buttonLink.includes('reset-password') || buttonLink.includes('activate')) && (
                 <Text
+                  key='note'
                   style={{
                     marginTop: '0.5rem',
                     fontSize: '0.75rem',
                     textAlign: 'center',
                     color: '#9ca3af'
                   }}
-                  key='note'
                 >
                   <br />
                   <small>ملاحظة: هذا الرابط سيتنهي خلال ساعة واحدة</small>

@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
-import Layout from '@/components/custom/layout'
-import { Cover } from '@/components/ui/cover'
 import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
+import Layout from '@/components/custom/layout'
+import { Cover } from '@/components/ui/cover'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await auth()
@@ -12,7 +12,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <Layout className={'pt-10 flex flex-col md:flex-row'}>
+    <Layout className='pt-10 flex flex-col md:flex-row'>
       <DashboardSidebar user={session.user} />
 
       <main className='flex-1 px-3 pt-3'>

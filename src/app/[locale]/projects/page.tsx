@@ -1,6 +1,6 @@
+import type { Metadata } from 'next'
 import Layout from '@/components/custom/layout'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
-import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph

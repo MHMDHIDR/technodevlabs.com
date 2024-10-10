@@ -1,22 +1,16 @@
 'use client'
-import React, { useEffect, useRef, useId, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import React, { useEffect, useRef, useId, useState } from 'react'
 import { SparklesCore } from '@/components/ui/sparkles'
 import { cn } from '@/lib/utils'
 
-export const Cover = ({
-  children,
-  className
-}: {
-  children?: React.ReactNode
-  className?: string
-}) => {
+export function Cover({ children, className }: { children?: React.ReactNode; className?: string }) {
   const [hovered, setHovered] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
 
   const [containerWidth, setContainerWidth] = useState(0)
-  const [beamPositions, setBeamPositions] = useState<number[]>([])
+  const [beamPositions, setBeamPositions] = useState<Array<number>>([])
 
   useEffect(() => {
     if (ref.current) {
@@ -34,28 +28,29 @@ export const Cover = ({
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       ref={ref}
       className='relative select-none inline-block px-4 py-2 rounded-sm transition duration-200 hover:bg-neutral-900 group/cover dark:bg-neutral-900 bg-neutral-100'
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            className='absolute inset-0 w-full h-full overflow-hidden'
             exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
             transition={{
               opacity: {
                 duration: 0.2
               }
             }}
-            className='absolute inset-0 w-full h-full overflow-hidden'
           >
             <motion.div
               animate={{
                 translateX: ['-50%', '0%']
               }}
+              className='w-[200%] h-full flex'
               transition={{
                 translateX: {
                   duration: 10,
@@ -63,23 +58,22 @@ export const Cover = ({
                   repeat: Infinity
                 }
               }}
-              className='w-[200%] h-full flex'
             >
               <SparklesCore
                 background='transparent'
-                minSize={0.4}
-                maxSize={1}
-                particleDensity={500}
                 className='w-full h-full'
+                maxSize={1}
+                minSize={0.4}
                 particleColor='#FFFFFF'
+                particleDensity={500}
               />
               <SparklesCore
                 background='transparent'
-                minSize={0.4}
-                maxSize={1}
-                particleDensity={500}
                 className='w-full h-full'
+                maxSize={1}
+                minSize={0.4}
                 particleColor='#FFFFFF'
+                particleDensity={500}
               />
             </motion.div>
           </motion.div>
@@ -88,13 +82,13 @@ export const Cover = ({
       {beamPositions.map((position, index) => (
         <Beam
           key={index}
-          hovered={hovered}
-          duration={Math.random() * 2 + 1}
           delay={Math.random() * 2 + 1}
-          width={containerWidth}
+          duration={Math.random() * 2 + 1}
+          hovered={hovered}
           style={{
             top: `${position}px`
           }}
+          width={containerWidth}
         />
       ))}
       <motion.span
@@ -104,6 +98,10 @@ export const Cover = ({
           x: hovered ? [0, -30, 30, -30, 30, 0] : 0,
           y: hovered ? [0, 30, -30, 30, -30, 0] : 0
         }}
+        className={cn(
+          'dark:text-white inline-block text-neutral-900 relative z-20 group-hover/cover:text-white transition duration-200',
+          className
+        )}
         exit={{
           filter: 'none',
           scale: 1,
@@ -129,10 +127,6 @@ export const Cover = ({
             duration: 0.2
           }
         }}
-        className={cn(
-          'dark:text-white inline-block text-neutral-900 relative z-20 group-hover/cover:text-white transition duration-200',
-          className
-        )}
       >
         {children}
       </motion.span>
@@ -144,7 +138,7 @@ export const Cover = ({
   )
 }
 
-export const Beam = ({
+export function Beam({
   className,
   delay,
   duration,
@@ -157,35 +151,35 @@ export const Beam = ({
   duration?: number
   hovered?: boolean
   width?: number
-} & React.ComponentProps<typeof motion.svg>) => {
+} & React.ComponentProps<typeof motion.svg>) {
   const id = useId()
 
   return (
     <motion.svg
-      width={width ?? '600'}
+      className={cn('absolute inset-x-0 w-full', className)}
+      fill='none'
       height='1'
       viewBox={`0 0 ${width ?? '600'} 1`}
-      fill='none'
+      width={width ?? '600'}
       xmlns='http://www.w3.org/2000/svg'
-      className={cn('absolute inset-x-0 w-full', className)}
       {...svgProps}
     >
       <motion.path d={`M0 0.5H${width ?? '600'}`} stroke={`url(#svgGradient-${id})`} />
 
       <defs>
         <motion.linearGradient
-          id={`svgGradient-${id}`}
           key={String(hovered)}
-          gradientUnits='userSpaceOnUse'
-          initial={{
-            x1: '0%',
-            x2: hovered ? '-10%' : '-5%',
-            y1: 0,
-            y2: 0
-          }}
           animate={{
             x1: '110%',
             x2: hovered ? '100%' : '105%',
+            y1: 0,
+            y2: 0
+          }}
+          gradientUnits='userSpaceOnUse'
+          id={`svgGradient-${id}`}
+          initial={{
+            x1: '0%',
+            x2: hovered ? '-10%' : '-5%',
             y1: 0,
             y2: 0
           }}
@@ -206,13 +200,13 @@ export const Beam = ({
   )
 }
 
-export const CircleIcon = ({ className }: { className?: string }) => {
+export function CircleIcon({ className }: { className?: string }) {
   return (
     <div
       className={cn(
         `pointer-events-none animate-pulse group-hover/cover:hidden group-hover/cover:opacity-100 group h-2 w-2 rounded-full bg-neutral-600 dark:bg-white opacity-20 group-hover/cover:bg-white`,
         className
       )}
-    ></div>
+    />
   )
 }

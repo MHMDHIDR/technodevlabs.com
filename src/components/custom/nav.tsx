@@ -1,16 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import type { User } from 'next-auth'
 import { signOut, getSession } from 'next-auth/react'
-import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
+import { useState, useEffect } from 'react'
 import { deleteCookieAction } from '@/actions'
 import LanguageSwitcher from '@/components/custom/language-switcher'
-import { useTranslations } from 'next-intl'
-import type { User } from 'next-auth'
+import { APP_LOGO, APP_TITLE } from '@/data/constants'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -52,11 +52,10 @@ export default function Nav() {
    * @param href
    * @returns String - The classNames
    */
-  const activeLinkClass = (href: string) => {
-    return pathname === href
+  const activeLinkClass = (href: string) =>
+    pathname === href
       ? 'text-blue-500'
       : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
-  }
 
   const t = useTranslations('Nav')
 
@@ -71,36 +70,34 @@ export default function Nav() {
       <nav className='container w-full px-0 mx-auto sm:flex sm:items-center sm:justify-between'>
         <div className='flex items-center justify-between'>
           <Link
+            aria-label='Brand'
             className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-purple-900 focus:opacity-80'
             href='/'
-            aria-label='Brand'
           >
-            <Image src={APP_LOGO} alt={APP_TITLE} width={40} height={40} />
-            <span
-              className={`[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl`}
-            >
+            <Image alt={APP_TITLE} height={40} src={APP_LOGO} width={40} />
+            <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl'>
               TechnoDevLabs
             </span>
           </Link>
           <div className='sm:hidden'>
             <button
-              type='button'
+              aria-controls='navbar-items'
+              aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
+              aria-label='Toggle navigation'
               className='relative flex items-center justify-center text-gray-800 shadow-sm gap-x-2 focus:outline-violet-500 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
               onClick={toggleMobileMenu}
-              aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
-              aria-controls='navbar-items'
-              aria-label='Toggle navigation'
+              type='button'
             >
               {isMobileMenuOpen ? (
                 <svg
                   className='w-6 h-6 shrink-0'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
-                  strokeWidth='2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
+                  strokeWidth='2'
+                  viewBox='0 0 24 24'
+                  xmlns='http://www.w3.org/2000/svg'
                 >
                   <path d='M18 6L6 18' />
                   <path d='M6 6l12 12' />
@@ -108,17 +105,17 @@ export default function Nav() {
               ) : (
                 <svg
                   className='w-6 h-6 shrink-0'
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
-                  strokeWidth='2'
                   strokeLinecap='round'
                   strokeLinejoin='round'
+                  strokeWidth='2'
+                  viewBox='0 0 24 24'
+                  xmlns='http://www.w3.org/2000/svg'
                 >
-                  <line x1='3' y1='6' x2='21' y2='6' />
-                  <line x1='3' y1='12' x2='21' y2='12' />
-                  <line x1='3' y1='18' x2='21' y2='18' />
+                  <line x1='3' x2='21' y1='6' y2='6' />
+                  <line x1='3' x2='21' y1='12' y2='12' />
+                  <line x1='3' x2='21' y1='18' y2='18' />
                 </svg>
               )}
               <span className='sr-only'>Toggle navigation</span>
@@ -126,48 +123,48 @@ export default function Nav() {
           </div>
         </div>
         <div
-          id='navbar-items'
           className={`transition-all duration-300 overflow-hidden ${
             isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
           } sm:max-h-full sm:opacity-100 sm:block`}
+          id='navbar-items'
         >
           <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
             <Link
+              aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/#projects')}`}
               href={pathname === '/' || pathname === '/ar' ? '/#projects' : '/projects'}
-              aria-current='page'
               onClick={toggleMobileMenu}
             >
               {t('projects')}
             </Link>
             <Link
+              aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/about')}`}
               href={pathname === '/' || pathname === '/ar' ? '/#about' : '/about'}
-              aria-current='page'
               onClick={toggleMobileMenu}
             >
               {t('about')}
             </Link>
             <Link
+              aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/services')}`}
               href={pathname === '/' || pathname === '/ar' ? '/#services' : '/services'}
-              aria-current='page'
               onClick={toggleMobileMenu}
             >
               {t('services')}
             </Link>
             <Link
+              aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/posts')}`}
               href={pathname === '/' || pathname === '/ar' ? '/#posts' : '/posts'}
-              aria-current='page'
               onClick={toggleMobileMenu}
             >
               {t('blog')}
             </Link>
             <Link
+              aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/contact')}`}
               href={pathname === '/' || pathname === '/ar' ? '/#contact' : '/contact'}
-              aria-current='page'
               onClick={toggleMobileMenu}
             >
               {t('contact')}
@@ -178,30 +175,28 @@ export default function Nav() {
             {user ? (
               <>
                 <Link
-                  className={`focus:outline-purple-900 flex`}
-                  href={'/dashboard'}
                   aria-current='page'
-                  title='Dashboard'
                   aria-label='Dashboard'
+                  className='focus:outline-purple-900 flex'
+                  href='/dashboard'
                   onClick={toggleMobileMenu}
+                  title='Dashboard'
                 >
                   <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
                   <span className='text-sm sm:hidden lg:inline-block'>{t('dashboard')}</span>
                 </Link>
 
                 <button
+                  aria-label='Sign Out'
                   className='flex items-center justify-start py-2 gap-2'
                   onClick={async () => {
                     await deleteCookieAction({ name: 'can-authenticate' })
                     await signOut({ redirectTo: '/auth' })
                   }}
                   title='Sign Out'
-                  aria-label='Sign Out'
                 >
                   <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
-                  <span
-                    className={`text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500`}
-                  >
+                  <span className='text-neutral-700 dark:text-neutral-200 hover:underline underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500'>
                     {t('signOut')}
                   </span>
                 </button>

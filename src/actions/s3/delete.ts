@@ -6,9 +6,9 @@ import {
   DeleteObjectsCommand,
   DeleteObjectCommand
 } from '@aws-sdk/client-s3'
+import { getTranslations } from 'next-intl/server'
 import { updateProjectAction } from '@/actions'
 import { env } from '@/env'
-import { getTranslations } from 'next-intl/server'
 
 const s3Client = new S3Client({
   region: env.AWS_REGION,
