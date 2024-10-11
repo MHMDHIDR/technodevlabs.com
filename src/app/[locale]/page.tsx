@@ -2,22 +2,26 @@ import { AboutSection } from '@/app/[locale]/about/about-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
 import { PostsSection } from '@/app/[locale]/posts/posts-section'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
+import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
 import { Hero } from '@/components/custom/hero'
 import Layout from '@/components/custom/layout'
+import { PrimaryHeading } from '@/components/ui/text-hover-effect'
 import { getSettings } from '@/data/settings'
-import type { Locale } from '@/i18n/request'
 import { clsx } from '@/lib/utils'
-import { AppleCardsCarouselDemo } from './projects/projects-section'
+import type { Locale } from '@/i18n/request'
+import { getTranslations } from 'next-intl/server'
 
 export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {
   const settings = await getSettings()
+  const projectsTranslations = await getTranslations('projects')
 
   return (
     <Layout>
       <Hero />
 
       <section className='py-20' id='projects'>
-        <AppleCardsCarouselDemo />
+        <PrimaryHeading className='-my-32'>{projectsTranslations('pageTitle')}</PrimaryHeading>
+        <ProjectsSection />
       </section>
 
       <section id='about'>

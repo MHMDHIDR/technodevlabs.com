@@ -1,5 +1,5 @@
 import Layout from '@/components/custom/layout'
-import { AppleCardsCarouselDemo } from '@/components/ui/AppleCardsCarouse'
+import { CardsCarouselDemo } from '@/components/ui/AppleCardsCarouse'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import type { Metadata } from 'next'
 
@@ -28,9 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Projects() {
   return (
-    <Layout>
-      <h2>Projects Page</h2>
-      <AppleCardsCarouselDemo />
+    <Layout className='py-20 mx-auto'>
+      <CardsCarouselDemo />
     </Layout>
   )
 }

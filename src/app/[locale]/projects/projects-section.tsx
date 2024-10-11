@@ -3,17 +3,12 @@ import Link from 'next/link'
 import React from 'react'
 import { Button } from '@/components/custom/button'
 import { Card, Carousel } from '@/components/ui/apple-cards-carousel'
-import { PrimaryHeading } from '@/components/ui/text-hover-effect'
-import { useTranslations } from 'next-intl'
 
-export function AppleCardsCarouselDemo() {
-  const projectsTranslations = useTranslations('projects')
+export function ProjectsSection() {
   const cards = data.map((card, index) => <Card key={card.src} card={card} index={index} />)
 
   return (
     <>
-      <PrimaryHeading className='-my-32'>{projectsTranslations('pageTitle')}</PrimaryHeading>
-
       <Carousel items={cards} />
     </>
   )

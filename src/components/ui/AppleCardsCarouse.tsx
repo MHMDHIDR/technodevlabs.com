@@ -1,19 +1,11 @@
 'use client'
+import { Card, Carousel } from '@/components/ui/apple-cards-carousel'
 import Image from 'next/image'
-import React from 'react'
-import { Carousel, Card } from '../ui/apple-cards-carousel'
 
-export function AppleCardsCarouselDemo() {
+export function CardsCarouselDemo() {
   const cards = data.map((card, index) => <Card key={card.src} card={card} index={index} />)
 
-  return (
-    <div className='py-20 w-full h-full'>
-      <h2 className='pl-4 mx-auto max-w-7xl font-sans text-xl font-bold md:text-5xl text-neutral-800 dark:text-neutral-200'>
-        Projects
-      </h2>
-      <Carousel items={cards} />
-    </div>
-  )
+  return <Carousel items={cards} />
 }
 
 const DummyContent = () => {
