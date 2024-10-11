@@ -9,12 +9,29 @@ import MinifiedNav from '@/components/custom/minified-nav'
 import { cookies } from 'next/headers'
 
 export default function RootNotFoundPage() {
-  const locale = cookies().get('NEXT_LOCALE')?.value
+  const cookieStore = cookies()
+  const locale = cookieStore.get('NEXT_LOCALE')?.value
+  const theme = cookieStore.get('theme')?.value || 'system'
+
   const notFoundTranslations =
     locale === 'ar' ? NotFoundTranslationsAr.notFound : NotFoundTranslationsEn.notFound
 
+  const getActualTheme = () => {
+    if (theme === 'system') {
+      return 'dark' // Default to dark if we can't determine
+    }
+    return theme
+  }
+
+  const actualTheme = getActualTheme()
+
   return (
-    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+    <html
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      className={`${actualTheme}`}
+      style={{ colorScheme: actualTheme }}
+    >
       <head>
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />

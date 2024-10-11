@@ -67,19 +67,19 @@ export default function Nav() {
           : 'py-5 bg-white dark:bg-neutral-900'
       } px-4 sm:px-10`}
     >
-      <nav className='container w-full px-0 mx-auto sm:flex sm:items-center sm:justify-between'>
+      <nav className='container w-full px-0 mx-auto md:flex md:items-center md:justify-between'>
         <div className='flex items-center justify-between'>
           <Link
             aria-label='Brand'
             className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-purple-900 focus:opacity-80'
             href='/'
           >
-            <Image alt={APP_TITLE} height={40} src={APP_LOGO} width={40} />
+            <Image alt={APP_TITLE} src={APP_LOGO} width={40} height={40} />
             <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl'>
               TechnoDevLabs
             </span>
           </Link>
-          <div className='sm:hidden'>
+          <div className='md:hidden'>
             <button
               aria-controls='navbar-items'
               aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
@@ -125,10 +125,10 @@ export default function Nav() {
         <div
           className={`transition-all duration-300 overflow-hidden ${
             isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-          } sm:max-h-full sm:opacity-100 sm:block`}
+          } md:max-h-full md:opacity-100 md:block`}
           id='navbar-items'
         >
-          <div className='flex flex-col mt-5 gap-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5'>
+          <div className='flex flex-col mt-5 gap-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5'>
             <Link
               aria-current='page'
               className={`font-medium focus:outline-purple-900 ${activeLinkClass('/#projects')}`}

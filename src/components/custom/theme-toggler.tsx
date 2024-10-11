@@ -2,9 +2,14 @@
 
 import { useTheme } from 'next-themes'
 import { Monitor, Moon, Sun } from '@/components/custom/icons'
+import { useEffect } from 'react'
 
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme()
+
+  useEffect(() => {
+    document.cookie = `theme=${theme};path=/`
+  }, [theme])
 
   return (
     <div className='flex items-center p-1 border rounded-full space-x-2 max-w-fit rtl:[direction:ltr]'>
