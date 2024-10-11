@@ -4,6 +4,7 @@ import { Providers } from '@/providers'
 import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
 import type { Metadata } from 'next'
+import type { Locale } from '@/i18n/request'
 
 const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
 
@@ -34,10 +35,10 @@ export const metadata: Metadata = {
 
 export default function LocaleLayout({
   children,
-  params: { locale }
+  params: { locale = 'en' }
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
   const messages = useMessages()
 

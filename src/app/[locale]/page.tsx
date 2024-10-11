@@ -5,14 +5,20 @@ import { ServicesSection } from '@/app/[locale]/services/services-section'
 import { Hero } from '@/components/custom/hero'
 import Layout from '@/components/custom/layout'
 import { getSettings } from '@/data/settings'
+import type { Locale } from '@/i18n/request'
 import { clsx } from '@/lib/utils'
+import { AppleCardsCarouselDemo } from './projects/projects-section'
 
-export default async function Home() {
+export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {
   const settings = await getSettings()
 
   return (
     <Layout>
       <Hero />
+
+      <section className='py-20' id='projects'>
+        <AppleCardsCarouselDemo />
+      </section>
 
       <section id='about'>
         <AboutSection />

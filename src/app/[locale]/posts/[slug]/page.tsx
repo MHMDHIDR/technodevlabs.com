@@ -10,10 +10,11 @@ import { Button } from '@/components/custom/button'
 import { DeleteButton } from '@/components/custom/delete-button'
 import Layout from '@/components/custom/layout'
 import { Modal } from '@/components/custom/modal'
-import { Cover } from '@/components/ui/cover'
+import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
+import { Locale } from '@/i18n/request'
 
 export async function generateMetadata({
   params
@@ -60,7 +61,7 @@ export default async function BlogPostContentPage({
 }: {
   params: { slug: string }
 }) {
-  const t = await getTranslations('posts')
+  const postTranslations = await getTranslations('posts')
   const currentLocale = await getLocale()
 
   const settings = await getSettings()
@@ -74,10 +75,12 @@ export default async function BlogPostContentPage({
     user = session.user
   }
 
-  const modifiedContent = post.content.replace(
+  const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 shadow-lg rounded-xl dark:shadow-slate-500 md:max-w-lg" loading="lazy" alt="${post.title}"`
+    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-lg" loading="lazy" alt="${post.title}"`
   )
+
+  const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
 
   return (
     <Layout>
@@ -89,41 +92,44 @@ export default async function BlogPostContentPage({
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-bold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
-          <Cover>{post.title}</Cover>
+        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
+          <SecondaryHeading>{post.title}</SecondaryHeading>
         </h1>
 
-        <div className='flex items-center justify-between md:container max-w-7xl'>
-          <div className='flex flex-col items-center gap-3 select-none md:flex-row'>
-            <figure className='flex items-center gap-x-2'>
+        <div className='flex justify-between items-center max-w-7xl md:container'>
+          <div className='flex flex-col gap-3 items-center select-none md:flex-row'>
+            <figure className='flex gap-x-2 items-center'>
               <Image
                 alt={post.author.name ?? APP_TITLE}
-                className='rounded-full w-7 md:w-10 h-7 md:h-10'
+                className='w-7 h-7 rounded-full md:w-10 md:h-10'
                 height={48}
                 src={post.author.image ?? '/images/logo.svg'}
                 width={48}
               />
-              <figcaption className='flex items-center gap-x-2'>
+              <figcaption className='flex gap-x-2 items-center'>
                 <span className='text-sm font-semibold md:text-lg'>{post.author.name}</span>
               </figcaption>
             </figure>
             <span
               className='self-start text-sm text-neutral-500 dark:text-neutral-400 md:self-center'
-              title={`${t('publishedOn')}: ${new Date(post.createdAt).toDateString()}`}
+              title={`${postTranslations('publishedOn')}: ${new Date(post.createdAt).toDateString()}`}
             >
-              {formatDate(new Date(post.updatedAt).toDateString(), currentLocale, true)}
+              {formatDate(new Date(post.updatedAt).toDateString(), currentLocale as Locale, true)}
             </span>
             {user ? (
               <>
                 <Link className='self-start md:self-center' href={`/dashboard/posts/${post.id}`}>
-                  <Button className='flex items-center px-2 -ml-1 gap-x-2' title={t('editPost')}>
+                  <Button
+                    className='flex gap-x-2 items-center px-2 -ml-1'
+                    title={postTranslations('editPost')}
+                  >
                     <IconEdit className='w-4 h-4' />
-                    <span>{t('editPost')}</span>
+                    <span>{postTranslations('editPost')}</span>
                   </Button>
                 </Link>
                 <Modal
-                  description={t('deletePostConfirmation')}
-                  title={t('deletePost')}
+                  description={postTranslations('deletePostConfirmation')}
+                  title={postTranslations('deletePost')}
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
                   <DeleteButton entryId={post.id ?? ''} redirectTo='/posts' type='post' />
@@ -133,15 +139,15 @@ export default async function BlogPostContentPage({
           </div>
 
           <span
-            aria-label={t('readTime')}
+            aria-label={postTranslations('readTime')}
             className='text-sm select-none text-neutral-500 dark:text-neutral-400'
-            title={`${t('readTime')}: ${calculateReadTime(post.content)}`}
+            title={`${postTranslations('readTime')}: ${readTime}`}
           >
-            {calculateReadTime(post.content)}
+            {readTime}
           </span>
         </div>
 
-        <div className='container mx-auto mt-8 border rounded-lg max-w-7xl bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
+        <div className='container mx-auto mt-8 max-w-7xl rounded-lg border bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
           <article className='p-4 rounded-lg'>
             <div
               className='mb-20 leading-10'

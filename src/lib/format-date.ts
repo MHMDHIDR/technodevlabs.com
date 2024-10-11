@@ -1,3 +1,5 @@
+import type { Locale } from '@/i18n/request'
+
 /**
  * A function to format the date and time with appropriate granularity.
  * This function takes a date string and returns a more intuitive, human-readable format.
@@ -5,14 +7,14 @@
  * @param date the date string to be formatted
  * @returns the formatted date
  */
-export function formatDate(date: string, locale: string, isNormalDate?: boolean): string {
+export function formatDate(date: string, locale: Locale, isNormalDate?: boolean): string {
   if (isNormalDate) {
     const dateOptions = {
       year: 'numeric' as const,
       month: 'long' as const,
       day: 'numeric' as const
     }
-    return locale === 'en'
+    return !locale
       ? new Date(date).toLocaleDateString('en-US', dateOptions)
       : new Date(date).toLocaleDateString('ar-EG', dateOptions)
   }

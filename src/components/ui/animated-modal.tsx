@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from 'next-intl'
 import React, { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useOutsideClick } from '@/hooks/use-outside-click'
 
 interface ModalContextType {
   open: boolean
@@ -34,7 +35,7 @@ export function ModalTrigger({ children, className }: { children: ReactNode; cla
   return (
     <button
       className={cn(
-        'px-4 py-2 rounded-md text-black dark:text-white text-center relative overflow-hidden',
+        'overflow-hidden relative px-4 py-2 text-center text-black rounded-md dark:text-white',
         className
       )}
       onClick={() => setOpen(true)}
@@ -111,7 +112,7 @@ export function ModalFooter({ children, className }: { children: ReactNode; clas
   return (
     <div className={cn('flex justify-end p-3 bg-gray-100 dark:bg-neutral-900', className)}>
       <button
-        className='px-2 py-1 text-sm text-black bg-gray-200 border border-gray-300 dark:bg-black dark:border-black dark:text-white rounded-md w-28'
+        className='px-2 py-1 w-28 text-sm text-black bg-gray-200 rounded-md border border-gray-300 dark:bg-black dark:border-black dark:text-white'
         onClick={() => setOpen(false)}
         type='button'
       >
@@ -129,7 +130,7 @@ function Overlay({ className }: { className?: string }) {
         opacity: 1,
         backdropFilter: 'blur(10px)'
       }}
-      className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      className={`fixed inset-0 z-50 w-full h-full bg-black bg-opacity-50 ${className}`}
       exit={{
         opacity: 0,
         backdropFilter: 'blur(0px)'
@@ -146,7 +147,7 @@ function CloseIcon() {
   return (
     <button className='absolute top-4 right-4 group' onClick={() => setOpen(false)}>
       <svg
-        className='w-4 h-4 text-black dark:text-white group-hover:scale-125 group-hover:rotate-3 transition duration-200'
+        className='w-4 h-4 text-black transition duration-200 dark:text-white group-hover:scale-125 group-hover:rotate-3'
         fill='none'
         height='24'
         stroke='currentColor'
@@ -163,26 +164,4 @@ function CloseIcon() {
       </svg>
     </button>
   )
-}
-
-// Hook to detect clicks outside of a component.
-// Add it in a separate file, I've added here for simplicity
-export const useOutsideClick = (ref: React.RefObject<HTMLDivElement>, callback: Function) => {
-  useEffect(() => {
-    const listener = (event: any) => {
-      // DO NOTHING if the element being clicked is the target element or their children
-      if (!ref.current || ref.current.contains(event.target)) {
-        return
-      }
-      callback(event)
-    }
-
-    document.addEventListener('mousedown', listener)
-    document.addEventListener('touchstart', listener)
-
-    return () => {
-      document.removeEventListener('mousedown', listener)
-      document.removeEventListener('touchstart', listener)
-    }
-  }, [ref, callback])
 }

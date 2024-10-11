@@ -1,20 +1,33 @@
 import { IconArticle } from '@tabler/icons-react'
 import Link from 'next/link'
-import { getTranslations, getLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { Meteors } from '@/components/ui/meteors'
 import { POST_CONTENT_LENGTH, POST_TITLE_LENGTH } from '@/data/constants'
 import { formatDate } from '@/lib/utils'
 import type { Post } from '@/types'
+import type { Locale } from '@/i18n/request'
 
 export async function PostCard({ post }: { post: Post }) {
   const t = await getTranslations('posts')
-  const currentLocale = await getLocale()
+  const currentLocale = (await getLocale()) as Locale
 
-  const modifiedContent = post.content.replace(
+  const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    '<img class="rounded-lg max-w-72 max-h-56 m-2"'
+    `<img class="m-2 max-h-56 rounded-lg max-w-72" loading="lazy" alt="${post.title}"`
   )
+
+  const postTitle =
+    (currentLocale === 'ar' ? post.titleAr : post.title).length > POST_TITLE_LENGTH
+      ? `${(currentLocale === 'ar' ? post.titleAr : post.title).slice(0, POST_TITLE_LENGTH)}...`
+      : currentLocale === 'ar'
+        ? post.titleAr
+        : post.title
+
+  const postContent =
+    modifiedContent.length > POST_CONTENT_LENGTH
+      ? `${modifiedContent.slice(0, POST_CONTENT_LENGTH)}...`
+      : modifiedContent
 
   return (
     <Link
@@ -22,25 +35,18 @@ export async function PostCard({ post }: { post: Post }) {
       href={`/posts/${post.slug}`}
     >
       <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl' />
-      <div className='relative flex flex-col items-start justify-end h-full px-4 py-8 overflow-hidden bg-gray-900 border border-gray-800 shadow-xl rounded-2xl'>
-        <h1 className='relative z-50 flex items-center mb-1 text-lg text-white uppercase truncate gap-x-2'>
+      <div className='flex overflow-hidden relative flex-col justify-end items-start px-4 py-8 h-full bg-gray-900 rounded-2xl border border-gray-800 shadow-xl'>
+        <h1 className='flex relative z-50 gap-x-2 items-center mb-1 text-lg text-white uppercase truncate'>
           <IconArticle className='stroke-1' />
-          {post.title.length > POST_TITLE_LENGTH
-            ? `${post.title.slice(0, POST_TITLE_LENGTH)}...`
-            : post.title}
+          {postTitle}
         </h1>
 
         <div
           className='text-sm leading-7 text-slate-200'
-          dangerouslySetInnerHTML={{
-            __html:
-              modifiedContent.length > POST_CONTENT_LENGTH
-                ? `${modifiedContent.slice(0, POST_CONTENT_LENGTH)}...`
-                : modifiedContent
-          }}
+          dangerouslySetInnerHTML={{ __html: postContent }}
         />
 
-        <div className='flex flex-row items-center justify-between w-full mt-10'>
+        <div className='flex flex-row justify-between items-center mt-10 w-full'>
           <span className='text-sm text-gray-500'>
             {formatDate(new Date(post.updatedAt).toDateString(), currentLocale)}
           </span>

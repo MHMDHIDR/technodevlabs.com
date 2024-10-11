@@ -5,8 +5,16 @@ import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
+import type { Post } from '@/types'
 
-export async function addNewPostAction({ content, title }: { title: string; content: string }) {
+type AddNewPostActionProps = Omit<Post, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'slug'>
+
+export async function addNewPostAction({
+  content,
+  title,
+  titleAr,
+  contentAr
+}: AddNewPostActionProps) {
   const t = await getTranslations('dashboard.post')
   const actions = await getTranslations('actions')
 
@@ -25,8 +33,10 @@ export async function addNewPostAction({ content, title }: { title: string; cont
     const addedPost = await database.insert(posts).values({
       userId: user.id,
       title,
+      titleAr,
       slug: createSlug(title),
       content,
+      contentAr,
       createdAt: new Date(),
       updatedAt: new Date()
     })

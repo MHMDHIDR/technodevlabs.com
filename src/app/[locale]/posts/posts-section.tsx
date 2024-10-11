@@ -9,7 +9,7 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
   let posts = postsData.posts
   const postsCount = postsData.postsCount
 
-  const t = await getTranslations('posts')
+  const postsTranslations = await getTranslations('posts')
   // Only get the first 3 posts for the '/' homepage, so it can be displayed in a grid
   posts = pathname === '/' && postsCount > 3 ? posts.slice(0, 3) : posts
 
@@ -28,7 +28,7 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
       {pathname === '/' ? (
         <Link className='flex justify-center mt-10' href='/posts'>
           <Button className='rounded-full' withArrow>
-            {t('readMoreCTA')}
+            {postsTranslations('readMoreCTA')}
           </Button>
         </Link>
       ) : null}

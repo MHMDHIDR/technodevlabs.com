@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { ContactForm } from './contact-form'
 import Layout from '@/components/custom/layout'
-import { Cover } from '@/components/ui/cover'
+import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ContactPage() {
   const settings = await getSettings()
-  const t = await getTranslations('contact')
+  const contactTranslations = await getTranslations('contact')
 
   return (
     <Layout>
@@ -44,8 +44,8 @@ export default async function ContactPage() {
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-semibold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-          <Cover>{t('pageTitle')}</Cover>
+        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
+          <SecondaryHeading>{contactTranslations('pageTitle')}</SecondaryHeading>
         </h1>
 
         <ContactForm />

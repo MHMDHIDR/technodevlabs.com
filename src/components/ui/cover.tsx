@@ -3,8 +3,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect, useRef, useId, useState } from 'react'
 import { SparklesCore } from '@/components/ui/sparkles'
 import { cn } from '@/lib/utils'
-
-export function Cover({ children, className }: { children?: React.ReactNode; className?: string }) {
+export function SecondaryHeading({
+  children,
+  className
+}: {
+  children?: React.ReactNode
+  className?: string
+}) {
   const [hovered, setHovered] = useState(false)
 
   const ref = useRef<HTMLDivElement>(null)
@@ -29,7 +34,7 @@ export function Cover({ children, className }: { children?: React.ReactNode; cla
   return (
     <div
       ref={ref}
-      className='relative select-none inline-block px-4 py-2 rounded-sm transition duration-200 hover:bg-neutral-900 group/cover dark:bg-neutral-900 bg-neutral-100'
+      className='inline-block relative px-4 py-2 rounded-sm transition duration-200 select-none hover:bg-neutral-900 group/cover dark:bg-neutral-900 bg-neutral-100'
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -37,7 +42,7 @@ export function Cover({ children, className }: { children?: React.ReactNode; cla
         {hovered && (
           <motion.div
             animate={{ opacity: 1 }}
-            className='absolute inset-0 w-full h-full overflow-hidden'
+            className='overflow-hidden absolute inset-0 w-full h-full'
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             transition={{
@@ -99,7 +104,7 @@ export function Cover({ children, className }: { children?: React.ReactNode; cla
           y: hovered ? [0, 30, -30, 30, -30, 0] : 0
         }}
         className={cn(
-          'dark:text-white inline-block text-neutral-900 relative z-20 group-hover/cover:text-white transition duration-200',
+          'inline-block relative z-20 transition duration-200 dark:text-white text-neutral-900 group-hover/cover:text-white',
           className
         )}
         exit={{
@@ -204,7 +209,7 @@ export function CircleIcon({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        `pointer-events-none animate-pulse group-hover/cover:hidden group-hover/cover:opacity-100 group h-2 w-2 rounded-full bg-neutral-600 dark:bg-white opacity-20 group-hover/cover:bg-white`,
+        `w-2 h-2 rounded-full opacity-20 animate-pulse pointer-events-none group-hover/cover:hidden group-hover/cover:opacity-100 group bg-neutral-600 dark:bg-white group-hover/cover:bg-white`,
         className
       )}
     />

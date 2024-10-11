@@ -7,17 +7,18 @@ import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
+import { Post } from '@/types'
+
+type UpdatePostActionProps = Omit<Post, 'userId' | 'createdAt' | 'updatedAt' | 'slug'>
 
 export async function updatePostAction({
+  id: postId,
+  title,
+  titleAr,
   content,
-  postId,
-  title
-}: {
-  postId: string
-  title: string
-  content: string
-}) {
-  const t = await getTranslations('dashboard.post')
+  contentAr
+}: UpdatePostActionProps) {
+  const postTranslations = await getTranslations('dashboard.post')
   const actions = await getTranslations('actions')
 
   try {
@@ -27,20 +28,20 @@ export async function updatePostAction({
     }
 
     if (!postId) {
-      throw new Error('Post ID is required')
+      throw new Error(postTranslations('idRequired'))
     }
 
     const updatedPost = await database
       .update(posts)
-      .set({ title, slug: createSlug(title), content, updatedAt: new Date() })
+      .set({ title, titleAr, slug: createSlug(title), content, contentAr, updatedAt: new Date() })
       .where(eq(posts.id, postId))
 
     if (updatedPost.length > 0) {
-      return { success: false, message: t('updateErrorMessage') }
+      return { success: false, message: postTranslations('updateErrorMessage') }
     }
 
     revalidatePath('/dashboard/posts')
-    return { success: true, message: t('updateSuccessMessage') }
+    return { success: true, message: postTranslations('updateSuccessMessage') }
   } catch (error) {
     console.error('Error updating post:', error)
 
@@ -53,7 +54,7 @@ export async function updatePostAction({
         ) {
           return {
             success: false,
-            message: t('postExits')
+            message: postTranslations('postExits')
           }
         }
       }

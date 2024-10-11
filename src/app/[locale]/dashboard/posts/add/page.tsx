@@ -30,7 +30,7 @@ function MenuBar({ editor }: { editor: any }) {
   }
 
   return (
-    <div className='flex flex-wrap p-2 bg-gray-100 gap-2 dark:bg-gray-700 rounded-t-md'>
+    <div className='flex flex-wrap gap-2 p-2 bg-gray-100 rounded-t-md dark:bg-gray-700'>
       <Button
         className={`px-2 py-1 text-sm ${
           editor.isActive('heading', { level: 1 })
@@ -137,14 +137,22 @@ function MenuBar({ editor }: { editor: any }) {
 
 export default function DashboardPostAdd() {
   const [title, setTitle] = useState('')
+  const [titleAr, setTitleAr] = useState('')
   const { replace } = useRouter()
   const t = useTranslations('dashboard.post')
 
-  /**
-   * Using the fantastic tiptap editor
-   * @see https://tiptap.dev/docs/examples/basics/default-text-editor
-   */
   const editor = useEditor({
+    extensions: [StarterKit, Image],
+    content: '',
+    editorProps: {
+      attributes: {
+        class: 'prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none'
+      }
+    },
+    immediatelyRender: false
+  })
+
+  const editorAr = useEditor({
     extensions: [StarterKit, Image],
     content: '',
     editorProps: {
@@ -158,10 +166,11 @@ export default function DashboardPostAdd() {
   const addPost = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!editor) return
+    if (!editor || !editorAr) return
     const content = editor.getHTML() ?? ''
+    const contentAr = editorAr.getHTML() ?? ''
 
-    const { message, success } = await addNewPostAction({ title, content })
+    const { message, success } = await addNewPostAction({ title, titleAr, content, contentAr })
 
     if (!success) {
       toast(message, {
@@ -194,34 +203,67 @@ export default function DashboardPostAdd() {
 
     // Reset form after submission
     setTitle('')
+    setTitleAr('')
     editor?.commands.setContent('')
+    editorAr?.commands.setContent('')
     replace('/dashboard/posts')
   }
 
   return (
-    <section className='max-w-4xl p-6 mx-auto'>
+    <section className='p-6 mx-auto max-w-4xl'>
       <h3 className='mb-6 text-2xl font-bold text-center'>{t('addPost')}</h3>
 
       <form className='space-y-6' onSubmit={addPost}>
-        <LabelInputContainer>
-          <Label htmlFor='title'>{t('postTitle')}</Label>
-          <Input
-            className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-            id='title'
-            onChange={e => setTitle(e.target.value)}
-            required
-            type='text'
-            value={title}
-          />
-        </LabelInputContainer>
+        <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
+          <LabelInputContainer>
+            <Label htmlFor='title'>
+              {t('postTitle')} (English Post / عنوان المقالة باللغة الإنجليزية)
+            </Label>
+            <Input
+              className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+              id='title'
+              onChange={e => setTitle(e.target.value)}
+              required
+              type='text'
+              value={title}
+            />
+          </LabelInputContainer>
+
+          <LabelInputContainer>
+            <Label htmlFor='titleAr' className='text-right'>
+              {t('postTitle')} (Arabic Post / عنوان المقالة بالعربي)
+            </Label>
+            <Input
+              className='block mt-1 w-full rounded-md border-gray-300 shadow-sm rtl focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+              id='titleAr'
+              onChange={e => setTitleAr(e.target.value)}
+              required
+              type='text'
+              value={titleAr}
+            />
+          </LabelInputContainer>
+        </div>
 
         <LabelInputContainer>
-          <Label htmlFor='content'>{t('postContent')}</Label>
+          <Label htmlFor='content'>{t('postContent')} (English)</Label>
           <MenuBar editor={editor} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
               className='p-4 text-lg bg-neutral-50 dark:bg-neutral-800 min-h-52'
               editor={editor}
+            />
+          </div>
+        </LabelInputContainer>
+
+        <LabelInputContainer>
+          <Label htmlFor='contentAr' className='text-right'>
+            {t('postContent')} (محتوى المقالة بالعربي)
+          </Label>
+          <MenuBar editor={editorAr} />
+          <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
+            <EditorContent
+              className='p-4 text-lg rtl bg-neutral-50 dark:bg-neutral-800 min-h-52'
+              editor={editorAr}
             />
           </div>
         </LabelInputContainer>
