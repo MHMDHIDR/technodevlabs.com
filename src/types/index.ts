@@ -8,7 +8,6 @@ import {
   projects,
   settings
 } from '@/db/schema'
-import type { Formats, TranslationValues } from 'next-intl'
 
 // Inferred types from Drizzle ORM
 export type User = typeof users.$inferSelect

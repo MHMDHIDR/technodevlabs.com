@@ -1,8 +1,6 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl'
-import { ReactNode } from 'react'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { Providers } from '@/providers'
-import '../globals.css'
 import { cn } from '@/lib/utils'
 import { Cairo as FontSans } from 'next/font/google'
 import type { Metadata } from 'next'
@@ -34,12 +32,13 @@ export const metadata: Metadata = {
   }
 }
 
-type Props = {
-  children: ReactNode
+export default function LocaleLayout({
+  children,
+  params: { locale }
+}: {
+  children: React.ReactNode
   params: { locale: string }
-}
-
-export default function LocaleLayout({ children, params: { locale } }: Props) {
+}) {
   const messages = useMessages()
 
   return (

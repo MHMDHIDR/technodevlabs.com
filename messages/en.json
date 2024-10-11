@@ -267,7 +267,7 @@
   },
   "notFound": {
     "title": "We lost this page",
-    "description": "We searched high and low, but couldn&apos;t find what you&apos;re looking for. Let&apos;s find a better place for you to go.",
+    "description": "We searched high and low, but could not find what you are looking for. Let us find a better place for you to go.",
     "home": "Home",
     "projectsLabel": "Projects",
     "exploreProjects": "Start Exploring Projects",
@@ -277,7 +277,7 @@
     "readPostsDescription": "Read the latest posts on our blog.",
     "contactLabel": "Chat with Us",
     "chatWithUs": "Chat with our team",
-    "chatWithUsDescription": "Can&apos;t find what you&apos;re looking for? Chat to our team."
+    "chatWithUsDescription": "Can not find what you are looking for? Chat to our team."
   },
   "actions": {
     "deleteButton": "Delete {type}",
