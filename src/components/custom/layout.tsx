@@ -6,7 +6,7 @@ function Layout({ children, className }: { className?: string; children: React.R
     <>
       <Nav />
       <section className={className}>{children}</section>
-      <Footer />
+      <Footer withThemeToggler />
     </>
   )
 }

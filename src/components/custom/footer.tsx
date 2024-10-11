@@ -17,8 +17,8 @@ import {
   APP_TWITTER_URL
 } from '@/data/constants'
 
-export default async function Footer() {
-  const t = await getTranslations('footer')
+export default async function Footer({ withThemeToggler = false }: { withThemeToggler?: boolean }) {
+  const footerTranslations = await getTranslations('footer')
 
   return (
     <footer className='w-full mt-auto bg-gray-900 dark:bg-neutral-950'>
@@ -35,62 +35,62 @@ export default async function Footer() {
               />
             </Link>
 
-            <ThemeToggler />
+            {withThemeToggler && <ThemeToggler />}
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0 mr-20 md:mr-0'>
-            <h4 className='font-semibold text-gray-100'>{t('company')}</h4>
+            <h4 className='font-semibold text-gray-100'>{footerTranslations('company')}</h4>
 
             <div className='mt-3 grid space-y-3'>
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/about'
               >
-                {t('aboutUs')}
+                {footerTranslations('aboutUs')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/posts'
               >
-                {t('blog')}
+                {footerTranslations('blog')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/contact'
               >
-                {t('contact')}
+                {footerTranslations('contact')}
               </Link>
             </div>
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0'>
-            <h4 className='font-semibold text-gray-100'>{t('legal')}</h4>
+            <h4 className='font-semibold text-gray-100'>{footerTranslations('legal')}</h4>
 
             <div className='mt-3 grid space-y-3'>
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/terms'
               >
-                {t('termsOfService')}
+                {footerTranslations('termsOfService')}
               </Link>
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
                 href='/privacy'
               >
-                {t('privacyPolicy')}
+                {footerTranslations('privacyPolicy')}
               </Link>
             </div>
           </div>
 
           <div className='col-span-2'>
-            <h4 className='font-semibold text-gray-100'>{t('ourVision')}</h4>
+            <h4 className='font-semibold text-gray-100'>{footerTranslations('ourVision')}</h4>
 
             <form>
               <div className='flex flex-col items-center py-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3'>
-                <p className='text-justify'>{t('visionText')}</p>
+                <p className='text-justify'>{footerTranslations('visionText')}</p>
               </div>
             </form>
           </div>
@@ -99,7 +99,7 @@ export default async function Footer() {
         <div className='mt-5 grid sm:mt-12 gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center'>
           <div className='flex items-center justify-between'>
             <p className='text-sm text-gray-400 dark:text-neutral-400'>
-              {t('allRightsReserved', { year: new Date().getFullYear() })}
+              {footerTranslations('allRightsReserved', { year: new Date().getFullYear() })}
             </p>
           </div>
 

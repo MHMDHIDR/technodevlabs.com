@@ -6,6 +6,7 @@ import { Block } from '@/components/custom/block'
 import NotFoundTranslationsEn from '@/../messages/en.json'
 import NotFoundTranslationsAr from '@/../messages/ar.json'
 import MinifiedNav from '@/components/custom/minified-nav'
+import Footer from '@/components/custom/footer'
 import { cookies } from 'next/headers'
 
 export default function RootNotFoundPage() {
@@ -89,6 +90,7 @@ export default function RootNotFoundPage() {
             </div>
           </div>
         </section>
+        <Footer withThemeToggler={false} />
       </body>
     </html>
   )
