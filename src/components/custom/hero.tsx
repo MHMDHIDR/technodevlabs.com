@@ -21,7 +21,7 @@ export function Hero() {
   return (
     <LampContainer className='pt-40'>
       <motion.div
-        className='flex flex-col items-center py-4 mt-10 tracking-tight select-none gap-y-10'
+        className='flex flex-col gap-y-10 items-center py-4 mt-10 tracking-tight select-none'
         initial={{ opacity: 0, y: 200 }}
         transition={{
           delay: 0.25,
@@ -37,10 +37,10 @@ export function Hero() {
         </h1>
 
         <button className='relative p-1 w-fit'>
-          <div className='absolute inset-0 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500' />
+          <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
           <Link
-            className='relative inline-block px-8 py-2 text-white bg-black transition duration-200 rounded-md hover:bg-transparent'
-            href='/#contact'
+            className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'
+            href='/#projects'
           >
             {t('getStarted')}
           </Link>
