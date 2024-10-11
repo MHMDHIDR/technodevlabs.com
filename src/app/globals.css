@@ -70,6 +70,10 @@
     direction: rtl;
   }
 
+  .ltr {
+    direction: ltr;
+  }
+
   ::-webkit-scrollbar {
     @apply w-2;
   }

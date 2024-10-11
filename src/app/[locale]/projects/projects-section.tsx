@@ -1,11 +1,10 @@
-'use client'
-import { Button } from '@/components/custom/button'
-import { Card, Carousel } from '@/components/ui/apple-cards-carousel'
-import { PrimaryHeading } from '@/components/ui/text-hover-effect'
-import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { Button } from '@/components/custom/button'
+import { Card, Carousel } from '@/components/ui/apple-cards-carousel'
+import { PrimaryHeading } from '@/components/ui/text-hover-effect'
+import { useTranslations } from 'next-intl'
 
 export function AppleCardsCarouselDemo() {
   const projectsTranslations = useTranslations('projects')
@@ -13,10 +12,6 @@ export function AppleCardsCarouselDemo() {
 
   return (
     <>
-      {/* <h2 className='pl-4 mx-auto max-w-7xl font-sans text-xl font-bold md:text-5xl text-neutral-800 dark:text-neutral-200'>
-        Projects
-      </h2> */}
-
       <PrimaryHeading className='-my-32'>{projectsTranslations('pageTitle')}</PrimaryHeading>
 
       <Carousel items={cards} />

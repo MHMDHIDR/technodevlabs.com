@@ -62,7 +62,7 @@ export default async function BlogPostContentPage({
   params: { slug: string }
 }) {
   const postTranslations = await getTranslations('posts')
-  const currentLocale = await getLocale()
+  const currentLocale = (await getLocale()) as Locale
 
   const settings = await getSettings()
   const post = await getPostBySlugAction({ slug })
@@ -114,7 +114,7 @@ export default async function BlogPostContentPage({
               className='self-start text-sm text-neutral-500 dark:text-neutral-400 md:self-center'
               title={`${postTranslations('publishedOn')}: ${new Date(post.createdAt).toDateString()}`}
             >
-              {formatDate(new Date(post.updatedAt).toDateString(), currentLocale as Locale, true)}
+              {formatDate(new Date(post.updatedAt).toDateString(), currentLocale, true)}
             </span>
             {user ? (
               <>
