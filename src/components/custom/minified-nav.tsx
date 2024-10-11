@@ -1,22 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { auth, signOut } from '@/auth'
-import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
-import NotFoundTranslationsEn from '@/../messages/en.json'
-import NotFoundTranslationsAr from '@/../messages/ar.json'
 import { deleteCookieAction } from '@/actions'
-import { cookies } from 'next/headers'
+import { auth, signOut } from '@/auth'
+import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
+import { getTranslations } from 'next-intl/server'
 import type { User } from 'next-auth'
 
 export default async function MinifiedNav() {
   const session = await auth()
   const user = session?.user as User | null
-
-  const locale = cookies().get('NEXT_LOCALE')?.value
-  const navTranslations = locale === 'ar' ? NotFoundTranslationsAr.Nav : NotFoundTranslationsEn.Nav
-  const authTranslations =
-    locale === 'ar' ? NotFoundTranslationsAr.auth : NotFoundTranslationsEn.auth
+  const navTranslations = await getTranslations('Nav')
+  const authTranslations = await getTranslations('auth')
 
   return (
     <header className='fixed top-0 left-0 w-full z-[100] bg-white dark:bg-neutral-900 py-2 px-4 sm:px-10 shadow-sm shadow-purple-900'>
@@ -60,23 +55,23 @@ export default async function MinifiedNav() {
             id='menu'
           >
             <div className='flex flex-col md:flex-row md:items-center gap-4 md:p-0 border shadow-md md:shadow-none md:border-none'>
-              <NavLink href='/projects' label={navTranslations.projects} />
-              <NavLink href='/about' label={navTranslations.about} />
-              <NavLink href='/services' label={navTranslations.services} />
-              <NavLink href='/posts' label={navTranslations.blog} />
-              <NavLink href='/contact' label={navTranslations.contact} />
+              <NavLink href='/projects' label={navTranslations('projects')} />
+              <NavLink href='/about' label={navTranslations('about')} />
+              <NavLink href='/services' label={navTranslations('services')} />
+              <NavLink href='/posts' label={navTranslations('blog')} />
+              <NavLink href='/contact' label={navTranslations('contact')} />
 
               {user && (
                 <>
                   <Link
                     href='/dashboard'
                     className='flex items-center gap-x-1 focus:outline-purple-900'
-                    aria-label={navTranslations.dashboard}
-                    title={navTranslations.dashboard}
+                    aria-label={navTranslations('dashboard')}
+                    title={navTranslations('dashboard')}
                   >
                     <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
                     <span className='text-sm sm:hidden lg:inline-block'>
-                      {navTranslations.dashboard}
+                      {navTranslations('dashboard')}
                     </span>
                   </Link>
 
@@ -90,12 +85,12 @@ export default async function MinifiedNav() {
                     <button
                       type='submit'
                       className='flex items-center justify-start py-2 gap-x-1'
-                      aria-label={authTranslations.signOut}
-                      title={authTranslations.signOut}
+                      aria-label={authTranslations('signOut')}
+                      title={authTranslations('signOut')}
                     >
                       <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
                       <span className='text-neutral-700 dark:text-neutral-200 hover:underline hover:text-red-500 underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500'>
-                        {authTranslations.signOut}
+                        {authTranslations('signOut')}
                       </span>
                     </button>
                   </form>
