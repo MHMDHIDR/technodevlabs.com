@@ -6,22 +6,19 @@ export default async function AnalyticsPage() {
 
   const pageviews = await analytics.retrieveDays('pageview', TRACKING_DAYS)
 
-  const totalPageviews = pageviews.reduce((acc, curr) => {
-    return (
-      acc +
-      curr.events.reduce((acc, curr) => {
-        return acc + Object.values(curr)[0]!
-      }, 0)
-    )
-  }, 0)
+  const totalPageviews = pageviews.reduce(
+    (acc, curr) => acc + curr.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0),
+    0
+  )
 
   const avgVisitorsPerDay = (totalPageviews / TRACKING_DAYS).toFixed(1)
 
   const amtVisitorsToday = pageviews
     .filter(ev => ev.date === getDate())
-    .reduce((acc, curr) => {
-      return acc + curr.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0)
-    }, 0)
+    .reduce(
+      (acc, curr) => acc + curr.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0),
+      0
+    )
 
   const topCountriesMap = new Map<string, number>()
 

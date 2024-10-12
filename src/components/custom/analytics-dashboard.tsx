@@ -73,19 +73,17 @@ export default function AnalyticsDashboard({
           {analyticsTranslations('topVisitorsThisWeek')}
         </h2>
         <div className='col-span-3 flex items-center justify-between flex-wrap gap-8'>
-          {topCountries?.map(([countryCode, number]) => {
-            return (
-              <div
-                key={countryCode}
-                className='flex items-center gap-3 text-dark-tremor-content-strong'
-              >
-                <p className='hidden sm:block text-tremor-content'>{countryCode}</p>
-                <ReactCountryFlag className='text-5xl sm:text-3xl' svg countryCode={countryCode} />
+          {topCountries?.map(([countryCode, number]) => (
+            <div
+              key={countryCode}
+              className='flex items-center gap-3 text-dark-tremor-content-strong'
+            >
+              <p className='hidden sm:block text-tremor-content'>{countryCode}</p>
+              <ReactCountryFlag className='text-5xl sm:text-3xl' svg countryCode={countryCode} />
 
-                <p className='text-tremor-content sm:text-dark-tremor-content-strong'>{number}</p>
-              </div>
-            )
-          })}
+              <p className='text-tremor-content sm:text-dark-tremor-content-strong'>{number}</p>
+            </div>
+          ))}
         </div>
       </Card>
 
@@ -96,9 +94,7 @@ export default function AnalyticsDashboard({
             showAnimation
             data={timeseriesPageviews.map(day => ({
               name: day.date,
-              Visitors: day.events.reduce((acc, curr) => {
-                return acc + Object.values(curr)[0]!
-              }, 0)
+              Visitors: day.events.reduce((acc, curr) => acc + Object.values(curr)[0]!, 0)
             }))}
             categories={[` -- ${analyticsTranslations('visitors')}`]}
             index='name'
