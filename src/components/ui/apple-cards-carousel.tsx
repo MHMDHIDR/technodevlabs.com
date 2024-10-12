@@ -72,9 +72,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   }
 
-  const isMobile = () => {
-    return window && window.innerWidth < 768
-  }
+  const isMobile = () => window && window.innerWidth < 768
 
   return (
     <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex }}>
@@ -107,8 +105,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
                     once: true
                   }
                 }}
-                key={'card' + index}
-                className='last:pr-[5%] md:last:pr-[33%]  rounded-3xl'
+                key={`card-${index}`}
+                className='last:pr-[5%] md:last:pr-[33%] rounded-3xl'
               >
                 {item}
               </motion.div>
