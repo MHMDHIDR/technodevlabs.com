@@ -14,7 +14,7 @@ export function formatDate(date: string, locale: Locale, isNormalDate?: boolean)
       month: 'long' as const,
       day: 'numeric' as const
     }
-    return !locale
+    return locale === 'en'
       ? new Date(date).toLocaleDateString('en-US', dateOptions)
       : new Date(date).toLocaleDateString('ar-EG', dateOptions)
   }
