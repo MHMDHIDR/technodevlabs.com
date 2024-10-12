@@ -98,6 +98,10 @@ export const settings = pgTable('tdl_setting', {
   layout: layoutEnum('layout').notNull().default('dotted')
 })
 
+/*
+ * This is a relation between posts and users,
+ * it means that each post is owned by a user
+ */
 export const usersRelations = relations(posts, ({ one }) => ({
   user: one(users, {
     fields: [posts.userId],

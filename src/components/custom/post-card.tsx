@@ -47,7 +47,7 @@ export async function PostCard({ post }: { post: Post }) {
         />
 
         <div className='flex flex-row justify-between items-center mt-10 w-full'>
-          <span className='text-sm text-gray-500'>
+          <span className='text-sm text-gray-500' title={new Date(post.updatedAt).toDateString()}>
             {formatDate(new Date(post.updatedAt).toDateString(), currentLocale)}
           </span>
 
