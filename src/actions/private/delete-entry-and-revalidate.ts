@@ -14,7 +14,7 @@ export async function deleteEntryAndRevalidateAction({
   entryId: string
   type: itemsTypes
   /**
-   * Only needed for projectImg type
+   * projectId is only needed for projectImg type
    */
   projectId?: string
 }): Promise<{ success: boolean; message: string }> {

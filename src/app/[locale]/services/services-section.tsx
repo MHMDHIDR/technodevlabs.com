@@ -9,7 +9,7 @@ import {
   IconShieldLock,
   IconLayersLinked
 } from '@tabler/icons-react'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
 
@@ -69,7 +69,7 @@ export function ServicesSection() {
       : servicesItems.slice(0, 3)
 
   return (
-    <BentoGrid className='max-w-4xl mx-auto gap-4'>
+    <BentoGrid className='gap-4 mx-auto max-w-4xl'>
       {displayedItems.map((item, index) => (
         <BentoGridItem
           key={index}

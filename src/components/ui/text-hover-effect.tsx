@@ -32,7 +32,7 @@ export const PrimaryHeading = ({
   return (
     <svg
       ref={svgRef}
-      viewBox='0 0 300 100'
+      viewBox='0 0 500 50'
       xmlns='http://www.w3.org/2000/svg'
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -57,10 +57,9 @@ export const PrimaryHeading = ({
           gradientUnits='userSpaceOnUse'
           r='20%'
           animate={maskPosition}
-          // Option : a smoother animation
+          /* Option : a smoother animation */
           transition={{ duration: duration ?? 0, ease: 'easeOut' }}
-
-          // Option : a smoother animation
+          /* Option : a smoother animation */
           // transition={{
           //   type: 'spring',
           //   stiffness: 300,
@@ -80,7 +79,7 @@ export const PrimaryHeading = ({
         textAnchor='middle'
         dominantBaseline='middle'
         strokeWidth='0.3'
-        className='font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800 fill-transparent text-xl  '
+        className='font-[helvetica] font-bold stroke-neutral-200 dark:stroke-neutral-800 fill-transparent text-3xl'
         style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {children}
@@ -91,7 +90,7 @@ export const PrimaryHeading = ({
         textAnchor='middle'
         dominantBaseline='middle'
         strokeWidth='0.3'
-        className='font-[helvetica] font-bold fill-transparent text-xl   stroke-neutral-200 dark:stroke-neutral-800'
+        className='font-[helvetica] font-bold fill-transparent text-3xl stroke-neutral-400'
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
           strokeDashoffset: 0,
@@ -112,7 +111,7 @@ export const PrimaryHeading = ({
         stroke='url(#textGradient)'
         strokeWidth='0.3'
         mask='url(#textMask)'
-        className='font-[helvetica] font-bold fill-transparent text-xl  '
+        className='font-[helvetica] font-bold fill-transparent text-3xl'
       >
         {children}
       </text>

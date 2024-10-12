@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/custom/button'
 import Divider from '@/components/custom/divider'
@@ -25,7 +24,7 @@ export function AboutSection() {
           opacity: 1,
           y: 0
         }}
-        className='z-50 flex flex-col items-center justify-center'
+        className='flex z-50 flex-col justify-center items-center'
         initial={{
           opacity: 0,
           y: -80
@@ -35,11 +34,11 @@ export function AboutSection() {
         }}
       >
         {pathname === '/' || pathname === '/ar' ? (
-          <motion.p className='py-3 text-xl font-bold text-center text-transparent md:text-6xl bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
+          <motion.p className='py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b md:text-6xl from-neutral-50 to-neutral-400'>
             {t('homeTitle')}
           </motion.p>
         ) : (
-          <motion.p className='container max-w-6xl py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
+          <motion.p className='container py-3 max-w-6xl text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
             {t('aboutText')}
             <Divider className='my-10' />
             {t('aboutDividerText')}

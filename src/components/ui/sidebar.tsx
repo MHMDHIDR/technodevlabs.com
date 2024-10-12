@@ -2,11 +2,12 @@
 
 import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Link, { LinkProps } from 'next/link'
+import { Link } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
 import { useState, createContext, useContext } from 'react'
 import Tooltip from '@/components/custom/tooltip'
 import { clsx, cn } from '@/lib/utils'
+import type { LinkProps } from 'next/link'
 
 interface Links {
   label: string
@@ -95,7 +96,7 @@ export function DesktopSidebar({
         width: animate ? (open ? '270px' : '60px') : '270px'
       }}
       className={cn(
-        'py-20 min-h-screen hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px] flex-shrink-0 relative',
+        'hidden relative flex-shrink-0 py-20 min-h-screen md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px]',
         className
       )}
       {...props}
@@ -143,11 +144,11 @@ export function MobileSidebar({ children, className, ...props }: React.Component
   return (
     <div
       className={cn(
-        'mt-6 h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full'
+        'flex flex-row justify-between items-center px-4 py-4 mt-6 w-full h-10 md:hidden bg-neutral-100 dark:bg-neutral-800'
       )}
       {...props}
     >
-      <div className='z-20 flex justify-end w-full'>
+      <div className='flex z-20 justify-end w-full'>
         <IconMenu2
           className='cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
           onClick={() => setOpen(!open)}
@@ -158,7 +159,7 @@ export function MobileSidebar({ children, className, ...props }: React.Component
           <motion.div
             animate={{ x: 0, opacity: 1 }}
             className={cn(
-              'fixed h-full w-full inset-0 bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col justify-between',
+              'flex fixed inset-0 flex-col justify-between p-10 w-full h-full bg-white dark:bg-neutral-900 z-[100]',
               className
             )}
             exit={{ x: '-100%', opacity: 0 }}
@@ -169,7 +170,7 @@ export function MobileSidebar({ children, className, ...props }: React.Component
             }}
           >
             <div
-              className='absolute z-50 cursor-pointer right-10 top-10 text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
+              className='absolute top-10 right-10 z-50 cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
               onClick={() => setOpen(!open)}
             >
               <IconX />
@@ -199,7 +200,7 @@ export function SidebarLink({
     <Tooltip description={link.label}>
       <Link
         className={cn(
-          clsx('flex items-center gap-2 group/sidebar py-2 px-4', {
+          clsx('flex gap-2 items-center px-4 py-2 group/sidebar', {
             'justify-center': !open
           }),
           className

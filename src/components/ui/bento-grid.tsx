@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/custom/button'
 import { APP_TITLE } from '@/data/constants'
@@ -20,7 +19,7 @@ export function BentoGrid({
     <div className='flex flex-col gap-y-10'>
       <div
         className={cn(
-          'grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ',
+          'grid grid-cols-1 gap-4 mx-auto max-w-7xl md:auto-rows-[18rem] md:grid-cols-3',
           className
         )}
       >
@@ -66,12 +65,12 @@ export function BentoGridItem({
     >
       <Image
         alt={title ?? APP_TITLE}
-        className='object-cover w-full h-full rounded-xl group-hover/bento:scale-150 group-hover/bento:rotate-12 transition duration-500'
+        className='object-cover w-full h-full rounded-xl transition duration-500 group-hover/bento:scale-150 group-hover/bento:rotate-12'
         height={150}
         src={`/images/services${src}`}
         width={255}
       />
-      <div className='absolute bottom-0 w-full p-4 bg-gradient-to-t from-black via-black/80 to-transparent'>
+      <div className='absolute bottom-0 p-4 w-full bg-gradient-to-t from-black to-transparent via-black/80'>
         <div className='transition duration-200 group-hover/bento:-translate-y-1.5'>
           {icon}
           <h3 className='my-2 font-bold text-neutral-100'>{title}</h3>

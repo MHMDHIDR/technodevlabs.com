@@ -1,5 +1,5 @@
 import { IconTrash } from '@tabler/icons-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { getLocale, getTranslations } from 'next-intl/server'
 import React from 'react'
 import { DeleteButton } from '@/components/custom/delete-button'

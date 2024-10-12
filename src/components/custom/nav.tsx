@@ -2,8 +2,7 @@
 
 import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { Link, usePathname } from '@/i18n/routing'
 import { signOut, getSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
@@ -55,23 +54,25 @@ export default function Nav() {
    * @returns String - The classNames
    */
   const activeLinkClass = (href: string) =>
-    pathname === href
-      ? 'text-blue-500'
-      : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
+    `font-medium focus:outline-purple-900 ${
+      pathname === href
+        ? 'text-blue-500'
+        : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
+    }`
 
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[100] flex justify-between items-center transition-all duration-600 ${
         hasScrolled
-          ? 'py-2 backdrop-blur-sm bg-white/90 dark:bg-neutral-900/60 shadow-sm shadow-purple-900'
+          ? 'py-2 shadow-sm backdrop-blur-sm bg-white/90 dark:bg-neutral-900/60 shadow-purple-900'
           : 'py-5 bg-white dark:bg-neutral-900'
       } px-4 sm:px-10`}
     >
-      <nav className='container w-full px-0 mx-auto md:flex md:items-center md:justify-between'>
-        <div className='flex items-center justify-between'>
+      <nav className='container px-0 mx-auto w-full md:flex md:items-center md:justify-between'>
+        <div className='flex justify-between items-center'>
           <Link
             aria-label='Brand'
-            className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-purple-900 focus:opacity-80'
+            className='flex gap-x-2 items-center text-xl font-semibold dark:text-white focus:outline-purple-900 focus:opacity-80'
             href='/'
           >
             <Image alt={APP_TITLE} src={APP_LOGO} width={40} height={40} />
@@ -84,7 +85,7 @@ export default function Nav() {
               aria-controls='navbar-items'
               aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
               aria-label='Toggle navigation'
-              className='relative flex items-center justify-center text-gray-800 shadow-sm gap-x-2 focus:outline-violet-500 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
+              className='flex relative gap-x-2 justify-center items-center text-gray-800 shadow-sm focus:outline-violet-500 dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10'
               onClick={toggleMobileMenu}
               type='button'
             >
@@ -128,10 +129,10 @@ export default function Nav() {
           } md:max-h-full md:opacity-100 md:block`}
           id='navbar-items'
         >
-          <div className='flex flex-col mt-5 gap-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5'>
+          <div className='flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5'>
             <Link
               aria-current='page'
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/#projects')}`}
+              className={activeLinkClass('/#projects')}
               href={pathname === '/' || pathname === '/ar' ? '/#projects' : '/projects'}
               onClick={toggleMobileMenu}
             >
@@ -139,7 +140,7 @@ export default function Nav() {
             </Link>
             <Link
               aria-current='page'
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/about')}`}
+              className={activeLinkClass('/about')}
               href={pathname === '/' || pathname === '/ar' ? '/#about' : '/about'}
               onClick={toggleMobileMenu}
             >
@@ -147,7 +148,7 @@ export default function Nav() {
             </Link>
             <Link
               aria-current='page'
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/services')}`}
+              className={activeLinkClass('/services')}
               href={pathname === '/' || pathname === '/ar' ? '/#services' : '/services'}
               onClick={toggleMobileMenu}
             >
@@ -155,7 +156,7 @@ export default function Nav() {
             </Link>
             <Link
               aria-current='page'
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/posts')}`}
+              className={activeLinkClass('/posts')}
               href={pathname === '/' || pathname === '/ar' ? '/#posts' : '/posts'}
               onClick={toggleMobileMenu}
             >
@@ -163,7 +164,7 @@ export default function Nav() {
             </Link>
             <Link
               aria-current='page'
-              className={`font-medium focus:outline-purple-900 ${activeLinkClass('/contact')}`}
+              className={activeLinkClass('/contact')}
               href={pathname === '/' || pathname === '/ar' ? '/#contact' : '/contact'}
               onClick={toggleMobileMenu}
             >
@@ -177,12 +178,12 @@ export default function Nav() {
                 <Link
                   aria-current='page'
                   aria-label={navTranslations('dashboard')}
-                  className='focus:outline-purple-900 flex gap-x-1'
+                  className='flex gap-x-1 focus:outline-purple-900'
                   href='/dashboard'
                   onClick={toggleMobileMenu}
                   title={navTranslations('dashboard')}
                 >
-                  <IconDashboard className='w-5 h-5 mr-2 stroke-blue-600' />
+                  <IconDashboard className='mr-2 w-5 h-5 stroke-blue-600' />
                   <span className='text-sm sm:hidden lg:inline-block'>
                     {navTranslations('dashboard')}
                   </span>
@@ -190,15 +191,15 @@ export default function Nav() {
 
                 <button
                   aria-label={authTranslations('signOut')}
-                  className='flex items-center justify-start py-2 gap-x-1'
+                  className='flex gap-x-1 justify-start items-center py-2'
                   onClick={async () => {
                     await deleteCookieAction({ name: 'can-authenticate' })
                     await signOut({ redirectTo: '/auth' })
                   }}
                   title={authTranslations('signOut')}
                 >
-                  <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
-                  <span className='text-neutral-700 dark:text-neutral-200 hover:underline hover:text-red-500 underline-offset-4 text-sm sm:hidden lg:inline-block transition-opacity duration-500'>
+                  <IconLogout2 className='mr-2 w-5 h-5 stroke-red-600' />
+                  <span className='text-sm transition-opacity duration-500 text-neutral-700 dark:text-neutral-200 hover:underline hover:text-red-500 underline-offset-4 sm:hidden lg:inline-block'>
                     {authTranslations('signOut')}
                   </span>
                 </button>

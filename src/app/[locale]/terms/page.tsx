@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
@@ -8,7 +8,8 @@ import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
-  const title = `Terms And Conditions | ${APP_TITLE}`
+  const termsTranslations = await getTranslations('terms')
+  const title = `${termsTranslations('termsTitle')} | ${APP_TITLE}`
   const description = APP_DESCRIPTION
 
   return {
@@ -34,7 +35,7 @@ export default async function TermsAndConditionsPage() {
 
   return (
     <Layout className='p-4 py-20'>
-      <h1 className='relative z-20 py-6 mx-auto mt-6 text-4xl font-semibold text-center text-transparent max-w-7xl bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
+      <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
         <SecondaryHeading>{t('termsTitle')}</SecondaryHeading>
       </h1>
 
@@ -43,12 +44,12 @@ export default async function TermsAndConditionsPage() {
       <section className='py-20 leading-[2rem] text-justify container'>
         <p>{t('lastUpdated', { date: '2024-10-01' })}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>1. {t('introduction.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>1. {t('introduction.header')}</h2>
         <p>{t('introduction.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>2. {t('useOfService.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>2. {t('useOfService.header')}</h2>
         <p>{t('useOfService.content')}</p>
-        <ul className='list-disc pl-8 mt-2'>
+        <ul className='pl-8 mt-2 list-disc'>
           <li>{t('useOfService.prohibitedUses1')}</li>
           <li>{t('useOfService.prohibitedUses2')}</li>
           <li>{t('useOfService.prohibitedUses3')}</li>
@@ -57,22 +58,22 @@ export default async function TermsAndConditionsPage() {
           <li>{t('useOfService.prohibitedUses6')}</li>
         </ul>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>3. {t('intellectualProperty.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>3. {t('intellectualProperty.header')}</h2>
         <p>{t('intellectualProperty.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>4. {t('userContent.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>4. {t('userContent.header')}</h2>
         <p>{t('userContent.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>5. {t('termination.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>5. {t('termination.header')}</h2>
         <p>{t('termination.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>6. {t('limitationOfLiability.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>6. {t('limitationOfLiability.header')}</h2>
         <p>{t('limitationOfLiability.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>7. {t('changesToTerms.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>7. {t('changesToTerms.header')}</h2>
         <p>{t('changesToTerms.content')}</p>
 
-        <h2 className='text-2xl font-semibold mt-8 mb-4'>8. {t('contactUs.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>8. {t('contactUs.header')}</h2>
         <p>
           {t('contactUs.content')}
           <Link

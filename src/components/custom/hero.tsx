@@ -1,11 +1,12 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { FlipWords } from '@/components/ui/flip-words'
 import { LampContainer } from '@/components/ui/lamp'
+import { scrollToView } from '@/lib/scrollToView'
 
 export function Hero() {
   // detect if the user is using a mobile device
@@ -36,14 +37,11 @@ export function Hero() {
           <br /> {t('with')}
         </h1>
 
-        <button className='relative p-1 w-fit'>
+        <button className='relative p-1 w-fit' onClick={() => scrollToView('projects', 350)}>
           <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
-          <Link
-            className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'
-            href='/#projects'
-          >
+          <span className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'>
             {t('getStarted')}
-          </Link>
+          </span>
         </button>
       </motion.div>
     </LampContainer>

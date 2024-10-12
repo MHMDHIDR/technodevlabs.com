@@ -9,7 +9,8 @@ import { clsx } from '@/lib/utils'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
-  const title = `Contact Support | ${APP_TITLE}`
+  const contactTranslations = await getTranslations('contact')
+  const title = `${contactTranslations('pageTitle')} | ${APP_TITLE}`
   const description = APP_DESCRIPTION
 
   return {

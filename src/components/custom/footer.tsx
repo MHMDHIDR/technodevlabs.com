@@ -5,7 +5,7 @@ import {
   IconBrandInstagram
 } from '@tabler/icons-react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import ThemeToggler from '@/components/custom/theme-toggler'
 import {

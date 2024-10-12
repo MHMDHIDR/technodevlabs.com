@@ -1,10 +1,9 @@
 import { IconEdit, IconTrash } from '@tabler/icons-react'
-import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { getPostBySlugAction } from '@/actions/get-post'
+import { getPostBySlugAction } from '@/actions'
 import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
 import { DeleteButton } from '@/components/custom/delete-button'
@@ -14,23 +13,28 @@ import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
-import { Locale } from '@/i18n/request'
+import type { Metadata } from 'next'
+import type { Locale } from '@/i18n/request'
 
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string }
+  params: { slug: string; locale: Locale }
 }): Promise<Metadata> {
-  const post = await getPostBySlugAction({ slug: params.slug })
+  const { slug, locale } = params
+  const currentLocale = locale ?? (await getLocale())
+  const post = await getPostBySlugAction({ slug })
   if (!post) return {}
 
-  const firstImage = post.content.match(/<img[^>]+src="([^">]+)"/)
+  const firstImage = (currentLocale === 'ar' ? post.contentAr : post.content).match(
+    /<img[^>]+src="([^">]+)"/
+  )
   const image: string = firstImage ? firstImage[1] : APP_LOGO_opengraph
 
-  const postTitle = post.title
-  const postContent = post.content
+  const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
+  const postContent = currentLocale === 'ar' ? post.contentAr : post.content
 
-  const title = `${postTitle ? postTitle : removeSlug(decodeURI(params.slug))} | ${APP_TITLE}`
+  const title = `${postTitle ? postTitle : removeSlug(decodeURI(slug))} | ${APP_TITLE}`
   const description = postContent
     ? `${postContent.slice(0, 200).replace(/<[^>]*>/g, '')}...`
     : APP_DESCRIPTION

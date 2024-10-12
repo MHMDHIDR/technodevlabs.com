@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { cn, clsx } from '@/lib/utils'
 import type { BlockProps } from '@/types'
 

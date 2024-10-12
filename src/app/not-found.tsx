@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
 import { NotFoundIcon } from '@/components/custom/icons'
 import { Button } from '@/components/custom/button'

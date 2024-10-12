@@ -1,5 +1,5 @@
 import { IconPlus } from '@tabler/icons-react'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Button } from '@/components/custom/button'
 
 export function AddButton({ children, href }: { children: string; href: string }) {

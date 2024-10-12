@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { deleteCookieAction } from '@/actions'
 import { auth, signOut } from '@/auth'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
