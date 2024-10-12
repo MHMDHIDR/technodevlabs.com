@@ -253,6 +253,7 @@
       "projects": "Projects",
       "posts": "Posts",
       "settings": "Settings",
+      "analytics": "Analytics",
       "signOut": "Sign Out"
     },
     "settings": {
@@ -260,6 +261,12 @@
       "gridLayout": "Grid Layout",
       "dottedLayout": "Dotted Layout",
       "noSettingsFound": "No settings found"
+    },
+    "analytics": {
+      "avgVisitorsPerDay": "Avg. visitors/day",
+      "visitorsToday": "Visitors today",
+      "topVisitorsThisWeek": "This weeks top visitors:",
+      "visitors": "Visitors"
     }
   },
   "auth": {

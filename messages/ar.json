@@ -253,6 +253,7 @@
       "projects": "المشاريع",
       "posts": "المشاركات",
       "settings": "الإعدادات",
+      "analytics": "إحصائيات",
       "signOut": "تسجيل الخروج"
     },
     "settings": {
@@ -260,6 +261,12 @@
       "gridLayout": "تخطيط شبكي",
       "dottedLayout": "تخطيط منقط",
       "noSettingsFound": "لم يتم العثور على إعدادات"
+    },
+    "analytics": {
+      "avgVisitorsPerDay": "متوسط الزوار في اليوم",
+      "visitorsToday": "الزوار اليوم",
+      "topVisitorsThisWeek": "أعلى الزوار هذا الأسبوع:",
+      "visitors": "الزوار"
     }
   },
   "auth": {
