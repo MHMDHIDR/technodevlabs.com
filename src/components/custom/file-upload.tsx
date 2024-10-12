@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import Image from 'next/image'
 import EmptyState from './empty-state'
 import { IconX } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
 
 type FileUploadProps = {
   onFilesSelected(_files: Array<File>): void
@@ -29,6 +30,8 @@ export function FileUpload({ onFilesSelected }: FileUploadProps) {
     onFilesSelected(updatedFiles)
   }
 
+  const dashboardImgaesTranslations = useTranslations('dashboard.project.images')
+
   return (
     <div className='w-full'>
       <div
@@ -39,12 +42,19 @@ export function FileUpload({ onFilesSelected }: FileUploadProps) {
       >
         <input {...getInputProps()} />
         {files.length > 0 ? (
-          <p>{`${files.length} ${files.length > 1 ? 'files' : 'file'} selected`}</p>
+          <span>
+            {dashboardImgaesTranslations(
+              `selectedFiles_${files.length > 1 ? 'Multiple' : 'Single'}`,
+              {
+                count: files.length
+              }
+            )}
+          </span>
         ) : (
           <EmptyState isSmall>
             {isDragActive
-              ? 'Drop files here'
-              : 'Drag and drop files here, or click to select files'}
+              ? dashboardImgaesTranslations('dropFilesHere')
+              : dashboardImgaesTranslations('dragAndDropFiles')}
           </EmptyState>
         )}
       </div>
