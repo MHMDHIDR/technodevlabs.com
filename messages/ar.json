@@ -269,6 +269,7 @@
       "visitors": "الزوار",
       "analyticsType": "إحصائيات {analyticsType}",
       "analyticsForLast7Days": "إحصائيات {analyticsType} لآخر 7 أيام",
+      "totalViews": "{totalViews} مشاهدات من {totalDevices} جهاز",
       "showingTop6": "إظهار أعلى 6 {analyticsType} لآخر 7 أيام"
     }
   },

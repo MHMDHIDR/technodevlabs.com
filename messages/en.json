@@ -269,6 +269,7 @@
       "visitors": "Visitors",
       "analyticsType": "{analyticsType} Analytics",
       "analyticsForLast7Days": "{analyticsType} Analytics for the last 7 days",
+      "totalViews": "{totalViews} total views from {totalDevices} devices",
       "showingTop6": "Showing top 6 {analyticsType} for the last 7 days"
     }
   },
