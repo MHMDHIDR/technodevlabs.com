@@ -1,7 +1,6 @@
-import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from '@/i18n/routing'
-import { analytics } from '@/lib/utils'
+import { NextRequest } from 'next/server'
 
 const publicPages = [
   '/',
@@ -32,20 +31,6 @@ export default async function middleware(req: NextRequest) {
   if (isPublicPage) {
     return intlMiddleware(req)
   }
-
-  // Handle analytics
-  if (req.nextUrl.pathname === '/') {
-    try {
-      await analytics.track('page_view', {
-        page: '/',
-        country: req.geo?.country
-      })
-    } catch (error) {
-      console.error('Error tracking page in middleware view: ', error)
-    }
-  }
-
-  // return NextResponse.next()
 
   // Handle non-public pages here  For now, we'll just call intlMiddleware for all routes
   return intlMiddleware(req)

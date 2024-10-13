@@ -3,6 +3,7 @@ export { emailAction } from '@/actions/private/email'
 export { getProjectByIdAction } from '@/actions/projects/get-project-by-id'
 export { getPostByIdAction } from '@/actions/posts/get-post-by-id'
 export { getPostBySlugAction } from '@/actions/posts/get-post-by-slug'
+export { getAnalyticsAction } from '@/actions/private/get-analytics'
 
 export { addNewPostAction } from '@/actions/posts/add-new-post'
 export { addNewProjectAction } from '@/actions/projects/add-new-project'

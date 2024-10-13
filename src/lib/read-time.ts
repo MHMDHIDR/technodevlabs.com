@@ -20,8 +20,8 @@ export async function calculateReadTime(article: string): Promise<string> {
   const readTime = Math.ceil(words.length / wordsPerMinute)
 
   return readTime > 1
-    ? `${readTime} ${currentLocale === 'en' ? 'minutes in read' : 'دقيقة في القراءة'}`
+    ? `${readTime} ${currentLocale === 'en' ? 'mins in read' : 'دقائق للقراءة'}`
     : currentLocale === 'en'
-      ? '1 minute in read'
-      : 'دقيقة واحدة في القراءة'
+      ? '1 min read'
+      : '1 دقيقة في القراءة'
 }

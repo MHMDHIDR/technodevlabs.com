@@ -67,8 +67,6 @@ export function DeleteButton({
 
       if (type === 'projectImg') {
         onSuccess?.()
-
-        console.log('open :>> ', open)
       } else {
         replace(redirectTo ?? `/dashboard/${type}s`)
       }

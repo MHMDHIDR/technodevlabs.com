@@ -101,8 +101,13 @@ export type ProjectImagesGridProps = {
   type: itemsTypes
 }
 
-// export type useTranslationsProps = (
-//   key: string,
-//   values?: TranslationValues,
-//   formats?: Formats
-// ) => string
+export enum AnalyticsTypes {
+  PATH = 'path',
+  OS_NAME = 'os_name',
+  COUNTRY = 'country',
+  DEVICE_TYPE = 'device_type'
+}
+
+export type GetAnalyticsActionProps = {
+  type?: (typeof AnalyticsTypes)[keyof typeof AnalyticsTypes]
+}
