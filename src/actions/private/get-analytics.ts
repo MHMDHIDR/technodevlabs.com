@@ -54,7 +54,7 @@ export async function getAnalyticsAction({
       headers.append('Authorization', `Bearer ${apiToken}`)
     }
 
-    const results = await fetch(baseUrl, { headers })
+    const results = await fetch(baseUrl, { headers, cache: 'no-store' })
 
     if (!results.ok) {
       const errorText = await results.text()
