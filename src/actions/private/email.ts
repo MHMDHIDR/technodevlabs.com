@@ -12,6 +12,7 @@ export async function emailAction({ from, msg, name, subject, to }: emailMethodP
 
   const { data, error: cause }: CreateEmailResponse = await resend.emails.send({
     to,
+    cc: ['Mr.hamood277@gmail.com', 'info@mohammedhaydar.com'],
     from: `${name ?? APP_TITLE} <${ADMIN_EMAIL}>`,
     subject,
     replyTo: from,
