@@ -230,9 +230,7 @@ export default function DashboardPostAdd() {
           </LabelInputContainer>
 
           <LabelInputContainer>
-            <Label htmlFor='titleAr' className='text-right'>
-              {t('postTitle')} (Arabic Post / عنوان المقالة بالعربي)
-            </Label>
+            <Label htmlFor='titleAr'>{t('postTitle')} (Arabic Post / عنوان المقالة بالعربي)</Label>
             <Input
               className='block mt-1 w-full rounded-md border-gray-300 shadow-sm rtl focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
               id='titleAr'
@@ -256,9 +254,7 @@ export default function DashboardPostAdd() {
         </LabelInputContainer>
 
         <LabelInputContainer>
-          <Label htmlFor='contentAr' className='text-right'>
-            {t('postContent')} (محتوى المقالة بالعربي)
-          </Label>
+          <Label htmlFor='contentAr'>{t('postContent')} (محتوى المقالة بالعربي)</Label>
           <MenuBar editor={editorAr} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent

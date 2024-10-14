@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/routing'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { Locale } from '@/i18n/request'
 import { Button } from '@/components/custom/button'
 import { getProjects } from '@/data/projects'
 import { Carousel, Card as ProjectCard } from '@/components/ui/cards-carousel'
@@ -7,6 +8,7 @@ import type { ProjectCardProps } from '@/types'
 
 export async function ProjectsSection({ pathname }: { pathname?: string }) {
   const projectsTranslations = await getTranslations('projects')
+  const currentLocale = (await getLocale()) as Locale
   const projectsData = await getProjects()
   let projects = projectsData.projects
   const projectsCount = projectsData.projectsCount
@@ -17,8 +19,8 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
   const projectCards = projects.map((project, index) => {
     const projectCard: ProjectCardProps = {
       src: project.images[0],
-      title: project.title,
-      description: project.description,
+      title: currentLocale === 'ar' ? project.titleAr : project.title,
+      description: currentLocale === 'ar' ? project.descriptionAr : project.description,
       url: project.url,
       images: project.images
     }
@@ -27,7 +29,7 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
   })
 
   return projects && projectsCount !== 0 ? (
-    <div className='container max-w-5xl rtl:ltr'>
+    <div className='container max-w-5xl'>
       <Carousel items={projectCards} />
 
       {pathname === '/' ? (

@@ -16,13 +16,15 @@ import type { Project, updateProjectData } from '@/types'
  * @returns        - A success message if the project was updated successfully
  */
 export async function updateProjectAction({
+  title,
+  titleAr,
   description,
+  descriptionAr,
   images,
   projectId,
-  title,
   url
 }: updateProjectData) {
-  const t = await getTranslations('dashboard.project')
+  const projectTranslations = await getTranslations('dashboard.project')
   const actions = await getTranslations('actions')
 
   try {
@@ -32,7 +34,7 @@ export async function updateProjectAction({
     }
 
     if (!projectId) {
-      return { success: false, message: t('idRequired') }
+      return { success: false, message: projectTranslations('idRequired') }
     }
 
     // Fetch current project data
@@ -42,7 +44,7 @@ export async function updateProjectAction({
       .where(eq(projects.id, projectId))
 
     if (!currentProject) {
-      return { success: false, message: t('updateErrorMessage') }
+      return { success: false, message: projectTranslations('updateErrorMessage') }
     }
 
     // Prepare update object
@@ -50,6 +52,8 @@ export async function updateProjectAction({
     if (title !== undefined) updateData.title = title
     if (description !== undefined) updateData.description = description
     if (url !== undefined) updateData.url = url
+    if (titleAr !== undefined) updateData.titleAr = titleAr
+    if (descriptionAr !== undefined) updateData.descriptionAr = descriptionAr
 
     if (images) {
       if ('removeImage' in images) {
@@ -69,10 +73,10 @@ export async function updateProjectAction({
       .where(eq(projects.id, projectId))
 
     if (updatedProject.length > 0) {
-      return { success: false, message: t('updateErrorMessage') }
+      return { success: false, message: projectTranslations('updateErrorMessage') }
     }
 
-    return { success: true, message: t('updateSuccessMessage') }
+    return { success: true, message: projectTranslations('updateSuccessMessage') }
   } catch (error) {
     console.error('Error updating project:', error)
     return { success: false, message: actions('500error') }

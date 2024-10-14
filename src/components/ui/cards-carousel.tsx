@@ -2,11 +2,19 @@
 
 import Image, { ImageProps } from 'next/image'
 import React, { useEffect, useRef, useState, createContext, useContext } from 'react'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/routing'
 import { createPortal } from 'react-dom'
-import { IconArrowNarrowLeft, IconArrowNarrowRight, IconX } from '@tabler/icons-react'
+import {
+  IconArrowNarrowLeft,
+  IconArrowNarrowRight,
+  IconBrowserCheck,
+  IconX
+} from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useOutsideClick } from '@/hooks/use-outside-click'
+import { Button } from '@/components/custom/button'
 import { ITEMS_COUNT } from '@/data/constants'
 import type { CarouselControlsProps, ProjectCardProps } from '@/types'
 
@@ -93,7 +101,7 @@ export const Carousel = ({
       )}
 
       <div
-        className='flex w-full overflow-x-scroll overscroll-x-auto py-3.5 scroll-smooth [scrollbar-width:none]'
+        className='flex w-full overflow-x-scroll overscroll-x-auto py-3.5 scroll-smooth [scrollbar-width:none] rtl:ltr'
         ref={carouselRef}
         onScroll={checkScrollability}
       >
@@ -219,6 +227,7 @@ const ExpandedCard = ({
   onClose: () => void
   layout: boolean
 }) => {
+  const projectsTranslations = useTranslations('projects')
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -263,13 +272,23 @@ const ExpandedCard = ({
         </button>
         <motion.p
           layoutId={layout ? `title-${card.title}` : undefined}
-          className='mt-4 text-2xl font-semibold md:text-5xl text-neutral-700 dark:text-white'
+          className='inline-flex gap-x-2 mt-4 text-lg font-semibold md:text-3xl'
         >
-          {card.title}
+          <span>{card.title}</span>
+          {/* View Project Button */}
+          <Link
+            href={card.url}
+            target='_blank'
+            className='inline-flex gap-x-2 items-center px-4 py-2 text-sm bg-purple-50 rounded-full transition-colors dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
+          >
+            <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
+            <span>{projectsTranslations('viewProject')}</span>
+          </Link>
         </motion.p>
-        <div className='py-10'>{card.description}</div>
-        <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
-          {card.images.map((image, index) => (
+        <div className='py-10 leading-loose text-justify'>{card.description}</div>
+        <div className='grid grid-cols-1 gap-2 gap-y-6 md:grid-cols-2'>
+          {/* show all images split out the first  */}
+          {card.images.slice(1).map((image, index) => (
             <Image
               key={index}
               src={image}
@@ -279,6 +298,18 @@ const ExpandedCard = ({
               className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200'
             />
           ))}
+        </div>
+        {/* CTA Contact Us  */}
+        <div className='flex flex-col gap-4 justify-center items-center my-6'>
+          <p className='text-lg text-center'>
+            {projectsTranslations('CATParagraph', { projectName: card.title })}
+          </p>
+
+          <Link className='flex justify-center mt-10' href='/contact'>
+            <Button className='rounded-full' withArrow>
+              {projectsTranslations('contactUsCTA')}
+            </Button>
+          </Link>
         </div>
       </motion.div>
     </div>

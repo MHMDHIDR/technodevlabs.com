@@ -73,12 +73,15 @@
     "deletePostConfirmation": "هل أنت متأكد أنك تريد حذف هذا المقال؟"
   },
   "projects": {
-    "pageTitle": "آخر المشاريع",
+    "pageTitle": "أحدث المشاريع",
     "noProjects": "عذرًا، لا توجد مشاريع متاحة.",
     "publishedOn": "نشر في",
     "addProject": "إضافة مشروع",
     "editProject": "تعديل المشروع",
-    "exploreMoreCTA": "استكشف المزيد من المشاريع"
+    "exploreMoreCTA": "استكشف المزيد من المشاريع",
+    "CATParagraph": "هل تريد مشروع مشابه ل {projectName}؟",
+    "contactUsCTA": "دعنا نصنع شيئًا رائعًا معًا",
+    "viewProject": "عرض المشروع"
   },
   "contact": {
     "pageTitle": "تواصل معنا",
@@ -222,10 +225,12 @@
     },
     "project": {
       "noProjects": "لا توجد مشاريع متاحة",
-      "addPost": "إضافة مشروع",
-      "projectTitle": "عنوان المشروع",
+      "addProject": "إضافة مشروع",
+      "projectTitle": "عنوان المشروع (إنجليزي)",
+      "projectTitleAr": "عنوان المشروع (عربي)",
       "projectURL": "رابط المشروع",
-      "projectDescription": "وصف المشروع",
+      "projectDescription": "وصف المشروع (إنجليزي)",
+      "projectDescriptionAr": "وصف المشروع (عربي)",
       "projectAddImages": "إضافة صور المشروع (الحد الأقصى 5 ميجابايت)",
       "projectImages": "صور المشروع",
       "updateProject": "تحديث المشروع",

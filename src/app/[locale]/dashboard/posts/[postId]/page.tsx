@@ -284,7 +284,7 @@ export default function DashboardPostUpdate({
               </LabelInputContainer>
 
               <LabelInputContainer>
-                <Label htmlFor='titleAr' className='text-right'>
+                <Label htmlFor='titleAr'>
                   {t('postTitle')} (Arabic Post / عنوان المقالة بالعربي)
                 </Label>
                 <Input
@@ -310,9 +310,7 @@ export default function DashboardPostUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='contentAr' className='text-right'>
-                {t('postContent')} (محتوى المقالة بالعربي)
-              </Label>
+              <Label htmlFor='contentAr'>{t('postContent')} (محتوى المقالة بالعربي)</Label>
               <MenuBar editor={editorAr} />
               <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
                 <EditorContent

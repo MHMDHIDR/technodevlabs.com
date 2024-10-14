@@ -32,8 +32,10 @@ export const ITEMS_COUNT = 5
 export const DEFAULT_PROJECT = {
   id: '',
   title: '',
+  titleAr: '',
   url: '',
   description: '',
+  descriptionAr: '',
   images: [''],
   updatedAt: new Date()
 }

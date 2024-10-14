@@ -9,7 +9,7 @@ import type { Post } from '@/types'
 import type { Locale } from '@/i18n/request'
 
 export async function PostCard({ post }: { post: Post }) {
-  const t = await getTranslations('posts')
+  const postsTranslations = await getTranslations('posts')
   const currentLocale = (await getLocale()) as Locale
 
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
@@ -55,7 +55,7 @@ export async function PostCard({ post }: { post: Post }) {
             className='flex items-center px-3 text-xs text-gray-100 sm:text-sm md:text-xs lg:text-base'
             withArrow
           >
-            {t('readMoreLink')}
+            {postsTranslations('readMoreLink')}
           </Button>
         </div>
 

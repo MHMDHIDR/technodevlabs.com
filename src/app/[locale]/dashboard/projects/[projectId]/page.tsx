@@ -29,7 +29,7 @@ export default function DashboardProjectUpdate({
 }: {
   params: { projectId: string }
 }) {
-  const t = useTranslations('dashboard.project')
+  const projectTranslations = useTranslations('dashboard.project')
 
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
   const [files, setFiles] = useState<Array<File>>([])
@@ -96,7 +96,9 @@ export default function DashboardProjectUpdate({
       const { message, success } = await updateProjectAction({
         projectId,
         title: project.title,
+        titleAr: project.titleAr,
         description: project.description,
+        descriptionAr: project.descriptionAr,
         url: project.url,
         images: updatedImages
       })
@@ -150,7 +152,7 @@ export default function DashboardProjectUpdate({
   }
 
   return (
-    <section className='max-w-4xl p-6 mx-auto'>
+    <section className='p-6 mx-auto max-w-4xl'>
       {project === DEFAULT_PROJECT ? (
         <LoadingCard renderedSkeletons={5} />
       ) : project === null ? (
@@ -166,9 +168,9 @@ export default function DashboardProjectUpdate({
 
           <form className='space-y-6' onSubmit={editProject}>
             <LabelInputContainer>
-              <Label htmlFor='title'>{t('projectTitle')}</Label>
+              <Label htmlFor='title'>{projectTranslations('projectTitle')}</Label>
               <Input
-                className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='title'
                 onChange={e => setProject({ ...project, title: e.target.value })}
                 required
@@ -178,9 +180,21 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='url'>{t('projectURL')}</Label>
+              <Label htmlFor='titleAr'>{projectTranslations('projectTitleAr')}</Label>
               <Input
-                className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                id='titleAr'
+                onChange={e => setProject({ ...project, titleAr: e.target.value })}
+                required
+                type='text'
+                value={project.titleAr}
+              />
+            </LabelInputContainer>
+
+            <LabelInputContainer>
+              <Label htmlFor='url'>{projectTranslations('projectURL')}</Label>
+              <Input
+                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='url'
                 onChange={e => setProject({ ...project, url: e.target.value })}
                 required
@@ -190,9 +204,9 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='description'>{t('projectDescription')}</Label>
+              <Label htmlFor='description'>{projectTranslations('projectDescription')}</Label>
               <Textarea
-                className='block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='description'
                 onChange={e => setProject({ ...project, description: e.target.value })}
                 required
@@ -201,7 +215,18 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='images'>{t('projectAddImages')}</Label>
+              <Label htmlFor='descriptionAr'>{projectTranslations('projectDescriptionAr')}</Label>
+              <Textarea
+                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                id='descriptionAr'
+                onChange={e => setProject({ ...project, descriptionAr: e.target.value })}
+                required
+                value={project.descriptionAr}
+              />
+            </LabelInputContainer>
+
+            <LabelInputContainer>
+              <Label htmlFor='images'>{projectTranslations('projectAddImages')}</Label>
               <FileUpload onFilesSelected={handleFilesSelected} />
             </LabelInputContainer>
 
@@ -213,7 +238,9 @@ export default function DashboardProjectUpdate({
             />
 
             <SubmitButton disabled={isSubmitting}>
-              {isSubmitting ? t('isUpdating') : t('updateProject')}
+              {isSubmitting
+                ? projectTranslations('isUpdating')
+                : projectTranslations('updateProject')}
             </SubmitButton>
           </form>
         </>

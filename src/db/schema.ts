@@ -76,7 +76,9 @@ export const projects = pgTable('tdl_project', {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   title: text('title').notNull(),
+  titleAr: text('titleAr').notNull(),
   description: text('description').notNull(),
+  descriptionAr: text('descriptionAr').notNull(),
   url: text('url').notNull(),
   images: text('images')
     .array()

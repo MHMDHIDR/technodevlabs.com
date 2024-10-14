@@ -78,7 +78,10 @@
     "publishedOn": "Published on",
     "addProject": "Add Project",
     "editProject": "Edit Project",
-    "exploreMoreCTA": "Explore More Projects"
+    "exploreMoreCTA": "Explore More Projects",
+    "CATParagraph": "Want a project similar to {projectName}?",
+    "contactUsCTA": "Let's Make Something Great Together",
+    "viewProject": "Check Out Project"
   },
   "contact": {
     "pageTitle": "Contact Us",
@@ -222,10 +225,12 @@
     },
     "project": {
       "noProjects": "No projects available",
-      "addPost": "Add Project",
-      "projectTitle": "Project Title",
+      "addProject": "Add Project",
+      "projectTitle": "Project Title (English)",
+      "projectTitleAr": "Project Title (Arabic)",
       "projectURL": "Project View URL",
-      "projectDescription": "Project Description",
+      "projectDescription": "Project Description (English)",
+      "projectDescriptionAr": "Project Description (Arabic)",
       "projectAddImages": "Add New Project Images (Max 5MB)",
       "projectImages": "Uploaded Images",
       "updateProject": "Update Project",
