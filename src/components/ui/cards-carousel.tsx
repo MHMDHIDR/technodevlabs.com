@@ -260,17 +260,17 @@ const ExpandedCard = ({
         </button>
         <motion.p
           layoutId={layout ? `title-${card.title}` : undefined}
-          className='inline-flex gap-x-2 mt-4 text-lg font-semibold md:text-3xl'
+          className='inline-flex gap-x-2 items-center mt-4 text-lg font-semibold md:text-3xl'
         >
-          <span>{card.title}</span>
+          <h1 className='text-sm md:text-3xl'>{card.title}</h1>
           {/* View Project Button */}
           <Link
             href={card.url}
             target='_blank'
-            className='inline-flex gap-x-2 items-center px-4 py-2 text-sm bg-purple-50 rounded-full transition-colors dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
+            className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
           >
             <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
-            <span>{projectsTranslations('viewProject')}</span>
+            <span className='text-xxs md:text-sm'>{projectsTranslations('viewProject')}</span>
           </Link>
         </motion.p>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
@@ -288,12 +288,12 @@ const ExpandedCard = ({
           ))}
         </div>
         {/* CTA Contact Us  */}
-        <div className='flex flex-col gap-4 justify-center items-center my-6'>
-          <p className='text-lg text-center'>
+        <div className='flex flex-col gap-4 justify-center items-center my-10'>
+          <p className='text-lg font-bold text-center select-none'>
             {projectsTranslations('CATParagraph', { projectName: card.title })}
           </p>
 
-          <Link className='flex justify-center mt-10' href='/contact'>
+          <Link className='flex justify-center mt-2' href='/contact'>
             <Button className='rounded-full' withArrow>
               {projectsTranslations('contactUsCTA')}
             </Button>
