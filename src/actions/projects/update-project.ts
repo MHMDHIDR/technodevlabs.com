@@ -49,11 +49,11 @@ export async function updateProjectAction({
 
     // Prepare update object
     const updateData: Partial<Project> = {}
-    if (title !== undefined) updateData.title = title
-    if (description !== undefined) updateData.description = description
-    if (url !== undefined) updateData.url = url
-    if (titleAr !== undefined) updateData.titleAr = titleAr
-    if (descriptionAr !== undefined) updateData.descriptionAr = descriptionAr
+    if (!title) updateData.title = title
+    if (!description) updateData.description = description
+    if (!url) updateData.url = url
+    if (!titleAr) updateData.titleAr = titleAr
+    if (!descriptionAr) updateData.descriptionAr = descriptionAr
 
     if (images) {
       if ('removeImage' in images) {

@@ -74,9 +74,11 @@ export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
     // Update the project by removing the deleted image URL
     const updateResult = await updateProjectAction({
       projectId,
-      title: undefined,
-      description: undefined,
-      url: undefined,
+      title: '',
+      titleAr: '',
+      description: '',
+      descriptionAr: '',
+      url: '',
       images: { removeImage: imageUrl }
     })
 

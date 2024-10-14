@@ -76,17 +76,6 @@ export const Carousel = ({
    */
   const handleCardClose = () => {
     setOpenCardIndex(null)
-
-    // if (carouselRef.current) {
-    //   const cardWidth = isMobile() ? 230 : 384
-    //   const gap = isMobile() ? 4 : 8
-    //   const scrollPosition = (cardWidth + gap) * (currentIndex + 1)
-    //   carouselRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' })
-    // }
-  }
-
-  const isMobile = () => {
-    return typeof window !== 'undefined' && window.innerWidth < 768
   }
 
   return (
@@ -178,6 +167,7 @@ const CarouselControls = ({
     </div>
   )
 }
+
 export const Card = ({
   card,
   index,
