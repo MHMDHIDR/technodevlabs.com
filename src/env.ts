@@ -13,9 +13,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_VERCEL_PROJECT_ID: z.string().min(1),
-    NEXT_PUBLIC_VERCEL_TEAM_ID: z.string().min(1),
-    NEXT_PUBLIC_POSTHOG_KEY: z.string().min(1),
-    NEXT_PUBLIC_POSTHOG_HOST: z.string().min(1)
+    NEXT_PUBLIC_VERCEL_TEAM_ID: z.string().min(1)
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -26,8 +24,6 @@ export const env = createEnv({
     AWS_SECRET: process.env.AWS_SECRET,
     NEXT_PUBLIC_VERCEL_PROJECT_ID: process.env.NEXT_PUBLIC_VERCEL_PROJECT_ID,
     NEXT_PUBLIC_VERCEL_TEAM_ID: process.env.NEXT_PUBLIC_VERCEL_TEAM_ID,
-    VERCEL_API_TOKEN: process.env.VERCEL_API_TOKEN,
-    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
-    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST
+    VERCEL_API_TOKEN: process.env.VERCEL_API_TOKEN
   }
 })
