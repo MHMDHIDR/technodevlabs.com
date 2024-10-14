@@ -111,3 +111,14 @@ export enum AnalyticsTypes {
 export type GetAnalyticsActionProps = {
   type?: (typeof AnalyticsTypes)[keyof typeof AnalyticsTypes]
 }
+
+export type CarouselControlsProps = {
+  canScrollLeft: boolean
+  canScrollRight: boolean
+  scrollLeft: () => void
+  scrollRight: () => void
+}
+
+export type ProjectCardProps = Omit<Project, 'id' | 'updatedAt'> & {
+  src: string
+}

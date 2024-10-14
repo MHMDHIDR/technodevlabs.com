@@ -59,7 +59,7 @@
   }
 
   * {
-    @apply border-border [font-family:'Cairo',sans-serif];
+    @apply border-border [font-family:'Cairo',sans-serif_!important];
   }
 
   html {

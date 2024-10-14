@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { PostCard } from '@/components/custom/post-card'
 import { getPosts } from '@/data/posts'
+import { ITEMS_COUNT } from '@/data/constants'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
   const postsData = await getPosts()
@@ -11,7 +12,7 @@ export async function PostsSection({ pathname }: { pathname?: string }) {
 
   const postsTranslations = await getTranslations('posts')
   // Only get the first 3 posts for the '/' homepage, so it can be displayed in a grid
-  posts = pathname === '/' && postsCount > 3 ? posts.slice(0, 3) : posts
+  posts = pathname === '/' && postsCount > ITEMS_COUNT - 2 ? posts.slice(0, ITEMS_COUNT - 2) : posts
 
   return posts && postsCount !== 0 ? (
     <div className='container max-w-5xl'>

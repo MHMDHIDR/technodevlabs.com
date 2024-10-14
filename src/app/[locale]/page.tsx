@@ -23,7 +23,7 @@ export default async function Home() {
 
       <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
-        <ProjectsSection />
+        <ProjectsSection pathname='/' />
       </section>
 
       <section id='about'>

@@ -1,12 +1,8 @@
 import { NextIntlClientProvider, useMessages } from 'next-intl'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { Providers } from '@/providers'
-import { cn } from '@/lib/utils'
-import { Cairo as FontSans } from 'next/font/google'
 import type { Metadata } from 'next'
 import type { Locale } from '@/i18n/request'
-
-const fontSans = FontSans({ subsets: ['arabic'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -48,12 +44,7 @@ export default function LocaleLayout({
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
-      <body
-        className={cn(
-          'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950',
-          fontSans.variable
-        )}
-      >
+      <body className={'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950'}>
         <Providers>
           <NextIntlClientProvider locale={locale} messages={messages}>
             {children}
