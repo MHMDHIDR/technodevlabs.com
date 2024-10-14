@@ -107,7 +107,7 @@ export const Carousel = ({
                 y: 0,
                 transition: { duration: 0.5, delay: 0.2 * index, ease: 'easeOut', once: true }
               }}
-              key={'card' + index}
+              key={`card-${index}`}
               className='last:pr-[5%] md:last:pr-[33%] rounded-3xl'
             >
               {item}
@@ -147,26 +147,24 @@ const CarouselControls = ({
   canScrollRight,
   scrollLeft,
   scrollRight
-}: CarouselControlsProps) => {
-  return (
-    <div className='flex gap-2 justify-end mr-10'>
-      <button
-        className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
-        onClick={scrollLeft}
-        disabled={!canScrollLeft}
-      >
-        <IconArrowNarrowLeft className='w-6 h-6 text-gray-500' />
-      </button>
-      <button
-        className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
-        onClick={scrollRight}
-        disabled={!canScrollRight}
-      >
-        <IconArrowNarrowRight className='w-6 h-6 text-gray-500' />
-      </button>
-    </div>
-  )
-}
+}: CarouselControlsProps) => (
+  <div className='flex gap-2 justify-end mr-10'>
+    <button
+      className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
+      onClick={scrollLeft}
+      disabled={!canScrollLeft}
+    >
+      <IconArrowNarrowLeft className='w-6 h-6 text-gray-500' />
+    </button>
+    <button
+      className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
+      onClick={scrollRight}
+      disabled={!canScrollRight}
+    >
+      <IconArrowNarrowRight className='w-6 h-6 text-gray-500' />
+    </button>
+  </div>
+)
 
 export const Card = ({
   card,
