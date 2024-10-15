@@ -188,13 +188,13 @@ export const Card = ({
       className='rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative z-10 border border-gray-300 dark:border-neutral-700'
     >
       <div className='absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b via-transparent to-transparent pointer-events-none from-black/50' />
-      <div className='relative z-40 px-6 py-4'>
-        <motion.p
+      <div className='relative z-40 p-4 px-6 w-full'>
+        <motion.h1
           layoutId={layout ? `title-${card.title}` : undefined}
-          className='text-white text-xl md:text-3xl font-semibold max-w-xxs text-left [text-wrap:balance] font-sans mt-2'
+          className='text-white text-xl md:text-2xl font-bold rtl:text-right mt-2'
         >
           {card.title}
-        </motion.p>
+        </motion.h1>
       </div>
       <BlurImage
         src={card.src}

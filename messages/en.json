@@ -231,7 +231,7 @@
       "projectURL": "Project View URL",
       "projectDescription": "Project Description (English)",
       "projectDescriptionAr": "Project Description (Arabic)",
-      "projectAddImages": "Add New Project Images (Max 5MB)",
+      "projectAddImages": "Add New Project Images (Max 5MB), First Image is Project Cover",
       "projectImages": "Uploaded Images",
       "updateProject": "Update Project",
       "isUpdating": "Updating Project...",

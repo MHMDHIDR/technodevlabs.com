@@ -6,24 +6,24 @@ import { getPosts } from '@/data/posts'
 
 export default async function DashboardPosts() {
   const { posts, postsCount } = await getPosts()
-  const t = await getTranslations('posts')
+  const postsTranslations = await getTranslations('posts')
 
   return (
     <section className='flex flex-col container py-10'>
       <div className='self-end mb-6'>
-        <AddButton href='/dashboard/posts/add'>{t('addPost')}</AddButton>
+        <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
       </div>
 
       {postsCount === 0 ? (
         <EmptyState>
-          <AddButton href='/dashboard/posts/add'>{t('addPost')}</AddButton>
+          <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400 select-none'>
-            {t('noPosts')}
+            {postsTranslations('noPosts')}
           </p>
         </EmptyState>
       ) : (
         <div className='grid grid-cols-1 gap-6'>
-          <h3 className='mb-6 text-2xl font-bold text-center'>{t('pageTitle')}</h3>
+          <h3 className='mb-6 text-2xl font-bold text-center'>{postsTranslations('pageTitle')}</h3>
 
           {posts.map(post => (
             <DashboardListItem key={post.id} item={post} type='post' />

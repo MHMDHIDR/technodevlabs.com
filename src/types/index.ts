@@ -87,7 +87,7 @@ export type ModalProps = {
 export type itemsTypes = 'post' | 'project' | 'projectImg'
 
 export type DashboardListItemProps = {
-  item: Post | Project
+  item: Post | ProjectWithBlur
   type: itemsTypes
 }
 

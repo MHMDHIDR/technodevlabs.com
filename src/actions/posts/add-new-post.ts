@@ -15,7 +15,7 @@ export async function addNewPostAction({
   titleAr,
   contentAr
 }: AddNewPostActionProps) {
-  const t = await getTranslations('dashboard.post')
+  const postsTranslations = await getTranslations('dashboard.post')
   const actions = await getTranslations('actions')
 
   try {
@@ -42,10 +42,10 @@ export async function addNewPostAction({
     })
 
     if (addedPost.length > 0) {
-      return { success: false, message: t('addErrorMessage') }
+      return { success: false, message: postsTranslations('addErrorMessage') }
     }
 
-    return { success: true, message: t('addSuccessMessage') }
+    return { success: true, message: postsTranslations('addSuccessMessage') }
   } catch (error: unknown) {
     console.error('Error adding new post:', error)
 
@@ -58,7 +58,7 @@ export async function addNewPostAction({
         ) {
           return {
             success: false,
-            message: t('postExits')
+            message: postsTranslations('postExits')
           }
         }
       }

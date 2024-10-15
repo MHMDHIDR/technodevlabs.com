@@ -231,7 +231,7 @@
       "projectURL": "رابط المشروع",
       "projectDescription": "وصف المشروع (إنجليزي)",
       "projectDescriptionAr": "وصف المشروع (عربي)",
-      "projectAddImages": "إضافة صور المشروع (الحد الأقصى 5 ميجابايت)",
+      "projectAddImages": "إضافة صور المشروع (الحد الأقصى 5 ميجابايت), الصورة الأولى هي صورة المشروع",
       "projectImages": "صور المشروع",
       "updateProject": "تحديث المشروع",
       "isUpdating": "جاري تحديث المشروع...",

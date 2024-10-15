@@ -31,56 +31,72 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PrivacyPage() {
-  const t = await getTranslations('privacy')
+  const privacyTranslations = await getTranslations('privacy')
 
   return (
     <Layout className='p-4 py-20'>
       <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-        <SecondaryHeading>{t('privacyPolicyTitle')}</SecondaryHeading>
+        <SecondaryHeading>{privacyTranslations('privacyPolicyTitle')}</SecondaryHeading>
       </h1>
 
       <Divider className='my-10' />
 
       <section className='container py-20 leading-relaxed text-justify'>
-        <p className='mb-4'>{t('lastUpdated')}</p>
+        <p className='mb-4'>{privacyTranslations('lastUpdated')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('introduction.header')}</h2>
-        <p className='mb-4'>{t('introduction.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('introduction.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('introduction.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('informationWeCollect.header')}</h2>
-        <p className='mb-4'>{t('informationWeCollect.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('informationWeCollect.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('informationWeCollect.content')}</p>
         <ul className='pl-8 mb-4 list-disc'>
           <li>
-            <strong>{t('informationWeCollect.personalData')}</strong>
+            <strong>{privacyTranslations('informationWeCollect.personalData')}</strong>
           </li>
           <li>
-            <strong>{t('informationWeCollect.usageData')}</strong>
+            <strong>{privacyTranslations('informationWeCollect.usageData')}</strong>
           </li>
         </ul>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('howWeUseYourInformation.header')}</h2>
-        <p className='mb-4'>{t('howWeUseYourInformation.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('howWeUseYourInformation.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('howWeUseYourInformation.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('dataSharingAndDisclosure.header')}</h2>
-        <p className='mb-4'>{t('dataSharingAndDisclosure.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('dataSharingAndDisclosure.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('dataSharingAndDisclosure.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('yourRightsAndChoices.header')}</h2>
-        <p className='mb-4'>{t('yourRightsAndChoices.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('yourRightsAndChoices.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('yourRightsAndChoices.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('security.header')}</h2>
-        <p className='mb-4'>{t('security.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('security.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('security.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('changesToThisPolicy.header')}</h2>
-        <p className='mb-4'>{t('changesToThisPolicy.content')}</p>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('changesToThisPolicy.header')}
+        </h2>
+        <p className='mb-4'>{privacyTranslations('changesToThisPolicy.content')}</p>
 
-        <h2 className='mt-8 mb-4 text-2xl font-semibold'>{t('contactUs.header')}</h2>
+        <h2 className='mt-8 mb-4 text-2xl font-semibold'>
+          {privacyTranslations('contactUs.header')}
+        </h2>
         <p className='mb-4'>
-          {t('contactUs.content')}{' '}
+          {privacyTranslations('contactUs.content')}{' '}
           <Link
             className='hover:underline text-neutral-800 dark:text-neutral-200'
             href='mailto:support@technodevlabs.com'
           >
-            <strong>{t('contactUs.email')}</strong>
+            <strong>{privacyTranslations('contactUs.email')}</strong>
           </Link>
           .
         </p>

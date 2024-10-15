@@ -16,7 +16,7 @@ const s3Client = new S3Client({
 })
 
 export async function deleteMultipleObjects({ projectId }: { projectId: string }) {
-  const t = await getTranslations('dashboard.project.images')
+  const projectsTranslations = await getTranslations('dashboard.project.images')
 
   try {
     // List all objects in the "folder" (objects with the projectId prefix)
@@ -43,15 +43,15 @@ export async function deleteMultipleObjects({ projectId }: { projectId: string }
       }
     }
 
-    return { success: true, message: t('imgsFailedDelete') }
+    return { success: true, message: projectsTranslations('imgsFailedDelete') }
   } catch (error) {
     console.error('Error deleting files from S3:', error)
-    return { success: false, message: t('imgsFailedDelete') }
+    return { success: false, message: projectsTranslations('imgsFailedDelete') }
   }
 }
 
 export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
-  const t = await getTranslations('dashboard.project.images')
+  const projectsTranslations = await getTranslations('dashboard.project.images')
 
   try {
     // Extract the key and projectId from the imageUrl
@@ -60,7 +60,7 @@ export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
     const key = urlParts.slice(3).join('/')
 
     if (!key || !projectId) {
-      return { success: false, message: t('invalidURL') }
+      return { success: false, message: projectsTranslations('invalidURL') }
     }
 
     const deleteParams = {
@@ -83,12 +83,12 @@ export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
     })
 
     if (!updateResult.success) {
-      return { success: false, message: t('projectFailedUpdate') }
+      return { success: false, message: projectsTranslations('projectFailedUpdate') }
     }
 
-    return { success: true, message: t('imgDeleted') }
+    return { success: true, message: projectsTranslations('imgDeleted') }
   } catch (error) {
     console.error('Error deleting file from S3 or updating project:', error)
-    return { success: false, message: t('imgFailedDelete') }
+    return { success: false, message: projectsTranslations('imgFailedDelete') }
   }
 }

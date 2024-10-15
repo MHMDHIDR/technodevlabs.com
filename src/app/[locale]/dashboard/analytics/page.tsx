@@ -6,31 +6,31 @@ export default async function DashboardAnalyticsPage() {
 
   const pageviews = await analytics.retrieveDays('pageview', TRACKING_DAYS)
 
-  const totalPageviews = pageviews.reduce((acc: any, curr: { events: any[] }) => {
-    return (
+  const totalPageviews = pageviews.reduce(
+    (acc: any, curr: { events: any[] }) =>
       acc +
       curr.events.reduce(
         (acc: number, curr: { [s: string]: unknown } | ArrayLike<unknown>) =>
           acc + Number(Object.values(curr)[0]!),
         0
-      )
-    )
-  }, 0)
+      ),
+    0
+  )
 
   const avgVisitorsPerDay = (totalPageviews / TRACKING_DAYS).toFixed(1)
 
   const amtVisitorsToday = pageviews
     .filter((ev: { date: any }) => ev.date === getDate())
-    .reduce((acc: any, curr: { events: any[] }) => {
-      return (
+    .reduce(
+      (acc: any, curr: { events: any[] }) =>
         acc +
         curr.events.reduce(
           (acc: number, curr: { [s: string]: unknown } | ArrayLike<unknown>) =>
             acc + Number(Object.values(curr)[0]!),
           0
-        )
-      )
-    }, 0)
+        ),
+      0
+    )
 
   const topCountriesMap = new Map<string, number>()
 

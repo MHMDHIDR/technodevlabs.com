@@ -226,7 +226,9 @@ export default function DashboardProjectUpdate({
             </LabelInputContainer>
 
             <LabelInputContainer>
-              <Label htmlFor='images'>{projectTranslations('projectAddImages')}</Label>
+              <Label htmlFor='images' className='text-red-600 dark:text-red-400 font-bold'>
+                {projectTranslations('projectAddImages')}
+              </Label>
               <FileUpload onFilesSelected={handleFilesSelected} />
             </LabelInputContainer>
 

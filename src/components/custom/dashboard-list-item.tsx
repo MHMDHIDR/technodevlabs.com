@@ -6,7 +6,7 @@ import { DeleteButton } from '@/components/custom/delete-button'
 import { Modal } from '@/components/custom/modal'
 import { formatDate } from '@/lib/format-date'
 import { Locale } from '@/i18n/request'
-import type { DashboardListItemProps, Post, Project } from '@/types'
+import type { DashboardListItemProps, Post, ProjectWithBlur } from '@/types'
 
 export default async function DashboardListItem({ item, type }: DashboardListItemProps) {
   const actions = await getTranslations('actions')
@@ -15,7 +15,7 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
   const isPost = type === 'post'
   const abstract = isPost
     ? (item as Post).content.replace(/<[^>]*>/g, ' ').slice(0, 150)
-    : (item as Project).description.slice(0, 150)
+    : (item as ProjectWithBlur).description.slice(0, 150)
 
   const linkHref = `/dashboard/${type}s/${item.id}`
 
