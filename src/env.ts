@@ -12,7 +12,9 @@ export const env = createEnv({
     UPSTASH_REDIS_URL: z.string().min(1),
     UPSTASH_REDIS_TOKEN: z.string().min(1)
   },
-  client: {},
+  client: {
+    NEXT_PUBLIC_URL: z.string().url()
+  },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     DATABASE_URL: process.env.DATABASE_URL,
@@ -21,6 +23,7 @@ export const env = createEnv({
     AWS_ACCESS_ID: process.env.AWS_ACCESS_ID,
     AWS_SECRET: process.env.AWS_SECRET,
     UPSTASH_REDIS_URL: process.env.UPSTASH_REDIS_URL,
-    UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN
+    UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL
   }
 })

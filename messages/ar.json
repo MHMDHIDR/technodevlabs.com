@@ -70,7 +70,8 @@
     "readMoreLink": "اقرأ المزيد",
     "readTime": " وقت القراءة",
     "deletePost": "حذف المقالة",
-    "deletePostConfirmation": "هل أنت متأكد أنك تريد حذف هذا المقال؟"
+    "deletePostConfirmation": "هل أنت متأكد أنك تريد حذف هذا المقال؟",
+    "share": "مشاركة"
   },
   "projects": {
     "pageTitle": "أحدث المشاريع",

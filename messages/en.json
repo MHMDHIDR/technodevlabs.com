@@ -70,7 +70,8 @@
     "readMoreLink": "Read More",
     "readTime": "Read Time",
     "deletePost": "Delete Post",
-    "deletePostConfirmation": "Are you sure you want to delete this post?"
+    "deletePostConfirmation": "Are you sure you want to delete this post?",
+    "share": "Share Post"
   },
   "projects": {
     "pageTitle": "Our Projects",
