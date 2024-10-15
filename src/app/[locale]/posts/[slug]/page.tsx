@@ -29,10 +29,11 @@ export async function generateMetadata({
   const post = await getPostBySlugAction({ slug })
   if (!post) return {}
 
-  const firstImage = (currentLocale === 'ar' ? post.contentAr : post.content).match(
-    /<img[^>]+src="([^">]+)"/
+  // Extract the src from the first <img> tag
+  const imgSrcMatch = (currentLocale === 'ar' ? post.contentAr : post.content).match(
+    /<img.*?src="(.*?)"/
   )
-  const image: string = firstImage ? firstImage[1] : APP_LOGO_opengraph
+  const image = imgSrcMatch ? imgSrcMatch[1] : APP_LOGO_opengraph
 
   const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
   const postContent = currentLocale === 'ar' ? post.contentAr : post.content
@@ -48,11 +49,13 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
+      url: `${env.NEXT_PUBLIC_URL}/posts/${slug}`,
+      siteName: APP_TITLE,
       images: [{ url: image, width: 1200, height: 630, alt: title }],
       type: 'article',
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
-      authors: [post.author.name ?? 'Unknown']
+      authors: [post.author.name ?? APP_TITLE]
     },
     twitter: {
       card: 'summary_large_image',
