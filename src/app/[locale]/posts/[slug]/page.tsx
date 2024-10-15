@@ -23,6 +23,7 @@ import { getSettings } from '@/data/settings'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
 import type { Metadata } from 'next'
 import type { Locale } from '@/i18n/request'
+import Divider from '@/components/custom/divider'
 
 export async function generateMetadata({
   params
@@ -87,15 +88,16 @@ export default async function BlogPostContentPage({
     user = session.user
   }
 
+  const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-screen mx-auto" loading="lazy" alt="${post.title}"`
+    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-screen mx-auto" loading="lazy" alt="${postTitle}"`
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
 
   const shareUrl = encodeURIComponent(`${env.NEXT_PUBLIC_URL}/posts/${slug}`)
-  const shareTitle = encodeURIComponent(post.title)
+  const shareTitle = encodeURIComponent(postTitle)
 
   return (
     <Layout>
@@ -108,7 +110,7 @@ export default async function BlogPostContentPage({
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
         <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
-          <SecondaryHeading>{post.title}</SecondaryHeading>
+          <SecondaryHeading>{postTitle}</SecondaryHeading>
         </h1>
 
         <div className='flex justify-between items-center max-w-7xl md:container'>
@@ -165,17 +167,19 @@ export default async function BlogPostContentPage({
         <div className='container mx-auto mt-8 max-w-7xl rounded-lg border bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
           <article className='p-4 rounded-lg'>
             <div
-              className='mb-20 leading-10'
+              className='mb-20 leading-10 text-justify'
               dangerouslySetInnerHTML={{ __html: modifiedContent }}
             />
           </article>
         </div>
 
+        <Divider className='my-10' />
+
         <div className='mt-8 text-center'>
           <h3 className='mb-4 text-lg font-semibold select-none'>
-            {postTranslations('share')} "{post.title}"
+            {postTranslations('share')} "{postTitle}"
           </h3>
-          <div className='flex justify-center space-x-4'>
+          <div className='flex justify-center gap-x-4'>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg size-10 gap-x-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
               href={`https://www.facebook.com/share.php?u=${shareUrl}`}
