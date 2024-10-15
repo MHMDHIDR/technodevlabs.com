@@ -1,22 +1,22 @@
 'use client'
 
-import Image, { ImageProps } from 'next/image'
-import React, { useEffect, useRef, useState, createContext, useContext } from 'react'
-import { useTranslations } from 'next-intl'
+import { Button } from '@/components/custom/button'
+import { ITEMS_COUNT } from '@/data/constants'
+import { useOutsideClick } from '@/hooks/use-outside-click'
 import { Link } from '@/i18n/routing'
-import { createPortal } from 'react-dom'
+import { cn } from '@/lib/utils'
+import type { CarouselControlsProps, ProjectCardProps } from '@/types'
 import {
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
   IconBrowserCheck,
   IconX
 } from '@tabler/icons-react'
-import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useOutsideClick } from '@/hooks/use-outside-click'
-import { Button } from '@/components/custom/button'
-import { ITEMS_COUNT } from '@/data/constants'
-import type { CarouselControlsProps, ProjectCardProps } from '@/types'
+import { useTranslations } from 'next-intl'
+import Image, { ImageProps } from 'next/image'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 export const CarouselContext = createContext<{
   onCardOpen: (index: number) => void
@@ -275,12 +275,12 @@ const ExpandedCard = ({
         </motion.p>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-2 gap-y-6 md:grid-cols-2'>
-          {/* show all images split out the first  */}
-          {card.images.slice(1).map((image, index) => (
+          {/* Slice out the first one beacuse it's the main image on the carousel card */}
+          {card.images.slice(1).map(image => (
             <Image
-              key={index}
+              key={card.src}
               src={image}
-              alt={card.title}
+              alt={card.description}
               width={400}
               height={400}
               className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200'

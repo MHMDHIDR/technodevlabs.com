@@ -1,4 +1,4 @@
-const withNextIntl = require('next-intl/plugin')()
+import withNextIntl from 'next-intl/plugin'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,4 +17,6 @@ const nextConfig = {
   }
 }
 
-module.exports = withNextIntl(nextConfig)
+const useNextIntl = withNextIntl()
+
+export default useNextIntl(nextConfig)
