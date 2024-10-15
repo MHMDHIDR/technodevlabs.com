@@ -81,7 +81,7 @@ export default async function BlogPostContentPage({
 
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-lg" loading="lazy" alt="${post.title}"`
+    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-screen mx-auto" loading="lazy" alt="${post.title}"`
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)

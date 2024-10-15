@@ -25,7 +25,7 @@ export const DEFAULT_DURATION = 3000
 export const FILE_UPLOAD_IMG_SIZE = 122
 
 export const POST_TITLE_LENGTH = 40
-export const POST_CONTENT_LENGTH = 200
+export const POST_CONTENT_LENGTH = 100
 
 export const ITEMS_COUNT = 5
 
