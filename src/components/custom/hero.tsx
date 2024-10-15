@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { FlipWords } from '@/components/ui/flip-words'
@@ -16,8 +15,8 @@ export function Hero() {
     setIsMobile(window.matchMedia('(max-width: 768px)').matches)
   }, [])
 
-  const t = useTranslations('Hero')
-  const words = t('flipWords').split(',')
+  const heroTranslations = useTranslations('Hero')
+  const words = heroTranslations('flipWords').split(',')
 
   return (
     <LampContainer className='pt-40'>
@@ -32,15 +31,15 @@ export function Hero() {
         whileInView={{ opacity: 1, y: isMobile ? 50 : 100 }}
       >
         <h1 className='font-bold text-center text-transparent bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-4xl md:text-7xl leading-[3rem] md:leading-[6rem]'>
-          {t('build')}
+          {heroTranslations('build')}
           <FlipWords words={words} />
-          <br /> {t('with')}
+          <br /> {heroTranslations('with')}
         </h1>
 
         <button className='relative p-1 w-fit' onClick={() => scrollToView('projects', 350)}>
           <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
           <span className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'>
-            {t('getStarted')}
+            {heroTranslations('getStarted')}
           </span>
         </button>
       </motion.div>

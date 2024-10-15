@@ -63,3 +63,50 @@ export function formatDate(date: string, locale: Locale, isNormalDate?: boolean)
       return locale === 'en' ? `${days} days ago` : `${days} قبل أيام`
   }
 }
+
+/**
+ * Get a formatted date string for the current date or a specified number of days ago.
+ * @param sub Number of days to subtract from the current date (optional, default is 0)
+ * @returns Formatted date string in 'dd/MM/yyyy' format
+ */
+export function getDate(sub: number = 0): string {
+  const date = new Date()
+  date.setDate(date.getDate() - sub)
+  return formatDateToString(date)
+}
+
+/**
+ * Format a Date object to a string in 'dd/MM/yyyy' format
+ * @param date Date object to format
+ * @returns Formatted date string
+ */
+function formatDateToString(date: Date): string {
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}/${month}/${year}`
+}
+
+/**
+ * Parse a date string in 'dd/MM/yyyy' format to a Date object
+ * @param dateString Date string in 'dd/MM/yyyy' format
+ * @param format Format string (unused, kept for compatibility)
+ * @param baseDate Base date (unused, kept for compatibility)
+ * @returns Parsed Date object
+ */
+export function parse(dateString: string, format: string, baseDate: Date): Date {
+  const [day, month, year] = dateString.split('/').map(Number)
+  return new Date(year, month - 1, day)
+}
+
+/**
+ * Compare two dates
+ * @param dateA First date
+ * @param dateB Second date
+ * @returns 1 if dateA is later, -1 if dateB is later, 0 if equal
+ */
+export function compareDates(dateA: Date, dateB: Date): number {
+  if (dateA > dateB) return 1
+  if (dateA < dateB) return -1
+  return 0
+}

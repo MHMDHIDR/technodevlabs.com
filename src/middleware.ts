@@ -1,6 +1,7 @@
+import { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from '@/i18n/routing'
-import { NextRequest } from 'next/server'
+import { analytics } from '@/lib/utils'
 
 const publicPages = [
   '/',
@@ -19,6 +20,19 @@ const publicPages = [
 const intlMiddleware = createMiddleware(routing)
 
 export default async function middleware(req: NextRequest) {
+  // Analytics tracking for the home page
+  if (req.nextUrl.pathname === '/') {
+    try {
+      await analytics.track('pageview', {
+        page: '/',
+        country: req.geo?.country
+      })
+    } catch (err) {
+      // fail silently to not affect request
+      console.error(err)
+    }
+  }
+
   const publicPathnameRegex = RegExp(
     `^(/(${routing.locales.join('|')}))?(${publicPages
       .flatMap(p => (p === '/' ? ['', '/'] : p))
@@ -32,11 +46,11 @@ export default async function middleware(req: NextRequest) {
     return intlMiddleware(req)
   }
 
-  // Handle non-public pages here  For now, we'll just call intlMiddleware for all routes
+  // Handle non-public pages here
   return intlMiddleware(req)
 }
 
 export const config = {
-  // Skip all paths that should not be internationalized
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  // Matcher combining both previous configurations
+  matcher: ['/', '/((?!api|_next|.*\\..*).*)']
 }

@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 function MenuBar({ editor }: { editor: any }) {
-  const t = useTranslations('dashboard.post')
+  const postTranslations = useTranslations('dashboard.post')
 
   if (!editor) {
     return null
@@ -40,7 +40,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         type='button'
       >
-        {t('editor.h1')}
+        {postTranslations('editor.h1')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -51,7 +51,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         type='button'
       >
-        {t('editor.h2')}
+        {postTranslations('editor.h2')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -62,7 +62,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         type='button'
       >
-        {t('editor.h3')}
+        {postTranslations('editor.h3')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -71,7 +71,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleCode().run()}
         type='button'
       >
-        {t('editor.code')}
+        {postTranslations('editor.code')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -82,7 +82,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleCodeBlock().run()}
         type='button'
       >
-        {t('editor.codeBlock')}
+        {postTranslations('editor.codeBlock')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -93,7 +93,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleBlockquote().run()}
         type='button'
       >
-        {t('editor.blockquote')}
+        {postTranslations('editor.blockquote')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -102,7 +102,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleBold().run()}
         type='button'
       >
-        {t('editor.bold')}
+        {postTranslations('editor.bold')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -111,7 +111,7 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleItalic().run()}
         type='button'
       >
-        {t('editor.italic')}
+        {postTranslations('editor.italic')}
       </Button>
       <Button
         className={`px-2 py-1 text-sm ${
@@ -122,14 +122,14 @@ function MenuBar({ editor }: { editor: any }) {
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         type='button'
       >
-        {t('editor.bulletList')}
+        {postTranslations('editor.bulletList')}
       </Button>
       <Button
         className='px-2 py-1 text-sm bg-white dark:bg-gray-700'
         onClick={addImage}
         type='button'
       >
-        {t('editor.addImage')}
+        {postTranslations('editor.addImage')}
       </Button>
     </div>
   )
@@ -139,7 +139,7 @@ export default function DashboardPostAdd() {
   const [title, setTitle] = useState('')
   const [titleAr, setTitleAr] = useState('')
   const { replace } = useRouter()
-  const t = useTranslations('dashboard.post')
+  const postTranslations = useTranslations('dashboard.post')
 
   const editor = useEditor({
     extensions: [StarterKit, Image],
@@ -211,13 +211,13 @@ export default function DashboardPostAdd() {
 
   return (
     <section className='p-6 mx-auto max-w-4xl'>
-      <h3 className='mb-6 text-2xl font-bold text-center'>{t('addPost')}</h3>
+      <h3 className='mb-6 text-2xl font-bold text-center'>{postTranslations('addPost')}</h3>
 
       <form className='space-y-6' onSubmit={addPost}>
         <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
           <LabelInputContainer>
             <Label htmlFor='title'>
-              {t('postTitle')} (English Post / عنوان المقالة باللغة الإنجليزية)
+              {postTranslations('postTitle')} (English Post / عنوان المقالة باللغة الإنجليزية)
             </Label>
             <Input
               className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
@@ -230,7 +230,9 @@ export default function DashboardPostAdd() {
           </LabelInputContainer>
 
           <LabelInputContainer>
-            <Label htmlFor='titleAr'>{t('postTitle')} (Arabic Post / عنوان المقالة بالعربي)</Label>
+            <Label htmlFor='titleAr'>
+              {postTranslations('postTitle')} (Arabic Post / عنوان المقالة بالعربي)
+            </Label>
             <Input
               className='block mt-1 w-full rounded-md border-gray-300 shadow-sm rtl focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
               id='titleAr'
@@ -243,7 +245,7 @@ export default function DashboardPostAdd() {
         </div>
 
         <LabelInputContainer>
-          <Label htmlFor='content'>{t('postContent')} (English)</Label>
+          <Label htmlFor='content'>{postTranslations('postContent')} (English)</Label>
           <MenuBar editor={editor} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
@@ -254,7 +256,9 @@ export default function DashboardPostAdd() {
         </LabelInputContainer>
 
         <LabelInputContainer>
-          <Label htmlFor='contentAr'>{t('postContent')} (محتوى المقالة بالعربي)</Label>
+          <Label htmlFor='contentAr'>
+            {postTranslations('postContent')} (محتوى المقالة بالعربي)
+          </Label>
           <MenuBar editor={editorAr} />
           <div className='h-[200px] [margin-top:-0.1rem_!important] overflow-y-auto rounded-md shadow-sm'>
             <EditorContent
@@ -264,7 +268,7 @@ export default function DashboardPostAdd() {
           </div>
         </LabelInputContainer>
 
-        <SubmitButton>{t('addPost')}</SubmitButton>
+        <SubmitButton>{postTranslations('addPost')}</SubmitButton>
       </form>
     </section>
   )

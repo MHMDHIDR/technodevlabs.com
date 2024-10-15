@@ -16,10 +16,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 
 export function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const { replace } = useRouter()
-  const t = useTranslations('contact')
+  const contactTranslations = useTranslations('contact')
   const currentLocale = useLocale()
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -94,68 +94,68 @@ export function ContactForm() {
   }
 
   return (
-    <div className='w-full max-w-4xl p-4 mx-auto bg-white rounded-none md:rounded-2xl md:p-8 shadow-input dark:bg-black'>
+    <div className='p-4 mx-auto w-full max-w-4xl bg-white rounded-none md:rounded-2xl md:p-8 shadow-input dark:bg-black'>
       <h2 className='text-xl font-bold text-center text-neutral-800 dark:text-neutral-200'>
-        {t('title')}
+        {contactTranslations('title')}
       </h2>
       <p className='mt-2 text-sm text-center text-neutral-600 dark:text-neutral-300'>
-        {t('description')}
+        {contactTranslations('description')}
       </p>
 
       <form className='my-8' onSubmit={handleSubmit}>
-        <div className='grid grid-cols-1 gap-8 gap-y-4 md:grid-cols-2'>
+        <div className='grid grid-cols-1 gap-y-4 gap-8 md:grid-cols-2'>
           <div>
-            <div className='flex flex-col mb-4 gap-x-2 space-y-2 md:flex-row md:space-y-0'>
+            <div className='flex flex-col gap-x-2 mb-4 space-y-2 md:flex-row md:space-y-0'>
               <LabelInputContainer>
-                <Label htmlFor='firstname'>{t('firstName')}</Label>
+                <Label htmlFor='firstname'>{contactTranslations('firstName')}</Label>
                 <Input
-                  className='rtl:text-right w-full'
+                  className='w-full rtl:text-right'
                   dir='auto'
                   id='firstname'
                   min={5}
                   name='firstname'
-                  placeholder={t('placeholderFirstName')}
+                  placeholder={contactTranslations('placeholderFirstName')}
                   required
                   type='text'
                 />
               </LabelInputContainer>
               <LabelInputContainer>
-                <Label htmlFor='lastname'>{t('lastName')}</Label>
+                <Label htmlFor='lastname'>{contactTranslations('lastName')}</Label>
                 <Input
-                  className='rtl:text-right w-full'
+                  className='w-full rtl:text-right'
                   dir='auto'
                   id='lastname'
                   min={5}
                   name='lastname'
-                  placeholder={t('placeholderLastName')}
+                  placeholder={contactTranslations('placeholderLastName')}
                   required
                   type='text'
                 />
               </LabelInputContainer>
             </div>
             <LabelInputContainer className='mb-4'>
-              <Label htmlFor='email'>{t('email')}</Label>
+              <Label htmlFor='email'>{contactTranslations('email')}</Label>
               <Input
                 className='rtl:text-right'
                 dir='auto'
                 id='email'
                 min={10}
                 name='email'
-                placeholder={t('placeholderEmail')}
+                placeholder={contactTranslations('placeholderEmail')}
                 required
                 type='email'
               />
             </LabelInputContainer>
             <div className='flex flex-col mb-4 space-y-2 md:flex-row md:space-y-0 md:space-x-2'>
               <LabelInputContainer>
-                <Label htmlFor='subject'>{t('subject')}</Label>
+                <Label htmlFor='subject'>{contactTranslations('subject')}</Label>
                 <Input
                   className='rtl:text-right'
                   dir='auto'
                   id='subject'
                   min={5}
                   name='subject'
-                  placeholder={t('placeholderSubject')}
+                  placeholder={contactTranslations('placeholderSubject')}
                   required
                   type='text'
                 />
@@ -163,27 +163,29 @@ export function ContactForm() {
             </div>
           </div>
           <LabelInputContainer className='mb-4'>
-            <Label htmlFor='message'>{t('message')}</Label>
+            <Label htmlFor='message'>{contactTranslations('message')}</Label>
             <Textarea
-              className='p-2 rtl:text-right border resize-y rounded-md border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52 max-h-96'
+              className='p-2 max-h-96 rounded-md border resize-y rtl:text-right border-neutral-300 dark:border-neutral-700 focus:outline-none dark:bg-neutral-900 dark:text-neutral-100 min-h-52'
               dir='auto'
               id='message'
               minLength={20}
               name='message'
-              placeholder={t('placeholderMessage')}
+              placeholder={contactTranslations('placeholderMessage')}
               required
             />
           </LabelInputContainer>
         </div>
 
         <SubmitButton disabled={status === 'loading' || status === 'success'}>
-          {status === 'loading' ? t('sendingButton') : t('sendButton')}
+          {status === 'loading'
+            ? contactTranslations('sendingButton')
+            : contactTranslations('sendButton')}
         </SubmitButton>
 
         <Divider className='my-10 mb-20' />
 
         <div className='flex flex-col space-y-4'>
-          {t('contactEmail')}{' '}
+          {contactTranslations('contactEmail')}{' '}
           <Link
             className='underline text-neutral-800 dark:text-neutral-200'
             href='mailto:support@technodevlabs.com'

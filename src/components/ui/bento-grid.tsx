@@ -13,7 +13,7 @@ export function BentoGrid({
   children?: React.ReactNode
 }) {
   const pathname = usePathname()
-  const t = useTranslations('services')
+  const servicesTranslations = useTranslations('services')
 
   return (
     <div className='flex flex-col gap-y-10'>
@@ -29,13 +29,13 @@ export function BentoGrid({
       {pathname === '/' || pathname === '/ar' ? (
         <Link className='mx-auto' href='/services'>
           <Button className='rounded-full' withArrow>
-            {t('exploreButton')}
+            {servicesTranslations('exploreButton')}
           </Button>
         </Link>
       ) : pathname === '/services' || pathname === '/ar/services' ? (
         <Link className='mx-auto' href='/contact'>
           <Button className='rounded-full' withArrow>
-            {t('ctaButton')}
+            {servicesTranslations('ctaButton')}
           </Button>
         </Link>
       ) : null}

@@ -11,17 +11,19 @@ export function UploadedFiles({
   projectImages,
   type
 }: ProjectImagesGridProps) {
-  const t = useTranslations('dashboard.project')
+  const projectTranslations = useTranslations('dashboard.project')
   const currentLocale = useLocale()
 
   return (
     <div className='mt-4'>
-      <h3 className='text-lg font-semibold mb-2 select-none'>{t('projectImages')}</h3>
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
+      <h3 className='mb-2 text-lg font-semibold select-none'>
+        {projectTranslations('projectImages')}
+      </h3>
+      <div className='grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4'>
         {projectImages.map((imageUrl, index) => (
           <div key={index} className='relative group'>
             <Modal
-              className='peer border-none'
+              className='border-none peer'
               description={
                 currentLocale === 'en'
                   ? `Are you sure you want to delete this image?`
@@ -40,7 +42,7 @@ export function UploadedFiles({
             </Modal>
             <Image
               alt={`Project image ${index + 1}`}
-              className='object-cover rounded-lg peer-hover:opacity-40 transition-opacity'
+              className='object-cover rounded-lg transition-opacity peer-hover:opacity-40'
               height={200}
               src={imageUrl}
               width={200}

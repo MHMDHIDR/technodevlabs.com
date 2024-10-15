@@ -9,7 +9,7 @@ import { ImagesSlider } from '@/components/ui/images-slider'
 
 export function AboutSection() {
   const pathname = usePathname()
-  const t = useTranslations('about')
+  const aboutTranslations = useTranslations('about')
 
   const images = [
     'https://images.unsplash.com/photo-1485433592409-9018e83a1f0d?q=80&w=1814&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -35,15 +35,15 @@ export function AboutSection() {
       >
         {pathname === '/' || pathname === '/ar' ? (
           <motion.p className='py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b md:text-6xl from-neutral-50 to-neutral-400'>
-            {t('homeTitle')}
+            {aboutTranslations('homeTitle')}
           </motion.p>
         ) : (
           <motion.p className='container py-3 max-w-6xl text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
-            {t('aboutText')}
+            {aboutTranslations('aboutText')}
             <Divider className='my-10' />
-            {t('aboutDividerText')}
+            {aboutTranslations('aboutDividerText')}
             <Divider className='my-10' />
-            {t('agencyText')}
+            {aboutTranslations('agencyText')}
           </motion.p>
         )}
 
@@ -52,7 +52,7 @@ export function AboutSection() {
           <div className='my-10'>
             <Link href='/about'>
               <Button className='text-gray-100 rounded-full' withArrow>
-                {t('knowMore')}
+                {aboutTranslations('knowMore')}
               </Button>
             </Link>
           </div>
@@ -60,7 +60,7 @@ export function AboutSection() {
           <div className='my-10'>
             <Link href='/contact'>
               <Button className='text-gray-100 rounded-full' withArrow>
-                {t('ctaButton')}
+                {aboutTranslations('ctaButton')}
               </Button>
             </Link>
           </div>

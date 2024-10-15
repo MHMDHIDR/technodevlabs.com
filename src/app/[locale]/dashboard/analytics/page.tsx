@@ -1,24 +1,81 @@
-import React from 'react'
-import { getAnalyticsAction } from '@/actions'
-import { AnalyticsTypes } from '@/types'
-import AnalyticsCharts from '@/components/custom/analytics-charts'
+import { getDate, analytics } from '@/lib/utils'
+import AnalyticsDashboard from '@/components/custom/analytics-charts'
 
 export default async function DashboardAnalyticsPage() {
-  // analyticsDataPath: is for getting the page views for the last 7 days
-  const analyticsDataPath = await getAnalyticsAction({ type: AnalyticsTypes.PATH })
-  // analyticsDataOsName: is for getting the os name for the last 7 days
-  const analyticsDataOsName = await getAnalyticsAction({ type: AnalyticsTypes.OS_NAME })
-  // analyticsDataCountry: is for getting the country for the last 7 days
-  const analyticsDataCountry = await getAnalyticsAction({ type: AnalyticsTypes.COUNTRY })
-  // analyticsDataDeviceType: is for getting the device type for the last 7 days
-  const analyticsDataDeviceType = await getAnalyticsAction({ type: AnalyticsTypes.DEVICE_TYPE })
+  const TRACKING_DAYS = 7
+
+  const pageviews = await analytics.retrieveDays('pageview', TRACKING_DAYS)
+
+  const totalPageviews = pageviews.reduce((acc: any, curr: { events: any[] }) => {
+    return (
+      acc +
+      curr.events.reduce(
+        (acc: number, curr: { [s: string]: unknown } | ArrayLike<unknown>) =>
+          acc + Number(Object.values(curr)[0]!),
+        0
+      )
+    )
+  }, 0)
+
+  const avgVisitorsPerDay = (totalPageviews / TRACKING_DAYS).toFixed(1)
+
+  const amtVisitorsToday = pageviews
+    .filter((ev: { date: any }) => ev.date === getDate())
+    .reduce((acc: any, curr: { events: any[] }) => {
+      return (
+        acc +
+        curr.events.reduce(
+          (acc: number, curr: { [s: string]: unknown } | ArrayLike<unknown>) =>
+            acc + Number(Object.values(curr)[0]!),
+          0
+        )
+      )
+    }, 0)
+
+  const topCountriesMap = new Map<string, number>()
+
+  for (let i = 0; i < pageviews.length; i++) {
+    const day = pageviews[i]
+    if (!day) continue
+
+    for (let j = 0; j < day.events.length; j++) {
+      const event = day.events[j]
+      if (!event) continue
+
+      const key = Object.keys(event)[0]!
+      const value = Object.values(event)[0]!
+
+      const parsedKey = JSON.parse(key)
+      const country = parsedKey?.country
+
+      if (country) {
+        if (topCountriesMap.has(country)) {
+          const prevValue = topCountriesMap.get(country)!
+          topCountriesMap.set(country, prevValue + value)
+        } else {
+          topCountriesMap.set(country, value)
+        }
+      }
+    }
+  }
+
+  const topCountries = Array.from(topCountriesMap.entries())
+    .sort((a, b) => {
+      if (a[1] > b[1]) return -1
+      else return 1
+    })
+    .slice(0, 5)
 
   return (
-    <div className='container mx-auto p-4 space-y-4'>
-      <AnalyticsCharts analyticsDataResult={analyticsDataPath} />
-      <AnalyticsCharts analyticsDataResult={analyticsDataOsName} />
-      <AnalyticsCharts analyticsDataResult={analyticsDataCountry} />
-      <AnalyticsCharts analyticsDataResult={analyticsDataDeviceType} />
+    <div className='flex justify-center items-center py-12 w-full min-h-screen'>
+      <div className='relative mx-auto w-full max-w-6xl text-white'>
+        <AnalyticsDashboard
+          avgVisitorsPerDay={avgVisitorsPerDay}
+          amtVisitorsToday={amtVisitorsToday}
+          timeseriesPageviews={pageviews}
+          topCountries={topCountries}
+        />
+      </div>
     </div>
   )
 }
