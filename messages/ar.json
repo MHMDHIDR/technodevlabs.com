@@ -219,6 +219,7 @@
       "updatePost": "تحديث المقالة",
       "updateSuccessMessage": "تم تحديث المقالة بنجاح",
       "addSuccessMessage": "تمت إضافة المقالة بنجاح",
+      "deleteSuccessMessage": "تم حذف المقالة بنجاح",
       "updateErrorMessage": "فشل تحديث المقالة أو المقالة غير موجود",
       "addErrorMessage": "فشل إضافة المقالة",
       "postExits": "يوجد مقال بنفس العنوان. يرجى اختيار عنوان مختلف."

@@ -219,6 +219,7 @@
       "updatePost": "Update Post",
       "updateSuccessMessage": "Post updated successfully",
       "addSuccessMessage": "Post added successfully",
+      "deleteSuccessMessage": "Post deleted successfully",
       "updateErrorMessage": "Failed to update post or post not found",
       "addErrorMessage": "Failed to add post",
       "postExits": "A post with this title already exists. Please choose a different title."

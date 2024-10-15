@@ -21,7 +21,7 @@ export async function deletePostAction({ postId }: { postId: Post['id'] }) {
       return { success: false, message: post('updateErrorMessage') }
     }
 
-    return { success: true, message: post('addSuccessMessage') }
+    return { success: true, message: post('deleteSuccessMessage') }
   } catch (error) {
     console.error('Error deleting post:', error)
     return { success: false, message: actions('500error') }

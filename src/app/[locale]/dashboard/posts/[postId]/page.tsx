@@ -305,7 +305,7 @@ export default function DashboardPostUpdate({
               <MenuBar editor={editor} />
               <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
                 <EditorContent
-                  className='p-4 text-lg rounded-md border border-gray-300 bg-neutral-50 dark:bg-neutral-800 min-h-52'
+                  className='p-4 text-lg leading-loose rounded-md border border-gray-300 bg-neutral-50 dark:bg-neutral-800 min-h-60'
                   editor={editor}
                 />
               </div>
@@ -318,7 +318,7 @@ export default function DashboardPostUpdate({
               <MenuBar editor={editorAr} />
               <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
                 <EditorContent
-                  className='p-4 text-lg rounded-md border border-gray-300 rtl bg-neutral-50 dark:bg-neutral-800 min-h-52'
+                  className='p-4 text-lg leading-loose rounded-md border border-gray-300 rtl bg-neutral-50 dark:bg-neutral-800 min-h-60'
                   editor={editorAr}
                 />
               </div>
