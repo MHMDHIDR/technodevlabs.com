@@ -18,7 +18,7 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
 
   const projectCards = projects.map((project, index) => {
     const projectCard: ProjectCardProps = {
-      src: project.images[0],
+      src: project.images[0].src,
       title: currentLocale === 'ar' ? project.titleAr : project.title,
       description: currentLocale === 'ar' ? project.descriptionAr : project.description,
       url: project.url,

@@ -276,14 +276,17 @@ const ExpandedCard = ({
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-2 gap-y-6 md:grid-cols-2'>
           {/* Slice out the first one beacuse it's the main image on the carousel card */}
-          {card.images.slice(1).map(image => (
+          {card.images.slice(1).map((image, index) => (
             <Image
-              key={card.src}
-              src={image}
+              key={`${card.title}-image-${index}`}
+              className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200'
+              src={image.src}
               alt={card.description}
               width={400}
               height={400}
-              className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200'
+              placeholder='blur'
+              blurDataURL={image.blurDataURL}
+              loading='lazy'
             />
           ))}
         </div>

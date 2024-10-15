@@ -18,4 +18,4 @@ export { deleteEntryAndRevalidateAction } from '@/actions/private/delete-entry-a
 export { deleteSingleObject, deleteMultipleObjects } from '@/actions/s3/delete'
 
 export { uploadFiles } from '@/actions/s3/upload'
-export { optimizeImage, isImageFile } from '@/actions/s3/optimize-image'
+export { optimizeImage, getBlurPlaceholder, isImageFile } from '@/actions/s3/optimize-image'

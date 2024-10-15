@@ -116,6 +116,16 @@ export type CarouselControlsProps = {
   scrollRight: () => void
 }
 
-export type ProjectCardProps = Omit<Project, 'id' | 'updatedAt' | 'titleAr' | 'descriptionAr'> & {
+export type ProjectWithBlur = Omit<Project, 'images'> & {
+  images: Array<{
+    src: string
+    blurDataURL: string
+  }>
+}
+
+export type ProjectCardProps = Omit<
+  ProjectWithBlur,
+  'id' | 'updatedAt' | 'titleAr' | 'descriptionAr'
+> & {
   src: string
 }
