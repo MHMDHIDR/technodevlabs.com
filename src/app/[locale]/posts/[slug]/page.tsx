@@ -1,11 +1,4 @@
-import {
-  IconEdit,
-  IconTrash,
-  IconBrandFacebook,
-  IconBrandWhatsapp,
-  IconBrandX,
-  IconBrandLinkedin
-} from '@tabler/icons-react'
+import { IconEdit, IconTrash } from '@tabler/icons-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { env } from '@/env'
@@ -15,6 +8,8 @@ import { getPostBySlugAction } from '@/actions'
 import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
 import { DeleteButton } from '@/components/custom/delete-button'
+import Divider from '@/components/custom/divider'
+import { ShareButtons } from '@/components/custom/share-buttons'
 import Layout from '@/components/custom/layout'
 import { Modal } from '@/components/custom/modal'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -23,7 +18,6 @@ import { getSettings } from '@/data/settings'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
 import type { Metadata } from 'next'
 import type { Locale } from '@/i18n/request'
-import Divider from '@/components/custom/divider'
 
 export async function generateMetadata({
   params
@@ -95,9 +89,7 @@ export default async function BlogPostContentPage({
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
-
   const shareUrl = encodeURIComponent(`${env.NEXT_PUBLIC_URL}/posts/${slug}`)
-  const shareTitle = encodeURIComponent(postTitle)
 
   return (
     <Layout>
@@ -179,32 +171,7 @@ export default async function BlogPostContentPage({
           <h3 className='mb-4 text-lg font-semibold select-none'>
             {postTranslations('share')} "{postTitle}"
           </h3>
-          <div className='flex justify-center gap-x-4'>
-            <Link
-              className='inline-flex items-center justify-center text-sm font-semibold text-white bg-blue-600 border border-transparent rounded-lg size-10 gap-x-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
-              href={`https://www.facebook.com/share.php?u=${shareUrl}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <IconBrandFacebook size={24} />
-            </Link>
-            <Link
-              className='inline-flex items-center justify-center text-sm font-semibold text-white bg-black border border-transparent rounded-lg size-10 gap-x-2 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
-              href={`https://x.com/intent/tweet?url=${shareUrl}&text=${shareTitle}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <IconBrandX size={24} />
-            </Link>
-            <Link
-              className='inline-flex items-center justify-center text-sm font-semibold text-white bg-blue-500 border border-transparent rounded-lg size-10 gap-x-2 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none'
-              href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <IconBrandLinkedin size={24} />
-            </Link>
-          </div>
+          <ShareButtons url={shareUrl} title={postTitle} />
         </div>
       </div>
     </Layout>
