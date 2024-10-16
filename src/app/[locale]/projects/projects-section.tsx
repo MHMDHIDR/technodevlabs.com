@@ -5,6 +5,7 @@ import { Button } from '@/components/custom/button'
 import { getProjects } from '@/data/projects'
 import { Carousel, Card as ProjectCard } from '@/components/ui/cards-carousel'
 import type { ProjectCardProps } from '@/types'
+import { APP_LOGO_opengraph } from '@/data/constants'
 
 export async function ProjectsSection({ pathname }: { pathname?: string }) {
   const projectsTranslations = await getTranslations('projects')
@@ -17,8 +18,9 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
   projects = pathname === '/' && projectsCount > 5 ? projects.slice(0, 5) : projects
 
   const projectCards = projects.map((project, index) => {
+    const projectImage = project.images[0] ? project.images[0].src : APP_LOGO_opengraph
     const projectCard: ProjectCardProps = {
-      src: project.images[0].src,
+      src: projectImage,
       title: currentLocale === 'ar' ? project.titleAr : project.title,
       description: currentLocale === 'ar' ? project.descriptionAr : project.description,
       url: project.url,

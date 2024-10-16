@@ -28,32 +28,38 @@ export async function deleteEntryAndRevalidateAction({
 
   let result: { success: boolean; message: string }
 
-  switch (type) {
-    case 'post':
-      result = await deletePostAction({ postId: entryId })
-      break
-    case 'project':
-      result = await deleteProjectAction({ projectId: entryId })
-      break
-    case 'projectImg':
-      if (!projectId || !entryId) {
-        return { success: false, message: project('idRequired') }
-      }
-      result = await deleteSingleObject({ imageUrl: entryId })
-      break
-    default:
-      return { success: false, message: actions('500error') }
-  }
+  try {
+    switch (type) {
+      case 'post':
+        result = await deletePostAction({ postId: entryId })
+        break
+      case 'project':
+        result = await deleteProjectAction({ projectId: entryId })
+        break
+      case 'projectImg':
+        if (!projectId || !entryId) {
+          return { success: false, message: project('idRequired') }
+        }
 
-  if (result.success) {
-    revalidatePath('/')
-
-    if (type === 'projectImg') {
-      revalidatePath(`/dashboard/projects/${projectId}`, 'page')
-      revalidateTag(`/dashboard/projects/${projectId}`)
-    } else {
-      revalidatePath(`/dashboard/${type}s`)
+        result = await deleteSingleObject({ imageUrl: entryId })
+        break
+      default:
+        return { success: false, message: actions('500error') }
     }
+
+    if (result.success) {
+      revalidatePath('/')
+
+      if (type === 'projectImg') {
+        revalidatePath(`/dashboard/projects/${projectId}`, 'page')
+        revalidateTag(`/dashboard/projects/${projectId}`)
+      } else {
+        revalidatePath(`/dashboard/${type}s`)
+      }
+    }
+  } catch (error) {
+    console.error('Error during deletion process:', error)
+    result = { success: false, message: actions('500error') }
   }
 
   return result

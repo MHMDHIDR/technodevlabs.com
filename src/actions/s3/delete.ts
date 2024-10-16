@@ -76,14 +76,15 @@ export async function deleteSingleObject({
     const urlParts = imageUrl.split('/')
     const projectId = urlParts[3] // The part after 'com/'
     const key = urlParts.slice(3).join('/')
+    const decodedKey = decodeURI(key) //doing this because if the key has spaces and we need to remove the %20
 
-    if (!key || !projectId) {
+    if (!decodedKey || !projectId) {
       return { success: false, message: projectsTranslations('invalidURL') }
     }
 
     const deleteParams = {
       Bucket: env.AWS_BUCKET_NAME,
-      Key: key
+      Key: decodedKey
     }
 
     const deleteCommand = new DeleteObjectCommand(deleteParams)
