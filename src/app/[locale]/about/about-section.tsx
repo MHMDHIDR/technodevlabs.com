@@ -18,27 +18,19 @@ export function AboutSection() {
   ]
 
   return (
-    <ImagesSlider className='h-[40rem]' images={images}>
+    <ImagesSlider className={pathname === '/' ? 'md:h-[30rem]' : ''} images={images}>
       <motion.div
-        animate={{
-          opacity: 1,
-          y: 0
-        }}
-        className='flex z-50 flex-col justify-center items-center'
-        initial={{
-          opacity: 0,
-          y: -80
-        }}
-        transition={{
-          duration: 0.6
-        }}
+        animate={{ opacity: 1, y: 0 }}
+        className='flex z-50 flex-col justify-center items-center select-none'
+        initial={{ opacity: 0, y: -80 }}
+        transition={{ duration: 0.6 }}
       >
-        {pathname === '/' || pathname === '/ar' ? (
+        {pathname === '/' ? (
           <motion.p className='py-3 text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b md:text-6xl from-neutral-50 to-neutral-400'>
             {aboutTranslations('homeTitle')}
           </motion.p>
         ) : (
-          <motion.p className='container leading-loose py-3 max-w-6xl text-xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
+          <motion.p className='container py-5 max-w-6xl text-sm md:text-lg leading-[3rem!important] rtl:text-right font-bold text-transparent bg-clip-text bg-gradient-to-b from-neutral-50 to-neutral-400'>
             {aboutTranslations('aboutText')}
             <Divider className='my-10' />
             {aboutTranslations('aboutDividerText')}

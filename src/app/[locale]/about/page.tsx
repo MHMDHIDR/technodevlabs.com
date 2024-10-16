@@ -38,15 +38,17 @@ export default async function AboutPage() {
   return (
     <Layout>
       <div
-        className={`h-fit py-20 w-full dark:bg-black bg-white relative ${clsx({
+        className={`h-fit pt-20 w-full dark:bg-black bg-white relative ${clsx({
           'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings?.layout === 'grid',
           'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
         })}`}
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-          {aboutTranslations('pageTitle')} <br /> <SecondaryHeading>TechnoDevLabs</SecondaryHeading>
+        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-2xl font-semibold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
+          {aboutTranslations('pageTitle')}
+          &nbsp;
+          <SecondaryHeading>TechnoDevLabs</SecondaryHeading>
         </h1>
 
         <AboutSection />

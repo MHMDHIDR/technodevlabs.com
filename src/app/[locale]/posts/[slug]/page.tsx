@@ -113,7 +113,7 @@ export default async function BlogPostContentPage({
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black/30 bg-white/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
+        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
           <SecondaryHeading>{postTitle}</SecondaryHeading>
         </h1>
 
@@ -168,7 +168,7 @@ export default async function BlogPostContentPage({
           </span>
         </div>
 
-        <div className='container mx-auto mt-8 max-w-7xl rounded-lg border bg-slate-50 dark:bg-slate-900 border-slate-100 dark:border-slate-600'>
+        <div className='container mx-auto mt-8 max-w-7xl rounded-lg bg-slate-50 dark:bg-slate-950/50'>
           <article className='p-4 rounded-lg'>
             <div
               className='mb-20 leading-10 text-justify'

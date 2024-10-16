@@ -18,11 +18,19 @@ export function SecondaryHeading({
   const [beamPositions, setBeamPositions] = useState<Array<number>>([])
 
   useEffect(() => {
+    /**
+     * Here we are calculating the number of beams that will be displayed based on the height of the container.
+     * We are also calculating the positions of the beams based on the height of the container.
+     * The beams are displayed in a staggered manner, with the first beam being displayed
+     * at a random position between 10% and 20% of the height of the container.
+     * The second beam is displayed at a random position between 20% and 30% of the height of the container.
+     * And so on.
+     */
     if (ref.current) {
       setContainerWidth(ref.current?.clientWidth ?? 0)
 
       const height = ref.current?.clientHeight ?? 0
-      const numberOfBeams = Math.floor(height / 10) // Adjust the divisor to control the spacing
+      const numberOfBeams = Math.floor(height / 10)
       const positions = Array.from(
         { length: numberOfBeams },
         (_, i) => (i + 1) * (height / (numberOfBeams + 1))
@@ -45,24 +53,14 @@ export function SecondaryHeading({
             className='overflow-hidden absolute inset-0 w-full h-full'
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
-            transition={{
-              opacity: {
-                duration: 0.2
-              }
-            }}
+            transition={{ opacity: { duration: 0.2 } }}
           >
             <motion.div
               animate={{
                 translateX: ['-50%', '0%']
               }}
               className='w-[200%] h-full flex'
-              transition={{
-                translateX: {
-                  duration: 10,
-                  ease: 'linear',
-                  repeat: Infinity
-                }
-              }}
+              transition={{ translateX: { duration: 10, ease: 'linear', repeat: Infinity } }}
             >
               <SparklesCore
                 background='transparent'
@@ -90,9 +88,7 @@ export function SecondaryHeading({
           delay={Math.random() * 2 + 1}
           duration={Math.random() * 2 + 1}
           hovered={hovered}
-          style={{
-            top: `${position}px`
-          }}
+          style={{ top: `${position}px` }}
           width={containerWidth}
         />
       ))}
@@ -107,30 +103,13 @@ export function SecondaryHeading({
           'inline-block relative z-20 transition duration-200 dark:text-white text-neutral-900 group-hover/cover:text-white',
           className
         )}
-        exit={{
-          filter: 'none',
-          scale: 1,
-          x: 0,
-          y: 0
-        }}
+        exit={{ filter: 'none', scale: 1, x: 0, y: 0 }}
         transition={{
           duration: 0.2,
-          x: {
-            duration: 0.2,
-            repeat: Infinity,
-            repeatType: 'loop'
-          },
-          y: {
-            duration: 0.2,
-            repeat: Infinity,
-            repeatType: 'loop'
-          },
-          scale: {
-            duration: 0.2
-          },
-          filter: {
-            duration: 0.2
-          }
+          x: { duration: 0.2, repeat: Infinity, repeatType: 'loop' },
+          y: { duration: 0.2, repeat: Infinity, repeatType: 'loop' },
+          scale: { duration: 0.2 },
+          filter: { duration: 0.2 }
         }}
       >
         {children}
@@ -174,20 +153,10 @@ export function Beam({
       <defs>
         <motion.linearGradient
           key={String(hovered)}
-          animate={{
-            x1: '110%',
-            x2: hovered ? '100%' : '105%',
-            y1: 0,
-            y2: 0
-          }}
+          animate={{ x1: '110%', x2: hovered ? '100%' : '105%', y1: 0, y2: 0 }}
           gradientUnits='userSpaceOnUse'
           id={`svgGradient-${id}`}
-          initial={{
-            x1: '0%',
-            x2: hovered ? '-10%' : '-5%',
-            y1: 0,
-            y2: 0
-          }}
+          initial={{ x1: '0%', x2: hovered ? '-10%' : '-5%', y1: 0, y2: 0 }}
           transition={{
             duration: hovered ? 0.5 : (duration ?? 2),
             ease: 'linear',
