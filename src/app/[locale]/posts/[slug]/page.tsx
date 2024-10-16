@@ -106,7 +106,7 @@ export default async function BlogPostContentPage({
   return (
     <Layout>
       <div
-        className={`h-fit p-4 py-20 w-full dark:bg-black bg-white relative ${clsx({
+        className={`h-fit px-3.5 md:px-4 py-20 w-full dark:bg-black bg-white relative ${clsx({
           'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings?.layout === 'grid',
           'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
         })}`}
@@ -168,10 +168,10 @@ export default async function BlogPostContentPage({
           </span>
         </div>
 
-        <div className='container mx-auto mt-8 max-w-7xl rounded-lg bg-slate-50 dark:bg-slate-950/50'>
-          <article className='p-4 rounded-lg'>
+        <div className='md:px-7 mx-auto mt-8 sm:max-w-7xl rounded-lg bg-slate-50 dark:bg-slate-950/50'>
+          <article className='md:p-4 rounded-lg'>
             <div
-              className='mb-20 leading-10 text-justify'
+              className='mb-20 leading-8 md:leading-10 text-justify'
               dangerouslySetInnerHTML={{ __html: modifiedContent }}
             />
           </article>
