@@ -3,29 +3,26 @@ import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants
 import { Providers } from '@/providers'
 import type { Metadata } from 'next'
 import type { Locale } from '@/i18n/request'
+import { env } from '@/env'
 
-export const metadata: Metadata = {
-  title: APP_TITLE,
-  description: APP_DESCRIPTION,
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  return {
     title: APP_TITLE,
     description: APP_DESCRIPTION,
-    images: [
-      {
-        url: APP_LOGO_opengraph,
-        width: 1200,
-        height: 630,
-        alt: APP_DESCRIPTION
-      }
-    ],
-    type: 'website',
-    locale: 'en_US'
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: APP_TITLE,
-    description: APP_DESCRIPTION,
-    images: [APP_LOGO_opengraph]
+    openGraph: {
+      title: APP_TITLE,
+      description: APP_DESCRIPTION,
+      url: env.NEXT_PUBLIC_URL,
+      siteName: APP_TITLE,
+      images: [{ url: APP_LOGO_opengraph, width: 1200, height: 630, alt: APP_TITLE }],
+      type: 'website'
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: APP_TITLE,
+      description: APP_DESCRIPTION,
+      images: [APP_LOGO_opengraph]
+    }
   }
 }
 

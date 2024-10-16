@@ -1,4 +1,6 @@
 'use client'
+
+import { FloatingDock } from '@/components/ui/floating-dock'
 import {
   EmailIcon,
   EmailShareButton,
@@ -17,31 +19,89 @@ import {
 export const ShareButtons = ({ url, title }: { url: string; title: string }) => {
   const shareUrl = decodeURIComponent(url)
 
+  const links = [
+    {
+      title: 'Facebook',
+      icon: (
+        <FacebookShareButton
+          url={shareUrl}
+          className='flex justify-center items-center w-full h-full'
+        >
+          <FacebookIcon size={32} round />
+        </FacebookShareButton>
+      ),
+      href: '#'
+    },
+    {
+      title: 'Twitter',
+      icon: (
+        <TwitterShareButton
+          url={shareUrl}
+          title={title}
+          className='flex justify-center items-center w-full h-full'
+        >
+          <XIcon size={32} round />
+        </TwitterShareButton>
+      ),
+      href: '#'
+    },
+    {
+      title: 'Telegram',
+      icon: (
+        <TelegramShareButton
+          url={shareUrl}
+          title={title}
+          className='flex justify-center items-center w-full h-full'
+        >
+          <TelegramIcon size={32} round />
+        </TelegramShareButton>
+      ),
+      href: '#'
+    },
+    {
+      title: 'WhatsApp',
+      icon: (
+        <WhatsappShareButton
+          url={shareUrl}
+          title={title}
+          separator=': '
+          className='flex justify-center items-center w-full h-full'
+        >
+          <WhatsappIcon size={32} round />
+        </WhatsappShareButton>
+      ),
+      href: '#'
+    },
+    {
+      title: 'LinkedIn',
+      icon: (
+        <LinkedinShareButton
+          url={shareUrl}
+          className='flex justify-center items-center w-full h-full'
+        >
+          <LinkedinIcon size={32} round />
+        </LinkedinShareButton>
+      ),
+      href: '#'
+    },
+    {
+      title: 'Email',
+      icon: (
+        <EmailShareButton
+          url={shareUrl}
+          subject={title}
+          className='flex justify-center items-center w-full h-full'
+        >
+          <EmailIcon size={32} round />
+        </EmailShareButton>
+      ),
+      href: '#'
+    }
+  ]
+
   return (
-    <div className='inline-flex justify-center gap-x-4'>
-      <FacebookShareButton url={shareUrl}>
-        <FacebookIcon size={32} round />
-      </FacebookShareButton>
-
-      <TwitterShareButton url={shareUrl} title={title}>
-        <XIcon size={32} round />
-      </TwitterShareButton>
-
-      <TelegramShareButton url={shareUrl} title={title}>
-        <TelegramIcon size={32} round />
-      </TelegramShareButton>
-
-      <WhatsappShareButton url={shareUrl} title={title} separator=': '>
-        <WhatsappIcon size={32} round />
-      </WhatsappShareButton>
-
-      <LinkedinShareButton url={shareUrl}>
-        <LinkedinIcon size={32} round />
-      </LinkedinShareButton>
-
-      <EmailShareButton url={decodeURIComponent(url)} subject={title}>
-        <EmailIcon size={32} round />
-      </EmailShareButton>
+    <div className='flex justify-center items-center w-full'>
+      <FloatingDock mobileClassName='translate-y-10' items={links} />
     </div>
   )
 }
