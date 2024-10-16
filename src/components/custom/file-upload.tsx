@@ -24,7 +24,6 @@ export function FileUpload({ onFilesSelected, resetFiles = false }: FileUploadPr
   )
 
   useEffect(() => {
-    console.log('ResetFiles prop:', resetFiles)
     if (resetFiles) {
       setFiles([])
     }

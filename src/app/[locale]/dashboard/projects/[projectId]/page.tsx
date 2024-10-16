@@ -34,10 +34,12 @@ export default function DashboardProjectUpdate({
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
   const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [uploadSuccess, setUploadSuccess] = useState(false)
+  // const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [resetFileInput, setResetFileInput] = useState(false)
 
   const handleFilesSelected = (selectedFiles: Array<File>) => {
-    setFiles(selectedFiles)
+    // setFiles(selectedFiles)
+    setFiles(prevFiles => [...prevFiles, ...selectedFiles])
   }
 
   useEffect(() => {
@@ -107,13 +109,19 @@ export default function DashboardProjectUpdate({
       if (!success) {
         throw new Error(message)
       }
-      setUploadSuccess(true)
-      setFiles([])
 
-      setProject(prevProject => ({
-        ...prevProject!,
-        images: updatedImages
-      }))
+      if (success) {
+        setProject(prevProject => ({
+          ...prevProject!,
+          images: updatedImages
+        }))
+
+        setResetFileInput(true)
+        setFiles([])
+
+        // Reset the state after a short delay to allow file input reset
+        setTimeout(() => setResetFileInput(false), 100)
+      }
 
       toast(message, {
         icon: <Success className='inline-block' />,
@@ -230,7 +238,7 @@ export default function DashboardProjectUpdate({
               <Label htmlFor='images' className='text-red-600 dark:text-red-400 font-bold'>
                 {projectTranslations('projectAddImages')}
               </Label>
-              <FileUpload onFilesSelected={handleFilesSelected} resetFiles={uploadSuccess} />
+              <FileUpload onFilesSelected={handleFilesSelected} resetFiles={resetFileInput} />
             </LabelInputContainer>
 
             <UploadedFiles
