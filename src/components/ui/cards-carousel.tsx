@@ -49,8 +49,10 @@ export const Carousel = ({
   const checkScrollability = () => {
     if (carouselRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current
+      const width = scrollWidth - clientWidth
       setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth)
+
+      setCanScrollRight(scrollLeft < width - 1)
     }
   }
 
@@ -78,9 +80,11 @@ export const Carousel = ({
     setOpenCardIndex(null)
   }
 
+  const PROJECT_CARDS_COUNT = 2
+
   return (
     <CarouselContext.Provider value={{ onCardOpen: handleCardOpen, currentIndex }}>
-      {items.length > ITEMS_COUNT && (
+      {items.length > PROJECT_CARDS_COUNT && (
         <CarouselControls
           canScrollLeft={canScrollLeft}
           canScrollRight={canScrollRight}
@@ -116,7 +120,7 @@ export const Carousel = ({
         </div>
       </div>
 
-      {items.length > ITEMS_COUNT && (
+      {items.length > PROJECT_CARDS_COUNT && (
         <CarouselControls
           canScrollLeft={canScrollLeft}
           canScrollRight={canScrollRight}
@@ -148,7 +152,7 @@ const CarouselControls = ({
   scrollLeft,
   scrollRight
 }: CarouselControlsProps) => (
-  <div className='flex gap-2 justify-end mr-10'>
+  <div className='flex gap-x-3' dir='ltr'>
     <button
       className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
       onClick={scrollLeft}
