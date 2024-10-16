@@ -145,7 +145,7 @@ function Overlay({ className }: { className?: string }) {
 function CloseIcon() {
   const { setOpen } = useModal()
   return (
-    <button className='absolute top-4 right-4 group' onClick={() => setOpen(false)}>
+    <button className='absolute top-4 right-4 group' onClick={() => setOpen(false)} type='button'>
       <svg
         className='w-4 h-4 text-black transition duration-200 dark:text-white group-hover:scale-125 group-hover:rotate-3'
         fill='none'

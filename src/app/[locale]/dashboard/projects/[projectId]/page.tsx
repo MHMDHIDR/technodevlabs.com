@@ -34,6 +34,7 @@ export default function DashboardProjectUpdate({
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
   const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
 
   const handleFilesSelected = (selectedFiles: Array<File>) => {
     setFiles(selectedFiles)
@@ -106,13 +107,13 @@ export default function DashboardProjectUpdate({
       if (!success) {
         throw new Error(message)
       }
+      setUploadSuccess(true)
+      setFiles([])
 
       setProject(prevProject => ({
         ...prevProject!,
         images: updatedImages
       }))
-
-      setFiles([])
 
       toast(message, {
         icon: <Success className='inline-block' />,
@@ -154,7 +155,7 @@ export default function DashboardProjectUpdate({
   return (
     <section className='p-6 mx-auto max-w-4xl'>
       {project === DEFAULT_PROJECT ? (
-        <LoadingCard renderedSkeletons={5} />
+        <LoadingCard renderedSkeletons={7} />
       ) : project === null ? (
         <EmptyState>
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
@@ -206,7 +207,7 @@ export default function DashboardProjectUpdate({
             <LabelInputContainer>
               <Label htmlFor='description'>{projectTranslations('projectDescription')}</Label>
               <Textarea
-                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='description'
                 onChange={e => setProject({ ...project, description: e.target.value })}
                 required
@@ -217,7 +218,7 @@ export default function DashboardProjectUpdate({
             <LabelInputContainer>
               <Label htmlFor='descriptionAr'>{projectTranslations('projectDescriptionAr')}</Label>
               <Textarea
-                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='descriptionAr'
                 onChange={e => setProject({ ...project, descriptionAr: e.target.value })}
                 required
@@ -229,7 +230,7 @@ export default function DashboardProjectUpdate({
               <Label htmlFor='images' className='text-red-600 dark:text-red-400 font-bold'>
                 {projectTranslations('projectAddImages')}
               </Label>
-              <FileUpload onFilesSelected={handleFilesSelected} />
+              <FileUpload onFilesSelected={handleFilesSelected} resetFiles={uploadSuccess} />
             </LabelInputContainer>
 
             <UploadedFiles

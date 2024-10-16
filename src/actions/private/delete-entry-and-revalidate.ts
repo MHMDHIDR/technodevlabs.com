@@ -36,7 +36,7 @@ export async function deleteEntryAndRevalidateAction({
       result = await deleteProjectAction({ projectId: entryId })
       break
     case 'projectImg':
-      if (!projectId) {
+      if (!projectId || !entryId) {
         return { success: false, message: project('idRequired') }
       }
       result = await deleteSingleObject({ imageUrl: entryId })

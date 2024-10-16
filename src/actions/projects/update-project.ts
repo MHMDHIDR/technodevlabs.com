@@ -22,7 +22,8 @@ export async function updateProjectAction({
   descriptionAr,
   images,
   projectId,
-  url
+  url,
+  updateImagesOnly = false
 }: updateProjectData) {
   const projectTranslations = await getTranslations('dashboard.project')
   const actions = await getTranslations('actions')
@@ -47,13 +48,15 @@ export async function updateProjectAction({
       return { success: false, message: projectTranslations('updateErrorMessage') }
     }
 
-    // Prepare update object
+    // Prepare update object, we do this to avoid sending undefined values to the database
     const updateData: Partial<Project> = {}
-    if (!title) updateData.title = title
-    if (!description) updateData.description = description
-    if (!url) updateData.url = url
-    if (!titleAr) updateData.titleAr = titleAr
-    if (!descriptionAr) updateData.descriptionAr = descriptionAr
+    if (!updateImagesOnly) {
+      if (title !== undefined) updateData.title = title
+      if (description !== undefined) updateData.description = description
+      if (url !== undefined) updateData.url = url
+      if (titleAr !== undefined) updateData.titleAr = titleAr
+      if (descriptionAr !== undefined) updateData.descriptionAr = descriptionAr
+    }
 
     if (images) {
       if ('removeImage' in images) {
@@ -65,6 +68,7 @@ export async function updateProjectAction({
       }
     }
 
+    // set the updatedAt, so we know when we updated the project
     updateData.updatedAt = new Date()
 
     const updatedProject = await database

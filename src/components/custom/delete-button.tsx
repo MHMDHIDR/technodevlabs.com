@@ -25,7 +25,7 @@ export function DeleteButton({
 }) {
   const [isPending, startTransition] = useTransition()
   const { replace } = useRouter()
-  const { open, setOpen } = useModal()
+  const { setOpen } = useModal()
   const currentLocale = useLocale()
 
   const handleDelete = () => {

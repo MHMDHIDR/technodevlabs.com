@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import Image from 'next/image'
 import EmptyState from './empty-state'
@@ -8,9 +8,10 @@ import { useTranslations } from 'next-intl'
 type FileUploadProps = {
   onFilesSelected(_files: Array<File>): void
   ignoreRequired?: boolean
+  resetFiles?: boolean
 }
 
-export function FileUpload({ onFilesSelected }: FileUploadProps) {
+export function FileUpload({ onFilesSelected, resetFiles = false }: FileUploadProps) {
   const [files, setFiles] = useState<Array<File>>([])
 
   const onDrop = useCallback(
@@ -21,6 +22,13 @@ export function FileUpload({ onFilesSelected }: FileUploadProps) {
     },
     [files, onFilesSelected]
   )
+
+  useEffect(() => {
+    console.log('ResetFiles prop:', resetFiles)
+    if (resetFiles) {
+      setFiles([])
+    }
+  }, [resetFiles])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
@@ -45,9 +53,7 @@ export function FileUpload({ onFilesSelected }: FileUploadProps) {
           <span>
             {dashboardImgaesTranslations(
               `selectedFiles_${files.length > 1 ? 'Multiple' : 'Single'}`,
-              {
-                count: files.length
-              }
+              { count: files.length }
             )}
           </span>
         ) : (
@@ -68,7 +74,7 @@ export function FileUpload({ onFilesSelected }: FileUploadProps) {
                   src={URL.createObjectURL(file)}
                   alt={file.name}
                   layout='fill'
-                  objectFit='cover'
+                  className='object-cover'
                 />
               </div>
               <button

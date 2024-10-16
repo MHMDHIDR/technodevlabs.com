@@ -15,7 +15,16 @@ const s3Client = new S3Client({
   credentials: { accessKeyId: env.AWS_ACCESS_ID, secretAccessKey: env.AWS_SECRET }
 })
 
-export async function deleteMultipleObjects({ projectId }: { projectId: string }) {
+/**
+ * Deletes all objects in the "folder" (objects with the projectId prefix)
+ * @param projectId - The ID of the project
+ * @returns - Promise<{ success: boolean; message: string }>
+ */
+export async function deleteMultipleObjects({
+  projectId
+}: {
+  projectId: string
+}): Promise<{ success: boolean; message: string }> {
   const projectsTranslations = await getTranslations('dashboard.project.images')
 
   try {
@@ -50,7 +59,16 @@ export async function deleteMultipleObjects({ projectId }: { projectId: string }
   }
 }
 
-export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
+/**
+ * Deletes a single object from S3 and updates the project by removing the deleted image URL
+ * @param imageUrl - The URL of the image to delete
+ * @returns - Promise<{ success: boolean; message: string }>
+ */
+export async function deleteSingleObject({
+  imageUrl
+}: {
+  imageUrl: string
+}): Promise<{ success: boolean; message: string }> {
   const projectsTranslations = await getTranslations('dashboard.project.images')
 
   try {
@@ -74,12 +92,8 @@ export async function deleteSingleObject({ imageUrl }: { imageUrl: string }) {
     // Update the project by removing the deleted image URL
     const updateResult = await updateProjectAction({
       projectId,
-      title: '',
-      titleAr: '',
-      description: '',
-      descriptionAr: '',
-      url: '',
-      images: { removeImage: imageUrl }
+      images: { removeImage: imageUrl },
+      updateImagesOnly: true
     })
 
     if (!updateResult.success) {

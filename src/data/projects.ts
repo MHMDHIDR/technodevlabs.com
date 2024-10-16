@@ -21,10 +21,8 @@ export async function getProjects(): Promise<{
       const imagesWithBlur = await Promise.all(
         project.images.map(async imageSrc => {
           const blurDataURL = await getBlurPlaceholder(imageSrc)
-          return {
-            src: imageSrc,
-            blurDataURL: blurDataURL || ''
-          }
+
+          return { src: imageSrc, blurDataURL: blurDataURL || '' }
         })
       )
       return { ...project, images: imagesWithBlur }
