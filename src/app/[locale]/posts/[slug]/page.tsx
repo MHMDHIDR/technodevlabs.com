@@ -181,7 +181,7 @@ export default async function BlogPostContentPage({
 
         <div className='mt-8 text-center'>
           <h3 className='mb-4 text-lg font-semibold select-none'>
-            {postTranslations('share')} "{postTitle}"
+            {`${postTranslations('share')} "${postTitle}"`}
           </h3>
           <ShareButtons url={shareUrl} title={postTitle} />
         </div>
