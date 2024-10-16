@@ -20,7 +20,7 @@ type FileData = {
   type: string
   size: number
   lastModified: number
-  base64: string // Add base64 field
+  base64: string
 }
 
 /**
@@ -47,7 +47,7 @@ export async function uploadFiles(fileData: Array<FileData>, projectId: string) 
 
   const uploadPromises = presignedUrls.map(async ({ fileName, presignedUrl }, index) => {
     // Decode the base64 string to binary data
-    const base64Data = fileData[index].base64.split(',')[1] // Remove the data URI part
+    const base64Data = fileData[index].base64.split(',')[1]
     const binaryData = Buffer.from(base64Data, 'base64')
 
     const response = await fetch(presignedUrl, {

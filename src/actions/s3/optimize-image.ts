@@ -28,8 +28,10 @@ export async function optimizeImage(base64: string, quality = 80): Promise<strin
  * @param imageSrc The source of the image
  * @returns The blur placeholder of the image
  */
-export async function getBlurPlaceholder(imageSrc: string): Promise<string> {
+export async function getBlurPlaceholder(imageSrc: string): Promise<string | null> {
   const response = await fetch(imageSrc)
+  if (response.status !== 200) return null
+
   const buffer = await response.arrayBuffer()
   const { data, info } = await sharp(buffer)
     .resize(10, 10, { fit: 'inside' })
@@ -39,6 +41,11 @@ export async function getBlurPlaceholder(imageSrc: string): Promise<string> {
   return base64
 }
 
+/**
+ * Check if the file is an image, which is jpg | png | gif | webp
+ * @param type The type of the file
+ * @returns True if the file is an image, false otherwise
+ */
 export async function isImageFile(type: string): Promise<boolean> {
   const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
   return imageTypes.includes(type)

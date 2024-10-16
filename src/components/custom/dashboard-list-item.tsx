@@ -14,10 +14,16 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
 
   const isPost = type === 'post'
   const abstract = isPost
-    ? (item as Post).content.replace(/<[^>]*>/g, ' ').slice(0, 150)
-    : (item as ProjectWithBlur).description.slice(0, 150)
+    ? (currentLocale === 'ar' ? (item as Post).contentAr : (item as Post).content)
+        .replace(/<[^>]*>/g, ' ')
+        .slice(0, 150)
+    : (currentLocale === 'ar'
+        ? (item as ProjectWithBlur).descriptionAr
+        : (item as ProjectWithBlur).description
+      ).slice(0, 150)
 
   const linkHref = `/dashboard/${type}s/${item.id}`
+  const itemTitle = currentLocale === 'ar' ? item.titleAr : item.title
 
   return (
     <div className='relative'>
@@ -25,7 +31,7 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
         <div className='p-5 rounded-lg border border-gray-200 shadow-lg duration-300 bg-neutral-50 dark:bg-gray-900 dark:shadow-gray-800 hover:shadow-xl dark:border-gray-400 hover:border-blue-500'>
           <div className='flex justify-between items-center'>
             <h4 className='text-sm font-semibold transition duration-300 md:text-lg group-hover:text-blue-600'>
-              {item.title}
+              {itemTitle}
             </h4>
             <span className='text-xs text-gray-500 md:text-sm'>
               {formatDate(new Date(item.updatedAt).toDateString(), currentLocale, true)}

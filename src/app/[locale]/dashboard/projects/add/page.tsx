@@ -66,7 +66,7 @@ export default function DashboardProjectAdd() {
           reader.readAsDataURL(file)
         })
 
-        const optimizedBase64 = await optimizeImage(base64, 80)
+        const optimizedBase64 = await optimizeImage(base64, 70)
 
         return {
           name: file.name.replace(/\.[^.]+$/, '.webp'),
@@ -162,11 +162,11 @@ export default function DashboardProjectAdd() {
         <LabelInputContainer>
           <Label htmlFor='url'>{projectTranslations('projectURL')}</Label>
           <Input
-            className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+            className='block text-left  mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
             id='url'
             onChange={e => setUrl(e.target.value)}
-            required
             value={url}
+            required
           />
         </LabelInputContainer>
 
@@ -176,9 +176,9 @@ export default function DashboardProjectAdd() {
             className='block mt-1 w-full leading-loose rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
             id='description'
             onChange={e => setDescription(e.target.value)}
-            required
             value={description}
             dir='auto'
+            required
           />
         </LabelInputContainer>
 
@@ -188,8 +188,9 @@ export default function DashboardProjectAdd() {
             className='block mt-1 w-full leading-loose rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
             id='descriptionAr'
             onChange={e => setDescriptionAr(e.target.value)}
-            required
             value={descriptionAr}
+            dir='auto'
+            required
           />
         </LabelInputContainer>
 

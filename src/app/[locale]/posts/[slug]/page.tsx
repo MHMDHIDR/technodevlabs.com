@@ -51,7 +51,16 @@ export async function generateMetadata({
       description,
       url: `${env.NEXT_PUBLIC_URL}/posts/${slug}`,
       siteName: APP_TITLE,
-      images: [{ url: image, width: 1200, height: 630, alt: title }],
+      images: [
+        { url: image, secureUrl: image, width: 1200, height: 630, alt: title },
+        {
+          url: image,
+          secureUrl: image,
+          width: 400,
+          height: 400,
+          alt: title
+        }
+      ],
       type: 'article',
       publishedTime: post.createdAt.toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
@@ -88,7 +97,7 @@ export default async function BlogPostContentPage({
   const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 rounded-xl shadow-lg dark:shadow-slate-500 md:max-w-screen mx-auto" loading="lazy" alt="${postTitle}"`
+    `<img class="my-3 mb-12 rounded-xl shadow-lg dark:shadow-slate-800 md:max-w-screen mx-auto" loading="lazy" alt="${postTitle}" title="${postTitle}"`
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
@@ -102,7 +111,7 @@ export default async function BlogPostContentPage({
           'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
         })}`}
       >
-        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
+        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black/30 bg-white/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
         <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
           <SecondaryHeading>{postTitle}</SecondaryHeading>
