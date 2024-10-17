@@ -36,31 +36,31 @@ export function formatDate(date: string, locale: Locale, isNormalDate?: boolean)
       return locale === 'en' ? 'Yesterday' : 'أمس'
 
     case days >= 2 && days <= 5:
-      return `${days} ${locale === 'en' ? 'days ago' : 'أيام قبل'}`
+      return `${locale === 'ar' ? 'منذ' : ''} ${days} ${locale === 'en' ? 'days ago' : 'أيام'}`
 
     case days >= 6 && days <= 12:
-      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسابيع قبل'}`
+      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسابيع منذ'}`
 
     case days >= 13 && days <= 17:
-      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسبوعين قبل'}`
+      return `${weeks} ${locale === 'en' ? 'weeks ago' : 'أسبوعين منذ'}`
 
     case weeks > 2 && weeks < 4:
-      return locale === 'en' ? '3 weeks ago' : '3 قبل أسابيع'
+      return locale === 'en' ? '3 weeks ago' : '3 منذ أسابيع'
 
     case days >= 25 && days <= 35:
-      return locale === 'en' ? '1 month ago' : 'قبل شهر'
+      return locale === 'en' ? '1 month ago' : 'منذ شهر'
 
     case months >= 2 && months <= 11:
-      return locale === 'en' ? `${months} months ago` : `${months} قبل أشهر`
+      return locale === 'en' ? `${months} months ago` : `${months} منذ أشهر`
 
     case years === 1:
-      return locale === 'en' ? '1 year ago' : 'قبل سنة'
+      return locale === 'en' ? '1 year ago' : 'منذ سنة'
 
     case years > 1:
-      return locale === 'en' ? `${years} years ago` : `${years} قبل سنوات`
+      return locale === 'en' ? `${years} years ago` : `${years} منذ سنوات`
 
     default:
-      return locale === 'en' ? `${days} days ago` : `${days} قبل أيام`
+      return locale === 'en' ? `${days} days ago` : `${days} منذ أيام`
   }
 }
 

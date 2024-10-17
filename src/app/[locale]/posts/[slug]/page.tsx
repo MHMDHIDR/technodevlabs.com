@@ -184,7 +184,7 @@ export default async function BlogPostContentPage({
           {post.previousPost ? (
             <Link
               href={`/posts/${post.previousPost.slug}`}
-              className='flex gap-x-2 items-center border hover:border-purple-200 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
+              className='flex gap-x-2 items-center border hover:border-purple-200 dark:hover:border-purple-900 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
             >
               <Image
                 alt={`${postTranslations('previousPost')}: ${post.previousPost.title}`}
@@ -204,7 +204,7 @@ export default async function BlogPostContentPage({
           {post.nextPost ? (
             <Link
               href={`/posts/${post.nextPost.slug}`}
-              className='flex gap-x-2 items-center border hover:border-purple-200 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
+              className='flex gap-x-2 items-center border hover:border-purple-200 dark:hover:border-purple-900 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
             >
               <Image
                 alt={`${postTranslations('nextPost')}: ${post.nextPost.title}`}
