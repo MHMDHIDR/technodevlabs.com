@@ -71,7 +71,14 @@ export type BlockProps = {
   children?: React.ReactNode | string
 }
 
-// Note: We're using the inferred Post type here instead of redefining it
+type readMorePost = {
+  slug: Post['slug']
+  title: Post['title']
+  titleAr: Post['titleAr']
+  content: Post['content']
+  image?: string | null
+} | null
+
 export type PostWithAuthor = Post & {
   author: {
     id: string
@@ -79,6 +86,8 @@ export type PostWithAuthor = Post & {
     name: string | null
     image: string | null
   }
+  previousPost: readMorePost
+  nextPost: readMorePost
 }
 
 export type ModalProps = {

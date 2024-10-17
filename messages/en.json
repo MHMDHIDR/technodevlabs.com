@@ -71,7 +71,9 @@
     "readTime": "Read Time",
     "deletePost": "Delete Post",
     "deletePostConfirmation": "Are you sure you want to delete this post?",
-    "share": "Share Post"
+    "share": "Share Post",
+    "previousPost": "Previous",
+    "nextPost": "Next"
   },
   "projects": {
     "pageTitle": "Our Projects",

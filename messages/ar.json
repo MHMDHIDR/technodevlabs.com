@@ -71,7 +71,9 @@
     "readTime": " وقت القراءة",
     "deletePost": "حذف المقالة",
     "deletePostConfirmation": "هل أنت متأكد أنك تريد حذف هذا المقال؟",
-    "share": "مشاركة"
+    "share": "مشاركة",
+    "previousPost": "السابق",
+    "nextPost": "التالي"
   },
   "projects": {
     "pageTitle": "أحدث المشاريع",

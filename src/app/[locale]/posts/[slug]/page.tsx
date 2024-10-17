@@ -1,4 +1,4 @@
-import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconArrowLeft, IconArrowRight, IconEdit, IconTrash } from '@tabler/icons-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { env } from '@/env'
@@ -178,6 +178,50 @@ export default async function BlogPostContentPage({
         </div>
 
         <Divider className='my-10' />
+
+        {/* Also Read Blog Posts */}
+        <div className='flex flex-col justify-between gap-y-2'>
+          {post.previousPost ? (
+            <Link
+              href={`/posts/${post.previousPost.slug}`}
+              className='flex gap-x-2 items-center border rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
+            >
+              <Image
+                alt={`${postTranslations('previousPost')}: ${post.previousPost.title}`}
+                width={48}
+                height={48}
+                src={post.previousPost.image ?? '/images/logo.svg'}
+                className='w-10 h-10 rounded-lg shadow-lg'
+              />
+              <div className='flex flex-col'>
+                <span className='text-xs'>{postTranslations('previousPost')}</span>
+                <strong className='text-xxs md:text-base'>
+                  {currentLocale === 'ar' ? post.previousPost.titleAr : post.previousPost.title}
+                </strong>
+              </div>
+            </Link>
+          ) : null}
+          {post.nextPost ? (
+            <Link
+              href={`/posts/${post.nextPost.slug}`}
+              className='flex gap-x-2 items-center border rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
+            >
+              <Image
+                alt={`${postTranslations('nextPost')}: ${post.nextPost.title}`}
+                width={48}
+                height={48}
+                src={post.nextPost.image ?? '/images/logo.svg'}
+                className='w-10 h-10 rounded-lg shadow-lg'
+              />
+              <div className='flex flex-col'>
+                <span className='text-xs'>{postTranslations('nextPost')}</span>
+                <strong className='text-xxs md:text-base'>
+                  {currentLocale === 'ar' ? post.nextPost.titleAr : post.nextPost.title}
+                </strong>
+              </div>
+            </Link>
+          ) : null}
+        </div>
 
         <div className='mt-8 text-center'>
           <h3 className='mb-4 text-lg font-semibold select-none'>
