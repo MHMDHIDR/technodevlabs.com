@@ -2,7 +2,7 @@ import { getDate, analytics } from '@/lib/utils'
 import AnalyticsDashboard from '@/components/custom/analytics-charts'
 
 export default async function DashboardAnalyticsPage() {
-  const TRACKING_DAYS = 7
+  const TRACKING_DAYS = 10
 
   const pageviews = await analytics.retrieveDays('pageview', TRACKING_DAYS)
 

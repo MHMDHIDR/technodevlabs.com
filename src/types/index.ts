@@ -8,6 +8,7 @@ import {
   projects,
   settings
 } from '@/db/schema'
+import { analytics } from '@/lib/utils'
 
 // Inferred types from Drizzle ORM
 export type User = typeof users.$inferSelect
@@ -143,4 +144,11 @@ export type ProjectCardProps = Omit<
   'id' | 'updatedAt' | 'titleAr' | 'descriptionAr'
 > & {
   src: string
+}
+
+export type AnalyticsDashboardProps = {
+  avgVisitorsPerDay: string
+  amtVisitorsToday: number
+  timeseriesPageviews: Awaited<ReturnType<typeof analytics.retrieveDays>>
+  topCountries: [string, number][]
 }
