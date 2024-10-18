@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { getMessages } from 'next-intl/server'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { env } from '@/env'
 import './globals.css'
-import { cookies } from 'next/headers'
 import type { Metadata } from 'next'
-import type { Locale } from '@/i18n/request'
+
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -38,10 +38,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const messages = await getMessages()
-  const cookieStore = cookies()
-  const locale = cookieStore.get('NEXT_LOCALE')?.value as Locale
-
-  unstable_setRequestLocale(locale || 'en')
 
   return (
     <html>
