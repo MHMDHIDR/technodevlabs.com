@@ -27,14 +27,14 @@ export async function getPostBySlugAction({
   }
 
   // Get the previous post
-  let previousPost = await database.query.posts.findFirst({
+  const previousPost = await database.query.posts.findFirst({
     where: lt(post.createdAt, fetchedPost.createdAt),
     orderBy: (posts, { desc }) => [desc(posts.createdAt)],
     columns: { slug: true, title: true, titleAr: true, content: true }
   })
 
   // Get the next post, based on the fetchedPost createdAt field
-  let nextPost = await database.query.posts.findFirst({
+  const nextPost = await database.query.posts.findFirst({
     where: gt(post.createdAt, fetchedPost.createdAt),
     orderBy: (posts, { asc }) => [asc(posts.createdAt)],
     columns: { slug: true, title: true, titleAr: true, content: true }

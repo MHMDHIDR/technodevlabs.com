@@ -9,11 +9,7 @@ const nextConfig = {
       { hostname: 'images.unsplash.com', protocol: 'https', port: '' }
     ]
   },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: '5mb'
-    }
-  }
+  experimental: { serverActions: { bodySizeLimit: '7mb' } }
 }
 
 module.exports = withNextIntl(nextConfig)
