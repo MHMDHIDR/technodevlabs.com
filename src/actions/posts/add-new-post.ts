@@ -7,7 +7,10 @@ import { posts } from '@/db/schema'
 import { createSlug } from '@/lib/utils'
 import type { Post } from '@/types'
 
-type AddNewPostActionProps = Omit<Post, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'slug'>
+type AddNewPostActionProps = Omit<
+  Post,
+  'id' | 'userId' | 'createdAt' | 'updatedAt' | 'slug' | 'isPublished'
+>
 
 export async function addNewPostAction({
   content,
