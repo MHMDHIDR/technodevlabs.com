@@ -1,3 +1,5 @@
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { env } from '@/env'
 import './globals.css'
@@ -32,6 +34,14 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return children
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const messages = await getMessages()
+
+  return (
+    <html>
+      <body>
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+      </body>
+    </html>
+  )
 }

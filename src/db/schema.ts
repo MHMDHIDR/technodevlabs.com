@@ -1,5 +1,5 @@
 import { relations, sql } from 'drizzle-orm'
-import { integer, pgEnum, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { integer, pgEnum, pgTable, primaryKey, text, boolean, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('tdl_user', {
   id: text('id')
@@ -67,6 +67,7 @@ export const posts = pgTable('tdl_post', {
   titleAr: text('titleAr').notNull(),
   content: text('content').notNull(),
   contentAr: text('contentAr').notNull(),
+  isPublished: boolean('isPublished').notNull().default(false),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull(),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
 })
