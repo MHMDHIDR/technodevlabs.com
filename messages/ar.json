@@ -219,6 +219,8 @@
         "addImage": "إضافة صورة"
       },
       "idRequired": "معرف المقالة مطلوب للتحديث",
+      "isPublished": "المقال منشور",
+      "isUnpublished": "المقال غير منشور",
       "updatePost": "تحديث المقالة",
       "updateSuccessMessage": "تم تحديث المقالة بنجاح",
       "addSuccessMessage": "تمت إضافة المقالة بنجاح",

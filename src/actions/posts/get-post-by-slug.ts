@@ -1,9 +1,9 @@
 'use server'
 
-import { eq, lt, gt } from 'drizzle-orm'
+import { eq, lt, gt, and } from 'drizzle-orm'
 import { database } from '@/db/database'
 import { posts as post } from '@/db/schema'
-import { APP_LOGO_opengraph } from '@/data/constants'
+import { getImageFromContent } from '@/lib/utils'
 import type { PostWithAuthor } from '@/types'
 
 /**
@@ -22,20 +22,20 @@ export async function getPostBySlugAction({
   })
 
   // If no post is found, return undefined
-  if (!fetchedPost) {
+  if (!fetchedPost || !fetchedPost.isPublished) {
     return undefined
   }
 
   // Get the previous post
   const previousPost = await database.query.posts.findFirst({
-    where: lt(post.createdAt, fetchedPost.createdAt),
+    where: and(lt(post.createdAt, fetchedPost.createdAt), eq(post.isPublished, true)),
     orderBy: (posts, { desc }) => [desc(posts.createdAt)],
     columns: { slug: true, title: true, titleAr: true, content: true }
   })
 
   // Get the next post, based on the fetchedPost createdAt field
   const nextPost = await database.query.posts.findFirst({
-    where: gt(post.createdAt, fetchedPost.createdAt),
+    where: and(gt(post.createdAt, fetchedPost.createdAt), eq(post.isPublished, true)),
     orderBy: (posts, { asc }) => [asc(posts.createdAt)],
     columns: { slug: true, title: true, titleAr: true, content: true }
   })
@@ -59,20 +59,4 @@ export async function getPostBySlugAction({
   }
 
   return postWithAuthor
-}
-
-/**
- * A function to get the image from the content of a post
- * @param content
- * @returns Promise<string>
- */
-export async function getImageFromContent({
-  content
-}: {
-  content: PostWithAuthor['content']
-}): Promise<string> {
-  const imgSrcMatch = content.match(/<img.*?src="(.*?)"/)
-  const image = imgSrcMatch ? imgSrcMatch[1] : APP_LOGO_opengraph
-
-  return image
 }

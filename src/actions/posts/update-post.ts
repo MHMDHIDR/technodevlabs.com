@@ -16,7 +16,8 @@ export async function updatePostAction({
   title,
   titleAr,
   content,
-  contentAr
+  contentAr,
+  isPublished
 }: UpdatePostActionProps) {
   const postTranslations = await getTranslations('dashboard.post')
   const actions = await getTranslations('actions')
@@ -33,7 +34,15 @@ export async function updatePostAction({
 
     const updatedPost = await database
       .update(posts)
-      .set({ title, titleAr, slug: createSlug(title), content, contentAr, updatedAt: new Date() })
+      .set({
+        title,
+        titleAr,
+        slug: createSlug(title),
+        content,
+        contentAr,
+        isPublished,
+        updatedAt: new Date()
+      })
       .where(eq(posts.id, postId))
 
     if (updatedPost.length > 0) {

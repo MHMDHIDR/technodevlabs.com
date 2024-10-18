@@ -6,7 +6,7 @@ import { getPosts } from '@/data/posts'
 import { ITEMS_COUNT } from '@/data/constants'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
-  const postsData = await getPosts()
+  const postsData = await getPosts(true)
   let posts = postsData.posts
   const postsCount = postsData.postsCount
 

@@ -16,6 +16,7 @@ import { Error, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
 import type { Post } from '@/types'
 
 function MenuBar({ editor }: { editor: any }) {
@@ -148,11 +149,13 @@ export default function DashboardPostUpdate({
     titleAr: Post['titleAr']
     content: Post['content']
     contentAr: Post['contentAr']
+    isPublished: Post['isPublished']
   } | null>({
     title: '',
     titleAr: '',
     content: '',
-    contentAr: ''
+    contentAr: '',
+    isPublished: false
   })
   const { replace } = useRouter()
   const postTranslations = useTranslations('dashboard.post')
@@ -169,7 +172,8 @@ export default function DashboardPostUpdate({
         title: post.title,
         titleAr: post.titleAr,
         content: post.content,
-        contentAr: post.contentAr
+        contentAr: post.contentAr,
+        isPublished: post.isPublished
       })
     }
     fetchPost()
@@ -218,7 +222,8 @@ export default function DashboardPostUpdate({
       title: post.title,
       titleAr: post.titleAr,
       content,
-      contentAr
+      contentAr,
+      isPublished: post.isPublished
     })
 
     if (!success) {
@@ -250,7 +255,6 @@ export default function DashboardPostUpdate({
       }
     })
 
-    setPost({ title: '', titleAr: '', content: '', contentAr: '' })
     editor.commands.setContent('')
     editorAr.commands.setContent('')
     replace('/dashboard/posts')
@@ -323,6 +327,19 @@ export default function DashboardPostUpdate({
                 />
               </div>
             </LabelInputContainer>
+
+            <div className='flex items-center gap-x-2'>
+              <Switch
+                id='isPublished'
+                checked={post.isPublished}
+                onCheckedChange={checked => setPost({ ...post, isPublished: checked })}
+              />
+              <Label htmlFor='isPublished'>
+                <strong className={`${post.isPublished ? 'text-green-500' : 'text-red-500'}`}>
+                  {postTranslations(post.isPublished ? 'isPublished' : 'isUnpublished')}
+                </strong>
+              </Label>
+            </div>
 
             <SubmitButton>{postTranslations('updatePost')}</SubmitButton>
           </form>

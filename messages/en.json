@@ -219,6 +219,9 @@
         "addImage": "Add Image"
       },
       "idRequired": "Post ID is required to update post",
+      "published": "The Post is Published",
+      "isPublished": "The Post is Published",
+      "isUnpublished": "The Post is Unpublished",
       "updatePost": "Update Post",
       "updateSuccessMessage": "Post updated successfully",
       "addSuccessMessage": "Post added successfully",

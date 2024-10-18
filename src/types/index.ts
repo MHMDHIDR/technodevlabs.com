@@ -29,6 +29,25 @@ export type updateProjectData = {
   updateImagesOnly?: boolean
 }
 
+type readMorePost = {
+  slug: Post['slug']
+  title: Post['title']
+  titleAr: Post['titleAr']
+  content: Post['content']
+  image?: string | null
+} | null
+
+export type PostWithAuthor = Post & {
+  author: {
+    id: string
+    email: string
+    name: string | null
+    image: string | null
+  }
+  previousPost: readMorePost
+  nextPost: readMorePost
+}
+
 export type emailMethodProps = {
   name?: string
   subject: string
@@ -69,25 +88,6 @@ export type BlockProps = {
   blockIcon: React.ReactNode
   className?: string
   children?: React.ReactNode | string
-}
-
-type readMorePost = {
-  slug: Post['slug']
-  title: Post['title']
-  titleAr: Post['titleAr']
-  content: Post['content']
-  image?: string | null
-} | null
-
-export type PostWithAuthor = Post & {
-  author: {
-    id: string
-    email: string
-    name: string | null
-    image: string | null
-  }
-  previousPost: readMorePost
-  nextPost: readMorePost
 }
 
 export type ModalProps = {
