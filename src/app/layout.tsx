@@ -1,7 +1,7 @@
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { env } from '@/env'
-import type { Metadata } from 'next'
 import './globals.css'
+import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

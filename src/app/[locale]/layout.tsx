@@ -1,9 +1,10 @@
-import { NextIntlClientProvider, useMessages } from 'next-intl'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import { env } from '@/env'
 import { Providers } from '@/providers'
 import type { Metadata } from 'next'
 import type { Locale } from '@/i18n/request'
-import { env } from '@/env'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -26,14 +27,14 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params: { locale = 'en' }
 }: {
   children: React.ReactNode
   params: { locale: Locale }
 }) {
-  const messages = useMessages()
+  const messages = await getMessages()
 
   return (
     <html dir={locale === 'ar' ? 'rtl' : 'ltr'} lang={locale}>
