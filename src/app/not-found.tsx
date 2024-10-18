@@ -19,7 +19,8 @@ export default function RootNotFoundPage() {
 
   const getActualTheme = () => {
     if (theme === 'system') {
-      return 'dark' // Default to dark if we can't determine
+      // Default to dark if theme is not found
+      return 'dark'
     }
     return theme
   }
