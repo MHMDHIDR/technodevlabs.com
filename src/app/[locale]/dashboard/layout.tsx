@@ -5,7 +5,7 @@ import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
 import { getTranslations } from 'next-intl/server'
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const dashboard = await getTranslations('dashboard')
   const session = await auth()
 
