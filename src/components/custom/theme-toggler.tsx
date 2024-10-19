@@ -18,6 +18,7 @@ export default function ThemeToggle() {
           theme === 'light' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
         onClick={() => setTheme('light')}
+        aria-label='Light Theme'
       >
         <Sun />
       </button>
@@ -26,6 +27,7 @@ export default function ThemeToggle() {
           theme === 'system' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
         onClick={() => setTheme('system')}
+        aria-label='System Theme'
       >
         <Monitor />
       </button>
@@ -35,6 +37,7 @@ export default function ThemeToggle() {
           theme === 'dark' ? 'bg-slate-100/30' : 'bg-transparent'
         } w-7 h-7 p-1 rounded-full`}
         onClick={() => setTheme('dark')}
+        aria-label='Dark Theme'
       >
         <Moon />
       </button>

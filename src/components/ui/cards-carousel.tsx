@@ -157,6 +157,7 @@ const CarouselControls = ({
       className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
       onClick={scrollLeft}
       disabled={!canScrollLeft}
+      aria-label='Scroll left'
     >
       <IconArrowNarrowLeft className='w-6 h-6 text-gray-500' />
     </button>
@@ -164,6 +165,7 @@ const CarouselControls = ({
       className='flex relative z-40 justify-center items-center w-10 h-10 bg-gray-100 rounded-full disabled:opacity-50'
       onClick={scrollRight}
       disabled={!canScrollRight}
+      aria-label='Scroll right'
     >
       <IconArrowNarrowRight className='w-6 h-6 text-gray-500' />
     </button>

@@ -39,7 +39,7 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0 mr-20 md:mr-0'>
-            <h4 className='font-semibold text-gray-100'>{footerTranslations('company')}</h4>
+            <h3 className='font-semibold text-gray-100'>{footerTranslations('company')}</h3>
 
             <div className='mt-3 grid space-y-3'>
               <Link
@@ -66,7 +66,7 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
           </div>
 
           <div className='col-span-1 mx-auto md:mx-0'>
-            <h4 className='font-semibold text-gray-100'>{footerTranslations('legal')}</h4>
+            <h3 className='font-semibold text-gray-100'>{footerTranslations('legal')}</h3>
 
             <div className='mt-3 grid space-y-3'>
               <Link
@@ -86,7 +86,7 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
           </div>
 
           <div className='col-span-2'>
-            <h4 className='font-semibold text-gray-100'>{footerTranslations('ourVision')}</h4>
+            <h3 className='font-semibold text-gray-100'>{footerTranslations('ourVision')}</h3>
 
             <form>
               <div className='flex flex-col items-center py-2 mt-4 text-gray-200 rounded-lg gap-2 sm:flex-row sm:gap-3'>
@@ -107,24 +107,28 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_FB_URL}
+              aria-label='Follow us on Facebook'
             >
               <IconBrandFacebook />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TWITTER_URL}
+              aria-label='Follow us on Twitter'
             >
               <IconBrandX />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_TIKTOK_URL}
+              aria-label='Follow us on TikTok'
             >
               <IconBrandTiktok />
             </Link>
             <Link
               className='inline-flex items-center justify-center text-sm font-semibold text-white border border-transparent rounded-lg size-10 gap-x-2 hover:bg-white/10 focus:outline-none focus:bg-white/10 disabled:opacity-50 disabled:pointer-events-none'
               href={APP_INSTAGRAM_URL}
+              aria-label='Follow us on Instagram'
             >
               <IconBrandInstagram />
             </Link>
