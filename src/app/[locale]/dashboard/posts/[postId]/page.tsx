@@ -6,14 +6,13 @@ import { StarterKit } from '@tiptap/starter-kit'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
 import { updatePostAction, getPostByIdAction } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { AddButton } from '@/components/custom/add-button'
 import { Button } from '@/components/custom/button'
 import EmptyState from '@/components/custom/empty-state'
-import { Error, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
+import { useToast } from '@/hooks/use-toast'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
@@ -159,6 +158,7 @@ export default function DashboardPostUpdate({
   })
   const { replace } = useRouter()
   const postTranslations = useTranslations('dashboard.post')
+  const toast = useToast()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -227,33 +227,10 @@ export default function DashboardPostUpdate({
     })
 
     if (!success) {
-      toast(message, {
-        icon: <Error className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
-      return
+      return toast.error(message)
     }
 
-    toast(message, {
-      icon: <Success className='inline-block' />,
-      position: 'bottom-center',
-      className: 'text-center rtl select-none',
-      style: {
-        backgroundColor: '#F0FAF0',
-        color: '#367E18',
-        border: '1px solid #367E18',
-        gap: '1.5rem',
-        textAlign: 'justify'
-      }
-    })
+    toast.success(message)
 
     editor.commands.setContent('')
     editorAr.commands.setContent('')

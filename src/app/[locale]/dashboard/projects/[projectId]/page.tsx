@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl'
 import { useState, useEffect } from 'react'
-import { toast } from 'sonner'
 import {
   updateProjectAction,
   getProjectByIdAction,
@@ -14,7 +13,6 @@ import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { AddButton } from '@/components/custom/add-button'
 import EmptyState from '@/components/custom/empty-state'
 import { FileUpload } from '@/components/custom/file-upload'
-import { Error as ErrorIcon, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { LoadingCard } from '@/components/custom/loading'
 import { UploadedFiles } from '@/components/custom/uploaded-files'
@@ -22,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { DEFAULT_PROJECT } from '@/data/constants'
+import { useToast } from '@/hooks/use-toast'
 import type { Project } from '@/types'
 
 export default function DashboardProjectUpdate({
@@ -34,8 +33,8 @@ export default function DashboardProjectUpdate({
   const [project, setProject] = useState<Project | null>(DEFAULT_PROJECT)
   const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
-  // const [uploadSuccess, setUploadSuccess] = useState(false)
   const [resetFileInput, setResetFileInput] = useState(false)
+  const toast = useToast()
 
   const handleFilesSelected = (selectedFiles: Array<File>) => {
     // setFiles(selectedFiles)
@@ -123,31 +122,9 @@ export default function DashboardProjectUpdate({
         setTimeout(() => setResetFileInput(false), 100)
       }
 
-      toast(message, {
-        icon: <Success className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#F0FAF0',
-          color: '#367E18',
-          border: '1px solid #367E18',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
+      toast.success(message)
     } catch (error) {
-      toast(error instanceof Error ? error.message : 'An unexpected error occurred', {
-        icon: <ErrorIcon className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
+      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred')
     } finally {
       setIsSubmitting(false)
     }

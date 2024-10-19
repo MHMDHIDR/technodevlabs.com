@@ -6,14 +6,13 @@ import { StarterKit } from '@tiptap/starter-kit'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { addNewPostAction } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { Button } from '@/components/custom/button'
-import { Error, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 
 function MenuBar({ editor }: { editor: any }) {
   const postTranslations = useTranslations('dashboard.post')
@@ -139,6 +138,7 @@ export default function DashboardPostAdd() {
   const [title, setTitle] = useState('')
   const [titleAr, setTitleAr] = useState('')
   const { replace } = useRouter()
+  const toast = useToast()
   const postTranslations = useTranslations('dashboard.post')
 
   const editor = useEditor({
@@ -173,33 +173,10 @@ export default function DashboardPostAdd() {
     const { message, success } = await addNewPostAction({ title, titleAr, content, contentAr })
 
     if (!success) {
-      toast(message, {
-        icon: <Error className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
-      return
+      return toast.error(message)
     }
 
-    toast(message, {
-      icon: <Success className='inline-block' />,
-      position: 'bottom-center',
-      className: 'text-center rtl select-none',
-      style: {
-        backgroundColor: '#F0FAF0',
-        color: '#367E18',
-        border: '1px solid #367E18',
-        gap: '1.5rem',
-        textAlign: 'justify'
-      }
-    })
+    toast.success(message)
 
     // Reset form after submission
     setTitle('')

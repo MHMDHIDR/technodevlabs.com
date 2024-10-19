@@ -2,17 +2,15 @@
 
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { addNewProjectAction, uploadFiles, optimizeImage, isImageFile } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { FileUpload } from '@/components/custom/file-upload'
-import { Error as ErrorIcon } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useTranslations } from 'next-intl'
-
+import { useToast } from '@/hooks/use-toast'
 export default function DashboardProjectAdd() {
   const [url, setUrl] = useState('')
   const [title, setTitle] = useState('')
@@ -22,6 +20,7 @@ export default function DashboardProjectAdd() {
   const [files, setFiles] = useState<Array<File>>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const projectTranslations = useTranslations('dashboard.project')
+  const toast = useToast()
 
   const { replace } = useRouter()
 
@@ -34,21 +33,8 @@ export default function DashboardProjectAdd() {
     setIsSubmitting(true)
 
     if (files.length === 0) {
-      toast('Please select at least one image', {
-        icon: <ErrorIcon className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
-
       setIsSubmitting(false)
-      return
+      return toast.error('Please select at least one image')
     }
 
     try {
@@ -95,20 +81,10 @@ export default function DashboardProjectAdd() {
       })
 
       if (!success) {
-        throw new Error(message)
+        return toast.error(message)
       }
 
-      toast(message, {
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#F0FAF0',
-          color: '#367E18',
-          border: '1px solid #367E18',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
+      toast.success(message)
 
       setTitle('')
       setUrl('')
@@ -116,17 +92,7 @@ export default function DashboardProjectAdd() {
       setFiles([])
       replace('/dashboard/projects')
     } catch (error) {
-      toast(error instanceof Error ? error.message : 'An unexpected error occurred', {
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
+      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred')
     } finally {
       setIsSubmitting(false)
     }

@@ -1,18 +1,18 @@
 'use client'
 
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { updateLayoutAction } from '@/actions'
-import { Error } from '@/components/custom/icons'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { useTranslations } from 'next-intl'
+import { useToast } from '@/hooks/use-toast'
 import type { Setting } from '@/types'
 
 function LayoutSwitch({ initialLayout }: { initialLayout: Setting['layout'] }) {
   const [layout, setLayout] = useState(initialLayout)
   const [isUpdating, setIsUpdating] = useState(false)
   const settings = useTranslations('dashboard.settings')
+  const toast = useToast()
 
   const handleLayoutChange = async (checked: boolean) => {
     const newLayout = checked ? 'grid' : 'dotted'
@@ -24,32 +24,10 @@ function LayoutSwitch({ initialLayout }: { initialLayout: Setting['layout'] }) {
     if (!success) {
       console.error(message)
       setLayout(layout)
-      toast(message, {
-        icon: <Error className='inline-block' />,
-        position: 'bottom-center',
-        className: 'text-center rtl select-none',
-        style: {
-          backgroundColor: '#FDE7E7',
-          color: '#C53030',
-          border: '1px solid #C53030',
-          gap: '1.5rem',
-          textAlign: 'justify'
-        }
-      })
-      return
+      return toast.error(message)
     }
 
-    toast(message, {
-      position: 'bottom-center',
-      className: 'text-center rtl select-none',
-      style: {
-        backgroundColor: '#F0FAF0',
-        color: '#367E18',
-        border: '1px solid #367E18',
-        gap: '1.5rem',
-        textAlign: 'justify'
-      }
-    })
+    toast.success(message)
     setIsUpdating(false)
   }
 

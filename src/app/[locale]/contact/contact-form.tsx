@@ -4,23 +4,22 @@ import { Link } from '@/i18n/routing'
 import { useRouter } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { SubmitButton } from './submit-button'
 import { emailAction } from '@/actions'
 import Divider from '@/components/custom/divider'
-import { Error, Success } from '@/components/custom/icons'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
+import { useToast } from '@/hooks/use-toast'
 
 export function ContactForm() {
   const { replace } = useRouter()
   const contactTranslations = useTranslations('contact')
   const currentLocale = useLocale()
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-
+  const toast = useToast()
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setStatus('loading')
@@ -51,42 +50,18 @@ export function ContactForm() {
       // Reset the form inputs
       form.reset()
 
-      toast(
+      toast.success(
         currentLocale === 'en'
           ? 'Email sent successfully! 🎉'
-          : 'تم إرسال البريد الإلكتروني بنجاح! 🎉، وسيتم التواصل معك عما قريبب',
-        {
-          icon: <Success className='inline-block' />,
-          position: 'bottom-center',
-          className: 'text-center rtl select-none',
-          style: {
-            backgroundColor: '#F0FAF0',
-            color: '#367E18',
-            border: '1px solid #367E18',
-            gap: '1.5rem',
-            textAlign: 'justify'
-          }
-        }
+          : 'تم إرسال البريد الإلكتروني بنجاح! 🎉، وسيتم التواصل معك عما قريبب'
       )
     } catch (error) {
       setStatus('error')
 
-      toast(
+      toast.error(
         currentLocale === 'en'
           ? 'Failed to send email. Please try again later! 😢'
-          : 'فشل إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى في وقت لاحق! 😢',
-        {
-          icon: <Error className='inline-block' />,
-          position: 'bottom-center',
-          className: 'text-center rtl select-none',
-          style: {
-            backgroundColor: '#FDE7E7',
-            color: '#C53030',
-            border: '1px solid #C53030',
-            gap: '1.5rem',
-            textAlign: 'justify'
-          }
-        }
+          : 'فشل إرسال البريد الإلكتروني. يرجى المحاولة مرة أخرى في وقت لاحق! 😢'
       )
     } finally {
       setTimeout(() => replace(`/`), DEFAULT_DURATION)
