@@ -8,10 +8,12 @@ import NotFoundTranslationsAr from '@/../messages/ar.json'
 import MinifiedNav from '@/components/custom/minified-nav'
 import Footer from '@/components/custom/footer'
 import { cookies } from 'next/headers'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
 export default function RootNotFoundPage() {
   const cookieStore = cookies()
-  const locale = cookieStore.get('NEXT_LOCALE')?.value
+  const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
+  unstable_setRequestLocale(locale)
   const theme = cookieStore.get('theme')?.value || 'system'
 
   const notFoundTranslations =

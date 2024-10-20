@@ -1,12 +1,15 @@
-import { Link } from '@/i18n/routing'
-import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
+import Layout from '@/components/custom/layout'
 import { NotFoundIcon } from '@/components/custom/icons'
 import { Button } from '@/components/custom/button'
 import { Block } from '@/components/custom/block'
-import Layout from '@/components/custom/layout'
+import { Link } from '@/i18n/routing'
+import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
 import { useTranslations } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
+import type { Locale } from '@/i18n/request'
 
-export default function LocaleNotFoundPage() {
+export default function LocaleNotFoundPage({ params: { locale } }: { params: { locale: Locale } }) {
+  unstable_setRequestLocale(locale)
   const notFoundTranslations = useTranslations('notFound')
 
   return (
