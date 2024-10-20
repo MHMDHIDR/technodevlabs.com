@@ -10,7 +10,8 @@ export const env = createEnv({
     AWS_ACCESS_ID: z.string().min(1),
     AWS_SECRET: z.string().min(1),
     UPSTASH_REDIS_URL: z.string().min(1),
-    UPSTASH_REDIS_TOKEN: z.string().min(1)
+    UPSTASH_REDIS_TOKEN: z.string().min(1),
+    CAN_AUTHENTICATE_PASSWORD: z.string().min(1)
   },
   client: {
     NEXT_PUBLIC_URL: z.string().url()
@@ -24,6 +25,7 @@ export const env = createEnv({
     AWS_SECRET: process.env.AWS_SECRET,
     UPSTASH_REDIS_URL: process.env.UPSTASH_REDIS_URL,
     UPSTASH_REDIS_TOKEN: process.env.UPSTASH_REDIS_TOKEN,
-    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
+    CAN_AUTHENTICATE_PASSWORD: process.env.CAN_AUTHENTICATE_PASSWORD
   }
 })

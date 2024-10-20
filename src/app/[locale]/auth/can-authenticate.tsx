@@ -4,11 +4,12 @@ import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useTranslations } from 'next-intl'
+import { env } from '@/env'
 
 async function authenticate(formData: FormData) {
   'use server'
 
-  if (formData.get('password') === 'technodevlabs') {
+  if (formData.get('password') === env.CAN_AUTHENTICATE_PASSWORD) {
     cookies().set('can-authenticate', 'true', { httpOnly: true, secure: true })
   }
 }
