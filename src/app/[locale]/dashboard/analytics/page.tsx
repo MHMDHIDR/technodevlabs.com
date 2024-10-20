@@ -1,7 +1,13 @@
 import { getDate, analytics } from '@/lib/utils'
 import AnalyticsDashboard from '@/components/custom/analytics-charts'
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default async function DashboardAnalyticsPage() {
+export default async function DashboardAnalyticsPage({
+  params: { locale }
+}: {
+  params: { locale: string }
+}) {
+  unstable_setRequestLocale(locale)
   const TRACKING_DAYS = 10
 
   const pageviews = await analytics.retrieveDays('pageview', TRACKING_DAYS)

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { env } from '@/env'
 import { notFound } from 'next/navigation'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getPostBySlugAction } from '@/actions'
 import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
@@ -76,10 +76,11 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostContentPage({
-  params: { slug }
+  params: { slug, locale }
 }: {
-  params: { slug: string }
+  params: { slug: string; locale: string }
 }) {
+  unstable_setRequestLocale(locale)
   const postTranslations = await getTranslations('posts')
   const currentLocale = (await getLocale()) as Locale
 

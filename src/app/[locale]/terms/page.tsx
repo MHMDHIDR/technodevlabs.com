@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
 import { Link } from '@/i18n/routing'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
+import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -30,7 +30,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function TermsAndConditionsPage() {
+export default async function TermsAndConditionsPage({
+  params: { locale }
+}: {
+  params: { locale: string }
+}) {
+  unstable_setRequestLocale(locale)
   const termsTranslations = await getTranslations('terms')
 
   return (

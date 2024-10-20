@@ -1,11 +1,11 @@
-import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
+import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const services = await getTranslations('services')
@@ -31,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ServicesPage() {
+export default async function ServicesPage({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale)
   const settings = await getSettings()
   const services = await getTranslations('services')
   const pageTitle = services('pageTitle')

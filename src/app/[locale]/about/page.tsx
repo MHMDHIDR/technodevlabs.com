@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { AboutSection } from './about-section'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -31,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale)
   const settings = await getSettings()
   const aboutTranslations = await getTranslations('about')
 

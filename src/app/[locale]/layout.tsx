@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { env } from '@/env'
 import { Providers } from '@/providers'
@@ -34,20 +34,19 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: Locale }
 }) {
+  unstable_setRequestLocale(locale)
   const messages = await getMessages()
 
   return (
-    <html dir={locale === 'ar' ? 'rtl' : 'ltr'} lang={locale}>
+    <html lang={locale} dir={locale === 'ar' ? 'rtl' : 'ltr'}>
       <head>
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
       <body className={'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950'}>
-        <Providers>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
