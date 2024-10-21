@@ -26,13 +26,7 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
         <div className='grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-5'>
           <div className='col-span-full sm:col-span-1 flex sm:flex-col gap-x-48 mx-auto md:mx-0'>
             <Link aria-label='Brand' className='text-white flex-1' href='/'>
-              <Image
-                alt={APP_TITLE}
-                className='min-w-7 min-h-7'
-                height={40}
-                src={APP_LOGO}
-                width={40}
-              />
+              <Image alt={APP_TITLE} src={APP_LOGO} height={40} width={40} />
             </Link>
 
             {withThemeToggler && <ThemeToggler />}

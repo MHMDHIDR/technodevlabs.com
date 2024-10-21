@@ -73,7 +73,7 @@ export function BentoGridItem({
       <div className='absolute bottom-0 p-4 w-full bg-gradient-to-t from-black to-transparent via-black/80'>
         <div className='transition duration-200 group-hover/bento:-translate-y-1.5'>
           {icon}
-          <h3 className='my-2 font-bold text-neutral-100'>{title}</h3>
+          <h2 className='my-2 font-bold text-neutral-100'>{title}</h2>
           <p className='text-xs text-neutral-100'>{description}</p>
         </div>
       </div>

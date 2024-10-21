@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { deleteCookieAction } from '@/actions'
 import { auth, signOut } from '@/auth'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import { APP_DESCRIPTION, APP_LOGO } from '@/data/constants'
 import { Link } from '@/i18n/routing'
 import type { User } from 'next-auth'
 
@@ -21,7 +21,7 @@ export default async function MinifiedNav() {
           className='flex items-center text-xl font-semibold gap-x-2 dark:text-white focus:outline-purple-900 focus:opacity-80'
           aria-label='Brand'
         >
-          <Image alt={APP_TITLE} src={APP_LOGO} width={40} height={40} />
+          <Image alt={APP_DESCRIPTION} src={APP_LOGO} width={40} height={40} />
           <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-xxs md:text-sm'>
             TechnoDevLabs
           </span>

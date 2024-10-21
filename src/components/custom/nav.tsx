@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { deleteCookieAction } from '@/actions'
 import LanguageSwitcher from '@/components/custom/language-switcher'
-import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import { APP_DESCRIPTION, APP_LOGO } from '@/data/constants'
 import { Link, usePathname } from '@/i18n/routing'
 import type { User } from 'next-auth'
 
@@ -57,7 +57,7 @@ export default function Nav() {
     `font-medium focus:outline-purple-900 ${
       pathname === href
         ? 'text-blue-500'
-        : 'text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-500'
+        : 'text-gray-600 hover:text-gray-800 dark:text-neutral-50 dark:hover:text-neutral-300'
     }`
 
   return (
@@ -75,7 +75,7 @@ export default function Nav() {
             className='flex gap-x-2 items-center text-xl font-semibold dark:text-white focus:outline-purple-900 focus:opacity-80'
             href='/'
           >
-            <Image alt={APP_TITLE} src={APP_LOGO} width={40} height={40} />
+            <Image alt={APP_DESCRIPTION} src={APP_LOGO} width={40} height={40} />
             <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl'>
               TechnoDevLabs
             </span>

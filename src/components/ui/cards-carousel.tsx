@@ -203,9 +203,11 @@ export const Card = ({
       </div>
       <BlurImage
         src={card.src}
-        alt={card.title}
-        fill
+        alt={card.description}
         className='object-cover absolute inset-0 z-10'
+        fill
+        sizes='(max-width: 768px) 224px, 384px'
+        priority={index === 0}
       />
     </motion.button>
   )
@@ -312,7 +314,15 @@ const ExpandedCard = ({
   )
 }
 
-export const BlurImage = ({ height, width, src, className, alt, ...rest }: ImageProps) => {
+export const BlurImage = ({
+  height,
+  width,
+  src,
+  className,
+  alt,
+  priority = false,
+  ...rest
+}: ImageProps) => {
   const [isLoading, setLoading] = useState(true)
   return (
     <Image
@@ -321,10 +331,11 @@ export const BlurImage = ({ height, width, src, className, alt, ...rest }: Image
       src={src}
       width={width}
       height={height}
-      loading='lazy'
+      loading={priority ? 'eager' : 'lazy'}
       decoding='async'
       blurDataURL={typeof src === 'string' ? src : undefined}
       alt={alt ? alt : 'Background of a beautiful view'}
+      priority={priority}
       {...rest}
     />
   )

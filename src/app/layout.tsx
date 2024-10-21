@@ -32,7 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
-      <body>{children}</body>
+      <body className={'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950'}>
+        {children}
+      </body>
     </html>
   )
 }
