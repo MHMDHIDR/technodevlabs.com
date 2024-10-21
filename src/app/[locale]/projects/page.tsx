@@ -1,5 +1,3 @@
-import type { Metadata } from 'next'
-import type { User } from 'next-auth'
 import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { AddButton } from '@/components/custom/add-button'
@@ -11,7 +9,8 @@ import { getProjects } from '@/data/projects'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import { ProjectsSection } from './projects-section'
-import { ProjectsSection } from './projects-section'
+import type { Metadata } from 'next'
+import type { User } from 'next-auth'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph

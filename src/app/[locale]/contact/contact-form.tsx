@@ -13,7 +13,6 @@ import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { useToast } from '@/hooks/use-toast'
 import { Link } from '@/i18n/routing'
 import { SubmitButton } from './submit-button'
-import { SubmitButton } from './submit-button'
 
 export function ContactForm() {
   const { replace } = useRouter()

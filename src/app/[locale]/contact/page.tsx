@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -6,7 +5,7 @@ import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import { ContactForm } from './contact-form'
-import { ContactForm } from './contact-form'
+import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph

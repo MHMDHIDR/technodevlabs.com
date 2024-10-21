@@ -1,11 +1,9 @@
 import { IconTrash } from '@tabler/icons-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { DeleteButton } from './delete-button'
+import { Modal } from './modal'
 import type { ProjectImagesGridProps } from '@/types'
-import { DeleteButton } from './delete-button'
-import { Modal } from './modal'
-import { DeleteButton } from './delete-button'
-import { Modal } from './modal'
 
 export function UploadedFiles({
   onImageDelete,

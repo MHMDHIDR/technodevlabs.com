@@ -5,10 +5,9 @@ import { useLocale } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { deleteEntryAndRevalidateAction } from '@/actions'
+import { useModal } from '@/components/ui/animated-modal'
 import { useToast } from '@/hooks/use-toast'
 import type { itemsTypes } from '@/types'
-import { useModal } from '../ui/animated-modal'
-import { useModal } from '../ui/animated-modal'
 
 export function DeleteButton({
   entryId,

@@ -1,5 +1,4 @@
 import DashboardPostUpdateClient from './dashboard-post-update.client'
-import DashboardPostUpdateClient from './dashboard-post-update.client'
 
 export default function DashboardPostUpdate({
   params: { postId }

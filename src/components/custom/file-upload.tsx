@@ -4,7 +4,6 @@ import Image from 'next/image'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import EmptyState from './empty-state'
-import EmptyState from './empty-state'
 
 type FileUploadProps = {
   onFilesSelected(_files: Array<File>): void
