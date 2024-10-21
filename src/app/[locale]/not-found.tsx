@@ -26,7 +26,7 @@ export default function LocaleNotFoundPage({ params: { locale } }: { params: { l
           </p>
 
           <div className='flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto'>
-            <Link href={`/`}>
+            <Link href='/'>
               <Button type='button' withArrow>
                 {notFoundTranslations('home')}
               </Button>
