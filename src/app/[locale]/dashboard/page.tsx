@@ -3,11 +3,12 @@ import { getLocale, unstable_setRequestLocale } from 'next-intl/server'
 import { Block } from '@/components/custom/block'
 import { getPosts } from '@/data/posts'
 import { getProjects } from '@/data/projects'
+import type { Locale } from '@/i18n/request'
 
 export default async function DashboardPage({
   params: { locale }
 }: {
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
   unstable_setRequestLocale(locale)
   const { postsCount } = await getPosts()

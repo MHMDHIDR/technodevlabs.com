@@ -4,8 +4,9 @@ import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import type { Locale } from '@/i18n/request'
 
-export default function AuthPage({ params: { locale } }: { params: { locale: string } }) {
+export default function AuthPage({ params: { locale } }: { params: { locale: Locale } }) {
   unstable_setRequestLocale(locale)
   return (
     <Layout className='p-4 py-20 container max-w-screen-md'>

@@ -3,11 +3,12 @@ import { AddButton } from '@/components/custom/add-button'
 import DashboardListItem from '@/components/custom/dashboard-list-item'
 import EmptyState from '@/components/custom/empty-state'
 import { getPosts } from '@/data/posts'
+import type { Locale } from '@/i18n/request'
 
 export default async function DashboardPosts({
   params: { locale }
 }: {
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
   unstable_setRequestLocale(locale)
   const { posts, postsCount } = await getPosts()

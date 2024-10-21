@@ -1,11 +1,12 @@
 import { getDate, analytics } from '@/lib/utils'
 import AnalyticsDashboard from '@/components/custom/analytics-charts'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import type { Locale } from '@/i18n/request'
 
 export default async function DashboardAnalyticsPage({
   params: { locale }
 }: {
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
   unstable_setRequestLocale(locale)
   const TRACKING_DAYS = 10

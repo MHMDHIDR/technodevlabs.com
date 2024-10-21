@@ -1,11 +1,12 @@
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import LayoutSwitch from './layout-switch'
 import { getSettings } from '@/data/settings'
+import type { Locale } from '@/i18n/request'
 
 export default async function DashboardSettingsPage({
   params: { locale }
 }: {
-  params: { locale: string }
+  params: { locale: Locale }
 }) {
   unstable_setRequestLocale(locale)
   const settings = await getSettings()

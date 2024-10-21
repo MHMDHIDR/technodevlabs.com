@@ -11,6 +11,7 @@ import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import type { Metadata } from 'next'
 import type { User } from 'next-auth'
+import type { Locale } from '@/i18n/request'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -36,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function PostsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function PostsPage({ params: { locale } }: { params: { locale: Locale } }) {
   unstable_setRequestLocale(locale)
   const settings = await getSettings()
   const postsTranslations = await getTranslations('posts')

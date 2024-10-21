@@ -78,7 +78,7 @@ export async function generateMetadata({
 export default async function BlogPostContentPage({
   params: { slug, locale }
 }: {
-  params: { slug: string; locale: string }
+  params: { slug: string; locale: Locale }
 }) {
   unstable_setRequestLocale(locale)
   const postTranslations = await getTranslations('posts')
