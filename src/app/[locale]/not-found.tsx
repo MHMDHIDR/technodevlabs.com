@@ -5,11 +5,11 @@ import { Block } from '@/components/custom/block'
 import { Link } from '@/i18n/routing'
 import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
 import { useTranslations } from 'next-intl'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import type { Locale } from '@/i18n/request'
 
 export default function LocaleNotFoundPage({ locale }: { locale: Locale }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const notFoundTranslations = useTranslations('notFound')
 
   return (

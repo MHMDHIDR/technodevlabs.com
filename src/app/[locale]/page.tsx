@@ -8,11 +8,11 @@ import { Hero } from '@/components/custom/hero'
 import { PrimaryHeading } from '@/components/ui/text-hover-effect'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Locale } from '@/i18n/request'
 
 export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const settings = await getSettings()
   const projectsTranslations = await getTranslations('projects')
   const servicesTranslations = await getTranslations('services')

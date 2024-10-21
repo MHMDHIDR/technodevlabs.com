@@ -3,7 +3,7 @@ import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Locale } from '@/i18n/request'
 
 export default async function DashboardLayout({
@@ -13,7 +13,7 @@ export default async function DashboardLayout({
   children: React.ReactNode
   params: { locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const dashboard = await getTranslations('dashboard')
   const session = await auth()
 

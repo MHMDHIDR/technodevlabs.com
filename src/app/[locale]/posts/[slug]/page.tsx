@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { env } from '@/env'
 import { notFound } from 'next/navigation'
-import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server'
 import { getPostBySlugAction } from '@/actions'
 import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
@@ -80,7 +80,7 @@ export default async function BlogPostContentPage({
 }: {
   params: { slug: string; locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const postTranslations = await getTranslations('posts')
   const currentLocale = (await getLocale()) as Locale
 

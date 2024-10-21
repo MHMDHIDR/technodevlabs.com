@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { APP_TITLE, APP_DESCRIPTION, APP_LOGO_opengraph } from '@/data/constants'
 import { env } from '@/env'
 import { Providers } from '@/providers'
@@ -34,7 +34,7 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const messages = await getMessages()
 
   return (

@@ -1,5 +1,5 @@
 import { IconBook, IconCode } from '@tabler/icons-react'
-import { getLocale, unstable_setRequestLocale } from 'next-intl/server'
+import { getLocale, setRequestLocale } from 'next-intl/server'
 import { Block } from '@/components/custom/block'
 import { getPosts } from '@/data/posts'
 import { getProjects } from '@/data/projects'
@@ -10,7 +10,7 @@ export default async function DashboardPage({
 }: {
   params: { locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const { postsCount } = await getPosts()
   const { projectsCount } = await getProjects()
   const currentLocale = await getLocale()

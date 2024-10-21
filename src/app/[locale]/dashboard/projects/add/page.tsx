@@ -1,4 +1,4 @@
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import DashboardProjectAddClient from './dashboard-project-add.client'
 import type { Locale } from '@/i18n/request'
 
@@ -7,7 +7,7 @@ export default function DashboardProjectAdd({
 }: {
   params: { locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   return <DashboardProjectAddClient />
 }

@@ -1,4 +1,4 @@
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import DashboardPostUpdateClient from './dashboard-post-update.client'
 
 export default function DashboardPostUpdate({
@@ -6,7 +6,7 @@ export default function DashboardPostUpdate({
 }: {
   params: { locale: string; postId: string }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   return <DashboardPostUpdateClient postId={postId} />
 }

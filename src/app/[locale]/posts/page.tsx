@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { PostsSection } from '@/app/[locale]/posts/posts-section'
 import { auth } from '@/auth'
 import { AddButton } from '@/components/custom/add-button'
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PostsPage({ params: { locale } }: { params: { locale: Locale } }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const settings = await getSettings()
   const postsTranslations = await getTranslations('posts')
   const { postsCount } = await getPosts()

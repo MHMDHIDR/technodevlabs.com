@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ContactForm } from './contact-form'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage({ params: { locale } }: { params: { locale: Locale } }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const settings = await getSettings()
   const contactTranslations = await getTranslations('contact')
 

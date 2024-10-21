@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/routing'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -36,7 +36,7 @@ export default async function TermsAndConditionsPage({
 }: {
   params: { locale: Locale }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const termsTranslations = await getTranslations('terms')
 
   return (

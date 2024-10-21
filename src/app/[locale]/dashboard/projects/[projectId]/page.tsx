@@ -1,4 +1,4 @@
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import DashboardProjectUpdateClient from './dashboard-project-update.client'
 
 export default function DashboardProjectUpdate({
@@ -6,7 +6,7 @@ export default function DashboardProjectUpdate({
 }: {
   params: { locale: string; projectId: string }
 }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   return <DashboardProjectUpdateClient projectId={projectId} />
 }

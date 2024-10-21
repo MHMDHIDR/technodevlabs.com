@@ -1,4 +1,4 @@
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage({ params: { locale } }: { params: { locale: Locale } }) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const settings = await getSettings()
   const services = await getTranslations('services')
   const pageTitle = services('pageTitle')
