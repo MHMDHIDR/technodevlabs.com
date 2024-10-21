@@ -1,13 +1,14 @@
 'use client'
 
 import { IconLoader3 } from '@tabler/icons-react'
-import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
-import { useToast } from '@/hooks/use-toast'
-import { useModal } from '../ui/animated-modal'
 import { deleteEntryAndRevalidateAction } from '@/actions'
+import { useToast } from '@/hooks/use-toast'
 import type { itemsTypes } from '@/types'
+import { useModal } from '../ui/animated-modal'
+import { useModal } from '../ui/animated-modal'
 
 export function DeleteButton({
   entryId,

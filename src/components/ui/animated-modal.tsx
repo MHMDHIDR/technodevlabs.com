@@ -1,9 +1,10 @@
 'use client'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from 'next-intl'
-import React, { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react'
-import { cn } from '@/lib/utils'
+import React, { createContext, ReactNode, useContext, useEffect, useRef, useState } from 'react'
 import { useOutsideClick } from '@/hooks/use-outside-click'
+import { cn } from '@/lib/utils'
 
 interface ModalContextType {
   open: boolean

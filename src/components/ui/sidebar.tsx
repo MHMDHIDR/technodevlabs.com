@@ -2,10 +2,10 @@
 
 import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
-import { useState, createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 import Tooltip from '@/components/custom/tooltip'
+import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
 import type { LinkProps } from 'next/link'
 

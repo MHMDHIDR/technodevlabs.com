@@ -1,8 +1,8 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
-import { revalidatePath } from 'next/cache'
 import { getTranslations } from 'next-intl/server'
+import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'

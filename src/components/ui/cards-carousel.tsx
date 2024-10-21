@@ -1,11 +1,5 @@
 'use client'
 
-import { Button } from '@/components/custom/button'
-import { ITEMS_COUNT } from '@/data/constants'
-import { useOutsideClick } from '@/hooks/use-outside-click'
-import { Link } from '@/i18n/routing'
-import { cn } from '@/lib/utils'
-import type { CarouselControlsProps, ProjectCardProps } from '@/types'
 import {
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
@@ -17,6 +11,12 @@ import { useTranslations } from 'next-intl'
 import Image, { ImageProps } from 'next/image'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { Button } from '@/components/custom/button'
+import { ITEMS_COUNT } from '@/data/constants'
+import { useOutsideClick } from '@/hooks/use-outside-click'
+import { Link } from '@/i18n/routing'
+import { cn } from '@/lib/utils'
+import type { CarouselControlsProps, ProjectCardProps } from '@/types'
 
 export const CarouselContext = createContext<{
   onCardOpen: (index: number) => void

@@ -8,9 +8,9 @@ import {
   IconLogout2,
   IconSettings
 } from '@tabler/icons-react'
-import Image from 'next/image'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { useState } from 'react'
 import { deleteCookieAction } from '@/actions'
 import Tooltip from '@/components/custom/tooltip'

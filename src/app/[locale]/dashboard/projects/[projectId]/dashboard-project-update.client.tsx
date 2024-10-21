@@ -1,13 +1,13 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  updateProjectAction,
   getProjectByIdAction,
-  uploadFiles,
+  isImageFile,
   optimizeImage,
-  isImageFile
+  updateProjectAction,
+  uploadFiles
 } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { AddButton } from '@/components/custom/add-button'

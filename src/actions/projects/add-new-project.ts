@@ -1,10 +1,10 @@
 'use server'
 
+import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { POST_TITLE_LENGTH } from '@/data/constants'
 import { database } from '@/db/database'
 import { projects } from '@/db/schema'
-import { getTranslations } from 'next-intl/server'
 import type { Project } from '@/types'
 
 /**

@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 import { FlipWords } from '@/components/ui/flip-words'
 import { LampContainer } from '@/components/ui/lamp'
+import { Link } from '@/i18n/routing'
 
 export function Hero() {
   // detect if the user is using a mobile device

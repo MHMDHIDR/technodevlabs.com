@@ -1,15 +1,15 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { addNewProjectAction, uploadFiles, optimizeImage, isImageFile } from '@/actions'
+import { addNewProjectAction, isImageFile, optimizeImage, uploadFiles } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import { FileUpload } from '@/components/custom/file-upload'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useTranslations } from 'next-intl'
 import { useToast } from '@/hooks/use-toast'
 
 export default function DashboardProjectAddClient() {

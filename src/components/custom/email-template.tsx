@@ -5,9 +5,9 @@ import {
   Heading,
   Html,
   Img,
+  Link,
   Section,
-  Text,
-  Link
+  Text
 } from '@react-email/components'
 import { Facebook, Instagram, TikTok, Twitter } from '@/components/custom/icons'
 import {

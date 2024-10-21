@@ -1,14 +1,14 @@
 'use client'
 
 import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
-import Image from 'next/image'
-import { Link, usePathname } from '@/i18n/routing'
-import { signOut, getSession } from 'next-auth/react'
+import { getSession, signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { deleteCookieAction } from '@/actions'
 import LanguageSwitcher from '@/components/custom/language-switcher'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
+import { Link, usePathname } from '@/i18n/routing'
 import type { User } from 'next-auth'
 
 export default function Nav() {

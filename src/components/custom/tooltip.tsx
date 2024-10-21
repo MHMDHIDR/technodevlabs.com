@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { useLocale } from 'next-intl'
 import {
-  Tooltip as TooltipParent,
   TooltipContent,
+  Tooltip as TooltipParent,
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip-provider'

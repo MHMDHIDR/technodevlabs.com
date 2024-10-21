@@ -1,8 +1,10 @@
 'use client'
+
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useEffect, useRef, useId, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { SparklesCore } from '@/components/ui/sparkles'
 import { cn } from '@/lib/utils'
+
 export function SecondaryHeading({
   children,
   className

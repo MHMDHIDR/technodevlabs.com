@@ -1,15 +1,15 @@
-import { cn } from '@/lib/utils'
 import { IconLayoutNavbarCollapse } from '@tabler/icons-react'
 import {
   AnimatePresence,
-  MotionValue,
   motion,
+  MotionValue,
   useMotionValue,
   useSpring,
   useTransform
 } from 'framer-motion'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
+import { cn } from '@/lib/utils'
 
 export const FloatingDock = ({
   items,

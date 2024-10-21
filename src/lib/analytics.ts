@@ -1,4 +1,4 @@
-import { getRedisClient, getDate, parse } from '@/lib/utils'
+import { getDate, getRedisClient, parse } from '@/lib/utils'
 
 type AnalyticsArgs = {
   retention?: number

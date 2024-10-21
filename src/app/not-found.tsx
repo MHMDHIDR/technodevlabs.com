@@ -1,14 +1,14 @@
+import { IconBook, IconCode, IconMessage } from '@tabler/icons-react'
 import { NextIntlClientProvider } from 'next-intl'
 import { cookies } from 'next/headers'
-import { Link } from '@/i18n/routing'
-import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
-import { NotFoundIcon } from '@/components/custom/icons'
-import { Button } from '@/components/custom/button'
-import { Block } from '@/components/custom/block'
-import MinifiedNav from '@/components/custom/minified-nav'
-import Footer from '@/components/custom/footer'
 import NotFoundTranslationsAr from '@/../messages/ar.json'
 import NotFoundTranslationsEn from '@/../messages/en.json'
+import { Block } from '@/components/custom/block'
+import { Button } from '@/components/custom/button'
+import Footer from '@/components/custom/footer'
+import { NotFoundIcon } from '@/components/custom/icons'
+import MinifiedNav from '@/components/custom/minified-nav'
+import { Link } from '@/i18n/routing'
 
 export default async function RootNotFoundPage() {
   const cookieStore = cookies()

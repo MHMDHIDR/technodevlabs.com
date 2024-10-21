@@ -1,8 +1,8 @@
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
+import { useTranslations } from 'next-intl'
 import { cookies } from 'next/headers'
 import { signIn, signOut } from '@/auth'
 import { Button } from '@/components/custom/button'
-import { useTranslations } from 'next-intl'
 
 export function SignOut() {
   const authTranslations = useTranslations('auth')

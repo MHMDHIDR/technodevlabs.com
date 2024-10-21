@@ -1,10 +1,10 @@
+import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
-import { Link } from '@/i18n/routing'
 import { deleteCookieAction } from '@/actions'
 import { auth, signOut } from '@/auth'
 import { APP_LOGO, APP_TITLE } from '@/data/constants'
-import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
-import { getTranslations } from 'next-intl/server'
+import { Link } from '@/i18n/routing'
 import type { User } from 'next-auth'
 
 export default async function MinifiedNav() {

@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation'
 import { getRequestConfig } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 
 export type Locale = (typeof routing.locales)[number]

@@ -1,11 +1,11 @@
-import Layout from '@/components/custom/layout'
-import { NotFoundIcon } from '@/components/custom/icons'
-import { Button } from '@/components/custom/button'
-import { Block } from '@/components/custom/block'
-import { Link } from '@/i18n/routing'
-import { IconMessage, IconBook, IconCode } from '@tabler/icons-react'
+import { IconBook, IconCode, IconMessage } from '@tabler/icons-react'
 import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
+import { Block } from '@/components/custom/block'
+import { Button } from '@/components/custom/button'
+import { NotFoundIcon } from '@/components/custom/icons'
+import Layout from '@/components/custom/layout'
+import { Link } from '@/i18n/routing'
 import type { Locale } from '@/i18n/request'
 
 export default function LocaleNotFoundPage({ locale }: { locale: Locale }) {

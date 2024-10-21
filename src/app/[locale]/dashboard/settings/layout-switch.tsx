@@ -1,10 +1,10 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { updateLayoutAction } from '@/actions'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { useTranslations } from 'next-intl'
 import { useToast } from '@/hooks/use-toast'
 import type { Setting } from '@/types'
 

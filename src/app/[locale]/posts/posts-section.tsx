@@ -1,9 +1,9 @@
-import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { PostCard } from '@/components/custom/post-card'
-import { getPosts } from '@/data/posts'
 import { ITEMS_COUNT } from '@/data/constants'
+import { getPosts } from '@/data/posts'
+import { Link } from '@/i18n/routing'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
   const postsData = await getPosts(true)

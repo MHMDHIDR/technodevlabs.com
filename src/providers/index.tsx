@@ -1,5 +1,5 @@
-import NextTopLoader from 'nextjs-toploader'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import type { ThemeProviderProps } from 'next-themes/dist/types'
 

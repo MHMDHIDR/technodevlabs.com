@@ -1,12 +1,11 @@
 import {
   IconBrandFacebook,
-  IconBrandX,
+  IconBrandInstagram,
   IconBrandTiktok,
-  IconBrandInstagram
+  IconBrandX
 } from '@tabler/icons-react'
-import Image from 'next/image'
-import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
+import Image from 'next/image'
 import ThemeToggler from '@/components/custom/theme-toggler'
 import {
   APP_FB_URL,
@@ -16,6 +15,7 @@ import {
   APP_TITLE,
   APP_TWITTER_URL
 } from '@/data/constants'
+import { Link } from '@/i18n/routing'
 
 export default async function Footer({ withThemeToggler = false }: { withThemeToggler?: boolean }) {
   const footerTranslations = await getTranslations('footer')

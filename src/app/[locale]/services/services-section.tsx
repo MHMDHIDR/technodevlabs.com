@@ -1,17 +1,17 @@
 'use client'
 
 import {
-  IconCode,
-  IconCloudUpload,
-  IconDeviceMobile,
-  IconDatabase,
   IconChartBar,
-  IconShieldLock,
-  IconLayersLinked
+  IconCloudUpload,
+  IconCode,
+  IconDatabase,
+  IconDeviceMobile,
+  IconLayersLinked,
+  IconShieldLock
 } from '@tabler/icons-react'
-import { usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { BentoGrid, BentoGridItem } from '@/components/ui/bento-grid'
+import { usePathname } from '@/i18n/routing'
 
 export function ServicesSection() {
   const services = useTranslations('services')

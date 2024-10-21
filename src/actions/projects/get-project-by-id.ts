@@ -1,10 +1,10 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { projects as project } from '@/db/schema'
-import { getTranslations } from 'next-intl/server'
 import type { Project } from '@/types'
 
 export async function getProjectByIdAction({

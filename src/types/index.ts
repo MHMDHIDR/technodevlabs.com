@@ -1,12 +1,12 @@
 import React from 'react'
 import {
-  users,
   accounts,
-  sessions,
-  verificationTokens,
   posts,
   projects,
-  settings
+  sessions,
+  settings,
+  users,
+  verificationTokens
 } from '@/db/schema'
 import { analytics } from '@/lib/utils'
 

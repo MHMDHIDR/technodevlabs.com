@@ -1,11 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Link, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/custom/button'
 import Divider from '@/components/custom/divider'
 import { ImagesSlider } from '@/components/ui/images-slider'
+import { Link, usePathname } from '@/i18n/routing'
 
 export function AboutSection() {
   const pathname = usePathname()

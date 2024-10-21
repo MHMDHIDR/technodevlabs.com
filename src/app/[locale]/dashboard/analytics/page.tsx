@@ -1,5 +1,5 @@
-import { getDate, analytics } from '@/lib/utils'
 import AnalyticsDashboard from '@/components/custom/analytics-charts'
+import { analytics, getDate } from '@/lib/utils'
 
 export default async function DashboardAnalyticsPage() {
   const TRACKING_DAYS = 10

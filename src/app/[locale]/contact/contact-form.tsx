@@ -1,10 +1,8 @@
 'use client'
 
-import { Link } from '@/i18n/routing'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { useTranslations, useLocale } from 'next-intl'
 import { useState } from 'react'
-import { SubmitButton } from './submit-button'
 import { emailAction } from '@/actions'
 import Divider from '@/components/custom/divider'
 import LabelInputContainer from '@/components/custom/label-input-container'
@@ -13,6 +11,9 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { useToast } from '@/hooks/use-toast'
+import { Link } from '@/i18n/routing'
+import { SubmitButton } from './submit-button'
+import { SubmitButton } from './submit-button'
 
 export function ContactForm() {
   const { replace } = useRouter()

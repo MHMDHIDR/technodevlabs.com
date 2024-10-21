@@ -1,8 +1,9 @@
-import CanAuthenticate from './can-authenticate'
 import AuthButton from '@/components/custom/auth-button'
 import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
+import CanAuthenticate from './can-authenticate'
+import CanAuthenticate from './can-authenticate'
 
 export default function AuthPage() {
   return (

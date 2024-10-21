@@ -1,9 +1,9 @@
+import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
-import { getTranslations } from 'next-intl/server'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const dashboard = await getTranslations('dashboard')

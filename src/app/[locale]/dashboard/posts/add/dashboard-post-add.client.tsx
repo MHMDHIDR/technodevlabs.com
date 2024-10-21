@@ -1,10 +1,10 @@
 'use client'
 
 import { Image } from '@tiptap/extension-image'
-import { useEditor, EditorContent } from '@tiptap/react'
+import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { addNewPostAction } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'

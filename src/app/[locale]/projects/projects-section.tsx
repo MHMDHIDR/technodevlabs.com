@@ -1,11 +1,11 @@
-import { Link } from '@/i18n/routing'
 import { getLocale, getTranslations } from 'next-intl/server'
-import { Locale } from '@/i18n/request'
 import { Button } from '@/components/custom/button'
-import { getProjects } from '@/data/projects'
 import { Carousel, Card as ProjectCard } from '@/components/ui/cards-carousel'
-import type { ProjectCardProps } from '@/types'
 import { APP_LOGO_opengraph } from '@/data/constants'
+import { getProjects } from '@/data/projects'
+import { Locale } from '@/i18n/request'
+import { Link } from '@/i18n/routing'
+import type { ProjectCardProps } from '@/types'
 
 export async function ProjectsSection({ pathname }: { pathname?: string }) {
   const projectsTranslations = await getTranslations('projects')

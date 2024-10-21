@@ -1,11 +1,11 @@
 'use server'
 
 import { eq } from 'drizzle-orm'
+import { getTranslations } from 'next-intl/server'
 import { revalidatePath } from 'next/cache'
 import { auth } from '@/auth'
 import { database } from '@/db/database'
 import { settings } from '@/db/schema'
-import { getTranslations } from 'next-intl/server'
 import type { Setting } from '@/types'
 
 export async function updateLayoutAction({ layout }: Setting) {

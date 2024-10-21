@@ -1,14 +1,14 @@
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
 import { AboutSection } from '@/app/[locale]/about/about-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
 import { PostsSection } from '@/app/[locale]/posts/posts-section'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
-import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
-import Layout from '@/components/custom/layout'
 import { Hero } from '@/components/custom/hero'
+import Layout from '@/components/custom/layout'
 import { PrimaryHeading } from '@/components/ui/text-hover-effect'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
 import type { Locale } from '@/i18n/request'
 
 export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {

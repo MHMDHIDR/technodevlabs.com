@@ -1,5 +1,6 @@
-import { Skeleton } from './skeleton'
 import { cn } from '@/lib/utils'
+import { Skeleton } from './skeleton'
+import { Skeleton } from './skeleton'
 
 export function LoadingCard({
   className,

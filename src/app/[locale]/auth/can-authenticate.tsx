@@ -1,9 +1,9 @@
+import { useTranslations } from 'next-intl'
 import { cookies } from 'next/headers'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useTranslations } from 'next-intl'
 import { env } from '@/env'
 
 async function authenticate(formData: FormData) {

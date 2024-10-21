@@ -1,8 +1,8 @@
-import Image from 'next/image'
-import { Link, usePathname } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { Button } from '@/components/custom/button'
 import { APP_TITLE } from '@/data/constants'
+import { Link, usePathname } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
 export function BentoGrid({

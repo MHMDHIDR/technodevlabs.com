@@ -1,7 +1,7 @@
 'use server'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
 import { getTranslations } from 'next-intl/server'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { deletePostAction, deleteProjectAction, deleteSingleObject } from '@/actions'
 import { auth } from '@/auth'
 import type { itemsTypes } from '@/types'

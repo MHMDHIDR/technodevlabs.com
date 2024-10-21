@@ -1,12 +1,12 @@
 import { IconArticle } from '@tabler/icons-react'
-import { Link } from '@/i18n/routing'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
 import { Meteors } from '@/components/ui/meteors'
 import { POST_CONTENT_LENGTH, POST_TITLE_LENGTH } from '@/data/constants'
+import { Link } from '@/i18n/routing'
 import { clsx, formatDate } from '@/lib/utils'
-import type { Post } from '@/types'
 import type { Locale } from '@/i18n/request'
+import type { Post } from '@/types'
 
 export async function PostCard({ post }: { post: Post }) {
   const postsTranslations = await getTranslations('posts')

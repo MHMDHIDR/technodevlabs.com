@@ -1,10 +1,10 @@
 'use server'
 
 import {
-  S3Client,
-  ListObjectsV2Command,
+  DeleteObjectCommand,
   DeleteObjectsCommand,
-  DeleteObjectCommand
+  ListObjectsV2Command,
+  S3Client
 } from '@aws-sdk/client-s3'
 import { getTranslations } from 'next-intl/server'
 import { updateProjectAction } from '@/actions'

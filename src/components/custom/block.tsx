@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/routing'
-import { cn, clsx } from '@/lib/utils'
+import { clsx, cn } from '@/lib/utils'
 import type { BlockProps } from '@/types'
 
 export function Block({

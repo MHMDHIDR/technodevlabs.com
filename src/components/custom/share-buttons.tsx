@@ -1,6 +1,5 @@
 'use client'
 
-import { FloatingDock } from '@/components/ui/floating-dock'
 import {
   EmailIcon,
   EmailShareButton,
@@ -15,6 +14,7 @@ import {
   WhatsappShareButton,
   XIcon
 } from 'react-share'
+import { FloatingDock } from '@/components/ui/floating-dock'
 
 export const ShareButtons = ({ url, title }: { url: string; title: string }) => {
   const shareUrl = decodeURIComponent(url)

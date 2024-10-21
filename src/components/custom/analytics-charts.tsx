@@ -1,9 +1,9 @@
 'use client'
 
-import ReactCountryFlag from 'react-country-flag'
-import { BarChart, Card, LineChart } from '@tremor/react'
 import { IconArrowDownRight, IconArrowRight, IconArrowUpRight } from '@tabler/icons-react'
+import { BarChart, Card, LineChart } from '@tremor/react'
 import { useTranslations } from 'next-intl'
+import ReactCountryFlag from 'react-country-flag'
 import type { AnalyticsDashboardProps } from '@/types'
 
 const Badge = ({ percentage }: { percentage: number }) => {

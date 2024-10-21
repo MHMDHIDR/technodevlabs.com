@@ -1,6 +1,6 @@
+import { eq, SQL } from 'drizzle-orm'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
-import { eq, SQL } from 'drizzle-orm'
 import type { Post } from '@/types'
 
 /**
