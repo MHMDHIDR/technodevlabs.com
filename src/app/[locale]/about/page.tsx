@@ -32,15 +32,17 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const settings = await getSettings()
+  const settings = (await getSettings()) || { layout: 'dotted' }
   const aboutTranslations = await getTranslations('about')
 
   return (
     <Layout>
       <div
         className={`h-fit pt-20 w-full dark:bg-black bg-white relative ${clsx({
-          'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings?.layout === 'grid',
-          'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings?.layout === 'dotted'
+          'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings.layout === 'grid',
+          'dark:bg-grid-small-white/[0.2] bg-grid-small-black/[0.2]':
+            settings.layout === 'grid-small',
+          'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settings.layout === 'dotted'
         })}`}
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />

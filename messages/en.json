@@ -273,8 +273,9 @@
     },
     "settings": {
       "layout": "Layout Settings",
-      "gridLayout": "Grid Layout",
-      "dottedLayout": "Dotted Layout",
+      "grid": "Grid Layout",
+      "grid-small": "Small Grid Layout",
+      "dotted": "Dotted Layout",
       "noSettingsFound": "No settings found"
     },
     "analytics": {

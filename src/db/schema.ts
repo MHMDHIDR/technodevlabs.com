@@ -88,16 +88,12 @@ export const projects = pgTable('tdl_project', {
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
 })
 
-export const layoutEnum = pgEnum('layout', ['dotted', 'grid'])
+export const layoutEnum = pgEnum('layout', ['dotted', 'grid', 'grid-small'])
 
-/** Future scalibility: If we want to add more settings
- * export const settings = pgTable('tdl_setting', {
- *    id: text('id').primaryKey().default(() => crypto.randomUUID()),
- *    key: text('key').primaryKey(),
- *    value: text('value').notNull(),
- *  })
- **/
-export const settings = pgTable('tdl_setting', {
+export const settings = pgTable('tdl_settings', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   layout: layoutEnum('layout').notNull().default('dotted')
 })
 

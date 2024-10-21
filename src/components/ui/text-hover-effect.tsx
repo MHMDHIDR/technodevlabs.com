@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 
 export const PrimaryHeading = ({
-  duration,
+  duration = 0,
   className,
   children
 }: {
@@ -19,16 +19,24 @@ export const PrimaryHeading = ({
   const [maskPosition, setMaskPosition] = useState({ cx: '50%', cy: '50%' })
 
   useEffect(() => {
-    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const svgRect = svgRef.current.getBoundingClientRect()
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
-      setMaskPosition({
-        cx: `${cxPercentage}%`,
-        cy: `${cyPercentage}%`
-      })
+    const updateMaskPosition = () => {
+      if (svgRef.current && cursor.x !== null && cursor.y !== null) {
+        const svgRect = svgRef.current.getBoundingClientRect()
+        const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
+        const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
+        setMaskPosition({
+          cx: `${cxPercentage}%`,
+          cy: `${cyPercentage}%`
+        })
+      }
     }
+
+    updateMaskPosition()
   }, [cursor])
+
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    setCursor({ x: e.clientX, y: e.clientY })
+  }
 
   return (
     <svg
@@ -36,12 +44,22 @@ export const PrimaryHeading = ({
       viewBox='0 0 500 50'
       xmlns='http://www.w3.org/2000/svg'
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onMouseMove={e => setCursor({ x: e.clientX, y: e.clientY })}
+      onMouseLeave={() => {
+        setHovered(false)
+        setMaskPosition({ cx: '50%', cy: '50%' })
+      }}
+      onMouseMove={handleMouseMove}
       className={cn('select-none', className)}
     >
       <defs>
-        <linearGradient id='textGradient' gradientUnits='userSpaceOnUse' cx='50%' cy='50%' r='25%'>
+        <linearGradient
+          id='textGradient'
+          gradientUnits='userSpaceOnUse'
+          x1='0%'
+          y1='0%'
+          x2='100%'
+          y2='0%'
+        >
           {hovered && (
             <>
               <stop offset='0%' stopColor={'var(--yellow-500)'} />
@@ -53,23 +71,16 @@ export const PrimaryHeading = ({
           )}
         </linearGradient>
 
-        <motion.radialGradient
+        <radialGradient
           id='revealMask'
           gradientUnits='userSpaceOnUse'
+          cx={maskPosition.cx}
+          cy={maskPosition.cy}
           r='20%'
-          animate={maskPosition}
-          /* Option : a smoother animation */
-          transition={{ duration: duration ?? 0, ease: 'easeOut' }}
-          /* Option : a smoother animation */
-          // transition={{
-          //   type: 'spring',
-          //   stiffness: 300,
-          //   damping: 50
-          // }}
         >
           <stop offset='0%' stopColor='white' />
           <stop offset='100%' stopColor='black' />
-        </motion.radialGradient>
+        </radialGradient>
         <mask id='textMask'>
           <rect x='0' y='0' width='100%' height='100%' fill='url(#revealMask)' />
         </mask>

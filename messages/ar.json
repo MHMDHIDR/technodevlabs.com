@@ -272,8 +272,9 @@
     },
     "settings": {
       "layout": "تخطيط الصفحة",
-      "gridLayout": "تخطيط شبكي",
-      "dottedLayout": "تخطيط منقط",
+      "grid": "تخطيط شبكي",
+      "grid-small": "تخطيط شبكي صغير",
+      "dotted": "تخطيط منقط",
       "noSettingsFound": "لم يتم العثور على إعدادات"
     },
     "analytics": {

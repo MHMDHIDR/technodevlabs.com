@@ -8,7 +8,13 @@ import { database } from '@/db/database'
 import { settings } from '@/db/schema'
 import type { Setting } from '@/types'
 
-export async function updateLayoutAction({ layout }: Setting) {
+export async function updateLayoutAction({
+  id,
+  layout
+}: {
+  id: string
+  layout: Setting['layout']
+}) {
   const actions = await getTranslations('actions')
 
   try {
@@ -17,20 +23,17 @@ export async function updateLayoutAction({ layout }: Setting) {
       return { success: false, message: actions('Unauthorized') }
     }
 
-    if (!layout) {
-      throw new Error('Layout is required')
+    if (!id || !layout) {
+      return { success: false, message: 'ID or Layout is required' }
     }
 
     const updatedSettings = await database
       .update(settings)
       .set({ layout })
-      .where(eq(settings.layout, layout === 'grid' ? 'dotted' : 'grid'))
+      .where(eq(settings.id, id))
 
-    if (updatedSettings.length > 0) {
-      return {
-        success: false,
-        message: actions('updatedFailed')
-      }
+    if (updatedSettings.count === 0) {
+      return { success: false, message: actions('updatedFailed') }
     }
 
     revalidatePath('/dashboard/settings')

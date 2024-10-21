@@ -12,7 +12,7 @@ export default async function DashboardSettingsPage() {
         {settings ? (
           <div className='p-4 shadow rounded-lg'>
             <h2 className='text-xl font-bold mb-4'>{settingsTranslations('layout')}</h2>
-            <LayoutSwitch initialLayout={settings.layout} />
+            <LayoutSwitch Layout={settings} />
           </div>
         ) : (
           <p>{settingsTranslations('noSettingsFound')}</p>

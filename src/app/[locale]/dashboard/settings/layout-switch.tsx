@@ -8,40 +8,36 @@ import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/hooks/use-toast'
 import type { Setting } from '@/types'
 
-function LayoutSwitch({ initialLayout }: { initialLayout: Setting['layout'] }) {
-  const [layout, setLayout] = useState(initialLayout)
+function LayoutSwitch({ Layout }: { Layout: Setting }) {
+  const [layout, setLayout] = useState<Setting['layout']>(Layout.layout)
   const [isUpdating, setIsUpdating] = useState(false)
   const settings = useTranslations('dashboard.settings')
   const toast = useToast()
 
-  const handleLayoutChange = async (checked: boolean) => {
-    const newLayout = checked ? 'grid' : 'dotted'
+  const handleLayoutChange = async () => {
+    const layouts: Setting['layout'][] = ['dotted', 'grid', 'grid-small']
+    const currentIndex = layouts.indexOf(layout)
+    const newLayout = layouts[(currentIndex + 1) % layouts.length]
+
     setIsUpdating(true)
-    setLayout(newLayout)
 
-    const { message, success } = await updateLayoutAction({ layout: newLayout })
+    const { message, success } = await updateLayoutAction({ id: Layout.id, layout: newLayout })
 
-    if (!success) {
+    if (success) {
+      setLayout(newLayout)
+      toast.success(message)
+    } else {
       console.error(message)
-      setLayout(layout)
-      return toast.error(message)
+      toast.error(message)
     }
 
-    toast.success(message)
     setIsUpdating(false)
   }
 
   return (
     <div className='flex items-center gap-x-2'>
-      <Switch
-        checked={layout === 'grid'}
-        disabled={isUpdating}
-        id='layout-switch'
-        onCheckedChange={handleLayoutChange}
-      />
-      <Label htmlFor='layout-switch'>
-        {settings(layout === 'grid' ? 'gridLayout' : 'dottedLayout')}
-      </Label>
+      <Switch layout={layout} disabled={isUpdating} onCheckedChange={handleLayoutChange} />
+      <Label>{settings(layout)}</Label>
     </div>
   )
 }
