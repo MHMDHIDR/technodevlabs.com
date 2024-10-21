@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { getSettings } from '@/data/settings'
 import LayoutSwitch from './layout-switch'
-import LayoutSwitch from './layout-switch'
 
 export default async function DashboardSettingsPage() {
   const settings = await getSettings()
