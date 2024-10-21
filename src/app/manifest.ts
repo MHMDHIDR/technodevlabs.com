@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 
+/* eslint-disable max-lines */
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'TechnoDevLabs',
