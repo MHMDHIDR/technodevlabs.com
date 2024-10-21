@@ -3,17 +3,9 @@ import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
-import type { Locale } from '@/i18n/request'
+import { getTranslations } from 'next-intl/server'
 
-export default async function DashboardLayout({
-  children,
-  params: { locale }
-}: {
-  children: React.ReactNode
-  params: { locale: Locale }
-}) {
-  setRequestLocale(locale)
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const dashboard = await getTranslations('dashboard')
   const session = await auth()
 

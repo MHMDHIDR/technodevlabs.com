@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { PostsSection } from '@/app/[locale]/posts/posts-section'
 import { auth } from '@/auth'
 import { AddButton } from '@/components/custom/add-button'
@@ -11,7 +11,6 @@ import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import type { Metadata } from 'next'
 import type { User } from 'next-auth'
-import type { Locale } from '@/i18n/request'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -37,8 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function PostsPage({ params: { locale } }: { params: { locale: Locale } }) {
-  setRequestLocale(locale)
+export default async function PostsPage() {
   const settings = await getSettings()
   const postsTranslations = await getTranslations('posts')
   const { postsCount } = await getPosts()

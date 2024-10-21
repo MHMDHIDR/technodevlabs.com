@@ -7,11 +7,10 @@ import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants
 import { getProjects } from '@/data/projects'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { ProjectsSection } from './projects-section'
 import type { Metadata } from 'next'
 import type { User } from 'next-auth'
-import type { Locale } from '@/i18n/request'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -37,8 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ProjectsPage({ params: { locale } }: { params: { locale: Locale } }) {
-  setRequestLocale(locale)
+export default async function ProjectsPage() {
   const settings = await getSettings()
   const projectsTranslations = await getTranslations('projects')
   const { projectsCount } = await getProjects()

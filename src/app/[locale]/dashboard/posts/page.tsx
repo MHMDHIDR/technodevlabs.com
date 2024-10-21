@@ -1,16 +1,10 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { AddButton } from '@/components/custom/add-button'
 import DashboardListItem from '@/components/custom/dashboard-list-item'
 import EmptyState from '@/components/custom/empty-state'
 import { getPosts } from '@/data/posts'
-import type { Locale } from '@/i18n/request'
 
-export default async function DashboardPosts({
-  params: { locale }
-}: {
-  params: { locale: Locale }
-}) {
-  setRequestLocale(locale)
+export default async function DashboardPosts() {
   const { posts, postsCount } = await getPosts()
   const postsTranslations = await getTranslations('posts')
 
