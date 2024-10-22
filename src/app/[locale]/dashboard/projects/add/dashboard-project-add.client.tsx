@@ -1,7 +1,6 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { addNewProjectAction, isImageFile, optimizeImage, uploadFiles } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
@@ -11,6 +10,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
+import { useRouter } from '@/i18n/routing'
 
 export default function DashboardProjectAddClient() {
   const [url, setUrl] = useState('')

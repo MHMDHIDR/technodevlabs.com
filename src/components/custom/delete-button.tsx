@@ -2,11 +2,11 @@
 
 import { IconLoader3 } from '@tabler/icons-react'
 import { useLocale } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { useTransition } from 'react'
 import { deleteEntryAndRevalidateAction } from '@/actions'
 import { useModal } from '@/components/ui/animated-modal'
 import { useToast } from '@/hooks/use-toast'
+import { useRouter } from '@/i18n/routing'
 import type { itemsTypes } from '@/types'
 
 export function DeleteButton({

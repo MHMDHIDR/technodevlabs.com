@@ -23,11 +23,7 @@ export function Hero() {
       <motion.div
         className='flex flex-col gap-y-10 items-center py-4 mt-10 tracking-tight select-none'
         initial={{ opacity: 0, y: 200 }}
-        transition={{
-          delay: 0.25,
-          duration: 0.85,
-          ease: 'easeInOut'
-        }}
+        transition={{ delay: 0.25, duration: 0.85, ease: 'easeInOut' }}
         whileInView={{ opacity: 1, y: isMobile ? 50 : 100 }}
       >
         <h1 className='font-bold text-center text-transparent bg-gradient-to-br from-slate-300 to-slate-500 bg-clip-text text-4xl md:text-7xl leading-[3rem] md:leading-[6rem]'>

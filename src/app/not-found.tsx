@@ -51,7 +51,7 @@ export default async function RootNotFoundPage() {
                 </p>
 
                 <div className='flex items-center w-full mt-6 gap-x-3 shrink-0 sm:w-auto'>
-                  <Link href={`/`} className='w-full'>
+                  <Link href='/' className='w-full'>
                     <Button type='button' withArrow>
                       {notFoundTranslations.home}
                     </Button>

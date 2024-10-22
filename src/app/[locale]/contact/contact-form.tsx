@@ -1,7 +1,6 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { emailAction } from '@/actions'
 import Divider from '@/components/custom/divider'
@@ -11,7 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { ADMIN_EMAIL, DEFAULT_DURATION } from '@/data/constants'
 import { useToast } from '@/hooks/use-toast'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
 import { SubmitButton } from './submit-button'
 
 export function ContactForm() {

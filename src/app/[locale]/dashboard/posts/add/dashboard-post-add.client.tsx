@@ -4,7 +4,6 @@ import { Image } from '@tiptap/extension-image'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 import { useTranslations } from 'next-intl'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { addNewPostAction } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
@@ -13,6 +12,7 @@ import LabelInputContainer from '@/components/custom/label-input-container'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
+import { useRouter } from '@/i18n/routing'
 
 function MenuBar({ editor }: { editor: any }) {
   const postTranslations = useTranslations('dashboard.post')
