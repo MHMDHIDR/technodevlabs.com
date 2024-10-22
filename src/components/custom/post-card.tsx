@@ -33,7 +33,7 @@ export async function PostCard({ post }: { post: Post }) {
   const imgSrcMatch = content.match(/<img.*?src="(.*?)"/)
   const postImg = imgSrcMatch ? imgSrcMatch[1] : ''
   const postImgClass = {
-    'bg-center bg-fixed bg-contain': postImg,
+    'bg-center bg-fixed bg-contain bg-left bg-no-repeat': postImg,
     'bg-gray-900': !postImg
   }
 
