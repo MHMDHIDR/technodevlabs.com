@@ -32,7 +32,7 @@ export function Hero() {
           <br /> {heroTranslations('with')}
         </h1>
 
-        <Link href='#projects' className='relative p-1 w-fit'>
+        <Link href='/#projects' className='relative p-1 w-fit'>
           <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
           <span className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'>
             {heroTranslations('getStarted')}

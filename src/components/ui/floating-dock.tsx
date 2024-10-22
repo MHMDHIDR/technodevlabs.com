@@ -7,8 +7,8 @@ import {
   useSpring,
   useTransform
 } from 'framer-motion'
-import Link from 'next/link'
 import { useRef, useState } from 'react'
+import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
 export const FloatingDock = ({
