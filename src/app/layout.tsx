@@ -31,11 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
-        <script
-          defer
-          data-domain='technodevlabs.com'
-          src='https://monitoryour.website/tracking-script.js'
-        ></script>
       </head>
       <body className={'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950'}>
         {children}
