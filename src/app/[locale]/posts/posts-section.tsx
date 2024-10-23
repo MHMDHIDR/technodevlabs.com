@@ -6,7 +6,7 @@ import { getPosts } from '@/data/posts'
 import { Link } from '@/i18n/routing'
 
 export async function PostsSection({ pathname }: { pathname?: string }) {
-  const postsData = await getPosts(true)
+  const postsData = await getPosts({ isPublished: true })
   let posts = postsData.posts
   const postsCount = postsData.postsCount
 

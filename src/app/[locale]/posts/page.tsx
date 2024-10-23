@@ -48,7 +48,7 @@ export default async function PostsPage() {
   }
 
   return (
-    <Layout>
+    <Layout className={postsCount === 0 ? 'h-svh' : ''}>
       <div
         className={`h-fit p-4 py-20 w-full dark:bg-black bg-white relative ${clsx({
           'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settings.layout === 'grid',

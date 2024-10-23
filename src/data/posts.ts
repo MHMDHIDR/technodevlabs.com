@@ -1,7 +1,7 @@
 import { eq, SQL } from 'drizzle-orm'
 import { database } from '@/db/database'
 import { posts } from '@/db/schema'
-import type { Post } from '@/types'
+import type { GetPostsParams, Post } from '@/types'
 
 /**
  * Get posts, it returns all posts if isPublished is not provided,
@@ -10,9 +10,10 @@ import type { Post } from '@/types'
  * @param {boolean} [isPublished] - Optional. If provided, filters posts by publication status
  * @returns {Promise<{ posts: Array<Post>; postsCount: number }>} A promise that contains an array of posts and the count
  */
-export async function getPosts(
-  isPublished?: boolean
-): Promise<{ posts: Array<Post>; postsCount: number }> {
+export async function getPosts({ isPublished }: GetPostsParams = {}): Promise<{
+  posts: Array<Post>
+  postsCount: number
+}> {
   let whereClause: SQL | undefined
 
   if (isPublished !== undefined) {
