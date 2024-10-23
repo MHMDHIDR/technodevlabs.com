@@ -11,7 +11,7 @@ import {
 } from '@/components/custom/pagination'
 import { PostCard } from '@/components/custom/post-card'
 import { ITEMS_COUNT } from '@/data/constants'
-import { getPosts } from '@/data/posts'
+import { getPosts, GetPostsResponse } from '@/data/posts'
 import { Link } from '@/i18n/routing'
 
 export async function PostsSection({
@@ -23,13 +23,13 @@ export async function PostsSection({
 }) {
   const isPostsPage = pathname === '/posts'
   const postsTranslations = await getTranslations('posts')
-  let postsData
+  let postsData: GetPostsResponse
 
   // Only create URLSearchParams for the posts page
   if (isPostsPage) {
     const urlSearchParams = new URLSearchParams()
-    urlSearchParams.set('page', String(searchParams?.page ?? '1'))
-    urlSearchParams.set('limit', String(searchParams?.limit ?? '2'))
+    urlSearchParams.set('page', String(searchParams?.page ?? 1))
+    urlSearchParams.set('limit', String(searchParams?.limit ?? ITEMS_COUNT))
 
     postsData = await getPosts({ isPublished: true, searchParams: urlSearchParams })
   } else {
@@ -47,10 +47,9 @@ export async function PostsSection({
   // Generate page numbers for pagination
   const generatePaginationItems = (currentPage: number, totalPages: number) => {
     const items = []
-    const maxVisiblePages = 5 // Maximum number of page numbers to show
 
-    if (totalPages <= maxVisiblePages) {
-      // Show all pages if total pages is less than or equal to maxVisiblePages
+    if (totalPages <= ITEMS_COUNT) {
+      // Show all pages if total pages is less than or equal to ITEMS_COUNT
       for (let i = 1; i <= totalPages; i++) {
         items.push(i)
       }
@@ -82,6 +81,8 @@ export async function PostsSection({
     return items
   }
 
+  console.log(paginationInfo)
+
   return posts && postsCount !== 0 ? (
     <div className='container max-w-5xl'>
       <div
@@ -101,7 +102,8 @@ export async function PostsSection({
           </Button>
         </Link>
       ) : (
-        paginationInfo && (
+        paginationInfo &&
+        paginationInfo.totalPages > 1 && (
           <div className='mt-10'>
             <Pagination>
               <PaginationContent>
