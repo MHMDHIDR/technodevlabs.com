@@ -81,8 +81,6 @@ export async function PostsSection({
     return items
   }
 
-  console.log(paginationInfo)
-
   return posts && postsCount !== 0 ? (
     <div className='container max-w-5xl'>
       <div
