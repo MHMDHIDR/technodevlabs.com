@@ -1,5 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/custom/button'
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '@/components/custom/pagination'
 import { PostCard } from '@/components/custom/post-card'
 import { ITEMS_COUNT } from '@/data/constants'
 import { getPosts } from '@/data/posts'
@@ -35,6 +44,44 @@ export async function PostsSection({
   // Only get the first 3 posts for the '/' homepage
   posts = pathname === '/' && postsCount > ITEMS_COUNT - 2 ? posts.slice(0, ITEMS_COUNT - 2) : posts
 
+  // Generate page numbers for pagination
+  const generatePaginationItems = (currentPage: number, totalPages: number) => {
+    const items = []
+    const maxVisiblePages = 5 // Maximum number of page numbers to show
+
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages if total pages is less than or equal to maxVisiblePages
+      for (let i = 1; i <= totalPages; i++) {
+        items.push(i)
+      }
+    } else {
+      // Always show first page
+      items.push(1)
+
+      if (currentPage > 3) {
+        items.push('ellipsis-start')
+      }
+
+      // Show pages around current page
+      for (
+        let i = Math.max(2, currentPage - 1);
+        i <= Math.min(totalPages - 1, currentPage + 1);
+        i++
+      ) {
+        items.push(i)
+      }
+
+      if (currentPage < totalPages - 2) {
+        items.push('ellipsis-end')
+      }
+
+      // Always show last page
+      items.push(totalPages)
+    }
+
+    return items
+  }
+
   return posts && postsCount !== 0 ? (
     <div className='container max-w-5xl'>
       <div
@@ -47,28 +94,6 @@ export async function PostsSection({
         ))}
       </div>
 
-      {/* Debug information to verify pagination */}
-      {isPostsPage && paginationInfo && (
-        <div className='mt-8 p-4 bg-gray-100 rounded'>
-          <h3 className='font-bold'>Pagination Debug Info:</h3>
-          <pre className='text-sm'>
-            {JSON.stringify(
-              {
-                currentPage: paginationInfo.currentPage,
-                totalPages: paginationInfo.totalPages,
-                pageSize: paginationInfo.pageSize,
-                totalItems: paginationInfo.totalItems,
-                hasNextPage: paginationInfo.hasNextPage,
-                hasPreviousPage: paginationInfo.hasPreviousPage,
-                itemsRange: `${paginationInfo.items.start}-${paginationInfo.items.end}`
-              },
-              null,
-              2
-            )}
-          </pre>
-        </div>
-      )}
-
       {pathname === '/' ? (
         <Link className='flex justify-center mt-10' href='/posts'>
           <Button className='rounded-full' withArrow>
@@ -76,23 +101,57 @@ export async function PostsSection({
           </Button>
         </Link>
       ) : (
-        // Add pagination controls for the posts page
         paginationInfo && (
-          <div className='flex justify-center gap-4 mt-10'>
-            {paginationInfo.hasPreviousPage && (
-              <Link
-                href={`/posts?page=${paginationInfo.previousPage}&limit=${paginationInfo.pageSize}`}
-              >
-                <Button className='rounded-full'>Previous</Button>
-              </Link>
-            )}
-            {paginationInfo.hasNextPage && (
-              <Link
-                href={`/posts?page=${paginationInfo.nextPage}&limit=${paginationInfo.pageSize}`}
-              >
-                <Button className='rounded-full'>Next</Button>
-              </Link>
-            )}
+          <div className='mt-10'>
+            <Pagination>
+              <PaginationContent>
+                {/* Previous button */}
+                <PaginationItem>
+                  <PaginationPrevious
+                    href={
+                      paginationInfo.hasPreviousPage
+                        ? `/posts?page=${paginationInfo.previousPage}&limit=${paginationInfo.pageSize}`
+                        : undefined
+                    }
+                    className={
+                      paginationInfo.hasPreviousPage ? 'cursor-pointer' : 'cursor-not-allowed'
+                    }
+                    aria-disabled={!paginationInfo.hasPreviousPage}
+                  />
+                </PaginationItem>
+
+                {/* Page numbers */}
+                {generatePaginationItems(paginationInfo.currentPage, paginationInfo.totalPages).map(
+                  (item, index) => (
+                    <PaginationItem key={`${item}-${index}`}>
+                      {item === 'ellipsis-start' || item === 'ellipsis-end' ? (
+                        <PaginationEllipsis />
+                      ) : (
+                        <PaginationLink
+                          href={`/posts?page=${item}&limit=${paginationInfo.pageSize}`}
+                          isActive={item === paginationInfo.currentPage}
+                        >
+                          {item}
+                        </PaginationLink>
+                      )}
+                    </PaginationItem>
+                  )
+                )}
+
+                {/* Next button */}
+                <PaginationItem>
+                  <PaginationNext
+                    href={
+                      paginationInfo.hasNextPage
+                        ? `/posts?page=${paginationInfo.nextPage}&limit=${paginationInfo.pageSize}`
+                        : undefined
+                    }
+                    aria-disabled={!paginationInfo.hasNextPage}
+                    className={paginationInfo.hasNextPage ? 'cursor-pointer' : 'cursor-not-allowed'}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </div>
         )
       )}
