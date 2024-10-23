@@ -36,7 +36,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function PostsPage() {
+export default async function PostsPage({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
   const settings = (await getSettings()) || { layout: 'grid' }
   const postsTranslations = await getTranslations('posts')
   const { postsCount } = await getPosts()
@@ -79,7 +83,7 @@ export default async function PostsPage() {
             </p>
           </EmptyState>
         ) : (
-          <PostsSection />
+          <PostsSection pathname='/posts' searchParams={searchParams} />
         )}
       </div>
     </Layout>

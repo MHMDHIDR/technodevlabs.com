@@ -49,10 +49,6 @@ export type PostWithAuthor = Post & {
   nextPost: readMorePost
 }
 
-export type GetPostsParams = {
-  isPublished?: boolean
-}
-
 export type emailMethodProps = {
   name?: string
   subject: string
