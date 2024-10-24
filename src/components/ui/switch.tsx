@@ -38,7 +38,7 @@ const Switch = React.forwardRef<React.ElementRef<typeof SwitchPrimitives.Root>, 
                   layout === 'grid' && 'translate-x-5 rtl:-translate-x-5',
                   layout === 'grid-small' && 'translate-x-10 rtl:-translate-x-10'
                 )
-              : 'data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0'
+              : 'data-[state=checked]:translate-x-5 rtl:data-[state=checked]:-translate-x-5 data-[state=unchecked]:translate-x-0'
           )}
         />
       </SwitchPrimitives.Root>
