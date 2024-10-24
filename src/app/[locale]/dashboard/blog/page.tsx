@@ -11,12 +11,12 @@ export default async function DashboardPosts() {
   return (
     <section className='flex flex-col container py-10'>
       <div className='self-end mb-6'>
-        <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
+        <AddButton href='/dashboard/blog/add'>{postsTranslations('addPost')}</AddButton>
       </div>
 
       {postsCount === 0 ? (
         <EmptyState>
-          <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
+          <AddButton href='/dashboard/blog/add'>{postsTranslations('addPost')}</AddButton>
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400 select-none'>
             {postsTranslations('noPosts')}
           </p>

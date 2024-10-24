@@ -266,7 +266,7 @@
     "sidebar": {
       "dashboard": "Dashboard",
       "projects": "Projects",
-      "posts": "Posts",
+      "blog": "Blog",
       "settings": "Settings",
       "analytics": "Analytics",
       "signOut": "Sign Out"

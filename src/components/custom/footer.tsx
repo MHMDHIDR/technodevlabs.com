@@ -45,7 +45,7 @@ export default async function Footer({ withThemeToggler = false }: { withThemeTo
 
               <Link
                 className='inline-flex text-gray-400 gap-x-2 hover:text-gray-200 focus:outline-none focus:text-gray-200 dark:text-neutral-400 dark:hover:text-neutral-200 dark:focus:text-neutral-200'
-                href='/posts'
+                href='/blog'
               >
                 {footerTranslations('blog')}
               </Link>

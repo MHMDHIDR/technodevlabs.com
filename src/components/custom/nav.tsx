@@ -156,8 +156,8 @@ export default function Nav() {
             </Link>
             <Link
               aria-current='page'
-              className={activeLinkClass('/posts')}
-              href={pathname === '/' || pathname === '/ar' ? '/#posts' : '/posts'}
+              className={activeLinkClass('/blog')}
+              href={pathname === '/' || pathname === '/ar' ? '/#blog' : '/blog'}
               onClick={toggleMobileMenu}
             >
               {navTranslations('blog')}

@@ -20,7 +20,7 @@ export default async function DashboardPage() {
           }
           blockIcon={<IconBook />}
           blockLabel={currentLocale === 'en' ? 'Posts' : 'منشورات المدونة'}
-          href={!postsCount ? '/dashboard/posts/add' : '/dashboard/posts'}
+          href={!postsCount ? '/dashboard/blog/add' : '/dashboard/blog'}
         >
           <strong className='w-6 h-6 bg-primary/20 rounded-full inline-flex items-center justify-center mx-3 text-lg font-bold text-primary'>
             {postsCount}

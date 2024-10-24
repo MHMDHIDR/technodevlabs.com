@@ -183,7 +183,7 @@ export default function DashboardPostAddClient() {
     setTitleAr('')
     editor?.commands.setContent('')
     editorAr?.commands.setContent('')
-    replace('/dashboard/posts')
+    replace('/dashboard/blog')
   }
 
   return (

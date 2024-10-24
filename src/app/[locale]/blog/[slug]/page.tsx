@@ -49,7 +49,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${env.NEXT_PUBLIC_URL}/posts/${slug}`,
+      url: `${env.NEXT_PUBLIC_URL}/blog/${slug}`,
       siteName: APP_TITLE,
       images: [
         { url: image, secureUrl: image, width: 1200, height: 630, alt: title },
@@ -101,7 +101,7 @@ export default async function BlogPostContentPage({
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
-  const shareUrl = encodeURIComponent(`${env.NEXT_PUBLIC_URL}/posts/${slug}`)
+  const shareUrl = encodeURIComponent(`${env.NEXT_PUBLIC_URL}/blog/${slug}`)
 
   return (
     <Layout>
@@ -141,7 +141,7 @@ export default async function BlogPostContentPage({
             </span>
             {user ? (
               <>
-                <Link className='self-start md:self-center' href={`/dashboard/posts/${post.id}`}>
+                <Link className='self-start md:self-center' href={`/dashboard/blog/${post.id}`}>
                   <Button
                     className='flex gap-x-2 items-center px-2 -ml-1'
                     title={postTranslations('editPost')}
@@ -155,7 +155,7 @@ export default async function BlogPostContentPage({
                   title={postTranslations('deletePost')}
                   trigger={<IconTrash className='w-10 h-4 text-red-500' />}
                 >
-                  <DeleteButton entryId={post.id ?? ''} redirectTo='/posts' type='post' />
+                  <DeleteButton entryId={post.id ?? ''} redirectTo='/blog' type='post' />
                 </Modal>
               </>
             ) : null}
@@ -185,7 +185,7 @@ export default async function BlogPostContentPage({
         <div className='flex flex-col justify-between gap-y-2'>
           {post.previousPost ? (
             <Link
-              href={`/posts/${post.previousPost.slug}`}
+              href={`/blog/${post.previousPost.slug}`}
               className='flex gap-x-2 items-center border hover:border-purple-200 dark:hover:border-purple-900 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
             >
               <Image
@@ -205,7 +205,7 @@ export default async function BlogPostContentPage({
           ) : null}
           {post.nextPost ? (
             <Link
-              href={`/posts/${post.nextPost.slug}`}
+              href={`/blog/${post.nextPost.slug}`}
               className='flex gap-x-2 items-center border hover:border-purple-200 dark:hover:border-purple-900 transition-colors rounded-lg p-2 bg-white/70 hover:bg-white dark:bg-slate-900/90 dark:hover:bg-slate-900'
             >
               <Image

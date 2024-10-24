@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server'
-import { PostsSection } from '@/app/[locale]/posts/posts-section'
+import { PostsSection } from '@/app/[locale]/blog/posts-section'
 import { auth } from '@/auth'
 import { AddButton } from '@/components/custom/add-button'
 import EmptyState from '@/components/custom/empty-state'
@@ -69,21 +69,21 @@ export default async function PostsPage({
 
         {user ? (
           <div className='mb-6 ml-auto w-fit rtl:ml-0'>
-            <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
+            <AddButton href='/dashboard/blog/add'>{postsTranslations('addPost')}</AddButton>
           </div>
         ) : null}
 
         {postsCount === 0 ? (
           <EmptyState>
             {user ? (
-              <AddButton href='/dashboard/posts/add'>{postsTranslations('addPost')}</AddButton>
+              <AddButton href='/dashboard/blog/add'>{postsTranslations('addPost')}</AddButton>
             ) : null}
             <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
               {postsTranslations('noPosts')}
             </p>
           </EmptyState>
         ) : (
-          <PostsSection pathname='/posts' searchParams={searchParams} />
+          <PostsSection pathname='/blog' searchParams={searchParams} />
         )}
       </div>
     </Layout>

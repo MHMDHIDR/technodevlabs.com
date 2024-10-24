@@ -35,8 +35,8 @@ export function DashboardSidebar({ user }: { user: User }) {
       icon: <IconCode className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {
-      label: dashboardSidebar('posts'),
-      href: '/dashboard/posts',
+      label: dashboardSidebar('blog'),
+      href: '/dashboard/blog',
       icon: <IconBook className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
     },
     {

@@ -58,7 +58,7 @@ export default async function MinifiedNav() {
               <NavLink href='/projects' label={navTranslations('projects')} />
               <NavLink href='/about' label={navTranslations('about')} />
               <NavLink href='/services' label={navTranslations('services')} />
-              <NavLink href='/posts' label={navTranslations('blog')} />
+              <NavLink href='/blog' label={navTranslations('blog')} />
               <NavLink href='/contact' label={navTranslations('contact')} />
 
               {user && (

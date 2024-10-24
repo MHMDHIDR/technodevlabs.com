@@ -49,7 +49,7 @@ export async function updatePostAction({
       return { success: false, message: postTranslations('updateErrorMessage') }
     }
 
-    revalidatePath('/dashboard/posts')
+    revalidatePath('/dashboard/blog')
     return { success: true, message: postTranslations('updateSuccessMessage') }
   } catch (error) {
     console.error('Error updating post:', error)

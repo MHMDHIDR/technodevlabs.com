@@ -22,7 +22,7 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
         : (item as ProjectWithBlur).description
       ).slice(0, 150)
 
-  const linkHref = `/dashboard/${type}s/${item.id}`
+  const linkHref = `/dashboard/${type === 'post' ? 'blog' : `${type}s`}/${item.id}`
   const itemTitle = currentLocale === 'ar' ? item.titleAr : item.title
 
   return (
@@ -48,7 +48,11 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
         title={actions('deleteButton', { type })}
         trigger={<IconTrash className='w-10 h-4 text-red-500' />}
       >
-        <DeleteButton entryId={item.id} redirectTo={`/dashboard/${type}s`} type={type} />
+        <DeleteButton
+          entryId={item.id}
+          redirectTo={`/dashboard/${type === 'post' ? 'blog' : `${type}s`}`}
+          type={type}
+        />
       </Modal>
     </div>
   )

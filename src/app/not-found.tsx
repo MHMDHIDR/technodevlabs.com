@@ -70,7 +70,7 @@ export default async function RootNotFoundPage() {
                 </Block>
 
                 <Block
-                  href='/posts'
+                  href='/blog'
                   blockLabel={notFoundTranslations.blogLabel}
                   blockDescription={notFoundTranslations.readPostsDescription}
                   blockIcon={<IconBook />}

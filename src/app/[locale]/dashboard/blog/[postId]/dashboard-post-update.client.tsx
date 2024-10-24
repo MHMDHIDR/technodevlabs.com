@@ -230,7 +230,7 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
 
     editor.commands.setContent('')
     editorAr.commands.setContent('')
-    replace('/dashboard/posts')
+    replace('/dashboard/blog')
   }
 
   return (
@@ -240,7 +240,7 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
           <p className='mt-4 text-lg text-gray-500 dark:text-gray-400'>
             {postTranslations('noPosts')}
           </p>
-          <AddButton href='/dashboard/posts/add'>{postTranslations('addPost')}</AddButton>
+          <AddButton href='/dashboard/blog/add'>{postTranslations('addPost')}</AddButton>
         </EmptyState>
       ) : (
         <>

@@ -40,7 +40,7 @@ export async function PostCard({ post }: { post: Post }) {
   return (
     <Link
       className='relative max-w-xs group-[-one-col]:col-span-3 min-h-[26rem] min-w-80'
-      href={`/posts/${post.slug}`}
+      href={`/blog/${post.slug}`}
     >
       <div className='absolute inset-0 h-full w-full bg-gradient-to-r from-blue-500 to-teal-500 transform scale-[0.80] bg-red-500 rounded-full blur-3xl' />
       <div

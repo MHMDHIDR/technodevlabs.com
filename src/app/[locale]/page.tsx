@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
 import { AboutSection } from '@/app/[locale]/about/about-section'
+import { PostsSection } from '@/app/[locale]/blog/posts-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
-import { PostsSection } from '@/app/[locale]/posts/posts-section'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
 import { Hero } from '@/components/custom/hero'
 import Layout from '@/components/custom/layout'
@@ -47,7 +47,7 @@ export default async function Home({ params: { locale } }: { params: { locale: L
           <ServicesSection />
         </section>
 
-        <section className='py-10' id='posts'>
+        <section className='py-10' id='blog'>
           <PrimaryHeading className='w-full h-20'>{postsTranslations('pageTitle')}</PrimaryHeading>
           <PostsSection pathname='/' />
         </section>

@@ -21,7 +21,7 @@ export async function PostsSection({
   pathname?: string
   searchParams?: { [key: string]: string | string[] | undefined }
 }) {
-  const isPostsPage = pathname === '/posts'
+  const isPostsPage = pathname === '/blog'
   const postsTranslations = await getTranslations('posts')
   let postsData: GetPostsResponse
 
@@ -94,7 +94,7 @@ export async function PostsSection({
       </div>
 
       {pathname === '/' ? (
-        <Link className='flex justify-center mt-10' href='/posts'>
+        <Link className='flex justify-center mt-10' href='/blog'>
           <Button className='rounded-full' withArrow>
             {postsTranslations('readMoreCTA')}
           </Button>
@@ -110,7 +110,7 @@ export async function PostsSection({
                   <PaginationPrevious
                     href={
                       paginationInfo.hasPreviousPage
-                        ? `/posts?page=${paginationInfo.previousPage}&limit=${paginationInfo.pageSize}`
+                        ? `/blog?page=${paginationInfo.previousPage}&limit=${paginationInfo.pageSize}`
                         : undefined
                     }
                     aria-disabled={!paginationInfo.hasPreviousPage}
@@ -127,7 +127,7 @@ export async function PostsSection({
                         <PaginationEllipsis />
                       ) : (
                         <PaginationLink
-                          href={`/posts?page=${item}&limit=${paginationInfo.pageSize}`}
+                          href={`/blog?page=${item}&limit=${paginationInfo.pageSize}`}
                           isActive={item === paginationInfo.currentPage}
                           aria-disabled={item === paginationInfo.currentPage}
                           disabled={item === paginationInfo.currentPage}
@@ -144,7 +144,7 @@ export async function PostsSection({
                   <PaginationNext
                     href={
                       paginationInfo.hasNextPage
-                        ? `/posts?page=${paginationInfo.nextPage}&limit=${paginationInfo.pageSize}`
+                        ? `/blog?page=${paginationInfo.nextPage}&limit=${paginationInfo.pageSize}`
                         : undefined
                     }
                     aria-disabled={!paginationInfo.hasNextPage}
