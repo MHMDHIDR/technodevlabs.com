@@ -115,7 +115,8 @@ export async function PostsSection({
                     }
                     aria-disabled={!paginationInfo.hasPreviousPage}
                     disabled={!paginationInfo.hasPreviousPage}
-                  />
+                    label={postsTranslations('previousPost')}
+                  ></PaginationPrevious>
                 </PaginationItem>
 
                 {/* Page numbers */}
@@ -148,7 +149,8 @@ export async function PostsSection({
                     }
                     aria-disabled={!paginationInfo.hasNextPage}
                     disabled={!paginationInfo.hasNextPage}
-                  />
+                    label={postsTranslations('nextPost')}
+                  ></PaginationNext>
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
