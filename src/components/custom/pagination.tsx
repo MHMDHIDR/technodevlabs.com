@@ -2,7 +2,7 @@ import { IconBorderHorizontal, IconChevronLeft, IconChevronRight } from '@tabler
 import * as React from 'react'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
-import { ButtonProps, buttonVariants } from './button'
+import { Button, ButtonProps, buttonVariants } from './button'
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
@@ -28,16 +28,31 @@ PaginationItem.displayName = 'PaginationItem'
 
 type PaginationLinkProps = {
   isActive?: boolean
+  disabled?: boolean
 } & Pick<ButtonProps, 'size'> &
   React.ComponentProps<'a'>
 
-const PaginationLink = ({ className, isActive, size = 'icon', ...props }: PaginationLinkProps) => (
-  <Link
-    aria-current={isActive ? 'page' : undefined}
-    className={cn(buttonVariants({ variant: isActive ? 'outline' : 'ghost', size }), className)}
-    {...props}
-    href={props.href || ''}
-  />
+const PaginationLink = ({
+  className,
+  isActive,
+  size = 'icon',
+  disabled,
+  ...props
+}: PaginationLinkProps) => (
+  <Button
+    variant={'link'}
+    disabled={disabled}
+    className={cn(buttonVariants({ variant: isActive ? 'ghost' : 'outline', size }), className)}
+  >
+    <Link
+      aria-current={isActive ? 'page' : undefined}
+      {...props}
+      href={props.href || ''}
+      className={cn(buttonVariants({ variant: 'ghost' }), disabled ? 'pointer-events-none' : '')}
+    >
+      {props.children}
+    </Link>
+  </Button>
 )
 PaginationLink.displayName = 'PaginationLink'
 

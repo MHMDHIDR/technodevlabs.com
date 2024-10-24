@@ -113,10 +113,8 @@ export async function PostsSection({
                         ? `/posts?page=${paginationInfo.previousPage}&limit=${paginationInfo.pageSize}`
                         : undefined
                     }
-                    className={
-                      paginationInfo.hasPreviousPage ? 'cursor-pointer' : 'cursor-not-allowed'
-                    }
                     aria-disabled={!paginationInfo.hasPreviousPage}
+                    disabled={!paginationInfo.hasPreviousPage}
                   />
                 </PaginationItem>
 
@@ -130,6 +128,8 @@ export async function PostsSection({
                         <PaginationLink
                           href={`/posts?page=${item}&limit=${paginationInfo.pageSize}`}
                           isActive={item === paginationInfo.currentPage}
+                          aria-disabled={item === paginationInfo.currentPage}
+                          disabled={item === paginationInfo.currentPage}
                         >
                           {item}
                         </PaginationLink>
@@ -147,7 +147,7 @@ export async function PostsSection({
                         : undefined
                     }
                     aria-disabled={!paginationInfo.hasNextPage}
-                    className={paginationInfo.hasNextPage ? 'cursor-pointer' : 'cursor-not-allowed'}
+                    disabled={!paginationInfo.hasNextPage}
                   />
                 </PaginationItem>
               </PaginationContent>

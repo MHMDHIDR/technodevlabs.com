@@ -1,5 +1,5 @@
 import { cva } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { clsx, cn } from '@/lib/utils'
 import type { VariantProps } from 'class-variance-authority'
 
 export interface ButtonProps {
@@ -20,23 +20,27 @@ export function Button({ children, className, withArrow, ...props }: ButtonProps
       className={cn(`group bg-gradient-to-br relative h-10 font-medium`, className)}
       {...props}
     >
-      <span
-        className={cn(
-          `px-4 py-1.5 h-full text-gray-800 dark:text-gray-100 relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-flex`,
-          className
-        )}
-      >
-        {children}
-        {withArrow ? (
-          <span
-            className={cn(
-              'duration-300 ltr:translate-x-1 ltr:group-hover:translate-x-2 rtl:-translate-x-1 rtl:group-hover:-translate-x-2 rtl:rotate-180'
-            )}
-          >
-            &rarr;
-          </span>
-        ) : null}
-      </span>
+      {props.variant !== 'link' ? (
+        <span
+          className={cn(
+            'px-4 py-1.5 h-full text-gray-800 dark:text-gray-100 relative rounded-md border backdrop-blur-sm bg-emerald-300/10 border-emerald-500/20 min-w-full inline-flex',
+            className
+          )}
+        >
+          {children}
+          {withArrow ? (
+            <span
+              className={cn(
+                'duration-300 ltr:translate-x-1 ltr:group-hover:translate-x-2 rtl:-translate-x-1 rtl:group-hover:-translate-x-2 rtl:rotate-180'
+              )}
+            >
+              &rarr;
+            </span>
+          ) : null}
+        </span>
+      ) : (
+        children
+      )}
       <BottomGradient />
     </button>
   )
@@ -52,7 +56,7 @@ function BottomGradient() {
 }
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
