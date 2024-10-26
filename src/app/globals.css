@@ -66,6 +66,10 @@
     @apply scroll-smooth;
   }
 
+  body {
+    @apply overscroll-none;
+  }
+
   .rtl {
     direction: rtl;
   }
