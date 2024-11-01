@@ -1,4 +1,4 @@
-import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { IconArrowLeft, IconEdit, IconTrash } from '@tabler/icons-react'
 import { getLocale, getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -97,7 +97,7 @@ export default async function BlogPostContentPage({
   const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 mb-12 rounded-xl shadow-lg dark:shadow-slate-800 md:max-w-screen mx-auto" loading="lazy" alt="${postTitle}" title="${postTitle}"`
+    `<img class="my-3 mb-12 rounded-xl shadow-lg dark:shadow-slate-800 md:max-w-screen mx-auto md:min-w-[100%] object-cover max-h-80 object-center" loading="lazy" alt="${postTitle}" title="${postTitle}"`
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
@@ -115,7 +115,15 @@ export default async function BlogPostContentPage({
       >
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black/30 bg-white/10 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]' />
 
-        <h1 className='relative z-20 py-6 mx-auto mt-6 max-w-7xl text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
+        <Link
+          href='/blog'
+          className='flex gap-x-2.5 md:pl-10 group hover:text-blue-600 select-none'
+        >
+          <IconArrowLeft className='w-6 h-6 group-hover:-translate-x-2 transition rtl:order-1' />
+          {postTranslations('backToBlog')}
+        </Link>
+
+        <h1 className='relative z-20 py-6 mx-auto md:mt-6 max-w-7xl text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 via-neutral-700 to-neutral-600 dark:from-white dark:via-gray-300 dark:to-gray-400'>
           <SecondaryHeading>{postTitle}</SecondaryHeading>
         </h1>
 
