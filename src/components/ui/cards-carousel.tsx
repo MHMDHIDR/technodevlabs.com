@@ -196,7 +196,7 @@ export const Card = ({
       <div className='relative z-40 p-4 px-6 w-full'>
         <motion.h1
           layoutId={layout ? `title-${card.title}` : undefined}
-          className='text-white text-xl md:text-2xl font-bold rtl:text-right mt-2'
+          className='text-white text-xl md:text-2xl font-bold rtl:text-right rtl:rtl mt-2'
         >
           {card.title}
         </motion.h1>
