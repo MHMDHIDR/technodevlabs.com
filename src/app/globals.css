@@ -69,6 +69,7 @@
   html:lang(ar) {
     font-family: 'Cairo', sans-serif;
   }
+
   body {
     @apply overscroll-none;
   }

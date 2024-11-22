@@ -10,6 +10,12 @@ const Orbitron = localFont({
   weight: '100 900'
 })
 
+const Cairo = localFont({
+  src: '../../public/fonts/Cairo-VariableFont_slnt,wght.ttf',
+  variable: '--font-orbitron',
+  weight: '100 900'
+})
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(env.NEXT_PUBLIC_URL),
@@ -40,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
       <body
-        className={`${Orbitron.variable} min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950`}
+        className={`${Orbitron.variable} rtl:${Cairo.variable} rtl:font-cairo min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950`}
       >
         {children}
       </body>

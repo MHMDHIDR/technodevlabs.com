@@ -132,7 +132,8 @@ export default {
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }]
       },
       fontFamily: {
-        orbitron: ['var(--font-orbitron)']
+        orbitron: ['var(--font-orbitron)'],
+        cairo: ['var(--font-cairo)']
       },
       fontWeight: {
         normal: '400',
