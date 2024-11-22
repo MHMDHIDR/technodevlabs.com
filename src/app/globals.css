@@ -59,13 +59,16 @@
   }
 
   * {
-    @apply border-border [font-family:'Cairo',sans-serif_!important];
+    @apply border-border;
   }
 
   html {
     @apply scroll-smooth;
   }
 
+  html:lang(ar) {
+    font-family: 'Cairo', sans-serif;
+  }
   body {
     @apply overscroll-none;
   }

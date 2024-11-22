@@ -1,7 +1,14 @@
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { env } from '@/env'
 import './globals.css'
+import localFont from 'next/font/local'
 import type { Metadata } from 'next'
+
+const Orbitron = localFont({
+  src: '../../public/fonts/Orbitron-VariableFont_wght.ttf',
+  variable: '--font-orbitron',
+  weight: '100 900'
+})
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -32,7 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
       </head>
-      <body className={'min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950'}>
+      <body
+        className={`${Orbitron.variable} min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950`}
+      >
         {children}
       </body>
     </html>

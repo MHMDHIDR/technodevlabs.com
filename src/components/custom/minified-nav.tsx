@@ -22,7 +22,7 @@ export default async function MinifiedNav() {
           aria-label='Brand'
         >
           <Image alt={APP_DESCRIPTION} src={APP_LOGO} width={40} height={40} />
-          <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-xxs md:text-sm'>
+          <span className='font-orbitron text-gradient select-none hidden sm:inline-block text-xxs md:text-sm'>
             TechnoDevLabs
           </span>
         </Link>

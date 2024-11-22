@@ -89,7 +89,7 @@ export default async function RootNotFoundPage() {
               </div>
             </div>
           </section>
-          <Footer withThemeToggler={false} />
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

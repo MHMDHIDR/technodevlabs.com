@@ -76,7 +76,7 @@ export default function Nav() {
             href='/'
           >
             <Image alt={APP_DESCRIPTION} src={APP_LOGO} width={40} height={40} />
-            <span className='[font-family:Orbitron] text-gradient select-none hidden sm:inline-block text-sm md:text-xl'>
+            <span className='font-orbitron text-gradient select-none hidden sm:inline-block text-sm md:text-xl'>
               TechnoDevLabs
             </span>
           </Link>

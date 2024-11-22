@@ -131,6 +131,14 @@ export default {
         'tremor-title': ['1.125rem', { lineHeight: '1.75rem' }],
         'tremor-metric': ['1.875rem', { lineHeight: '2.25rem' }]
       },
+      fontFamily: {
+        orbitron: ['var(--font-orbitron)']
+      },
+      fontWeight: {
+        normal: '400',
+        bold: '700',
+        extrabold: '900'
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
