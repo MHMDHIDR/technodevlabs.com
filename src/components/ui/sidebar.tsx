@@ -3,22 +3,23 @@
 import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from 'next-intl'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext } from 'react'
 import Tooltip from '@/components/custom/tooltip'
+import useLocalStorage from '@/hooks/use-localstorage'
 import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
 import type { LinkProps } from 'next/link'
 
-interface Links {
+type Links = {
   label: string
   href: string
   icon: React.JSX.Element | React.ReactNode
   type?: 'link' | 'button'
 }
 
-interface SidebarContextProps {
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+type SidebarContextProps = {
+  isOpen: boolean
+  setIsOpen: (value: boolean) => void
   animate: boolean
 }
 
@@ -34,41 +35,29 @@ export const useSidebar = () => {
 
 export function SidebarProvider({
   animate = true,
-  children,
-  open: openProp,
-  setOpen: setOpenProp
+  children
 }: {
   children: React.ReactNode
-  open?: boolean
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
   animate?: boolean
 }) {
-  const [openState, setOpenState] = useState(false)
-
-  const open = openProp !== undefined ? openProp : openState
-  const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState
+  const open = localStorage.getItem('sidebar:state')
+  const [isOpen, setIsOpen] = useLocalStorage('sidebar:state', open === 'true')
 
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate }}>{children}</SidebarContext.Provider>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen, animate }}>
+      {children}
+    </SidebarContext.Provider>
   )
 }
 
 export function Sidebar({
-  animate,
-  children,
-  open,
-  setOpen
+  animate = true,
+  children
 }: {
   children: React.ReactNode
-  open?: boolean
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
   animate?: boolean
 }) {
-  return (
-    <SidebarProvider animate={animate} open={open} setOpen={setOpen}>
-      {children}
-    </SidebarProvider>
-  )
+  return <SidebarProvider animate={animate}>{children}</SidebarProvider>
 }
 
 export function SidebarBody(props: React.ComponentProps<typeof motion.div>) {
@@ -85,7 +74,7 @@ export function DesktopSidebar({
   className,
   ...props
 }: React.ComponentProps<typeof motion.div>) {
-  const { animate, open, setOpen } = useSidebar()
+  const { animate, isOpen, setIsOpen } = useSidebar()
   const currentLocale = useLocale()
 
   const TOGGLER_CLASSES = `cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 bg-neutral-100 dark:bg-neutral-800 p-1.5 rounded-full w-8 h-8`
@@ -93,7 +82,7 @@ export function DesktopSidebar({
   return (
     <motion.div
       animate={{
-        width: animate ? (open ? '270px' : '60px') : '270px'
+        width: animate ? (isOpen ? '270px' : '60px') : '270px'
       }}
       className={cn(
         'hidden relative flex-shrink-0 py-20 min-h-screen md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px]',
@@ -105,13 +94,13 @@ export function DesktopSidebar({
         {children}
         <Tooltip
           description={
-            open && currentLocale === 'en'
+            isOpen && currentLocale === 'en'
               ? 'Close Sidebar'
-              : open && currentLocale === 'ar'
+              : isOpen && currentLocale === 'ar'
                 ? 'اغلق القائمة'
-                : !open && currentLocale === 'en'
+                : !isOpen && currentLocale === 'en'
                   ? 'Open Sidebar'
-                  : !open && currentLocale === 'ar'
+                  : !isOpen && currentLocale === 'ar'
                     ? 'افتح القائمة'
                     : 'Toggle Sidebar'
           }
@@ -121,15 +110,15 @@ export function DesktopSidebar({
               '-right-2': currentLocale === 'en',
               '-left-2': currentLocale === 'ar'
             })}
-            onClick={() => setOpen(!open)}
+            onClick={() => setIsOpen(!isOpen)}
           >
-            {open && currentLocale === 'en' ? (
+            {isOpen && currentLocale === 'en' ? (
               <IconArrowLeft className={TOGGLER_CLASSES} />
-            ) : open && currentLocale === 'ar' ? (
+            ) : isOpen && currentLocale === 'ar' ? (
               <IconArrowRight className={TOGGLER_CLASSES} />
-            ) : !open && currentLocale === 'en' ? (
+            ) : !isOpen && currentLocale === 'en' ? (
               <IconArrowRight className={TOGGLER_CLASSES} />
-            ) : !open && currentLocale === 'ar' ? (
+            ) : !isOpen && currentLocale === 'ar' ? (
               <IconArrowLeft className={TOGGLER_CLASSES} />
             ) : null}
           </button>
@@ -140,7 +129,8 @@ export function DesktopSidebar({
 }
 
 export function MobileSidebar({ children, className, ...props }: React.ComponentProps<'div'>) {
-  const { open, setOpen } = useSidebar()
+  const { isOpen, setIsOpen } = useSidebar()
+
   return (
     <div
       className={cn(
@@ -151,11 +141,11 @@ export function MobileSidebar({ children, className, ...props }: React.Component
       <div className='flex z-20 justify-end w-full'>
         <IconMenu2
           className='cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
-          onClick={() => setOpen(!open)}
+          onClick={() => setIsOpen(!isOpen)}
         />
       </div>
       <AnimatePresence>
-        {open && (
+        {isOpen && (
           <motion.div
             animate={{ x: 0, opacity: 1 }}
             className={cn(
@@ -171,7 +161,7 @@ export function MobileSidebar({ children, className, ...props }: React.Component
           >
             <div
               className='absolute top-10 right-10 z-50 cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
-              onClick={() => setOpen(!open)}
+              onClick={() => setIsOpen(!isOpen)}
             >
               <IconX />
             </div>
@@ -194,7 +184,7 @@ export function SidebarLink({
   onClick?(): void
   props?: LinkProps | React.ComponentProps<'button'>
 }) {
-  const { animate, open } = useSidebar()
+  const { animate, isOpen } = useSidebar()
 
   return (
     <Tooltip description={link.label}>
@@ -208,8 +198,8 @@ export function SidebarLink({
 
         <motion.span
           animate={{
-            display: animate ? (open ? 'inline-block' : 'none') : 'inline-block',
-            opacity: animate ? (open ? 1 : 0) : 1
+            display: animate ? (isOpen ? 'inline-block' : 'none') : 'inline-block',
+            opacity: animate ? (isOpen ? 1 : 0) : 1
           }}
           className='text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0'
         >

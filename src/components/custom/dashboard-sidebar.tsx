@@ -11,7 +11,6 @@ import {
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
 import { deleteCookieAction } from '@/actions'
 import Tooltip from '@/components/custom/tooltip'
 import { Sidebar, SidebarBody, SidebarLink } from '@/components/ui/sidebar'
@@ -54,19 +53,14 @@ export function DashboardSidebar({ user }: { user: User }) {
       )
     }
   ]
-  const [open, setOpen] = useState(false)
 
   return !user ? null : (
-    <Sidebar open={open} setOpen={setOpen}>
+    <Sidebar>
       <SidebarBody className='justify-between gap-10'>
         <div className='flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
           <div className='flex flex-col gap-2'>
             {links.map(link => (
-              <SidebarLink
-                key={link.href}
-                link={link}
-                onClick={() => (open ? setOpen(false) : null)}
-              />
+              <SidebarLink key={link.href} link={link} />
             ))}
           </div>
         </div>
@@ -82,9 +76,7 @@ export function DashboardSidebar({ user }: { user: User }) {
             >
               <IconLogout2 className='w-5 h-5 mr-2 stroke-red-600' />
               <span
-                className={`text-neutral-700 dark:text-neutral-200 text-sm transition-opacity duration-500 ${
-                  open ? 'opacity-100 left-0' : 'opacity-0 absolute -left-40'
-                }`}
+                className={`text-neutral-700 dark:text-neutral-200 text-sm transition-opacity duration-500 sr-only`}
               >
                 {dashboardSidebar('signOut')}
               </span>
