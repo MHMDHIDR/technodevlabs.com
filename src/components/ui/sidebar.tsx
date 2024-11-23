@@ -50,14 +50,8 @@ export function SidebarProvider({
   )
 }
 
-export function Sidebar({
-  animate = true,
-  children
-}: {
-  children: React.ReactNode
-  animate?: boolean
-}) {
-  return <SidebarProvider animate={animate}>{children}</SidebarProvider>
+export function Sidebar({ children }: { children: React.ReactNode }) {
+  return <SidebarProvider>{children}</SidebarProvider>
 }
 
 export function SidebarBody(props: React.ComponentProps<typeof motion.div>) {
@@ -81,6 +75,7 @@ export function DesktopSidebar({
 
   return (
     <motion.div
+      initial={{ width: isOpen ? '270px' : '60px' }}
       animate={{
         width: animate ? (isOpen ? '270px' : '60px') : '270px'
       }}
@@ -197,6 +192,7 @@ export function SidebarLink({
         {link.icon}
 
         <motion.span
+          initial={{ display: 'none', opacity: 0 }}
           animate={{
             display: animate ? (isOpen ? 'inline-block' : 'none') : 'inline-block',
             opacity: animate ? (isOpen ? 1 : 0) : 1

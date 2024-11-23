@@ -4,7 +4,6 @@ import { auth } from '@/auth'
 import { DashboardSidebar } from '@/components/custom/dashboard-sidebar'
 import Layout from '@/components/custom/layout'
 import { SecondaryHeading } from '@/components/ui/cover'
-import { SidebarProvider } from '@/components/ui/sidebar'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const dashboard = await getTranslations('dashboard')
@@ -16,17 +15,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <Layout className='pt-10 flex flex-col md:flex-row'>
-      <SidebarProvider>
-        <DashboardSidebar user={session.user} />
+      <DashboardSidebar user={session.user} />
 
-        <main className='flex-1 px-3 pt-3'>
-          <h1 className='relative z-20 py-2 mx-auto mt-6 text-2xl font-semibold text-center bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
-            <SecondaryHeading>{dashboard('pageTitle')}</SecondaryHeading>
-          </h1>
+      <main className='flex-1 px-3 pt-3'>
+        <h1 className='relative z-20 py-2 mx-auto mt-6 text-2xl font-semibold text-center bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
+          <SecondaryHeading>{dashboard('pageTitle')}</SecondaryHeading>
+        </h1>
 
-          {children}
-        </main>
-      </SidebarProvider>
+        {children}
+      </main>
     </Layout>
   )
 }
