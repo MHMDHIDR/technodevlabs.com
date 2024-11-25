@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(initialValue)
@@ -36,5 +36,11 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
     }
   }
 
-  return [storedValue, setValue] as const
+  const toggle = useCallback(() => {
+    if (typeof storedValue === 'boolean') {
+      setValue(prev => !prev as unknown as T)
+    }
+  }, [storedValue, setValue])
+
+  return [storedValue, setValue, toggle] as const
 }

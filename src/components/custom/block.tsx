@@ -29,7 +29,7 @@ export function Block({
       <p className='mt-2 text-gray-500 dark:text-gray-400'>{blockDescription}</p>
 
       <span className='inline-flex items-center mt-4 text-sm text-blue-500 group-hover:cursor-pointer gap-x-2 dark:text-blue-400 group-hover:underline'>
-        <span>{children ?? 'Start exploring'}</span>
+        <>{children ?? 'Start exploring'}</>
 
         <svg
           className='w-5 h-5 rtl:rotate-180 group-hover:translate-x-2 rtl:group-hover:-translate-x-2 transition'

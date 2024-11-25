@@ -9,7 +9,7 @@ export default async function DashboardPosts() {
   const postsTranslations = await getTranslations('posts')
 
   return (
-    <section className='flex flex-col container py-10'>
+    <section className='flex flex-col mx-auto md:container py-10'>
       <div className='self-end mb-6'>
         <AddButton href='/dashboard/blog/add'>{postsTranslations('addPost')}</AddButton>
       </div>

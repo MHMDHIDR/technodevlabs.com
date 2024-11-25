@@ -20,6 +20,7 @@ type Links = {
 type SidebarContextProps = {
   isOpen: boolean
   setIsOpen: (value: boolean) => void
+  toggle: () => void
   animate: boolean
 }
 
@@ -41,37 +42,65 @@ export function SidebarProvider({
   animate?: boolean
 }) {
   const open = localStorage.getItem('sidebar:state')
-  const [isOpen, setIsOpen] = useLocalStorage('sidebar:state', open === 'true')
+  const [isOpen, setIsOpen, toggle] = useLocalStorage('sidebar:state', open === 'true')
 
   return (
-    <SidebarContext.Provider value={{ isOpen, setIsOpen, animate }}>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen, toggle, animate }}>
       {children}
     </SidebarContext.Provider>
   )
 }
 
-export function Sidebar({ children }: { children: React.ReactNode }) {
-  return <SidebarProvider>{children}</SidebarProvider>
-}
+export function SidebarToggle() {
+  const { toggle, isOpen } = useSidebar()
+  const currentLocale = useLocale()
+  const TOGGLER_CLASSES = `cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 bg-neutral-100 dark:bg-neutral-800 p-1.5 rounded-full w-8 h-8`
 
-export function SidebarBody(props: React.ComponentProps<typeof motion.div>) {
   return (
-    <>
-      <DesktopSidebar {...props} />
-      <MobileSidebar {...(props as React.ComponentProps<'div'>)} />
-    </>
+    <Tooltip
+      description={
+        isOpen && currentLocale === 'en'
+          ? 'Close Sidebar'
+          : isOpen && currentLocale === 'ar'
+            ? 'اغلق القائمة'
+            : !isOpen && currentLocale === 'en'
+              ? 'Open Sidebar'
+              : !isOpen && currentLocale === 'ar'
+                ? 'افتح القائمة'
+                : 'Toggle Sidebar'
+      }
+    >
+      <button
+        className={clsx('absolute flex bottom-48', {
+          '-right-2': currentLocale === 'en',
+          '-left-2': currentLocale === 'ar'
+        })}
+        onClick={toggle}
+      >
+        {isOpen && currentLocale === 'en' ? (
+          <IconArrowLeft className={TOGGLER_CLASSES} />
+        ) : isOpen && currentLocale === 'ar' ? (
+          <IconArrowRight className={TOGGLER_CLASSES} />
+        ) : !isOpen && currentLocale === 'en' ? (
+          <IconArrowRight className={TOGGLER_CLASSES} />
+        ) : !isOpen && currentLocale === 'ar' ? (
+          <IconArrowLeft className={TOGGLER_CLASSES} />
+        ) : null}
+      </button>
+    </Tooltip>
   )
 }
 
-export function DesktopSidebar({
+export function SidebarBody(props: React.ComponentProps<typeof motion.div>) {
+  return <SidebarComponent {...props} />
+}
+
+export function SidebarComponent({
   children,
   className,
   ...props
 }: React.ComponentProps<typeof motion.div>) {
-  const { animate, isOpen, setIsOpen } = useSidebar()
-  const currentLocale = useLocale()
-
-  const TOGGLER_CLASSES = `cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 bg-neutral-100 dark:bg-neutral-800 p-1.5 rounded-full w-8 h-8`
+  const { animate, isOpen } = useSidebar()
 
   return (
     <motion.div
@@ -80,44 +109,14 @@ export function DesktopSidebar({
         width: animate ? (isOpen ? '270px' : '60px') : '270px'
       }}
       className={cn(
-        'hidden relative flex-shrink-0 py-20 min-h-screen md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px]',
+        'flex-shrink-0 py-20 px-4 min-h-screen relative flex-row md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[270px]',
         className
       )}
       {...props}
     >
       <>
         {children}
-        <Tooltip
-          description={
-            isOpen && currentLocale === 'en'
-              ? 'Close Sidebar'
-              : isOpen && currentLocale === 'ar'
-                ? 'اغلق القائمة'
-                : !isOpen && currentLocale === 'en'
-                  ? 'Open Sidebar'
-                  : !isOpen && currentLocale === 'ar'
-                    ? 'افتح القائمة'
-                    : 'Toggle Sidebar'
-          }
-        >
-          <button
-            className={clsx('absolute flex bottom-48', {
-              '-right-2': currentLocale === 'en',
-              '-left-2': currentLocale === 'ar'
-            })}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen && currentLocale === 'en' ? (
-              <IconArrowLeft className={TOGGLER_CLASSES} />
-            ) : isOpen && currentLocale === 'ar' ? (
-              <IconArrowRight className={TOGGLER_CLASSES} />
-            ) : !isOpen && currentLocale === 'en' ? (
-              <IconArrowRight className={TOGGLER_CLASSES} />
-            ) : !isOpen && currentLocale === 'ar' ? (
-              <IconArrowLeft className={TOGGLER_CLASSES} />
-            ) : null}
-          </button>
-        </Tooltip>
+        <SidebarToggle />
       </>
     </motion.div>
   )
@@ -184,7 +183,7 @@ export function SidebarLink({
   return (
     <Tooltip description={link.label}>
       <Link
-        className={cn('flex gap-2 items-center px-4 py-2 group/sidebar', className)}
+        className={cn('flex gap-2 items-center py-2 group/sidebar', className)}
         href={link.href}
         onClick={onClick}
         {...props}

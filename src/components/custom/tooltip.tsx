@@ -21,9 +21,9 @@ export default function Tooltip({
       <TooltipParent>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent
-          className={clsx('absolute top-1', {
-            'left-2': currentLocale === 'en',
-            'right-2': currentLocale === 'ar'
+          className={clsx('absolute top-2', {
+            'left-3': currentLocale === 'en',
+            'right-3': currentLocale === 'ar'
           })}
         >
           {description}

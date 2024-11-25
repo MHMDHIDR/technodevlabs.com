@@ -9,7 +9,7 @@ export default async function DashboardProjects() {
   const projectsTranslations = await getTranslations('projects')
 
   return (
-    <section className='flex flex-col container py-10'>
+    <section className='flex flex-col mx-auto md:container py-10'>
       <div className='self-end mb-6'>
         <AddButton href='/dashboard/projects/add'>{projectsTranslations('addProject')}</AddButton>
       </div>
