@@ -26,7 +26,7 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
   const itemTitle = currentLocale === 'ar' ? item.titleAr : item.title
 
   return (
-    <div className='relative'>
+    <div className='relative sidebar-expanded:min-w-fit'>
       <Link className='block group' href={linkHref}>
         <div className='p-5 rounded-lg border border-gray-200 shadow-lg duration-300 bg-neutral-50 dark:bg-gray-900 dark:shadow-gray-800 hover:shadow-xl dark:border-gray-400 hover:border-blue-500'>
           <div className='flex justify-between items-center'>

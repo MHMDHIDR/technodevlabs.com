@@ -3,7 +3,7 @@
 import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocale } from 'next-intl'
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import Tooltip from '@/components/custom/tooltip'
 import useLocalStorage from '@/hooks/use-localstorage'
 import { Link } from '@/i18n/routing'
@@ -43,6 +43,16 @@ export function SidebarProvider({
 }) {
   const open = localStorage.getItem('sidebar:state')
   const [isOpen, setIsOpen, toggle] = useLocalStorage('sidebar:state', open === 'true')
+
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.classList.add('sidebar-expanded')
+      document.documentElement.classList.remove('sidebar-collapsed')
+    } else {
+      document.documentElement.classList.add('sidebar-collapsed')
+      document.documentElement.classList.remove('sidebar-expanded')
+    }
+  }, [isOpen])
 
   return (
     <SidebarContext.Provider value={{ isOpen, setIsOpen, toggle, animate }}>

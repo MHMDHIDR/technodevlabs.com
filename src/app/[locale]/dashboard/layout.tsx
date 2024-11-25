@@ -15,12 +15,12 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <Layout className='pt-10 flex'>
+    <Layout className='pt-10 flex overflow-x-clip'>
       <SidebarProvider>
         <DashboardSidebar user={session.user} />
       </SidebarProvider>
 
-      <main className='flex-1 px-3 pt-3'>
+      <main className='flex-1 px-3 pt-3 transition-[margin] sidebar-expanded:-mr-16'>
         <h1 className='relative z-20 py-2 mx-auto mt-6 text-2xl font-semibold text-center bg-clip-text bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 dark:from-neutral-800 dark:via-white dark:to-white'>
           <SecondaryHeading>{dashboard('pageTitle')}</SecondaryHeading>
         </h1>

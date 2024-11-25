@@ -19,7 +19,7 @@ import type { User } from 'next-auth'
 
 export function DashboardSidebar({ user }: { user: User }) {
   const dashboardSidebar = useTranslations('dashboard.sidebar')
-  const { isOpen } = useSidebar()
+  const { isOpen, setIsOpen } = useSidebar()
 
   const links = [
     {
@@ -60,7 +60,7 @@ export function DashboardSidebar({ user }: { user: User }) {
       <div className='flex flex-col flex-1 overflow-x-hidden overflow-y-auto'>
         <div className={`flex flex-col gap-2`}>
           {links.map(link => (
-            <SidebarLink key={link.href} link={link} />
+            <SidebarLink key={link.href} link={link} onClick={() => setIsOpen(!isOpen)} />
           ))}
         </div>
       </div>
