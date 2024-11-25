@@ -6,6 +6,7 @@ import { useLocale } from 'next-intl'
 import { createContext, useContext, useEffect } from 'react'
 import Tooltip from '@/components/custom/tooltip'
 import useLocalStorage from '@/hooks/use-localstorage'
+import { useIsMobile } from '@/hooks/use-mobile'
 import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
 import type { LinkProps } from 'next/link'
@@ -20,6 +21,7 @@ type Links = {
 type SidebarContextProps = {
   isOpen: boolean
   setIsOpen: (value: boolean) => void
+  isMobile: boolean
   toggle: () => void
   animate: boolean
 }
@@ -41,6 +43,7 @@ export function SidebarProvider({
   children: React.ReactNode
   animate?: boolean
 }) {
+  const isMobile = useIsMobile()
   const open = localStorage.getItem('sidebar:state')
   const [isOpen, setIsOpen, toggle] = useLocalStorage('sidebar:state', open === 'true')
 
@@ -55,7 +58,7 @@ export function SidebarProvider({
   }, [isOpen])
 
   return (
-    <SidebarContext.Provider value={{ isOpen, setIsOpen, toggle, animate }}>
+    <SidebarContext.Provider value={{ isOpen, setIsOpen, isMobile, toggle, animate }}>
       {children}
     </SidebarContext.Provider>
   )
@@ -129,51 +132,6 @@ export function SidebarComponent({
         <SidebarToggle />
       </>
     </motion.div>
-  )
-}
-
-export function MobileSidebar({ children, className, ...props }: React.ComponentProps<'div'>) {
-  const { isOpen, setIsOpen } = useSidebar()
-
-  return (
-    <div
-      className={cn(
-        'flex flex-row justify-between items-center px-4 py-4 mt-6 w-full h-10 md:hidden bg-neutral-100 dark:bg-neutral-800'
-      )}
-      {...props}
-    >
-      <div className='flex z-20 justify-end w-full'>
-        <IconMenu2
-          className='cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
-          onClick={() => setIsOpen(!isOpen)}
-        />
-      </div>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            animate={{ x: 0, opacity: 1 }}
-            className={cn(
-              'flex fixed inset-0 flex-col justify-between p-10 w-full h-full bg-white dark:bg-neutral-900 z-[100]',
-              className
-            )}
-            exit={{ x: '-100%', opacity: 0 }}
-            initial={{ x: '-100%', opacity: 0 }}
-            transition={{
-              duration: 0.3,
-              ease: 'easeInOut'
-            }}
-          >
-            <div
-              className='absolute top-10 right-10 z-50 cursor-pointer text-neutral-800 dark:text-neutral-200 hover:text-purple-500 dark:hover:text-purple-400'
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              <IconX />
-            </div>
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
   )
 }
 
