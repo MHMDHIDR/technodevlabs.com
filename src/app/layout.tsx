@@ -44,6 +44,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta content='width=device-width, initial-scale=1 maximum-scale=1' name='viewport' />
         <link href='/images/logo.svg' rel='icon' type='image/svg+xml' />
+        <script
+          defer
+          src='https://analytics.technodevlabs.com/script.js'
+          data-website-id='1ace02ab-0574-4966-98ee-de95c2473cac'
+        ></script>
       </head>
       <body
         className={`${Orbitron.variable} rtl:${Cairo.variable} rtl:font-cairo min-h-screen font-sans antialiased overflow-x-clip dark:border-gray-950`}
