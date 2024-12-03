@@ -270,7 +270,6 @@ const ExpandedCard = ({
           className='inline-flex gap-x-2 items-center mt-4 text-lg font-semibold md:text-3xl'
         >
           <h1 className='text-sm md:text-3xl'>{card.title}</h1>
-          {/* View Project Button */}
           <Link
             href={card.url}
             target='_blank'
@@ -281,7 +280,7 @@ const ExpandedCard = ({
           </Link>
         </motion.p>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
-        <div className='grid grid-cols-1 gap-2 gap-y-6 md:grid-cols-2'>
+        <div className='grid grid-cols-1 gap-3 gap-y-6 md:grid-cols-3 xl:grid-cols-4'>
           {/* Slice out the first one beacuse it's the main image on the carousel card */}
           {card.images.slice(1).map((image, index) => (
             <Image
