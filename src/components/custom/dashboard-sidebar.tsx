@@ -45,13 +45,6 @@ export function DashboardSidebar({ user }: { user: User }) {
       icon: (
         <IconSettings className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
-    },
-    {
-      label: dashboardSidebar('analytics'),
-      href: '/dashboard/analytics',
-      icon: (
-        <IconChartLine className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
-      )
     }
   ]
 

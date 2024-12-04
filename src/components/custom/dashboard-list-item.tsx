@@ -37,7 +37,7 @@ export default async function DashboardListItem({ item, type }: DashboardListIte
               {formatDate(new Date(item.updatedAt).toDateString(), currentLocale, true)}
             </span>
           </div>
-          <div className='mt-2 text-sm text-gray-700 truncate dark:text-gray-300'>
+          <div className='mt-2 text-sm text-gray-700 truncate dark:text-gray-300 max-w-[90%]'>
             {abstract}...
           </div>
         </div>
