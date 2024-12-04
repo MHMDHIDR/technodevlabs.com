@@ -217,6 +217,7 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        e.stopPropagation()
         onClose()
       }
     }
@@ -225,13 +226,18 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
     return () => window.removeEventListener('keydown', handleEscape)
   }, [onClose])
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    onClose()
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className='fixed inset-0 z-[60] flex items-center justify-center bg-black/90'
-      onClick={onClose}
+      onClick={handleClick}
     >
       <motion.img
         initial={{ scale: 0.8 }}
@@ -240,6 +246,7 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
         src={src}
         alt={alt}
         className='max-h-[95vh] max-w-[95vw] object-contain rounded-md'
+        onClick={e => e.stopPropagation()}
       />
     </motion.div>
   )
@@ -287,7 +294,7 @@ const ExpandedCard = ({
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && !zoomedImage) {
         onClose()
       }
     }
@@ -299,18 +306,18 @@ const ExpandedCard = ({
       document.body.style.overflow = 'auto'
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [onClose])
+  }, [onClose, zoomedImage])
 
   useOutsideClick(containerRef, onClose)
 
   return (
     <div className='overflow-auto fixed inset-0 z-50 h-screen'>
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className='fixed inset-0 w-full h-full backdrop-blur-lg bg-black/80'
-      />
+      /> */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
