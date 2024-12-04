@@ -213,6 +213,65 @@ export const Card = ({
   )
 }
 
+const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) => {
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
+  }, [onClose])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className='fixed inset-0 z-[60] flex items-center justify-center bg-black/90'
+      onClick={onClose}
+    >
+      <motion.img
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        exit={{ scale: 0.8 }}
+        src={src}
+        alt={alt}
+        className='max-h-[95vh] max-w-[95vw] object-contain rounded-md'
+      />
+    </motion.div>
+  )
+}
+
+export const BlurImage = ({
+  height,
+  width,
+  src,
+  className,
+  alt,
+  priority = false,
+  ...rest
+}: ImageProps) => {
+  const [isLoading, setLoading] = useState(true)
+  return (
+    <Image
+      className={cn('transition duration-300', isLoading ? 'blur-sm' : 'blur-0', className)}
+      onLoad={() => setLoading(false)}
+      src={src}
+      width={width}
+      height={height}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding='async'
+      blurDataURL={typeof src === 'string' ? src : undefined}
+      alt={alt ? alt : 'Background of a beautiful view'}
+      priority={priority}
+      {...rest}
+    />
+  )
+}
+
 const ExpandedCard = ({
   card,
   onClose,
@@ -224,6 +283,7 @@ const ExpandedCard = ({
 }) => {
   const projectsTranslations = useTranslations('projects')
   const containerRef = useRef<HTMLDivElement>(null)
+  const [zoomedImage, setZoomedImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -285,7 +345,7 @@ const ExpandedCard = ({
           {card.images.slice(1).map((image, index) => (
             <Image
               key={`${card.title}-image-${index}`}
-              className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200'
+              className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200 cursor-zoom-in'
               src={image.src}
               alt={card.description}
               width={400}
@@ -293,9 +353,21 @@ const ExpandedCard = ({
               placeholder='blur'
               blurDataURL={image.blurDataURL}
               loading='lazy'
+              onClick={() => setZoomedImage({ src: image.src, alt: card.description })}
             />
           ))}
         </div>
+
+        <AnimatePresence>
+          {zoomedImage && (
+            <ZoomedImage
+              src={zoomedImage.src}
+              alt={zoomedImage.alt}
+              onClose={() => setZoomedImage(null)}
+            />
+          )}
+        </AnimatePresence>
+
         {/* CTA Contact Us  */}
         <div className='flex flex-col gap-4 justify-center items-center my-10'>
           <p className='text-lg font-bold text-center select-none'>
@@ -310,32 +382,5 @@ const ExpandedCard = ({
         </div>
       </motion.div>
     </div>
-  )
-}
-
-export const BlurImage = ({
-  height,
-  width,
-  src,
-  className,
-  alt,
-  priority = false,
-  ...rest
-}: ImageProps) => {
-  const [isLoading, setLoading] = useState(true)
-  return (
-    <Image
-      className={cn('transition duration-300', isLoading ? 'blur-sm' : 'blur-0', className)}
-      onLoad={() => setLoading(false)}
-      src={src}
-      width={width}
-      height={height}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding='async'
-      blurDataURL={typeof src === 'string' ? src : undefined}
-      alt={alt ? alt : 'Background of a beautiful view'}
-      priority={priority}
-      {...rest}
-    />
   )
 }

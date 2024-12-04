@@ -61,12 +61,12 @@ export async function PostCard({ post }: { post: Post }) {
           />
 
           <div className='flex flex-row justify-between items-center mt-6 w-full'>
-            <span className='text-sm text-gray-500' title={new Date(post.updatedAt).toDateString()}>
+            {/* <span className='text-sm text-gray-500' title={new Date(post.updatedAt).toDateString()}>
               {formatDate(new Date(post.updatedAt).toDateString(), currentLocale)}
-            </span>
+            </span> */}
 
             <Button
-              className='flex items-center px-3 text-xs text-gray-100 sm:text-sm md:text-xs lg:text-base'
+              className='flex items-center ltr:pr-3 rtl:pl-3 text-xs text-gray-100 sm:text-sm md:text-xs lg:text-base'
               withArrow
             >
               {postsTranslations('readMoreLink')}
