@@ -245,7 +245,7 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
         exit={{ scale: 0.8 }}
         src={src}
         alt={alt}
-        className='max-h-[95vh] max-w-[95vw] object-contain rounded-md'
+        className='max-h-[90vh] max-w-[90vw] object-contain rounded-md'
         onClick={e => e.stopPropagation()}
       />
     </motion.div>
