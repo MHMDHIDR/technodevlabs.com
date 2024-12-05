@@ -7,6 +7,7 @@ import {
   IconX
 } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import Image, { ImageProps } from 'next/image'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
@@ -27,10 +28,12 @@ export const CarouselContext = createContext<{
 
 export const Carousel = ({
   items,
-  initialScroll = 0
+  initialScroll = 0,
+  showEditButton
 }: {
   items: JSX.Element[]
   initialScroll?: number
+  showEditButton: boolean
 }) => {
   const carouselRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -136,6 +139,7 @@ export const Carousel = ({
                 card={(items[openCardIndex].props as any).card}
                 onClose={handleCardClose}
                 layout={true}
+                showEditButton={showEditButton}
               />
             )}
           </AnimatePresence>,
@@ -282,11 +286,13 @@ export const BlurImage = ({
 const ExpandedCard = ({
   card,
   onClose,
-  layout
+  layout,
+  showEditButton
 }: {
   card: ProjectCardProps
   onClose: () => void
   layout: boolean
+  showEditButton: boolean
 }) => {
   const projectsTranslations = useTranslations('projects')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -316,7 +322,7 @@ const ExpandedCard = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className='fixed inset-0 w-full h-full backdrop-blur-lg bg-black/80'
+        className='fixed inset-0 w-full h-full backdrop-blur-lg bg-black/80 -z-[1]'
       />
       <motion.div
         initial={{ opacity: 0 }}
@@ -324,7 +330,7 @@ const ExpandedCard = ({
         exit={{ opacity: 0 }}
         ref={containerRef}
         layoutId={layout ? `card-${card.title}` : undefined}
-        className='z-50 p-4 mx-auto mt-20 max-w-5xl font-sans bg-white rounded-3xl dark:bg-neutral-900 h-fit md:p-10'
+        className='z-50 p-2 mx-auto mt-20 max-w-5xl font-sans bg-white rounded-3xl dark:bg-neutral-900 h-fit md:p-6 pb-0'
       >
         <button
           className='flex sticky right-0 top-4 justify-center items-center ml-auto w-8 h-8 bg-black rounded-full dark:bg-white'
@@ -345,6 +351,15 @@ const ExpandedCard = ({
             <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
             <span className='text-xxs md:text-sm'>{projectsTranslations('viewProject')}</span>
           </Link>
+          {showEditButton && (
+            <Link
+              href={`/dashboard/projects/${card.id}`}
+              className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
+            >
+              <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
+              <span className='text-xxs md:text-sm'>{projectsTranslations('editProject')}</span>
+            </Link>
+          )}
         </motion.p>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-3 gap-y-6 md:grid-cols-3 xl:grid-cols-4'>

@@ -1,4 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server'
+import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
 import { Carousel, Card as ProjectCard } from '@/components/ui/cards-carousel'
 import { APP_LOGO_opengraph } from '@/data/constants'
@@ -8,6 +9,8 @@ import { Link } from '@/i18n/routing'
 import type { ProjectCardProps } from '@/types'
 
 export async function ProjectsSection({ pathname }: { pathname?: string }) {
+  const session = await auth()
+  const user = session?.user
   const projectsTranslations = await getTranslations('projects')
   const currentLocale = (await getLocale()) as Locale
   const projectsData = await getProjects()
@@ -20,6 +23,7 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
   const projectCards = projects.map((project, index) => {
     const projectImage = project.images[0] ? project.images[0].src : APP_LOGO_opengraph
     const projectCard: ProjectCardProps = {
+      id: project.id,
       src: projectImage,
       title: currentLocale === 'ar' ? project.titleAr : project.title,
       description: currentLocale === 'ar' ? project.descriptionAr : project.description,
@@ -32,7 +36,7 @@ export async function ProjectsSection({ pathname }: { pathname?: string }) {
 
   return projects && projectsCount !== 0 ? (
     <div className='container max-w-5xl'>
-      <Carousel items={projectCards} />
+      <Carousel items={projectCards} showEditButton={!!user} />
 
       {pathname === '/' ? (
         <Link className='flex justify-center mt-10' href='/projects'>

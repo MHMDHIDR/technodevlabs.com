@@ -138,9 +138,6 @@ export type ProjectWithBlur = Omit<Project, 'images'> & {
   }>
 }
 
-export type ProjectCardProps = Omit<
-  ProjectWithBlur,
-  'id' | 'updatedAt' | 'titleAr' | 'descriptionAr'
-> & {
+export type ProjectCardProps = Omit<ProjectWithBlur, 'updatedAt' | 'titleAr' | 'descriptionAr'> & {
   src: string
 }
