@@ -7,13 +7,19 @@ import type { Locale } from '@/i18n/request'
  * @param date the date string to be formatted
  * @returns the formatted date
  */
-export function formatDate(date: string, locale: Locale, isNormalDate?: boolean): string {
+export function formatDate(
+  date: string,
+  locale: Locale,
+  isNormalDate?: boolean,
+  withTime: boolean = false
+): string {
   if (isNormalDate) {
     const dateOptions = {
-      year: 'numeric' as const,
-      month: 'long' as const,
-      day: 'numeric' as const
-    }
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      ...(withTime && { hour: 'numeric', minute: 'numeric' })
+    } as Intl.DateTimeFormatOptions
     return locale === 'en'
       ? new Date(date).toLocaleDateString('en-US', dateOptions)
       : new Date(date).toLocaleDateString('ar-EG', dateOptions)
