@@ -1,13 +1,15 @@
 'use client'
 
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { FlipWords } from '@/components/ui/flip-words'
-import { LampContainer } from '@/components/ui/lamp'
+import ShimmerButton from '@/components/ui/shimmer-button'
 import { Link } from '@/i18n/routing'
+import { Setting } from '@/types'
 
-export function Hero() {
+export function Hero({ settingsLayout }: { settingsLayout: Setting['layout'] }) {
   // detect if the user is using a mobile device
   const [isMobile, setIsMobile] = useState(false)
 
@@ -19,7 +21,13 @@ export function Hero() {
   const words = heroTranslations('flipWords').split(',')
 
   return (
-    <LampContainer className='pt-40'>
+    <section
+      className={`h-fit pt-10 pb-44 w-full dark:bg-black bg-white relative ${clsx({
+        'dark:bg-grid-white/[0.2] bg-grid-black/[0.2]': settingsLayout === 'grid',
+        'dark:bg-grid-small-white/[0.2] bg-grid-small-black/[0.2]': settingsLayout === 'grid-small',
+        'dark:bg-dot-white/[0.2] bg-dot-black/[0.2]': settingsLayout === 'dotted'
+      })}`}
+    >
       <motion.div
         className='flex flex-col gap-y-10 items-center py-4 mt-10 tracking-tight select-none'
         initial={{ opacity: 0, y: 200 }}
@@ -33,12 +41,14 @@ export function Hero() {
         </h1>
 
         <Link href='/#projects' className='relative p-1 w-fit'>
-          <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg' />
-          <span className='inline-block relative px-8 py-2 text-white bg-black rounded-md transition duration-200 hover:bg-transparent'>
-            {heroTranslations('getStarted')}
-          </span>
+          <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full' />
+          <ShimmerButton className='shadow-2xl'>
+            <span className='whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg'>
+              {heroTranslations('getStarted')}
+            </span>
+          </ShimmerButton>
         </Link>
       </motion.div>
-    </LampContainer>
+    </section>
   )
 }

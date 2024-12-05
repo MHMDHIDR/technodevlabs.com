@@ -9,7 +9,7 @@ const isArabic = (text: string) => /[\u0600-\u06FF]/.test(text)
 
 export function FlipWords({
   className,
-  duration = 3000,
+  duration = 1000,
   words
 }: {
   words: Array<string>

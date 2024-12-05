@@ -58,60 +58,60 @@ export default {
         },
         tremor: {
           brand: {
-            faint: colors.blue[50],
-            muted: colors.blue[200],
-            subtle: colors.blue[400],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[700],
-            inverted: colors.white
+            faint: 'colors.blue[50]',
+            muted: 'colors.blue[200]',
+            subtle: 'colors.blue[400]',
+            DEFAULT: 'colors.blue[500]',
+            emphasis: 'colors.blue[700]',
+            inverted: 'colors.white'
           },
           background: {
-            muted: colors.gray[50],
-            subtle: colors.gray[100],
-            DEFAULT: colors.white,
-            emphasis: colors.gray[700]
+            muted: 'colors.gray[50]',
+            subtle: 'colors.gray[100]',
+            DEFAULT: 'colors.white',
+            emphasis: 'colors.gray[700]'
           },
           border: {
-            DEFAULT: colors.gray[200]
+            DEFAULT: 'colors.gray[200]'
           },
           ring: {
-            DEFAULT: colors.gray[200]
+            DEFAULT: 'colors.gray[200]'
           },
           content: {
-            subtle: colors.gray[400],
-            DEFAULT: colors.gray[500],
-            emphasis: colors.gray[700],
-            strong: colors.gray[900],
-            inverted: colors.white
+            subtle: 'colors.gray[400]',
+            DEFAULT: 'colors.gray[500]',
+            emphasis: 'colors.gray[700]',
+            strong: 'colors.gray[900]',
+            inverted: 'colors.white'
           }
         },
         'dark-tremor': {
           brand: {
             faint: '#0B1229',
-            muted: colors.blue[950],
-            subtle: colors.blue[800],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[400],
-            inverted: colors.blue[950]
+            muted: 'colors.blue[950]',
+            subtle: 'colors.blue[800]',
+            DEFAULT: 'colors.blue[500]',
+            emphasis: 'colors.blue[400]',
+            inverted: 'colors.blue[950]'
           },
           background: {
             muted: '#131A2B',
-            subtle: colors.gray[800],
-            DEFAULT: colors.gray[900],
-            emphasis: colors.gray[300]
+            subtle: 'colors.gray[800]',
+            DEFAULT: 'colors.gray[900]',
+            emphasis: 'colors.gray[300]'
           },
           border: {
-            DEFAULT: colors.gray[800]
+            DEFAULT: 'colors.gray[800]'
           },
           ring: {
-            DEFAULT: colors.gray[800]
+            DEFAULT: 'colors.gray[800]'
           },
           content: {
-            subtle: colors.gray[600],
-            DEFAULT: colors.gray[500],
-            emphasis: colors.gray[200],
-            strong: colors.gray[50],
-            inverted: colors.gray[950]
+            subtle: 'colors.gray[600]',
+            DEFAULT: 'colors.gray[500]',
+            emphasis: 'colors.gray[200]',
+            strong: 'colors.gray[50]',
+            inverted: 'colors.gray[950]'
           }
         }
       },
@@ -150,29 +150,64 @@ export default {
       },
       keyframes: {
         'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' }
+          from: {
+            height: '0'
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)'
+          }
         },
         'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' }
+          from: {
+            height: 'var(--radix-accordion-content-height)'
+          },
+          to: {
+            height: '0'
+          }
         },
         meteor: {
-          '0%': { transform: 'rotate(215deg) translateX(0)', opacity: '1' },
-          '70%': { opacity: '1' },
+          '0%': {
+            transform: 'rotate(215deg) translateX(0)',
+            opacity: '1'
+          },
+          '70%': {
+            opacity: '1'
+          },
           '100%': {
             transform: 'rotate(215deg) translateX(-500px)',
             opacity: '0'
+          }
+        },
+        'shimmer-slide': {
+          to: {
+            transform: 'translate(calc(100cqw - 100%), 0)'
+          }
+        },
+        'spin-around': {
+          '0%': {
+            transform: 'translateZ(0) rotate(0)'
+          },
+          '15%, 35%': {
+            transform: 'translateZ(0) rotate(90deg)'
+          },
+          '65%, 85%': {
+            transform: 'translateZ(0) rotate(270deg)'
+          },
+          '100%': {
+            transform: 'translateZ(0) rotate(360deg)'
           }
         }
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'meteor-effect': 'meteor 5s linear infinite'
+        'meteor-effect': 'meteor 5s linear infinite',
+        'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
+        'spin-around': 'spin-around calc(var(--speed) * 2) infinite linear'
       },
       boxShadow: {
-        input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
+        input:
+          '`0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`',
         'tremor-input': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
         'tremor-card': '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
         'tremor-dropdown': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
