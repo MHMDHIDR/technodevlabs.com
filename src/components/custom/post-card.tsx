@@ -49,7 +49,7 @@ export async function PostCard({ post }: { post: Post }) {
         )}`}
         style={{ backgroundImage: postImg ? `url("${postImg}")` : 'none' }}
       >
-        <div className='absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/85 to-transparent'>
+        <div className='absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/90 to-transparent'>
           <h1 className='flex font-bold relative z-50 gap-x-2 items-center mb-1 text-sm text-white uppercase pr-2'>
             <IconArticle className='stroke-1' />
             {postTitle}

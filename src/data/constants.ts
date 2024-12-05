@@ -27,7 +27,7 @@ export const FILE_UPLOAD_IMG_SIZE = 122
 export const POST_TITLE_LENGTH = 40
 export const POST_CONTENT_LENGTH = 120
 
-export const ITEMS_COUNT = 5
+export const ITEMS_COUNT = 6
 
 export const DEFAULT_PROJECT = {
   id: '',
