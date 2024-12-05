@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
+// import { ProjectsSection } from '@/app/[locale]//projects/projects-section'
 import { AboutSection } from '@/app/[locale]/about/about-section'
 import { PostsSection } from '@/app/[locale]/blog/posts-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
@@ -14,19 +14,19 @@ import type { Locale } from '@/i18n/request'
 export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {
   setRequestLocale(locale)
   const settings = (await getSettings()) || { layout: 'grid' }
-  const projectsTranslations = await getTranslations('projects')
+  // const projectsTranslations = await getTranslations('projects')
   const servicesTranslations = await getTranslations('services')
   const postsTranslations = await getTranslations('posts')
   const contactTranslations = await getTranslations('contact')
 
   return (
     <Layout>
-      {/* <Hero /> */}
+      <Hero />
 
-      <section className='py-10' id='projects'>
+      {/* <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
         <ProjectsSection pathname='/' />
-      </section>
+      </section> */}
 
       <section id='about'>
         <AboutSection />
