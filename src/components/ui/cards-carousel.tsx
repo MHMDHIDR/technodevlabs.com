@@ -102,7 +102,7 @@ export const Carousel = ({
       >
         <div
           className={cn('absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l')}
-        ></div>
+        />
 
         <div className={cn('flex flex-row gap-4 justify-start pl-4', 'mx-auto max-w-7xl')}>
           {items.map((item, index) => (
@@ -208,10 +208,11 @@ export const Card = ({
       <BlurImage
         src={card.src}
         alt={card.description}
+        blurDataURL={card.images[0].blurDataURL}
         className='object-cover absolute inset-0 z-10'
-        fill
         sizes='(max-width: 768px) 224px, 384px'
         priority={index === 0}
+        fill
       />
     </motion.button>
   )
@@ -262,6 +263,7 @@ export const BlurImage = ({
   src,
   className,
   alt,
+  blurDataURL,
   priority = false,
   ...rest
 }: ImageProps) => {
@@ -275,7 +277,8 @@ export const BlurImage = ({
       height={height}
       loading={priority ? 'eager' : 'lazy'}
       decoding='async'
-      blurDataURL={typeof src === 'string' ? src : undefined}
+      blurDataURL={blurDataURL}
+      placeholder='blur'
       alt={alt ? alt : 'Background of a beautiful view'}
       priority={priority}
       {...rest}
