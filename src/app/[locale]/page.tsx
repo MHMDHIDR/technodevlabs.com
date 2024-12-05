@@ -21,7 +21,7 @@ export default async function Home({ params: { locale } }: { params: { locale: L
 
   return (
     <Layout>
-      <Hero />
+      {/* <Hero /> */}
 
       <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
