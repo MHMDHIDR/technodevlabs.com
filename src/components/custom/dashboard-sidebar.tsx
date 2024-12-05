@@ -45,6 +45,13 @@ export function DashboardSidebar({ user }: { user: User }) {
       icon: (
         <IconSettings className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
       )
+    },
+    {
+      label: dashboardSidebar('analytics'),
+      href: 'https://analytics.technodevlabs.com/share/Es7mPSC5N0jS0PU2/www.technodevlabs.com',
+      icon: (
+        <IconChartLine className='flex-shrink-0 w-5 h-5 text-neutral-700 dark:text-neutral-200' />
+      )
     }
   ]
 
