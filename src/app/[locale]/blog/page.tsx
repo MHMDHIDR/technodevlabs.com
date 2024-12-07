@@ -39,7 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PostsPage({
   searchParams
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const settings = (await getSettings()) || { layout: 'grid' }
   const postsTranslations = await getTranslations('posts')
@@ -83,7 +83,7 @@ export default async function PostsPage({
             </p>
           </EmptyState>
         ) : (
-          <PostsSection pathname='/blog' searchParams={searchParams} />
+          <PostsSection pathname='/blog' searchParams={await searchParams} />
         )}
       </div>
     </Layout>

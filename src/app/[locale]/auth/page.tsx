@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import AuthButton from '@/components/custom/auth-button'
 import Divider from '@/components/custom/divider'
 import Layout from '@/components/custom/layout'
@@ -13,9 +14,11 @@ export default function AuthPage() {
 
       <Divider className='my-10' />
 
-      <CanAuthenticate>
-        <AuthButton />
-      </CanAuthenticate>
+      <Suspense fallback={<div>Loading...</div>}>
+        <CanAuthenticate>
+          <AuthButton />
+        </CanAuthenticate>
+      </Suspense>
     </Layout>
   )
 }

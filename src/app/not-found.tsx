@@ -11,7 +11,7 @@ import MinifiedNav from '@/components/custom/minified-nav'
 import { Link } from '@/i18n/routing'
 
 export default async function RootNotFoundPage() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const locale = cookieStore.get('NEXT_LOCALE')?.value || 'en'
   const theme = cookieStore.get('theme')?.value || 'system'
   const messages = (await import(`@/../messages/${locale}.json`)).default

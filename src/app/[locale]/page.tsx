@@ -11,7 +11,8 @@ import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import type { Locale } from '@/i18n/request'
 
-export default async function Home({ params: { locale } }: { params: { locale: Locale } }) {
+export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params
   setRequestLocale(locale)
   const settings = (await getSettings()) || { layout: 'grid' }
   const projectsTranslations = await getTranslations('projects')

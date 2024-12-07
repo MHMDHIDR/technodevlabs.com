@@ -22,9 +22,9 @@ import type { Metadata } from 'next'
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string; locale: Locale }
+  params: Promise<{ slug: string; locale: Locale }>
 }): Promise<Metadata> {
-  const { slug, locale } = params
+  const { slug, locale } = await params
   const currentLocale = locale ?? (await getLocale())
   const post = await getPostBySlugAction({ slug })
   if (!post) return {}
@@ -76,10 +76,11 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostContentPage({
-  params: { slug }
+  params
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
+  const { slug } = await params
   const postTranslations = await getTranslations('posts')
   const currentLocale = (await getLocale()) as Locale
 

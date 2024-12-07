@@ -1,9 +1,10 @@
 import DashboardPostUpdateClient from './dashboard-post-update.client'
 
-export default function DashboardPostUpdate({
-  params: { postId }
+export default async function DashboardPostUpdate({
+  params
 }: {
-  params: { postId: string }
+  params: Promise<{ postId: string }>
 }) {
+  const { postId } = await params
   return <DashboardPostUpdateClient postId={postId} />
 }

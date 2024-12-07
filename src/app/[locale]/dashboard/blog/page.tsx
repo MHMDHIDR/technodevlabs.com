@@ -16,13 +16,14 @@ import { getPosts } from '@/data/posts'
 import { generatePaginationItems } from '@/lib/generate-pagination-items'
 
 interface PageProps {
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export default async function DashboardPosts({ searchParams }: PageProps) {
+  const params = await searchParams
   const urlSearchParams = new URLSearchParams()
-  urlSearchParams.set('page', String(searchParams?.page ?? 1))
-  urlSearchParams.set('limit', String(searchParams?.limit ?? ITEMS_COUNT))
+  urlSearchParams.set('page', String(params?.page ?? 1))
+  urlSearchParams.set('limit', String(params?.limit ?? ITEMS_COUNT))
 
   const { posts, postsCount, pagination } = await getPosts({ searchParams: urlSearchParams })
   const postsTranslations = await getTranslations('posts')

@@ -9,14 +9,17 @@ import { env } from '@/env'
 async function authenticate(formData: FormData) {
   'use server'
 
+  const cookieStore = await cookies()
+
   if (formData.get('password') === env.CAN_AUTHENTICATE_PASSWORD) {
-    cookies().set('can-authenticate', 'true', { httpOnly: true, secure: true })
+    cookieStore.set('can-authenticate', 'true', { httpOnly: true, secure: true })
   }
 }
 
 export default function CanAuthenticate({ children }: { children: React.ReactNode }) {
   const authTranslations = useTranslations('auth')
-  const canAuthenticate = cookies().get('can-authenticate')?.value === 'true'
+  // get the cookie from browser cookie in the client side
+  const canAuthenticate = document.cookie.includes('can-authenticate=true')
 
   if (canAuthenticate) {
     return children

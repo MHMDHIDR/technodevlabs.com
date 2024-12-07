@@ -1,17 +1,18 @@
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { cookies } from 'next/headers'
 import { signIn, signOut } from '@/auth'
 import { Button } from '@/components/custom/button'
 
-export function SignOut() {
-  const authTranslations = useTranslations('auth')
+export async function SignOut() {
+  const cookieStore = await cookies()
+  const authTranslations = await getTranslations('auth')
 
   return (
     <form
       action={async () => {
         'use server'
-        cookies().delete('can-authenticate')
+        cookieStore.delete('can-authenticate')
         await signOut({ redirectTo: '/auth' })
       }}
     >
@@ -27,8 +28,8 @@ export function SignOut() {
   )
 }
 
-export function SignIn() {
-  const authTranslations = useTranslations('auth')
+export async function SignIn() {
+  const authTranslations = await getTranslations('auth')
 
   return (
     <form
