@@ -1,15 +1,15 @@
 'use client'
 
-import { IconArrowLeft, IconArrowRight, IconMenu2, IconX } from '@tabler/icons-react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useLocale } from 'next-intl'
-import { createContext, useContext, useEffect } from 'react'
 import Tooltip from '@/components/custom/tooltip'
 import useLocalStorage from '@/hooks/use-localstorage'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import { motion } from 'framer-motion'
+import { useLocale } from 'next-intl'
 import type { LinkProps } from 'next/link'
+import { createContext, useContext, useEffect } from 'react'
 
 type Links = {
   label: string
@@ -79,7 +79,7 @@ export function SidebarToggle() {
             : !isOpen && currentLocale === 'en'
               ? 'Open Sidebar'
               : !isOpen && currentLocale === 'ar'
-                ? 'افتح القائمة'
+                ? 'فتح القائمة'
                 : 'Toggle Sidebar'
       }
     >
@@ -104,7 +104,7 @@ export function SidebarToggle() {
   )
 }
 
-export function SidebarBody(props: React.ComponentProps<typeof motion.div>) {
+export function SidebarBody(props: React.ComponentProps<typeof motion.div> & { children?: React.ReactNode }) {
   return <SidebarComponent {...props} />
 }
 
@@ -112,7 +112,7 @@ export function SidebarComponent({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof motion.div>) {
+}: React.ComponentProps<typeof motion.div> & { children?: React.ReactNode }) {
   const { animate, isOpen } = useSidebar()
 
   return (

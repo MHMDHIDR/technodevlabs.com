@@ -7,10 +7,9 @@ import {
   IconX
 } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { User } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import Image, { ImageProps } from 'next/image'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, type JSX, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/custom/button'
 import { useOutsideClick } from '@/hooks/use-outside-click'
@@ -298,7 +297,7 @@ const ExpandedCard = ({
   showEditButton: boolean
 }) => {
   const projectsTranslations = useTranslations('projects')
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement)
   const [zoomedImage, setZoomedImage] = useState<{ src: string; alt: string } | null>(null)
 
   useEffect(() => {

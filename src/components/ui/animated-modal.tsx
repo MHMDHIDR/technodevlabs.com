@@ -69,7 +69,7 @@ export function ModalBody({ children, className }: { children: ReactNode; classN
     }
   }, [open, setOpen])
 
-  const modalRef = useRef<HTMLDivElement | null>(null)
+  const modalRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement)
   useOutsideClick(modalRef, () => setOpen(false))
 
   return (

@@ -1,5 +1,6 @@
 // Get the icons from https://simpleicons.org/?q=icon_name
 import { cn } from '@/lib/utils'
+import type { JSX } from 'react'
 
 const ICON_SIZE_CLASS = 'w-5 h-5'
 

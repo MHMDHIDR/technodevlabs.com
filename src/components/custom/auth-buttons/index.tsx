@@ -4,7 +4,7 @@ import { signIn } from '@/auth'
 import { Button } from '@/components/custom/button'
 import { handleSignOut } from './actions'
 
-export async function SignOut() {
+export const SignOut = async () => {
   const authTranslations = await getTranslations('auth')
 
   return (
@@ -21,7 +21,7 @@ export async function SignOut() {
   )
 }
 
-export async function SignIn() {
+export const SignIn = async () => {
   const authTranslations = await getTranslations('auth')
 
   return (

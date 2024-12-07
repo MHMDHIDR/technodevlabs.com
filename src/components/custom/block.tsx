@@ -1,6 +1,7 @@
 import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
 import type { BlockProps } from '@/types'
+import type { JSX } from 'react'
 
 export function Block({
   blockDescription,
