@@ -9,13 +9,14 @@ import {
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Image, { ImageProps } from 'next/image'
-import { createContext, type JSX, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/custom/button'
 import { useOutsideClick } from '@/hooks/use-outside-click'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 import type { CarouselControlsProps, ProjectCardProps } from '@/types'
+import type { JSX } from 'react'
 
 export const CarouselContext = createContext<{
   onCardOpen: (index: number) => void
@@ -249,7 +250,7 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
         exit={{ scale: 0.8 }}
         src={src}
         alt={alt}
-        className='max-h-[90vh] max-w-[90vw] object-contain rounded-md'
+        className='max-h-[80vh] max-w-[80vw] object-contain rounded-md'
         onClick={e => e.stopPropagation()}
       />
     </motion.div>
