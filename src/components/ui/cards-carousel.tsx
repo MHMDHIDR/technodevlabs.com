@@ -1,8 +1,10 @@
 'use client'
 
 import {
+  IconArrowLeft,
   IconArrowNarrowLeft,
   IconArrowNarrowRight,
+  IconArrowRight,
   IconBrowserCheck,
   IconX
 } from '@tabler/icons-react'
@@ -218,7 +220,21 @@ export const Card = ({
   )
 }
 
-const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) => {
+const ZoomedImage = ({
+  src,
+  alt,
+  onClose,
+  images
+}: {
+  src: string
+  alt: string
+  onClose: () => void
+  images: { src: string; alt: string }[]
+}) => {
+  // Find the index of the initially clicked image
+  const initialIndex = images.findIndex(image => image.src === src)
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -231,9 +247,32 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
     return () => window.removeEventListener('keydown', handleEscape)
   }, [onClose])
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') {
+        goToPrevious(event)
+      } else if (event.key === 'ArrowRight') {
+        goToNext(event)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex])
+
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation()
     onClose()
+  }
+
+  const goToPrevious = (e: React.MouseEvent | KeyboardEvent) => {
+    e.stopPropagation()
+    setCurrentIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : images.length - 1))
+  }
+
+  const goToNext = (e: React.MouseEvent | KeyboardEvent) => {
+    e.stopPropagation()
+    setCurrentIndex(prevIndex => (prevIndex < images.length - 1 ? prevIndex + 1 : 0))
   }
 
   return (
@@ -245,14 +284,23 @@ const ZoomedImage = ({ src, alt, onClose }: { src: string; alt: string; onClose:
       onClick={handleClick}
     >
       <motion.img
-        initial={{ scale: 0.8 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.8 }}
-        src={src}
-        alt={alt}
+        key={images[currentIndex].src}
+        initial={{ scale: 0.8, x: 50, opacity: 0 }}
+        animate={{ scale: 1, x: 0, opacity: 1 }}
+        exit={{ scale: 0.8, x: -50, opacity: 0 }}
+        // "spring" | "tween"
+        transition={{ type: 'tween', duration: 0.3 }}
+        src={images[currentIndex].src}
+        alt={images[currentIndex].alt ?? alt}
         className='max-h-[80vh] max-w-[80vw] object-contain rounded-md'
         onClick={e => e.stopPropagation()}
       />
+      <button onClick={goToPrevious} className='absolute left-4 z-50'>
+        <IconArrowLeft className='w-8 h-8 text-white dark:text-neutral-100 border rounded-full border-gray-400' />
+      </button>
+      <button onClick={goToNext} className='absolute right-4 z-50'>
+        <IconArrowRight className='w-8 h-8 text-white dark:text-neutral-100 border rounded-full border-gray-400' />
+      </button>
     </motion.div>
   )
 }
@@ -389,6 +437,9 @@ const ExpandedCard = ({
               src={zoomedImage.src}
               alt={zoomedImage.alt}
               onClose={() => setZoomedImage(null)}
+              images={card.images
+                .slice(1)
+                .map(image => ({ src: image.src, alt: card.description }))}
             />
           )}
         </AnimatePresence>
