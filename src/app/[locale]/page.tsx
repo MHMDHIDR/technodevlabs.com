@@ -23,10 +23,10 @@ export default async function Home({ params: { locale } }: { params: { locale: L
     <Layout>
       <Hero settingsLayout={settings.layout} />
 
-      <section className='py-10' id='projects'>
+      {/* <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
         <ProjectsSection pathname='/' />
-      </section>
+      </section> */}
 
       <section id='about'>
         <AboutSection />
