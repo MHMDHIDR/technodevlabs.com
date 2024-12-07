@@ -1,20 +1,45 @@
 'use client'
 
 import {
-  EmailIcon,
-  EmailShareButton,
-  FacebookIcon,
-  FacebookShareButton,
-  LinkedinIcon,
-  LinkedinShareButton,
-  TelegramIcon,
-  TelegramShareButton,
-  TwitterShareButton,
-  WhatsappIcon,
-  WhatsappShareButton,
-  XIcon
-} from 'react-share'
+  IconBrandFacebook,
+  IconBrandLinkedin,
+  IconBrandTelegram,
+  IconBrandWhatsapp,
+  IconBrandX,
+  IconMail
+} from '@tabler/icons-react'
 import { FloatingDock } from '@/components/ui/floating-dock'
+
+// Social share functions
+const shareFacebook = (url: string) => {
+  const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+  window.open(shareUrl, '_blank', 'width=600,height=400')
+}
+
+const shareTwitter = (url: string, text: string) => {
+  const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
+  window.open(shareUrl, '_blank', 'width=600,height=400')
+}
+
+const shareTelegram = (url: string, text: string) => {
+  const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
+  window.open(shareUrl, '_blank', 'width=600,height=400')
+}
+
+const shareWhatsApp = (url: string, text: string) => {
+  const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`
+  window.open(shareUrl, '_blank', 'width=600,height=400')
+}
+
+const shareLinkedIn = (url: string) => {
+  const shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}`
+  window.open(shareUrl, '_blank', 'width=600,height=400')
+}
+
+const shareEmail = (url: string, subject: string) => {
+  const shareUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(url)}`
+  window.location.href = shareUrl
+}
 
 export const ShareButtons = ({ url, title }: { url: string; title: string }) => {
   const shareUrl = decodeURIComponent(url)
@@ -23,77 +48,72 @@ export const ShareButtons = ({ url, title }: { url: string; title: string }) => 
     {
       title: 'Facebook',
       icon: (
-        <FacebookShareButton
-          url={shareUrl}
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareFacebook(shareUrl)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <FacebookIcon size={32} round />
-        </FacebookShareButton>
+          <IconBrandFacebook className='w-6 h-5 text-blue-700 dark:text-blue-500' />
+        </div>
       ),
       href: '#'
     },
     {
       title: 'Twitter',
       icon: (
-        <TwitterShareButton
-          url={shareUrl}
-          title={title}
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareTwitter(shareUrl, title)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <XIcon size={32} round />
-        </TwitterShareButton>
+          <IconBrandX className='w-6 h-5 text-neutral-500 dark:text-neutral-400' />
+        </div>
       ),
       href: '#'
     },
     {
       title: 'Telegram',
       icon: (
-        <TelegramShareButton
-          url={shareUrl}
-          title={title}
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareTelegram(shareUrl, title)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <TelegramIcon size={32} round />
-        </TelegramShareButton>
+          <IconBrandTelegram className='w-6 h-6 text-blue-400 dark:text-blue-300' />
+        </div>
       ),
       href: '#'
     },
     {
       title: 'WhatsApp',
       icon: (
-        <WhatsappShareButton
-          url={shareUrl}
-          title={title}
-          separator=': '
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareWhatsApp(shareUrl, title)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <WhatsappIcon size={32} round />
-        </WhatsappShareButton>
+          <IconBrandWhatsapp className='w-6 h-5 text-green-400 dark:text-green-300' />
+        </div>
       ),
       href: '#'
     },
     {
       title: 'LinkedIn',
       icon: (
-        <LinkedinShareButton
-          url={shareUrl}
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareLinkedIn(shareUrl)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <LinkedinIcon size={32} round />
-        </LinkedinShareButton>
+          <IconBrandLinkedin className='w-6 h-5 text-blue-700 dark:text-blue-500' />
+        </div>
       ),
       href: '#'
     },
     {
       title: 'Email',
       icon: (
-        <EmailShareButton
-          url={shareUrl}
-          subject={title}
-          className='flex justify-center items-center w-full h-full'
+        <div
+          onClick={() => shareEmail(shareUrl, title)}
+          className='flex justify-center items-center w-full h-full cursor-pointer'
         >
-          <EmailIcon size={32} round />
-        </EmailShareButton>
+          <IconMail className='w-6 h-5 text-neutral-500 dark:text-neutral-400' />
+        </div>
       ),
       href: '#'
     }
