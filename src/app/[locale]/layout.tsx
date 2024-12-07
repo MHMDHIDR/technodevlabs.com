@@ -5,11 +5,12 @@ import type { Locale } from '@/i18n/request'
 
 export default async function LocaleLayout({
   children,
-  params: { locale = 'en' }
+  params
 }: {
   children: React.ReactNode
-  params: { locale: Locale }
+  params: Promise<{ locale: Locale }>
 }) {
+  const { locale = 'en' } = await params
   setRequestLocale(locale)
   const messages = await getMessages()
 

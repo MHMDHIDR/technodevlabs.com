@@ -1,21 +1,14 @@
 import { IconBrandGoogle, IconLogout2 } from '@tabler/icons-react'
 import { getTranslations } from 'next-intl/server'
-import { cookies } from 'next/headers'
-import { signIn, signOut } from '@/auth'
+import { signIn } from '@/auth'
 import { Button } from '@/components/custom/button'
+import { handleSignOut } from './actions'
 
 export async function SignOut() {
-  const cookieStore = await cookies()
   const authTranslations = await getTranslations('auth')
 
   return (
-    <form
-      action={async () => {
-        'use server'
-        cookieStore.delete('can-authenticate')
-        await signOut({ redirectTo: '/auth' })
-      }}
-    >
+    <form action={handleSignOut}>
       <Button
         className='flex items-center rounded-md mx-auto text-gray-800 dark:text-gray-100'
         title={authTranslations('signOut')}

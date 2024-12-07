@@ -44,7 +44,7 @@ export function SidebarProvider({
   animate?: boolean
 }) {
   const isMobile = useIsMobile()
-  const open = localStorage.getItem('sidebar:state')
+  const open = typeof window !== undefined && localStorage.getItem('sidebar:state')
   const [isOpen, setIsOpen, toggle] = useLocalStorage('sidebar:state', open === 'true')
 
   useEffect(() => {

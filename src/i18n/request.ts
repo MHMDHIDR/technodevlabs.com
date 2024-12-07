@@ -4,10 +4,16 @@ import { routing } from '@/i18n/routing'
 
 export type Locale = (typeof routing.locales)[number]
 
-export default getRequestConfig(async ({ locale }) => {
-  if (!routing.locales.includes(locale as Locale)) notFound()
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale
+
+  if (!routing.locales.includes(locale as Locale)) {
+    locale = routing.defaultLocale
+    // notFound()
+  }
 
   return {
+    locale,
     messages: (await import(`@/../messages/${locale ?? 'en'}.json`)).default
   }
 })

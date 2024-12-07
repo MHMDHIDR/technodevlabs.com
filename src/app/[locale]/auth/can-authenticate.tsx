@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { cookies } from 'next/headers'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
 import LabelInputContainer from '@/components/custom/label-input-container'
@@ -16,16 +16,18 @@ async function authenticate(formData: FormData) {
   }
 }
 
-export default function CanAuthenticate({ children }: { children: React.ReactNode }) {
-  const authTranslations = useTranslations('auth')
-  // get the cookie from browser cookie in the client side
-  const canAuthenticate = document.cookie.includes('can-authenticate=true')
+export default async function CanAuthenticate({
+  children
+}: {
+  children: Promise<React.ReactNode>
+}) {
+  const cookieStore = await cookies()
+  const authTranslations = await getTranslations('auth')
+  const canAuthenticate = cookieStore.get('can-authenticate')?.value === 'true'
 
-  if (canAuthenticate) {
-    return children
-  }
-
-  return (
+  return canAuthenticate ? (
+    children
+  ) : (
     <form action={authenticate}>
       <div className='flex flex-col mb-4 gap-y-2 md:flex-row md:gap-y-0 md:gap-x-2'>
         <LabelInputContainer>
