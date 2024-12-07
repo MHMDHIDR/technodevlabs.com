@@ -27,7 +27,7 @@ const shareTelegram = (url: string, text: string) => {
 }
 
 const shareWhatsApp = (url: string, text: string) => {
-  const shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`
+  const shareUrl = `https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`
   window.open(shareUrl, '_blank', 'width=600,height=400')
 }
 

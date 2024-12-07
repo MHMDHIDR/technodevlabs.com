@@ -1,7 +1,7 @@
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
-import type { ThemeProviderProps } from 'next-themes/dist/types'
+import type { ThemeProviderProps } from 'next-themes'
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
