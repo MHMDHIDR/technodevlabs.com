@@ -12,12 +12,18 @@ import { Modal } from '@/components/custom/modal'
 import { ShareButtons } from '@/components/custom/share-buttons'
 import { SecondaryHeading } from '@/components/ui/cover'
 import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
+import { getPosts } from '@/data/posts'
 import { getSettings } from '@/data/settings'
 import { env } from '@/env'
 import { Link } from '@/i18n/routing'
 import { calculateReadTime, clsx, formatDate, removeSlug } from '@/lib/utils'
 import type { Locale } from '@/i18n/request'
 import type { Metadata } from 'next'
+
+export async function generateStaticParams() {
+  const { posts } = await getPosts()
+  return posts.map(post => ({ slug: post.slug }))
+}
 
 export async function generateMetadata({
   params
@@ -98,7 +104,7 @@ export default async function BlogPostContentPage({
   const postTitle = currentLocale === 'ar' ? post.titleAr : post.title
   const modifiedContent = (currentLocale === 'ar' ? post.contentAr : post.content).replace(
     /<img/g,
-    `<img class="my-3 mb-12 rounded-xl shadow-lg dark:shadow-slate-800 md:max-w-screen mx-auto md:min-w-[100%] object-cover max-h-80 object-center" loading="lazy" alt="${postTitle}" title="${postTitle}"`
+    `<img class="my-3 mb-12 rounded-xl shadow-lg dark:shadow-slate-800 md:max-w-screen mx-auto min-w-[100%] object-cover max-h-80 object-center" loading="lazy" alt="${postTitle}" title="${postTitle}"`
   )
 
   const readTime = await calculateReadTime(currentLocale === 'ar' ? post.contentAr : post.content)
@@ -130,7 +136,7 @@ export default async function BlogPostContentPage({
 
         <div className='flex justify-between items-center max-w-7xl md:container'>
           <div className='flex flex-col gap-3 items-center select-none md:flex-row'>
-            <figure className='flex gap-x-2 items-center'>
+            <figure className='flex gap-x-2 items-center min-w-fit'>
               <Image
                 alt={post.author.name ?? APP_TITLE}
                 className='w-7 h-7 rounded-full md:w-10 md:h-10'
@@ -143,30 +149,30 @@ export default async function BlogPostContentPage({
               </figcaption>
             </figure>
             <span
-              className='self-start text-sm text-neutral-500 dark:text-neutral-400 md:self-center'
+              className='self-start text-sm text-neutral-500 dark:text-neutral-400 md:self-center min-w-fit'
               title={`${postTranslations('publishedOn')}: ${new Date(post.createdAt).toDateString()}`}
             >
               {formatDate(new Date(post.updatedAt).toDateString(), currentLocale, true)}
             </span>
             {user ? (
-              <>
+              <div className='flex w-full'>
                 <Link className='self-start md:self-center' href={`/dashboard/blog/${post.id}`}>
                   <Button
                     className='flex gap-x-2 items-center px-2 -ml-1'
                     title={postTranslations('editPost')}
                   >
-                    <IconEdit className='w-4 h-4' />
-                    <span>{postTranslations('editPost')}</span>
+                    <IconEdit className='w-6 h-6' />
+                    <span className='sr-only'>{postTranslations('editPost')}</span>
                   </Button>
                 </Link>
                 <Modal
                   description={postTranslations('deletePostConfirmation')}
                   title={postTranslations('deletePost')}
-                  trigger={<IconTrash className='w-10 h-4 text-red-500' />}
+                  trigger={<IconTrash className='w-6 h-6 text-red-500' />}
                 >
                   <DeleteButton entryId={post.id ?? ''} redirectTo='/blog' type='post' />
                 </Modal>
-              </>
+              </div>
             ) : null}
           </div>
 
