@@ -1,4 +1,4 @@
-import { IconBorderHorizontal, IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
+import { IconChevronLeft, IconChevronRight, IconDots } from '@tabler/icons-react'
 import * as React from 'react'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
@@ -92,7 +92,7 @@ const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'
     className={cn('flex h-9 w-9 items-center justify-center', className)}
     {...props}
   >
-    <IconBorderHorizontal className='h-4 w-4' />
+    <IconDots className='h-4 w-4' />
     <span className='sr-only'>More pages</span>
   </span>
 )

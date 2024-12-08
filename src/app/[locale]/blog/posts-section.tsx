@@ -10,8 +10,8 @@ import {
   PaginationPrevious
 } from '@/components/custom/pagination'
 import { PostCard } from '@/components/custom/post-card'
-import { ITEMS_COUNT } from '@/data/constants'
 import { getPosts, GetPostsResponse } from '@/data/posts'
+import { getSettings } from '@/data/settings'
 import { Link } from '@/i18n/routing'
 import { generatePaginationItems } from '@/lib/generate-pagination-items'
 
@@ -22,6 +22,7 @@ export async function PostsSection({
   pathname?: string
   searchParams?: { [key: string]: string | string[] | undefined }
 }) {
+  const settings = await getSettings()
   const isPostsPage = pathname === '/blog'
   const postsTranslations = await getTranslations('posts')
   let postsData: GetPostsResponse
@@ -30,7 +31,7 @@ export async function PostsSection({
   if (isPostsPage) {
     const urlSearchParams = new URLSearchParams()
     urlSearchParams.set('page', String(searchParams?.page ?? 1))
-    urlSearchParams.set('limit', String(searchParams?.limit ?? ITEMS_COUNT))
+    urlSearchParams.set('limit', String(searchParams?.limit ?? settings.itemsCount))
 
     postsData = await getPosts({ isPublished: true, searchParams: urlSearchParams })
   } else {
@@ -42,7 +43,7 @@ export async function PostsSection({
   const postsCount = postsData.postsCount
   const paginationInfo = postsData.pagination
 
-  // Only show the first 3 posts for the '/' homepage, otherwise show (ITEMS_COUNT) per page
+  // Only show the first 3 posts for the '/' homepage, otherwise show (settings.itemsCount ?? ITEMS_COUNT) per page
   posts = pathname === '/' && postsCount > 3 ? posts.slice(0, 3) : posts
 
   return posts && postsCount !== 0 ? (

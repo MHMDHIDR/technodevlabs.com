@@ -11,7 +11,6 @@ import {
   PaginationNext,
   PaginationPrevious
 } from '@/components/custom/pagination'
-import { ITEMS_COUNT } from '@/data/constants'
 import { getPosts } from '@/data/posts'
 import { getSettings } from '@/data/settings'
 import { generatePaginationItems } from '@/lib/generate-pagination-items'
