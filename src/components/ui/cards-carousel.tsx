@@ -11,7 +11,7 @@ import {
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import Image, { ImageProps } from 'next/image'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/custom/button'
 import { useOutsideClick } from '@/hooks/use-outside-click'
@@ -247,6 +247,27 @@ const ZoomedImage = ({
     return () => window.removeEventListener('keydown', handleEscape)
   }, [onClose])
 
+  const goToPrevious = useCallback(
+    (e: React.MouseEvent | KeyboardEvent) => {
+      e.stopPropagation()
+      setCurrentIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : images.length - 1))
+    },
+    [images.length]
+  )
+
+  const goToNext = useCallback(
+    (e: React.MouseEvent | KeyboardEvent) => {
+      e.stopPropagation()
+      setCurrentIndex(prevIndex => (prevIndex < images.length - 1 ? prevIndex + 1 : 0))
+    },
+    [images.length]
+  )
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    onClose()
+  }
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowLeft') {
@@ -258,22 +279,7 @@ const ZoomedImage = ({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentIndex])
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    onClose()
-  }
-
-  const goToPrevious = (e: React.MouseEvent | KeyboardEvent) => {
-    e.stopPropagation()
-    setCurrentIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : images.length - 1))
-  }
-
-  const goToNext = (e: React.MouseEvent | KeyboardEvent) => {
-    e.stopPropagation()
-    setCurrentIndex(prevIndex => (prevIndex < images.length - 1 ? prevIndex + 1 : 0))
-  }
+  }, [currentIndex, goToNext, goToPrevious])
 
   return (
     <motion.div
