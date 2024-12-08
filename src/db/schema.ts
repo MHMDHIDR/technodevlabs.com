@@ -1,5 +1,6 @@
 import { relations, sql } from 'drizzle-orm'
 import { boolean, integer, pgEnum, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
+import { ITEMS_COUNT } from '@/data/constants'
 
 export const users = pgTable('tdl_user', {
   id: text('id')
@@ -94,7 +95,8 @@ export const settings = pgTable('tdl_settings', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
-  layout: layoutEnum('layout').notNull().default('dotted')
+  layout: layoutEnum('layout').notNull().default('dotted'),
+  itemsCount: integer('itemsCount').notNull().default(ITEMS_COUNT)
 })
 
 /*

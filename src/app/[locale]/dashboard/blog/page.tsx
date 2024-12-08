@@ -13,6 +13,7 @@ import {
 } from '@/components/custom/pagination'
 import { ITEMS_COUNT } from '@/data/constants'
 import { getPosts } from '@/data/posts'
+import { getSettings } from '@/data/settings'
 import { generatePaginationItems } from '@/lib/generate-pagination-items'
 
 interface PageProps {
@@ -22,8 +23,10 @@ interface PageProps {
 export default async function DashboardPosts({ searchParams }: PageProps) {
   const params = await searchParams
   const urlSearchParams = new URLSearchParams()
+  const settings = await getSettings()
+
   urlSearchParams.set('page', String(params?.page ?? 1))
-  urlSearchParams.set('limit', String(params?.limit ?? ITEMS_COUNT))
+  urlSearchParams.set('limit', String(params?.limit ?? settings.itemsCount))
 
   const { posts, postsCount, pagination } = await getPosts({ searchParams: urlSearchParams })
   const postsTranslations = await getTranslations('posts')

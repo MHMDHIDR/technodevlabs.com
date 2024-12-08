@@ -252,7 +252,7 @@
       "successProjectDeleted": "تم حذف المشروع والملفات المرتبطة بنجاح",
       "images": {
         "dropFilesHere": "ضع الملفات هنا",
-        "dragAndDropFiles": "قم بوضع الملفات هنا، أو اضغط لاختيار الملفات",
+        "dragAndDropFiles": "قم بسحب الملفات هنا، أو اضغط لاختيار الملفات",
         "selectedFiles_Single": "{count} ملف مختار",
         "selectedFiles_Multiple": "{count} ملفات مختارة",
         "imgDeleted": "تم حذف الملف من S3 وتحديث المشروع بنجاح",
@@ -273,10 +273,13 @@
     },
     "settings": {
       "layout": "تخطيط الصفحة",
+      "itemsCount": "عدد العناصر في الصفحة",
       "grid": "تخطيط شبكي",
       "grid-small": "تخطيط شبكي صغير",
       "dotted": "تخطيط منقط",
-      "noSettingsFound": "لم يتم العثور على إعدادات"
+      "noSettingsFound": "لم يتم العثور على إعدادات",
+      "updateSettings": "تحديث الإعدادات",
+      "updatingSettings": "جاري تحديث الإعدادات..."
     },
     "analytics": {
       "avgVisitorsPerDay": "متوسط الزوار في اليوم",

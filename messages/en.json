@@ -274,10 +274,13 @@
     },
     "settings": {
       "layout": "Layout Settings",
+      "itemsCount": "Items per page",
       "grid": "Grid Layout",
       "grid-small": "Small Grid Layout",
       "dotted": "Dotted Layout",
-      "noSettingsFound": "No settings found"
+      "noSettingsFound": "No settings found",
+      "updateSettings": "Update Settings",
+      "updatingSettings": "Updating Settings..."
     },
     "analytics": {
       "avgVisitorsPerDay": "Avg. visitors/day",

@@ -33,7 +33,6 @@ export default function DashboardProjectUpdateClient({ projectId }: { projectId:
   const toast = useToast()
 
   const handleFilesSelected = (selectedFiles: Array<File>) => {
-    // setFiles(selectedFiles)
     setFiles(prevFiles => [...prevFiles, ...selectedFiles])
   }
 
@@ -152,7 +151,7 @@ export default function DashboardProjectUpdateClient({ projectId }: { projectId:
             <LabelInputContainer>
               <Label htmlFor='title'>{projectTranslations('projectTitle')}</Label>
               <Input
-                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block ltr mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='title'
                 onChange={e => setProject({ ...project, title: e.target.value })}
                 required
@@ -176,7 +175,7 @@ export default function DashboardProjectUpdateClient({ projectId }: { projectId:
             <LabelInputContainer>
               <Label htmlFor='url'>{projectTranslations('projectURL')}</Label>
               <Input
-                className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block ltr mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='url'
                 onChange={e => setProject({ ...project, url: e.target.value })}
                 required
@@ -188,7 +187,7 @@ export default function DashboardProjectUpdateClient({ projectId }: { projectId:
             <LabelInputContainer>
               <Label htmlFor='description'>{projectTranslations('projectDescription')}</Label>
               <Textarea
-                className='block leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block ltr leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='description'
                 onChange={e => setProject({ ...project, description: e.target.value })}
                 required
@@ -199,7 +198,7 @@ export default function DashboardProjectUpdateClient({ projectId }: { projectId:
             <LabelInputContainer>
               <Label htmlFor='descriptionAr'>{projectTranslations('projectDescriptionAr')}</Label>
               <Textarea
-                className='block leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                className='block rtl leading-loose mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                 id='descriptionAr'
                 onChange={e => setProject({ ...project, descriptionAr: e.target.value })}
                 required

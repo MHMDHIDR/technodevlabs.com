@@ -3,7 +3,7 @@
 import { Image } from '@tiptap/extension-image'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { getPostByIdAction, updatePostAction } from '@/actions'
 import { SubmitButton } from '@/app/[locale]/contact/submit-button'
@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from '@/i18n/routing'
+import type { Locale } from '@/i18n/request'
 import type { Post } from '@/types'
 
 function MenuBar({ editor }: { editor: any }) {
@@ -155,6 +156,7 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
   const { replace } = useRouter()
   const postTranslations = useTranslations('dashboard.post')
   const toast = useToast()
+  const locale = useLocale() as Locale
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -244,7 +246,9 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
         </EmptyState>
       ) : (
         <>
-          <h3 className='mb-6 text-2xl font-bold text-center select-none'>{post.title}</h3>
+          <h3 className='mb-6 text-2xl font-bold text-center select-none'>
+            {locale === 'en' ? post.title : post.titleAr}
+          </h3>
 
           <form className='space-y-6' onSubmit={editPost}>
             <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
@@ -253,7 +257,7 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
                   {postTranslations('postTitle')} (English Post / عنوان المقالة باللغة الإنجليزية)
                 </Label>
                 <Input
-                  className='block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
+                  className='block ltr mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
                   id='title'
                   onChange={e => setPost({ ...post, title: e.target.value })}
                   required
@@ -282,7 +286,7 @@ export default function DashboardPostUpdateClient({ postId }: { postId: string }
               <MenuBar editor={editor} />
               <div className='h-[200px] overflow-y-auto rounded-md shadow-sm'>
                 <EditorContent
-                  className='p-4 text-lg leading-loose rounded-md border border-gray-300 bg-neutral-50 dark:bg-neutral-800 min-h-60'
+                  className='p-4 text-lg ltr leading-loose rounded-md border border-gray-300 bg-neutral-50 dark:bg-neutral-800 min-h-60'
                   editor={editor}
                 />
               </div>
