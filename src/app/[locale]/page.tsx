@@ -22,7 +22,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
   return (
     <Layout>
-      <Hero settingsLayout={settings.layout} />
+      {/* <Hero settingsLayout={settings.layout} /> */}
 
       <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
