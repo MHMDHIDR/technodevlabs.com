@@ -40,12 +40,9 @@ export default async function ProjectsPage() {
   const settings = (await getSettings()) || { layout: 'grid' }
   const projectsTranslations = await getTranslations('projects')
   const { projectsCount } = await getProjects()
-  const session = await auth()
-  let user: User | null = null
 
-  if (session && session.user) {
-    user = session.user
-  }
+  const session = await auth()
+  const user = session?.user || null
 
   return (
     <Layout>
@@ -83,7 +80,7 @@ export default async function ProjectsPage() {
             </p>
           </EmptyState>
         ) : (
-          <ProjectsSection />
+          <ProjectsSection user={user} />
         )}
       </div>
     </Layout>

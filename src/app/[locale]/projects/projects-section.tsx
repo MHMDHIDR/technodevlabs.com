@@ -1,5 +1,4 @@
 import { getLocale, getTranslations } from 'next-intl/server'
-import { auth } from '@/auth'
 import { Button } from '@/components/custom/button'
 import { Carousel, Card as ProjectCard } from '@/components/ui/cards-carousel'
 import { APP_LOGO_opengraph } from '@/data/constants'
@@ -7,10 +6,15 @@ import { getProjects } from '@/data/projects'
 import { Locale } from '@/i18n/request'
 import { Link } from '@/i18n/routing'
 import type { ProjectCardProps } from '@/types'
+import type { User } from 'next-auth'
 
-export async function ProjectsSection({ pathname }: { pathname?: string }) {
-  const session = await auth()
-  const user = session?.user
+export async function ProjectsSection({
+  pathname,
+  user
+}: {
+  pathname?: string
+  user?: User | null
+}) {
   const projectsTranslations = await getTranslations('projects')
   const currentLocale = (await getLocale()) as Locale
   const projectsData = await getProjects()

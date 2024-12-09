@@ -4,6 +4,7 @@ import { AboutSection } from '@/app/[locale]/about/about-section'
 import { PostsSection } from '@/app/[locale]/blog/posts-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
+import { auth } from '@/auth'
 import { Hero } from '@/components/custom/hero'
 import Layout from '@/components/custom/layout'
 import { PrimaryHeading } from '@/components/ui/text-hover-effect'
@@ -14,6 +15,8 @@ import type { Locale } from '@/i18n/request'
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params
   setRequestLocale(locale)
+  const session = await auth()
+  const user = session?.user || null
   const settings = (await getSettings()) || { layout: 'grid' }
   const projectsTranslations = await getTranslations('projects')
   const servicesTranslations = await getTranslations('services')
@@ -26,7 +29,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
-        <ProjectsSection pathname='/' />
+        <ProjectsSection pathname='/' user={user} />
       </section>
 
       <section id='about'>
