@@ -10,7 +10,6 @@ import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import { ProjectsSection } from './projects-section'
 import type { Metadata } from 'next'
-import type { User } from 'next-auth'
 
 export async function generateMetadata(): Promise<Metadata> {
   const image = APP_LOGO_opengraph
@@ -36,13 +35,24 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function ProjectsPage() {
-  const settings = (await getSettings()) || { layout: 'grid' }
-  const projectsTranslations = await getTranslations('projects')
-  const { projectsCount } = await getProjects()
+async function fetchPageData() {
+  const [settings, projectsTranslations, projectsData, session] = await Promise.all([
+    getSettings(),
+    getTranslations('projects'),
+    getProjects(),
+    auth()
+  ])
 
-  const session = await auth()
-  const user = session?.user || null
+  return {
+    settings: settings || { layout: 'grid' },
+    projectsTranslations,
+    projectsCount: projectsData.projectsCount,
+    user: session?.user || null
+  }
+}
+
+export default async function ProjectsPage() {
+  const { settings, projectsTranslations, projectsCount, user } = await fetchPageData()
 
   return (
     <Layout>
