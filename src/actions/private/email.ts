@@ -21,11 +21,11 @@ export async function emailAction({ from, msg, name, subject, to }: emailMethodP
       msg: msg.msg ?? '',
       buttonLink: msg.buttonLink ?? '',
       buttonLabel: msg.buttonLabel ?? ''
-    })
+    }) as React.ReactElement
   })
 
   if (cause) {
-    throw new Error('Error sending email to user', { cause })
+    throw new Error('Error sending email to user', { cause: cause.message })
   }
 
   return data
