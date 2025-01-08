@@ -395,7 +395,7 @@ const ExpandedCard = ({
         >
           <IconX className='w-6 h-6 text-neutral-100 dark:text-neutral-900' />
         </button>
-        <motion.p
+        <motion.div
           layoutId={layout ? `title-${card.title}` : undefined}
           className='inline-flex gap-x-2 items-center mt-4 text-lg font-semibold md:text-3xl'
         >
@@ -417,7 +417,7 @@ const ExpandedCard = ({
               <span className='text-xxs md:text-sm'>{projectsTranslations('editProject')}</span>
             </Link>
           )}
-        </motion.p>
+        </motion.div>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-3 gap-y-6 md:grid-cols-3 xl:grid-cols-4'>
           {/* Slice out the first one beacuse it's the main image on the carousel card */}
