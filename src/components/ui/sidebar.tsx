@@ -1,15 +1,15 @@
 'use client'
 
+import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
+import { motion } from 'framer-motion'
+import { useLocale } from 'next-intl'
+import { createContext, useContext, useEffect } from 'react'
 import Tooltip from '@/components/custom/tooltip'
 import useLocalStorage from '@/hooks/use-localstorage'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { Link } from '@/i18n/routing'
 import { clsx, cn } from '@/lib/utils'
-import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react'
-import { motion } from 'framer-motion'
-import { useLocale } from 'next-intl'
 import type { LinkProps } from 'next/link'
-import { createContext, useContext, useEffect } from 'react'
 
 type Links = {
   label: string
@@ -104,7 +104,9 @@ export function SidebarToggle() {
   )
 }
 
-export function SidebarBody(props: React.ComponentProps<typeof motion.div> & { children?: React.ReactNode }) {
+export function SidebarBody(
+  props: React.ComponentProps<typeof motion.div> & { children?: React.ReactNode }
+) {
   return <SidebarComponent {...props} />
 }
 
