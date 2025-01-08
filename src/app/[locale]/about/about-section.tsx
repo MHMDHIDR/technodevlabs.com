@@ -13,9 +13,9 @@ export function AboutSection() {
   const aboutTranslations = useTranslations('about')
 
   const images = [
-    'https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=2836&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1613068687893-5e85b4638b56?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    '/images/about/about-1.webp',
+    '/images/about/about-2.webp',
+    '/images/about/about-3.webp'
   ]
 
   return (
