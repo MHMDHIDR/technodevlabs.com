@@ -1,5 +1,6 @@
 'use client'
 
+import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/custom/button'
@@ -18,7 +19,7 @@ export function AboutSection() {
   ]
 
   return (
-    <ImagesSlider className={pathname === '/' ? 'md:h-[30rem]' : ''} images={images}>
+    <ImagesSlider className={clsx({ 'md:h-[30rem]': pathname === '/' })} images={images}>
       <motion.div
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -80 }}

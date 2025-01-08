@@ -24,7 +24,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
   const contactTranslations = await getTranslations('contact')
 
   return (
-    <Layout>
+    <Layout className='overflow-x-clip'>
       <Hero settingsLayout={settings.layout} />
 
       <section className='py-10' id='projects'>
