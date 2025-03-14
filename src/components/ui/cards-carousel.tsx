@@ -412,7 +412,7 @@ const ExpandedCard = ({
                 {projectsTranslations('viewProject')}
               </span>
             </Link>
-            {/* <Link
+            <Link
               href={`/projects/${card.slug}`}
               className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
             >
@@ -420,7 +420,7 @@ const ExpandedCard = ({
               <span className='text-xxs md:text-xs whitespace-nowrap'>
                 {projectsTranslations('moreDetails')}
               </span>
-            </Link> */}
+            </Link>
             {showEditButton && (
               <Link
                 href={`/dashboard/projects/${card.id}`}

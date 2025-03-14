@@ -86,6 +86,7 @@ export const projects = pgTable('tdl_project', {
     .array()
     .notNull()
     .default(sql`ARRAY[]::text[]`),
+  slug: text('slug').notNull().unique(),
   updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull()
 })
 
