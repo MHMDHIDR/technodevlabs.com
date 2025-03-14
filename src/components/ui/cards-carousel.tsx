@@ -6,6 +6,7 @@ import {
   IconArrowNarrowRight,
   IconArrowRight,
   IconBrowserCheck,
+  IconListDetails,
   IconX
 } from '@tabler/icons-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -397,26 +398,41 @@ const ExpandedCard = ({
         </button>
         <motion.div
           layoutId={layout ? `title-${card.title}` : undefined}
-          className='inline-flex gap-x-2 items-center mt-4 text-lg font-semibold md:text-3xl'
+          className='flex gap-2 flex-col mt-2.5 text-lg font-semibold md:text-3xl'
         >
           <h1 className='text-sm md:text-3xl'>{card.title}</h1>
-          <Link
-            href={card.url}
-            target='_blank'
-            className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
-          >
-            <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
-            <span className='text-xxs md:text-sm'>{projectsTranslations('viewProject')}</span>
-          </Link>
-          {showEditButton && (
+          <div className='flex gap-x-2'>
             <Link
-              href={`/dashboard/projects/${card.id}`}
+              href={card.url}
+              target='_blank'
               className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
             >
-              <IconBrowserCheck className='w-6 h-6 stroke-1 text-neutral-700 dark:text-white' />
-              <span className='text-xxs md:text-sm'>{projectsTranslations('editProject')}</span>
+              <IconBrowserCheck className='w-5 h-5 stroke-1 text-neutral-700 dark:text-white' />
+              <span className='text-xxs md:text-xs whitespace-nowrap'>
+                {projectsTranslations('viewProject')}
+              </span>
             </Link>
-          )}
+            {/* <Link
+              href={`/projects/${card.slug}`}
+              className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
+            >
+              <IconListDetails className='w-5 h-5 stroke-1 text-neutral-700 dark:text-white' />
+              <span className='text-xxs md:text-xs whitespace-nowrap'>
+                {projectsTranslations('moreDetails')}
+              </span>
+            </Link> */}
+            {showEditButton && (
+              <Link
+                href={`/dashboard/projects/${card.id}`}
+                className='inline-flex gap-x-2 items-center px-4 py-1.5 text-sm bg-purple-50 rounded-full transition-colors w-fit dark:bg-purple-950 dark:hover:bg-purple-900 hover:bg-purple-200'
+              >
+                <IconBrowserCheck className='w-5 h-5 stroke-1 text-neutral-700 dark:text-white' />
+                <span className='text-xxs md:text-xs whitespace-nowrap'>
+                  {projectsTranslations('editProject')}
+                </span>
+              </Link>
+            )}
+          </div>
         </motion.div>
         <div className='py-10 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-3 gap-y-6 md:grid-cols-3 xl:grid-cols-4'>

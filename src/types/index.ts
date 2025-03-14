@@ -132,10 +132,7 @@ export type CarouselControlsProps = {
 }
 
 export type ProjectWithBlur = Omit<Project, 'images'> & {
-  images: Array<{
-    src: string
-    blurDataURL: string
-  }>
+  images: Array<{ src: string; blurDataURL: string }>
 }
 
 export type ProjectCardProps = Omit<ProjectWithBlur, 'updatedAt' | 'titleAr' | 'descriptionAr'> & {

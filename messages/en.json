@@ -85,7 +85,8 @@
     "exploreMoreCTA": "Explore More Projects",
     "CATParagraph": "Want a project similar to {projectName}?",
     "contactUsCTA": "Let's Build Something Great Together",
-    "viewProject": "Check Out Project"
+    "viewProject": "Check Out Project",
+    "moreDetails": "More Details"
   },
   "contact": {
     "pageTitle": "Contact Us",

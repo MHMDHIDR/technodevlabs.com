@@ -85,7 +85,8 @@
     "exploreMoreCTA": "استكشف المزيد من المشاريع",
     "CATParagraph": "هل تريد مشروع مشابه ل {projectName}؟",
     "contactUsCTA": "دعنا نصنع شيئًا رائعًا معًا",
-    "viewProject": "عرض المشروع"
+    "viewProject": "عرض المشروع",
+    "moreDetails": "المزيد من التفاصيل"
   },
   "contact": {
     "pageTitle": "تواصل معنا",
