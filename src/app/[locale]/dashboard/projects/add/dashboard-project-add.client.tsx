@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from '@/i18n/routing'
+import { createSlug } from '@/lib/utils'
 
 export default function DashboardProjectAddClient() {
   const [url, setUrl] = useState('')
@@ -78,7 +79,8 @@ export default function DashboardProjectAddClient() {
         descriptionAr,
         url,
         images: uploadedUrls,
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        slug: createSlug(title)
       })
 
       if (!success) {
