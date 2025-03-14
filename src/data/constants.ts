@@ -37,5 +37,6 @@ export const DEFAULT_PROJECT = {
   description: '',
   descriptionAr: '',
   images: [''],
-  updatedAt: new Date()
+  updatedAt: new Date(),
+  slug: ''
 }

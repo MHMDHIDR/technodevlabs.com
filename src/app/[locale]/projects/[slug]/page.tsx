@@ -11,10 +11,7 @@ import { createSlug } from '@/lib/create-slug'
 import type { Locale } from '@/i18n/request'
 
 type ProjectPageProps = {
-  params: Promise<{
-    locale: Locale
-    slug: string
-  }>
+  params: Promise<{ locale: Locale; slug: string }>
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
@@ -63,10 +60,7 @@ export async function generateStaticParams() {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const resolvedParams = await params
-  const [project, projectsTranslations] = await Promise.all([
-    getProjectBySlugAction(resolvedParams.slug),
-    getTranslations('projects')
-  ])
+  const project = await getProjectBySlugAction(resolvedParams.slug)
 
   if (!project) {
     notFound()

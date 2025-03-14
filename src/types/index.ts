@@ -136,5 +136,8 @@ export type ProjectWithBlur = Omit<Project, 'images'> & {
 }
 
 export type ProjectCardProps = Omit<ProjectWithBlur, 'updatedAt' | 'titleAr' | 'descriptionAr'> & {
-  src: string
+  images: {
+    src: string
+    blurDataURL: string
+  }[]
 }

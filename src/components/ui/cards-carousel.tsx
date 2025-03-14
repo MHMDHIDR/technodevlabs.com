@@ -15,6 +15,7 @@ import Image, { ImageProps } from 'next/image'
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@/components/custom/button'
+import { APP_LOGO_opengraph } from '@/data/constants'
 import { useOutsideClick } from '@/hooks/use-outside-click'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
@@ -34,7 +35,7 @@ export const Carousel = ({
   initialScroll = 0,
   showEditButton
 }: {
-  items: JSX.Element[]
+  items: ProjectCardProps[]
   initialScroll?: number
   showEditButton: boolean
 }) => {
@@ -119,7 +120,7 @@ export const Carousel = ({
               key={`card-${index}`}
               className='last:pr-[5%] md:last:pr-[33%] rounded-3xl'
             >
-              {item}
+              <Card card={item} index={index} />
             </motion.div>
           ))}
         </div>
@@ -139,7 +140,7 @@ export const Carousel = ({
           <AnimatePresence>
             {openCardIndex !== null && (
               <ExpandedCard
-                card={(items[openCardIndex].props as any).card}
+                card={items[openCardIndex]}
                 onClose={handleCardClose}
                 layout={true}
                 showEditButton={showEditButton}
@@ -209,7 +210,7 @@ export const Card = ({
         </motion.h1>
       </div>
       <BlurImage
-        src={card.src}
+        src={card.images[0].src ?? APP_LOGO_opengraph}
         alt={card.description}
         blurDataURL={card.images[0].blurDataURL}
         className='object-cover absolute inset-0 z-10'
@@ -434,10 +435,9 @@ const ExpandedCard = ({
             )}
           </div>
         </motion.div>
-        <div className='py-10 leading-loose text-justify'>{card.description}</div>
+        <div className='py-4 leading-loose text-justify'>{card.description}</div>
         <div className='grid grid-cols-1 gap-3 gap-y-6 md:grid-cols-3 xl:grid-cols-4'>
-          {/* Slice out the first one beacuse it's the main image on the carousel card */}
-          {card.images.slice(1).map((image, index) => (
+          {card.images.map((image, index) => (
             <Image
               key={`${card.title}-image-${index}`}
               className='object-cover rounded-3xl shadow-md aspect-square dark:shadow-neutral-200 cursor-zoom-in'

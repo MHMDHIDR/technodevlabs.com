@@ -21,7 +21,7 @@ export async function getProjectBySlugAction(slug: string): Promise<ProjectWithB
       project.images.map(async imageSrc => {
         try {
           const blurDataURL = await getBlurPlaceholder(imageSrc)
-          return { src: imageSrc, blurDataURL }
+          return { src: imageSrc, blurDataURL: blurDataURL ?? '' }
         } catch (error) {
           console.warn(`Failed to generate blur for image ${imageSrc}:`, error)
           return { src: imageSrc, blurDataURL: '' }
