@@ -36,9 +36,6 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const dynamic = 'force-static'
-export const revalidate = 3600 // 1 hour
-
 export default async function PostsPage({
   searchParams
 }: {
