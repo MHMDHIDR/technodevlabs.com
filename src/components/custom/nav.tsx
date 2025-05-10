@@ -1,23 +1,17 @@
 'use client'
 
-import { IconDashboard, IconLogout2 } from '@tabler/icons-react'
-import { getSession, signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { deleteCookieAction } from '@/actions'
 import LanguageSwitcher from '@/components/custom/language-switcher'
 import { APP_DESCRIPTION, APP_LOGO } from '@/data/constants'
 import { Link, usePathname } from '@/i18n/routing'
-import type { User } from 'next-auth'
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
-  const [user, setUser] = useState<User | null>(null)
   const pathname = usePathname()
   const navTranslations = useTranslations('Nav')
-  const authTranslations = useTranslations('auth')
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -32,18 +26,9 @@ export default function Nav() {
       }
     }
 
-    const getUser = async () => {
-      const session = await getSession()
-      if (session) {
-        setUser(session.user as User)
-      }
-    }
-    getUser()
-
     window.addEventListener('scroll', handleScroll)
 
     return () => {
-      setUser(null)
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
@@ -172,39 +157,6 @@ export default function Nav() {
             </Link>
 
             <LanguageSwitcher />
-
-            {user ? (
-              <>
-                <Link
-                  aria-current='page'
-                  aria-label={navTranslations('dashboard')}
-                  className='flex gap-x-1 focus:outline-purple-900'
-                  href='/dashboard'
-                  onClick={toggleMobileMenu}
-                  title={navTranslations('dashboard')}
-                >
-                  <IconDashboard className='mr-2 w-5 h-5 stroke-blue-600' />
-                  <span className='text-sm sm:hidden lg:inline-block'>
-                    {navTranslations('dashboard')}
-                  </span>
-                </Link>
-
-                <button
-                  aria-label={authTranslations('signOut')}
-                  className='flex gap-x-1 justify-start items-center py-2'
-                  onClick={async () => {
-                    await deleteCookieAction({ name: 'can-authenticate' })
-                    await signOut({ redirectTo: '/auth' })
-                  }}
-                  title={authTranslations('signOut')}
-                >
-                  <IconLogout2 className='mr-2 w-5 h-5 stroke-red-600' />
-                  <span className='text-sm transition-opacity duration-500 text-neutral-700 dark:text-neutral-200 hover:underline hover:text-red-500 underline-offset-4 sm:hidden lg:inline-block'>
-                    {authTranslations('signOut')}
-                  </span>
-                </button>
-              </>
-            ) : null}
           </div>
         </div>
       </nav>

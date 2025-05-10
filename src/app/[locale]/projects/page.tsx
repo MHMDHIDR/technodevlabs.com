@@ -90,7 +90,7 @@ export default async function ProjectsPage() {
             </p>
           </EmptyState>
         ) : (
-          <ProjectsSection user={user} />
+          <ProjectsSection />
         )}
       </div>
     </Layout>

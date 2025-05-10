@@ -4,19 +4,30 @@ import { PostsSection } from '@/app/[locale]/blog/posts-section'
 import { ContactForm } from '@/app/[locale]/contact/contact-form'
 import { ProjectsSection } from '@/app/[locale]/projects/projects-section'
 import { ServicesSection } from '@/app/[locale]/services/services-section'
-import { auth } from '@/auth'
 import { Hero } from '@/components/custom/hero'
 import Layout from '@/components/custom/layout'
 import { PrimaryHeading } from '@/components/ui/text-hover-effect'
+import { APP_DESCRIPTION, APP_LOGO_opengraph, APP_TITLE } from '@/data/constants'
 import { getSettings } from '@/data/settings'
 import { clsx } from '@/lib/utils'
 import type { Locale } from '@/i18n/request'
 
+export async function generateMetadata() {
+  return {
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
+    openGraph: {
+      images: [APP_LOGO_opengraph]
+    }
+  }
+}
+
+export const dynamic = 'force-static'
+
 export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const session = await auth()
-  const user = session?.user || null
+
   const settings = (await getSettings()) || { layout: 'grid' }
   const projectsTranslations = await getTranslations('projects')
   const servicesTranslations = await getTranslations('services')
@@ -29,7 +40,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
 
       <section className='py-10' id='projects'>
         <PrimaryHeading className='w-full h-20'>{projectsTranslations('pageTitle')}</PrimaryHeading>
-        <ProjectsSection pathname='/' user={user} />
+        <ProjectsSection pathname='/' />
       </section>
 
       <section id='about'>
