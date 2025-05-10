@@ -31,6 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
+export const dynamic = 'force-static'
+export const revalidate = 86400
+
 export default async function AboutPage() {
   const settings = (await getSettings()) || { layout: 'dotted' }
   const aboutTranslations = await getTranslations('about')
